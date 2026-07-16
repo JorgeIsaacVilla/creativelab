@@ -1,0 +1,77 @@
+{
+  "seo": {
+    "title": "Translucent effect generator | Creative Lab"
+  },
+  "common": {
+    "skipLink": "Skip to content",
+    "language": "Language",
+    "backToPortfolio": "Back to services portfolio",
+    "adSpace": "Advertising space"
+  },
+  "hero": {
+    "eyebrow": "NEW · GLASSMORPHISM",
+    "title": "Translucent effect generator",
+    "description": "Design glassmorphism cards with customizable background, blur, opacity, borders, shadows and editable text. Copy the CSS or download a PNG preview.",
+    "feature1": "Real-time preview",
+    "feature2": "Solid, gradient or image background",
+    "feature3": "Visual export + ready-to-use CSS"
+  },
+  "controls": {
+    "backgroundTitle": "1. Background",
+    "backgroundMode": "Background type",
+    "bgGradient": "Gradient",
+    "bgSolid": "Solid color",
+    "bgImage": "Image",
+    "color1": "Color 1",
+    "color2": "Color 2",
+    "gradientAngle": "Gradient angle",
+    "imageUrl": "Image URL",
+    "loadImageUrl": "Load image from URL",
+    "uploadImage": "Upload image from device",
+    "glassTitle": "2. Glass card",
+    "cardWidth": "Width",
+    "cardHeight": "Height",
+    "radius": "Border radius",
+    "padding": "Padding",
+    "blur": "Blur",
+    "opacity": "Opacity",
+    "borderWidth": "Border",
+    "shadow": "Shadow",
+    "cardTint": "Tint",
+    "borderColor": "Border color",
+    "highlight": "Show top shine",
+    "contentTitle": "3. Content",
+    "titleText": "Title",
+    "bodyText": "Description",
+    "titleColor": "Title color",
+    "bodyColor": "Text color",
+    "titleSize": "Title size",
+    "bodySize": "Text size",
+    "align": "Alignment",
+    "alignLeft": "Left",
+    "alignCenter": "Center",
+    "alignRight": "Right",
+    "actionsTitle": "4. Actions",
+    "copyCss": "Copy CSS",
+    "downloadPng": "Download PNG",
+    "reset": "Reset design",
+    "copyCssMini": "Copy"
+  },
+  "preview": {
+    "title": "Preview",
+    "hint": "Everything updates in real time",
+    "cssTitle": "Generated CSS"
+  },
+  "messages": {
+    "ready": "Adjust the controls and generate your translucent effect.",
+    "cssCopied": "CSS copied successfully.",
+    "copyError": "CSS could not be copied.",
+    "downloadReady": "Download created successfully.",
+    "downloadError": "Download could not be generated.",
+    "imageLoaded": "Background image loaded successfully.",
+    "imageError": "The image could not be loaded.",
+    "urlEmpty": "Enter a valid image URL.",
+    "urlLoaded": "The image from the URL was applied.",
+    "resetDone": "Design reset."
+  }
+}

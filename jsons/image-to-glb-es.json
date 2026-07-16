@@ -1,0 +1,60 @@
+{
+  "seo": {
+    "title": "Convertidor de imagen a GLB online | Creative Lab",
+    "description": "Convierte imágenes PNG, JPG, WebP, GIF y SVG en archivos GLB directamente desde tu navegador con Creative Lab.",
+    "ogTitle": "Convertidor de imagen a GLB",
+    "ogDescription": "Convierte una imagen en un archivo GLB directamente desde tu navegador.",
+    "twitterTitle": "Convertidor de imagen a GLB | Creative Lab",
+    "twitterDescription": "Convierte PNG, JPG, WebP, GIF y SVG en GLB desde tu navegador.",
+    "htmlLang": "es"
+  },
+  "product": {
+    "eyebrow": "Conversión 3D",
+    "title": "Convertidor de imagen a GLB",
+    "description": "Convierte una imagen en un plano 3D exportado como archivo GLB, listo para visores y proyectos compatibles."
+  },
+  "converter": {
+    "title": "Selecciona una imagen",
+    "intro": "Para mejores resultados utiliza una imagen PNG con fondo transparente.",
+    "uploadTitle": "Arrastra una imagen o haz clic para seleccionarla",
+    "uploadHelp": "PNG, JPG, WebP, GIF o SVG. Máximo 25 MB.",
+    "maximumSize": "Resolución máxima",
+    "alphaThreshold": "Umbral de transparencia",
+    "originalTitle": "Imagen seleccionada",
+    "detailsTitle": "Detalles",
+    "previewAlt": "Vista previa de la imagen seleccionada",
+    "fileName": "Archivo",
+    "dimensions": "Dimensiones",
+    "fileSize": "Peso",
+    "noteTitle": "Importante",
+    "noteText": "La imagen se convierte en un plano 3D con textura. Un GIF animado utiliza únicamente un fotograma.",
+    "downloadButton": "Descargar GLB"
+  },
+  "viewer": {
+    "title": "Previsualización 3D",
+    "description": "Gira el modelo con el mouse o con tu dedo antes de descargar el GLB.",
+    "empty": "La vista 3D aparecerá aquí."
+  },
+  "messages": {
+    "invalidFormat": "Selecciona una imagen PNG, JPG, WebP, GIF o SVG.",
+    "fileTooLarge": "La imagen supera el límite de 25 MB.",
+    "canvasError": "No fue posible preparar la imagen.",
+    "readError": "No fue posible leer la imagen.",
+    "loading": "Cargando imagen...",
+    "ready": "Imagen lista para convertir.",
+    "creating": "Creando archivo GLB...",
+    "completed": "GLB creado y descargado.",
+    "convertError": "No fue posible crear el archivo GLB."
+  },
+  "info": {
+    "eyebrow": "De imagen a recurso 3D",
+    "title": "Cómo crear un archivo GLB con Creative Lab",
+    "description": "La herramienta prepara la imagen, crea un plano 3D con su textura y exporta todo como archivo GLB.",
+    "stepOneTitle": "1. Carga",
+    "stepOneText": "Selecciona una imagen compatible desde tu dispositivo.",
+    "stepTwoTitle": "2. Ajusta",
+    "stepTwoText": "Define resolución y transparencia antes de exportar.",
+    "stepThreeTitle": "3. Descarga",
+    "stepThreeText": "Revisa la vista 3D y descarga el archivo GLB."
+  }
+}

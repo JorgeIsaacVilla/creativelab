@@ -1,0 +1,66 @@
+{
+  "seo": {
+    "title": "Quitar fondo de imagen online | Creative Lab",
+    "description": "Elimina el fondo de imágenes JPG, PNG y WebP directamente en tu navegador con Creative Lab. Procesamiento local, vista previa y descarga transparente.",
+    "ogTitle": "Quitar fondo de imagen online",
+    "ogDescription": "Elimina fondos de imágenes directamente desde el navegador.",
+    "twitterTitle": "Quitar fondo | Creative Lab",
+    "twitterDescription": "Elimina fondos de imágenes con procesamiento local en tu navegador.",
+    "htmlLang": "es"
+  },
+  "product": {
+    "eyebrow": "Edición asistida",
+    "title": "Quitar fondo de una imagen",
+    "description": "Elimina automáticamente el fondo, revisa el resultado y descarga una imagen transparente o con un color nuevo."
+  },
+  "remover": {
+    "title": "Selecciona una imagen",
+    "intro": "La primera ejecución descargará el modelo de procesamiento. Después, la eliminación se realiza en tu navegador.",
+    "uploadTitle": "Arrastra una imagen o haz clic para seleccionarla",
+    "uploadHelp": "JPG, PNG o WebP. Máximo 20 MB.",
+    "modelProgress": "Preparando el modelo",
+    "originalTitle": "Imagen original",
+    "resultTitle": "Resultado",
+    "originalAlt": "Vista previa de la imagen original",
+    "resultAlt": "Vista previa de la imagen sin fondo",
+    "resultPlaceholder": "El resultado aparecerá aquí.",
+    "fileName": "Archivo",
+    "dimensions": "Dimensiones",
+    "fileSize": "Peso",
+    "outputType": "Formato",
+    "backgroundMode": "Fondo del resultado",
+    "transparent": "Transparente",
+    "white": "Blanco",
+    "black": "Negro",
+    "custom": "Color personalizado",
+    "customColor": "Color personalizado",
+    "outputFormat": "Formato de salida",
+    "quality": "Calidad",
+    "removeButton": "Quitar fondo",
+    "privacyNotice": "La imagen se procesa localmente. La herramienta no utiliza tokens ni una API con cuotas por solicitud."
+  },
+  "messages": {
+    "invalidFormat": "Selecciona una imagen JPG, PNG o WebP.",
+    "fileTooLarge": "La imagen supera el límite de 20 MB.",
+    "readError": "No fue posible leer la imagen.",
+    "loadingLibrary": "Preparando el motor de eliminación...",
+    "libraryError": "No fue posible iniciar el motor de eliminación.",
+    "ready": "Imagen lista para quitar el fondo.",
+    "processing": "Analizando la imagen y quitando el fondo...",
+    "completed": "Fondo eliminado correctamente.",
+    "processingError": "No fue posible quitar el fondo. Revisa tu conexión e inténtalo nuevamente.",
+    "canvasError": "El navegador no pudo preparar el resultado.",
+    "exportError": "No fue posible preparar la descarga."
+  },
+  "info": {
+    "eyebrow": "Transparencia en pocos pasos",
+    "title": "Cómo quitar el fondo con Creative Lab",
+    "description": "Selecciona una imagen, espera el procesamiento local, revisa el resultado y descárgalo con transparencia o con un color nuevo.",
+    "stepOneTitle": "1. Carga",
+    "stepOneText": "Selecciona una imagen JPG, PNG o WebP.",
+    "stepTwoTitle": "2. Procesa",
+    "stepTwoText": "El modelo identifica el sujeto y elimina el fondo en tu navegador.",
+    "stepThreeTitle": "3. Descarga",
+    "stepThreeText": "Elige transparencia, color y formato antes de guardar."
+  }
+}

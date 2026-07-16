@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Quitar fondo de imagen online | Creative Lab</title>
+
+  <meta
+    name="description"
+    content="Elimina el fondo de imágenes JPG, PNG y WebP directamente en tu navegador con Creative Lab. Procesamiento local, vista previa y descarga transparente."
+  >
+
+  <meta
+    name="robots"
+    content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+  >
+
+  <meta name="author" content="Creative Lab">
+  <meta name="theme-color" content="#08140d">
+
+  <link rel="canonical" href="https://tudominio.com/background-remover.html">
+  <link rel="alternate" hreflang="es" href="https://tudominio.com/background-remover.html">
+  <link rel="alternate" hreflang="en" href="https://tudominio.com/en/background-remover.html">
+  <link rel="alternate" hreflang="x-default" href="https://tudominio.com/background-remover.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Creative Lab">
+  <meta property="og:title" content="Quitar fondo de imagen online">
+  <meta
+    property="og:description"
+    content="Elimina fondos de imágenes directamente desde el navegador."
+  >
+  <meta property="og:url" content="https://tudominio.com/background-remover.html">
+  <meta property="og:image" content="https://tudominio.com/src/background-remover-cover.webp">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:locale:alternate" content="en_US">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Quitar fondo | Creative Lab">
+  <meta
+    name="twitter:description"
+    content="Elimina fondos de imágenes con procesamiento local en tu navegador."
+  >
+  <meta name="twitter:image" content="https://tudominio.com/src/background-remover-cover.webp">
+
+  <link rel="icon" href="./src/favicon.png" type="image/png">
+  <link rel="stylesheet" href="./styles/main.css">
+
+  <script src="./scripts/language.js" defer></script>
+  <script src="./scripts/shared.js" defer></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Creative Lab - Quitar fondo",
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "Web",
+    "url": "https://tudominio.com/background-remover.html",
+    "description": "Herramienta online para eliminar fondos de imágenes en el navegador.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Creative Lab",
+      "url": "https://tudominio.com/"
+    }
+  }
+  </script>
+
+  <style>
+    .form-field[hidden] {
+      display: none !important;
+    }
+  </style>
+
+</head>
+
+<body data-page="background-remover">
+  <a class="skip-link" href="#main-content" data-i18n="common.skipToContent">
+    Saltar al contenido
+  </a>
+
+  <div class="site-shell">
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a
+          class="site-brand"
+          href="./index.html"
+          data-i18n-aria-label="common.goHome"
+          aria-label="Ir al inicio"
+        >
+          <img
+            class="site-brand__logo"
+            src="./src/logo.svg"
+            alt="Logo de Creative Lab"
+            width="48"
+            height="48"
+            data-i18n-alt="brand.logoAlt"
+          >
+
+          <span class="site-brand__name" data-i18n="brand.name">
+            Creative Lab
+          </span>
+        </a>
+
+        <div class="site-header__actions">
+          <a
+            class="back-to-portfolio"
+            href="./index.html"
+            data-i18n="common.backToPortfolio"
+          >
+            Regresar al portafolio de servicios
+          </a>
+
+          <label class="language-control" for="language-selector">
+            <span class="sr-only" data-i18n="common.language">Idioma</span>
+
+            <select
+              id="language-selector"
+              name="language"
+              data-i18n-aria-label="common.selectLanguage"
+              aria-label="Seleccionar idioma"
+            >
+              <option value="es">ES</option>
+              <option value="en">EN</option>
+            </select>
+          </label>
+        </div>
+      </div>
+    </header>
+
+    <aside
+      class="ad-slot ad-slot--top"
+      aria-label="Espacio publicitario"
+      data-ad-position="background-remover-top"
+    >
+      <span data-i18n="common.advertisement">Publicidad</span>
+    </aside>
+
+    <main class="product-page" id="main-content">
+      <section class="product-header" aria-labelledby="product-title">
+        <div class="product-header__content">
+          <p class="section-heading__eyebrow" data-i18n="product.eyebrow">
+            Edición asistida
+          </p>
+
+          <h1 id="product-title" data-i18n="product.title">
+            Quitar fondo de una imagen
+          </h1>
+
+          <p class="product-header__description" data-i18n="product.description">
+            Elimina automáticamente el fondo, revisa el resultado y descarga
+            una imagen transparente o con un color nuevo.
+          </p>
+        </div>
+      </section>
+
+      <section class="tool-interface" aria-labelledby="remover-title">
+        <div>
+          <h2 id="remover-title" data-i18n="remover.title">
+            Selecciona una imagen
+          </h2>
+
+          <p data-i18n="remover.intro">
+            La primera ejecución descargará el modelo de procesamiento. Después,
+            la eliminación se realiza en tu navegador.
+          </p>
+        </div>
+
+        <input
+          id="image-input"
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+          hidden
+        >
+
+        <button
+          class="upload-zone"
+          id="upload-zone"
+          type="button"
+          aria-describedby="upload-help"
+        >
+          <span>
+            <strong data-i18n="remover.uploadTitle">
+              Arrastra una imagen o haz clic para seleccionarla
+            </strong>
+
+            <small id="upload-help" data-i18n="remover.uploadHelp">
+              JPG, PNG o WebP. Máximo 20 MB.
+            </small>
+          </span>
+        </button>
+
+        <div
+          class="status-message status-message--info"
+          id="status-message"
+          role="status"
+          aria-live="polite"
+          hidden
+        ></div>
+
+        <div class="model-progress" id="model-progress" hidden>
+          <div class="model-progress__heading">
+            <span data-i18n="remover.modelProgress">
+              Preparando el modelo
+            </span>
+
+            <strong id="progress-value">0%</strong>
+          </div>
+
+          <div
+            class="model-progress__track"
+            role="progressbar"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+            id="progress-track"
+          >
+            <span id="progress-bar"></span>
+          </div>
+
+          <small id="progress-file"></small>
+        </div>
+
+        <div class="background-remover-previews" id="preview-panel" hidden>
+          <article class="background-preview-card">
+            <div class="background-preview-card__heading">
+              <h3 data-i18n="remover.originalTitle">Imagen original</h3>
+            </div>
+
+            <div class="background-preview-stage">
+              <img
+                id="original-preview"
+                alt="Vista previa de la imagen original"
+                data-i18n-alt="remover.originalAlt"
+              >
+            </div>
+
+            <dl class="image-information">
+              <div>
+                <dt data-i18n="remover.fileName">Archivo</dt>
+                <dd id="original-name">—</dd>
+              </div>
+
+              <div>
+                <dt data-i18n="remover.dimensions">Dimensiones</dt>
+                <dd id="original-dimensions">—</dd>
+              </div>
+
+              <div>
+                <dt data-i18n="remover.fileSize">Peso</dt>
+                <dd id="original-size">—</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="background-preview-card">
+            <div class="background-preview-card__heading">
+              <h3 data-i18n="remover.resultTitle">Resultado</h3>
+            </div>
+
+            <div
+              class="background-preview-stage background-preview-stage--result"
+              id="result-stage"
+            >
+              <img
+                id="result-preview"
+                alt="Vista previa de la imagen sin fondo"
+                data-i18n-alt="remover.resultAlt"
+              >
+
+              <p id="result-placeholder" data-i18n="remover.resultPlaceholder">
+                El resultado aparecerá aquí.
+              </p>
+            </div>
+
+            <dl class="image-information">
+              <div>
+                <dt data-i18n="remover.outputType">Formato</dt>
+                <dd id="result-type">—</dd>
+              </div>
+
+              <div>
+                <dt data-i18n="remover.dimensions">Dimensiones</dt>
+                <dd id="result-dimensions">—</dd>
+              </div>
+
+              <div>
+                <dt data-i18n="remover.fileSize">Peso</dt>
+                <dd id="result-size">—</dd>
+              </div>
+            </dl>
+          </article>
+        </div>
+
+        <div class="control-grid background-controls">
+          <div class="form-field">
+            <label for="background-mode" data-i18n="remover.backgroundMode">
+              Fondo del resultado
+            </label>
+
+            <select id="background-mode">
+              <option value="transparent" data-i18n="remover.transparent">
+                Transparente
+              </option>
+              <option value="white" data-i18n="remover.white">
+                Blanco
+              </option>
+              <option value="black" data-i18n="remover.black">
+                Negro
+              </option>
+              <option value="custom" data-i18n="remover.custom">
+                Color personalizado
+              </option>
+            </select>
+          </div>
+
+          <div class="form-field" id="custom-color-field" hidden>
+            <label for="custom-color" data-i18n="remover.customColor">
+              Color personalizado
+            </label>
+
+            <input id="custom-color" type="color" value="#66ff8f">
+          </div>
+        </div>
+
+        <div class="control-grid">
+          <div class="form-field">
+            <label for="output-format" data-i18n="remover.outputFormat">
+              Formato de salida
+            </label>
+
+            <select id="output-format">
+              <option value="image/png">PNG</option>
+              <option value="image/webp">WebP</option>
+              <option value="image/jpeg">JPG</option>
+            </select>
+          </div>
+
+          <div class="form-field" id="quality-field" hidden>
+            <label for="output-quality">
+              <span data-i18n="remover.quality">Calidad</span>
+              <span id="quality-value">92%</span>
+            </label>
+
+            <input
+              id="output-quality"
+              type="range"
+              min="10"
+              max="100"
+              value="92"
+              step="1"
+            >
+          </div>
+        </div>
+
+        <div class="hero__actions">
+          <button
+            class="button button--primary"
+            id="remove-button"
+            type="button"
+            disabled
+          >
+            <span data-i18n="remover.removeButton">
+              Quitar fondo
+            </span>
+          </button>
+
+          <button
+            class="button button--secondary"
+            id="download-button"
+            type="button"
+            disabled
+          >
+            <span data-i18n="common.download">
+              Descargar
+            </span>
+          </button>
+
+          <button
+            class="button button--secondary"
+            id="reset-button"
+            type="button"
+          >
+            <span data-i18n="common.reset">
+              Comenzar de nuevo
+            </span>
+          </button>
+        </div>
+
+        <p class="privacy-note" data-i18n="remover.privacyNotice">
+          La imagen se procesa localmente. La herramienta no utiliza tokens ni
+          una API con cuotas por solicitud.
+        </p>
+      </section>
+
+      <aside
+        class="ad-slot ad-slot--bottom"
+        aria-label="Espacio publicitario"
+        data-ad-position="background-remover-bottom"
+      >
+        <span data-i18n="common.advertisement">Publicidad</span>
+      </aside>
+
+      <section
+        class="about-section__content product-information"
+        aria-labelledby="how-it-works-title"
+      >
+        <p class="section-heading__eyebrow" data-i18n="info.eyebrow">
+          Transparencia en pocos pasos
+        </p>
+
+        <h2 id="how-it-works-title" data-i18n="info.title">
+          Cómo quitar el fondo con Creative Lab
+        </h2>
+
+        <p data-i18n="info.description">
+          Selecciona una imagen, espera el procesamiento local, revisa el
+          resultado y descárgalo con transparencia o con un color nuevo.
+        </p>
+
+        <div class="trust-grid">
+          <article class="trust-card">
+            <h3 data-i18n="info.stepOneTitle">1. Carga</h3>
+            <p data-i18n="info.stepOneText">
+              Selecciona una imagen JPG, PNG o WebP.
+            </p>
+          </article>
+
+          <article class="trust-card">
+            <h3 data-i18n="info.stepTwoTitle">2. Procesa</h3>
+            <p data-i18n="info.stepTwoText">
+              El modelo identifica el sujeto y elimina el fondo en tu navegador.
+            </p>
+          </article>
+
+          <article class="trust-card">
+            <h3 data-i18n="info.stepThreeTitle">3. Descarga</h3>
+            <p data-i18n="info.stepThreeText">
+              Elige transparencia, color y formato antes de guardar.
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <noscript>
+    <div class="noscript-message">
+      Esta herramienta necesita JavaScript para funcionar.
+    </div>
+  </noscript>
+
+  <script type="module">
+    const LIBRARY_URL =
+      "https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.7.0/+esm";
+
+    const MODEL_PATH =
+      "https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/";
+
+    const MAX_FILE_SIZE = 20 * 1024 * 1024;
+
+    const input = document.getElementById("image-input");
+    const uploadZone = document.getElementById("upload-zone");
+    const removeButton = document.getElementById("remove-button");
+    const downloadButton = document.getElementById("download-button");
+    const resetButton = document.getElementById("reset-button");
+    const statusMessage = document.getElementById("status-message");
+
+    const modelProgress = document.getElementById("model-progress");
+    const progressValue = document.getElementById("progress-value");
+    const progressTrack = document.getElementById("progress-track");
+    const progressBar = document.getElementById("progress-bar");
+    const progressFile = document.getElementById("progress-file");
+
+    const previewPanel = document.getElementById("preview-panel");
+    const originalPreview = document.getElementById("original-preview");
+    const resultPreview = document.getElementById("result-preview");
+    const resultPlaceholder = document.getElementById("result-placeholder");
+    const resultStage = document.getElementById("result-stage");
+
+    const originalName = document.getElementById("original-name");
+    const originalDimensions = document.getElementById("original-dimensions");
+    const originalSize = document.getElementById("original-size");
+    const resultType = document.getElementById("result-type");
+    const resultDimensions = document.getElementById("result-dimensions");
+    const resultSize = document.getElementById("result-size");
+
+    const backgroundMode = document.getElementById("background-mode");
+    const customColorField = document.getElementById("custom-color-field");
+    const customColor = document.getElementById("custom-color");
+    const outputFormat = document.getElementById("output-format");
+    const qualityField = document.getElementById("quality-field");
+    const qualityInput = document.getElementById("output-quality");
+    const qualityValue = document.getElementById("quality-value");
+
+    let removeBackgroundFunction = null;
+    let selectedFile = null;
+    let sourceImage = null;
+    let originalUrl = "";
+    let transparentBlob = null;
+    let transparentUrl = "";
+    let finalBlob = null;
+    let finalUrl = "";
+
+    function translate(key, fallback) {
+      if (
+        window.CreativeLabLanguage &&
+        typeof window.CreativeLabLanguage.translate === "function"
+      ) {
+        return window.CreativeLabLanguage.translate(key, fallback);
+      }
+
+      return fallback;
+    }
+
+    function formatBytes(bytes) {
+      if (!Number.isFinite(bytes) || bytes <= 0) {
+        return "0 KB";
+      }
+
+      const units = ["B", "KB", "MB", "GB"];
+      const unitIndex = Math.min(
+        Math.floor(Math.log(bytes) / Math.log(1024)),
+        units.length - 1
+      );
+
+      const value = bytes / Math.pow(1024, unitIndex);
+
+      return `${value.toFixed(value >= 10 || unitIndex === 0 ? 0 : 2)} ${
+        units[unitIndex]
+      }`;
+    }
+
+    function showStatus(message, type = "info") {
+      statusMessage.hidden = false;
+      statusMessage.textContent = message;
+      statusMessage.className = `status-message status-message--${type}`;
+    }
+
+    function hideStatus() {
+      statusMessage.hidden = true;
+      statusMessage.textContent = "";
+    }
+
+    function revokeUrl(url) {
+      if (url) {
+        URL.revokeObjectURL(url);
+      }
+    }
+
+    function validateFile(file) {
+      const allowedTypes = [
+        "image/jpeg",
+        "image/png",
+        "image/webp"
+      ];
+
+      if (!allowedTypes.includes(file.type)) {
+        throw new Error(
+          translate(
+            "messages.invalidFormat",
+            "Selecciona una imagen JPG, PNG o WebP."
+          )
+        );
+      }
+
+      if (file.size > MAX_FILE_SIZE) {
+        throw new Error(
+          translate(
+            "messages.fileTooLarge",
+            "La imagen supera el límite de 20 MB."
+          )
+        );
+      }
+    }
+
+    function loadImageFromUrl(url) {
+      return new Promise((resolve, reject) => {
+        const image = new Image();
+
+        image.onload = () => resolve(image);
+        image.onerror = () =>
+          reject(
+            new Error(
+              translate(
+                "messages.readError",
+                "No fue posible leer la imagen."
+              )
+            )
+          );
+
+        image.src = url;
+      });
+    }
+
+    async function ensureLibrary() {
+      if (removeBackgroundFunction) {
+        return removeBackgroundFunction;
+      }
+
+      showStatus(
+        translate(
+          "messages.loadingLibrary",
+          "Preparando el motor de eliminación..."
+        ),
+        "info"
+      );
+
+      const module = await import(LIBRARY_URL);
+
+      removeBackgroundFunction =
+        module.removeBackground ||
+        module.default;
+
+      if (typeof removeBackgroundFunction !== "function") {
+        throw new Error(
+          translate(
+            "messages.libraryError",
+            "No fue posible iniciar el motor de eliminación."
+          )
+        );
+      }
+
+      return removeBackgroundFunction;
+    }
+
+    function updateProgress(key, current, total) {
+      modelProgress.hidden = false;
+
+      const percent =
+        total > 0
+          ? Math.max(0, Math.min(100, (current / total) * 100))
+          : 0;
+
+      progressValue.textContent = `${Math.round(percent)}%`;
+      progressBar.style.width = `${percent}%`;
+      progressTrack.setAttribute(
+        "aria-valuenow",
+        String(Math.round(percent))
+      );
+
+      progressFile.textContent = key || "";
+    }
+
+    function clearResult() {
+      revokeUrl(transparentUrl);
+      revokeUrl(finalUrl);
+
+      transparentBlob = null;
+      transparentUrl = "";
+      finalBlob = null;
+      finalUrl = "";
+
+      resultPreview.removeAttribute("src");
+      resultPreview.hidden = true;
+      resultPlaceholder.hidden = false;
+
+      resultType.textContent = "—";
+      resultDimensions.textContent = "—";
+      resultSize.textContent = "—";
+
+      downloadButton.disabled = true;
+    }
+
+    async function selectFile(file) {
+      try {
+        hideStatus();
+        validateFile(file);
+        clearResult();
+
+        revokeUrl(originalUrl);
+        originalUrl = URL.createObjectURL(file);
+
+        const image = await loadImageFromUrl(originalUrl);
+
+        selectedFile = file;
+        sourceImage = image;
+
+        originalPreview.src = originalUrl;
+        originalName.textContent = file.name;
+        originalDimensions.textContent =
+          `${image.naturalWidth} × ${image.naturalHeight} px`;
+        originalSize.textContent = formatBytes(file.size);
+
+        previewPanel.hidden = false;
+        removeButton.disabled = false;
+
+        showStatus(
+          translate(
+            "messages.ready",
+            "Imagen lista para quitar el fondo."
+          ),
+          "success"
+        );
+      } catch (error) {
+        resetTool();
+        showStatus(error.message, "error");
+      }
+    }
+
+    function getBackgroundColor() {
+      const mode = backgroundMode.value;
+
+      if (mode === "white") {
+        return "#ffffff";
+      }
+
+      if (mode === "black") {
+        return "#000000";
+      }
+
+      if (mode === "custom") {
+        return customColor.value;
+      }
+
+      return null;
+    }
+
+
+    function getCanvasPixelsFromImage(image) {
+      const canvas = document.createElement("canvas");
+      canvas.width = image.naturalWidth;
+      canvas.height = image.naturalHeight;
+
+      const context = canvas.getContext("2d", {
+        alpha: true,
+        willReadFrequently: true
+      });
+
+      if (!context) {
+        return null;
+      }
+
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+      return {
+        canvas,
+        context,
+        imageData: context.getImageData(0, 0, canvas.width, canvas.height)
+      };
+    }
+
+    function analyzeBorderBackground(imageData, width, height) {
+      const data = imageData.data;
+      const sampleDepth = Math.max(
+        2,
+        Math.min(12, Math.round(Math.min(width, height) * 0.035))
+      );
+
+      let red = 0;
+      let green = 0;
+      let blue = 0;
+      let count = 0;
+      let varianceSource = [];
+
+      function samplePixel(x, y) {
+        const index = (y * width + x) * 4;
+        const alpha = data[index + 3];
+
+        if (alpha < 16) return;
+
+        const r = data[index];
+        const g = data[index + 1];
+        const b = data[index + 2];
+
+        red += r;
+        green += g;
+        blue += b;
+        count += 1;
+        varianceSource.push((r + g + b) / 3);
+      }
+
+      for (let y = 0; y < height; y += 1) {
+        for (let x = 0; x < width; x += 1) {
+          const onBorder =
+            x < sampleDepth ||
+            x >= width - sampleDepth ||
+            y < sampleDepth ||
+            y >= height - sampleDepth;
+
+          if (onBorder) {
+            samplePixel(x, y);
+          }
+        }
+      }
+
+      if (!count) {
+        return {
+          isBrightUniform: false,
+          luminance: 0,
+          variance: Infinity
+        };
+      }
+
+      const averageRed = red / count;
+      const averageGreen = green / count;
+      const averageBlue = blue / count;
+      const luminance =
+        0.2126 * averageRed +
+        0.7152 * averageGreen +
+        0.0722 * averageBlue;
+
+      const mean = varianceSource.reduce((sum, value) => sum + value, 0) /
+        varianceSource.length;
+
+      const variance = varianceSource.reduce(
+        (sum, value) => sum + Math.pow(value - mean, 2),
+        0
+      ) / varianceSource.length;
+
+      return {
+        isBrightUniform: luminance >= 218 && variance <= 520,
+        luminance,
+        variance,
+        red: averageRed,
+        green: averageGreen,
+        blue: averageBlue
+      };
+    }
+
+    async function repairLineArtResult(blob) {
+      if (!sourceImage || !blob) {
+        return blob;
+      }
+
+      const resultUrl = URL.createObjectURL(blob);
+
+      try {
+        const resultImage = await loadImageFromUrl(resultUrl);
+        const sourcePixels = getCanvasPixelsFromImage(sourceImage);
+        const resultPixels = getCanvasPixelsFromImage(resultImage);
+
+        if (!sourcePixels || !resultPixels) {
+          return blob;
+        }
+
+        const width = Math.min(
+          sourcePixels.canvas.width,
+          resultPixels.canvas.width
+        );
+        const height = Math.min(
+          sourcePixels.canvas.height,
+          resultPixels.canvas.height
+        );
+
+        if (
+          sourcePixels.canvas.width !== resultPixels.canvas.width ||
+          sourcePixels.canvas.height !== resultPixels.canvas.height
+        ) {
+          return blob;
+        }
+
+        const backgroundAnalysis = analyzeBorderBackground(
+          sourcePixels.imageData,
+          width,
+          height
+        );
+
+        /*
+         * Solo se activa en imágenes con borde claro y uniforme.
+         * Esto evita alterar fotografías, fondos oscuros o composiciones complejas.
+         */
+        if (!backgroundAnalysis.isBrightUniform) {
+          return blob;
+        }
+
+        const sourceData = sourcePixels.imageData.data;
+        const resultData = resultPixels.imageData.data;
+        let restoredPixels = 0;
+
+        for (let index = 0; index < sourceData.length; index += 4) {
+          const sourceRed = sourceData[index];
+          const sourceGreen = sourceData[index + 1];
+          const sourceBlue = sourceData[index + 2];
+          const sourceAlpha = sourceData[index + 3];
+          const resultAlpha = resultData[index + 3];
+
+          if (sourceAlpha < 16 || resultAlpha >= 220) {
+            continue;
+          }
+
+          const sourceLuminance =
+            0.2126 * sourceRed +
+            0.7152 * sourceGreen +
+            0.0722 * sourceBlue;
+
+          const distanceFromBackground = Math.sqrt(
+            Math.pow(sourceRed - backgroundAnalysis.red, 2) +
+            Math.pow(sourceGreen - backgroundAnalysis.green, 2) +
+            Math.pow(sourceBlue - backgroundAnalysis.blue, 2)
+          );
+
+          /*
+           * Recupera trazos oscuros o colores muy alejados del fondo blanco.
+           * Los tonos casi blancos permanecen transparentes.
+           */
+          const clearlyForeground =
+            sourceLuminance <= 178 ||
+            distanceFromBackground >= 105;
+
+          if (!clearlyForeground) {
+            continue;
+          }
+
+          const darknessStrength = Math.max(
+            0,
+            Math.min(1, (220 - sourceLuminance) / 130)
+          );
+
+          const restoredAlpha = Math.round(
+            Math.max(
+              resultAlpha,
+              110 + darknessStrength * 145
+            )
+          );
+
+          resultData[index] = sourceRed;
+          resultData[index + 1] = sourceGreen;
+          resultData[index + 2] = sourceBlue;
+          resultData[index + 3] = restoredAlpha;
+          restoredPixels += 1;
+        }
+
+        /*
+         * Evita reemplazar el resultado si la reparación casi no hizo cambios.
+         */
+        if (restoredPixels < Math.max(12, width * height * 0.00025)) {
+          return blob;
+        }
+
+        resultPixels.context.putImageData(
+          resultPixels.imageData,
+          0,
+          0
+        );
+
+        return await canvasToBlob(
+          resultPixels.canvas,
+          "image/png",
+          1
+        );
+      } finally {
+        URL.revokeObjectURL(resultUrl);
+      }
+    }
+
+    function canvasToBlob(canvas, type, quality) {
+      return new Promise((resolve, reject) => {
+        canvas.toBlob(
+          (blob) => {
+            if (blob) {
+              resolve(blob);
+              return;
+            }
+
+            reject(
+              new Error(
+                translate(
+                  "messages.exportError",
+                  "No fue posible preparar la descarga."
+                )
+              )
+            );
+          },
+          type,
+          quality
+        );
+      });
+    }
+
+    async function rebuildResult() {
+      if (!transparentBlob) {
+        return;
+      }
+
+      revokeUrl(finalUrl);
+      finalUrl = "";
+      finalBlob = null;
+
+      const transparentImageUrl = URL.createObjectURL(transparentBlob);
+
+      try {
+        const image = await loadImageFromUrl(transparentImageUrl);
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d", { alpha: true });
+
+        if (!context) {
+          throw new Error(
+            translate(
+              "messages.canvasError",
+              "El navegador no pudo preparar el resultado."
+            )
+          );
+        }
+
+        canvas.width = image.naturalWidth;
+        canvas.height = image.naturalHeight;
+
+        const background = getBackgroundColor();
+        const targetType = outputFormat.value;
+        const requiresSolidBackground =
+          targetType === "image/jpeg" && !background;
+
+        if (background || requiresSolidBackground) {
+          context.fillStyle =
+            background || "#ffffff";
+          context.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        context.drawImage(image, 0, 0);
+
+        finalBlob = await canvasToBlob(
+          canvas,
+          targetType,
+          Number(qualityInput.value) / 100
+        );
+
+        finalUrl = URL.createObjectURL(finalBlob);
+
+        resultPreview.src = finalUrl;
+        resultPreview.hidden = false;
+        resultPlaceholder.hidden = true;
+
+        resultType.textContent =
+          targetType === "image/png"
+            ? "PNG"
+            : targetType === "image/webp"
+              ? "WebP"
+              : "JPG";
+
+        resultDimensions.textContent =
+          `${canvas.width} × ${canvas.height} px`;
+
+        resultSize.textContent = formatBytes(finalBlob.size);
+        downloadButton.disabled = false;
+
+        resultStage.style.backgroundColor =
+          background || "transparent";
+      } finally {
+        URL.revokeObjectURL(transparentImageUrl);
+      }
+    }
+
+    async function removeImageBackground() {
+      if (!selectedFile) {
+        return;
+      }
+
+      removeButton.disabled = true;
+      downloadButton.disabled = true;
+      modelProgress.hidden = false;
+
+      progressValue.textContent = "0%";
+      progressBar.style.width = "0%";
+      progressTrack.setAttribute("aria-valuenow", "0");
+      progressFile.textContent = "";
+
+      showStatus(
+        translate(
+          "messages.processing",
+          "Analizando la imagen y quitando el fondo..."
+        ),
+        "info"
+      );
+
+      try {
+        const removeBackground = await ensureLibrary();
+
+        transparentBlob = await removeBackground(selectedFile, {
+          publicPath: MODEL_PATH,
+          progress: updateProgress,
+          debug: false,
+          output: {
+            format: "image/png",
+            quality: 1
+          }
+        });
+
+        transparentBlob = await repairLineArtResult(transparentBlob);
+
+        revokeUrl(transparentUrl);
+        transparentUrl = URL.createObjectURL(transparentBlob);
+
+        await rebuildResult();
+
+        progressValue.textContent = "100%";
+        progressBar.style.width = "100%";
+        progressTrack.setAttribute("aria-valuenow", "100");
+
+        showStatus(
+          translate(
+            "messages.completed",
+            "Fondo eliminado correctamente."
+          ),
+          "success"
+        );
+      } catch (error) {
+        console.error(error);
+        clearResult();
+
+        showStatus(
+          translate(
+            "messages.processingError",
+            "No fue posible quitar el fondo. Revisa tu conexión e inténtalo nuevamente."
+          ),
+          "error"
+        );
+      } finally {
+        removeButton.disabled = false;
+      }
+    }
+
+    function downloadResult() {
+      if (!finalBlob || !selectedFile) {
+        return;
+      }
+
+      const extensions = {
+        "image/png": "png",
+        "image/webp": "webp",
+        "image/jpeg": "jpg"
+      };
+
+      const baseName = selectedFile.name.replace(/\.[^/.]+$/, "");
+      const extension = extensions[outputFormat.value] || "png";
+
+      const link = document.createElement("a");
+      link.href = finalUrl;
+      link.download =
+        `${baseName}-no-background-creative-lab.${extension}`;
+
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    }
+
+    function resetTool() {
+      selectedFile = null;
+      sourceImage = null;
+      input.value = "";
+
+      revokeUrl(originalUrl);
+      revokeUrl(transparentUrl);
+      revokeUrl(finalUrl);
+
+      originalUrl = "";
+      transparentUrl = "";
+      finalUrl = "";
+      transparentBlob = null;
+      finalBlob = null;
+
+      originalPreview.removeAttribute("src");
+      resultPreview.removeAttribute("src");
+      resultPreview.hidden = true;
+      resultPlaceholder.hidden = false;
+
+      originalName.textContent = "—";
+      originalDimensions.textContent = "—";
+      originalSize.textContent = "—";
+      resultType.textContent = "—";
+      resultDimensions.textContent = "—";
+      resultSize.textContent = "—";
+
+      previewPanel.hidden = true;
+      modelProgress.hidden = true;
+
+      backgroundMode.value = "transparent";
+      customColor.value = "#66ff8f";
+      customColorField.hidden = true;
+
+      outputFormat.value = "image/png";
+      qualityInput.value = "92";
+      qualityValue.textContent = "92%";
+      qualityField.hidden = true;
+
+      removeButton.disabled = true;
+      downloadButton.disabled = true;
+
+      resultStage.style.backgroundColor = "transparent";
+      hideStatus();
+    }
+
+    uploadZone.addEventListener("click", () => {
+      input.click();
+    });
+
+    input.addEventListener("change", () => {
+      const file = input.files && input.files[0];
+
+      if (file) {
+        selectFile(file);
+      }
+    });
+
+    ["dragenter", "dragover"].forEach((eventName) => {
+      uploadZone.addEventListener(eventName, (event) => {
+        event.preventDefault();
+        uploadZone.classList.add("is-dragging");
+      });
+    });
+
+    ["dragleave", "drop"].forEach((eventName) => {
+      uploadZone.addEventListener(eventName, (event) => {
+        event.preventDefault();
+        uploadZone.classList.remove("is-dragging");
+      });
+    });
+
+    uploadZone.addEventListener("drop", (event) => {
+      const file = event.dataTransfer.files[0];
+
+      if (file) {
+        selectFile(file);
+      }
+    });
+
+    function syncCustomColorVisibility() {
+      customColorField.hidden =
+        backgroundMode.value !== "custom";
+    }
+
+    backgroundMode.addEventListener("change", async () => {
+      syncCustomColorVisibility();
+
+      if (transparentBlob) {
+        await rebuildResult();
+      }
+    });
+
+    customColor.addEventListener("input", async () => {
+      if (transparentBlob && backgroundMode.value === "custom") {
+        await rebuildResult();
+      }
+    });
+
+    outputFormat.addEventListener("change", async () => {
+      qualityField.hidden =
+        outputFormat.value === "image/png";
+
+      if (transparentBlob) {
+        await rebuildResult();
+      }
+    });
+
+    qualityInput.addEventListener("input", async () => {
+      qualityValue.textContent = `${qualityInput.value}%`;
+
+      if (transparentBlob) {
+        await rebuildResult();
+      }
+    });
+
+    removeButton.addEventListener("click", removeImageBackground);
+    downloadButton.addEventListener("click", downloadResult);
+    resetButton.addEventListener("click", resetTool);
+
+    document.addEventListener(
+      "creativeLab:languageChanged",
+      () => {
+        if (!statusMessage.hidden) {
+          hideStatus();
+        }
+      }
+    );
+
+    syncCustomColorVisibility();
+  </script>
+</body>
+</html>

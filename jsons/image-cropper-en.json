@@ -1,0 +1,63 @@
+{
+  "seo": {
+    "title": "Online Image Cropper | Creative Lab",
+    "description": "Crop JPG, PNG, WebP and SVG images for free in your browser with Creative Lab. Choose an aspect ratio, adjust the area and download the result.",
+    "ogTitle": "Online Image Cropper",
+    "ogDescription": "Crop images directly in your browser with custom aspect ratios.",
+    "twitterTitle": "Image Cropper | Creative Lab",
+    "twitterDescription": "Crop JPG, PNG, WebP and SVG images in your browser.",
+    "htmlLang": "en"
+  },
+  "product": {
+    "eyebrow": "Visual composition",
+    "title": "Image Cropper",
+    "description": "Select the exact area you want to keep, use preset aspect ratios and download the crop from your browser."
+  },
+  "cropper": {
+    "title": "Select an image",
+    "intro": "Upload an image, choose an aspect ratio and adjust the crop area.",
+    "uploadTitle": "Drag an image here or click to select it",
+    "uploadHelp": "JPG, PNG, WebP or SVG. Maximum 25 MB.",
+    "freeRatio": "Free",
+    "squareRatio": "Square",
+    "classicRatio": "Classic",
+    "wideRatio": "Widescreen",
+    "portraitRatio": "Portrait",
+    "storyRatio": "Story",
+    "cropAlt": "Image ready for cropping",
+    "outputFormat": "Output format",
+    "keepOriginal": "Keep original format",
+    "quality": "Quality",
+    "originalTitle": "Original image",
+    "resultTitle": "Result",
+    "originalAlt": "Original image preview",
+    "resultAlt": "Cropped image preview",
+    "fileName": "File",
+    "dimensions": "Dimensions",
+    "fileSize": "File size",
+    "outputType": "Format",
+    "cropButton": "Crop image"
+  },
+  "messages": {
+    "invalidFormat": "Select a JPG, PNG, WebP or SVG image.",
+    "fileTooLarge": "The image exceeds the 25 MB limit.",
+    "readError": "The image could not be read.",
+    "outsideImage": "The crop area must overlap the image.",
+    "canvasError": "The browser could not start the cropper.",
+    "cropError": "The image could not be cropped.",
+    "ready": "Image ready to crop.",
+    "processing": "Cropping image...",
+    "completed": "Cropping completed."
+  },
+  "info": {
+    "eyebrow": "Keep only what matters",
+    "title": "How to crop images with Creative Lab",
+    "description": "Select an image, adjust the visible area and download the crop in your preferred format.",
+    "stepOneTitle": "1. Upload",
+    "stepOneText": "Select a JPG, PNG, WebP or SVG image.",
+    "stepTwoTitle": "2. Select",
+    "stepTwoText": "Move and resize the crop area or use an aspect ratio.",
+    "stepThreeTitle": "3. Download",
+    "stepThreeText": "Preview and save the cropped image."
+  }
+}

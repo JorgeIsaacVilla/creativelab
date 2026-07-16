@@ -1,0 +1,54 @@
+{
+  "seo": {
+    "title": "Color Contrast Checker | Creative Lab",
+    "description": "Check text and background contrast according to WCAG.",
+    "htmlLang": "en"
+  },
+  "product": {
+    "eyebrow": "Visual accessibility",
+    "title": "Contrast Checker",
+    "description": "Check whether text and background colors meet WCAG recommended contrast levels."
+  },
+  "checker": {
+    "title": "Compare two colors",
+    "intro": "Select text and background colors to evaluate readability.",
+    "textColor": "Text color",
+    "backgroundColor": "Background color",
+    "textColorPicker": "Text color picker",
+    "backgroundColorPicker": "Background color picker",
+    "copyTextColor": "Copy text color",
+    "copyBackgroundColor": "Copy background color",
+    "swapColors": "Swap colors",
+    "ratioLabel": "Contrast ratio",
+    "excellent": "Excellent contrast",
+    "previewEyebrow": "Preview",
+    "previewHeading": "Clear and accessible design",
+    "previewParagraph": "This text shows how the selected combination will look in a real content block.",
+    "previewButton": "Sample button",
+    "complianceTitle": "WCAG compliance",
+    "complianceDescription": "Results for normal text, large text and graphical elements.",
+    "normalText": "Normal text",
+    "largeText": "Large text",
+    "uiElements": "UI elements",
+    "minimum": "Minimum",
+    "requiredRatio": "Ratio",
+    "suggestionsTitle": "Accessible suggestions",
+    "suggestionsDescription": "Nearby alternatives that improve contrast while preserving the style.",
+    "exportTitle": "Combination code",
+    "exportDescription": "Copy the CSS styles for the current combination.",
+    "copyCss": "Copy CSS",
+    "randomButton": "Random combination",
+    "downloadButton": "Download result"
+  },
+  "info": {
+    "eyebrow": "Readability for everyone",
+    "title": "How to check contrast with Creative Lab",
+    "description": "Choose the colors, review the contrast ratio and confirm whether the combination meets AA and AAA levels.",
+    "stepOneTitle": "1. Select",
+    "stepOneText": "Choose text and background colors.",
+    "stepTwoTitle": "2. Check",
+    "stepTwoText": "Review contrast and WCAG compliance.",
+    "stepThreeTitle": "3. Adjust",
+    "stepThreeText": "Use the suggestions to improve readability."
+  }
+}

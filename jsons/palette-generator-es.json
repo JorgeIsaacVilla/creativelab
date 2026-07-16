@@ -1,0 +1,47 @@
+{
+  "seo": {
+    "title": "Generador de paletas de colores | Creative Lab",
+    "description": "Genera paletas de colores armónicas a partir de un color base.",
+    "htmlLang": "es"
+  },
+  "product": {
+    "eyebrow": "Armonía cromática",
+    "title": "Generador de paletas",
+    "description": "Elige un color base y crea combinaciones armónicas para diseño, branding, interfaces y proyectos creativos."
+  },
+  "generator": {
+    "title": "Construye tu paleta",
+    "intro": "Selecciona un color base, elige una armonía y ajusta el resultado.",
+    "colorPickerLabel": "Selector de color base",
+    "baseColor": "Color base",
+    "copyBase": "Copiar color base",
+    "harmony": "Tipo de armonía",
+    "analogous": "Análoga",
+    "complementary": "Complementaria",
+    "split": "Complementaria dividida",
+    "triadic": "Triádica",
+    "tetradic": "Tetrádica",
+    "monochromatic": "Monocromática",
+    "paletteSize": "Cantidad de colores",
+    "saturation": "Saturación",
+    "lightness": "Luminosidad",
+    "resultTitle": "Paleta generada",
+    "resultDescription": "Haz clic en un color para copiarlo. Usa el candado para conservarlo.",
+    "exportTitle": "Exportar paleta",
+    "exportDescription": "Copia la paleta en HEX, CSS o JSON.",
+    "generateButton": "Generar paleta",
+    "randomButton": "Color aleatorio",
+    "downloadButton": "Descargar paleta"
+  },
+  "info": {
+    "eyebrow": "Combinaciones con intención",
+    "title": "Cómo generar una paleta con Creative Lab",
+    "description": "Parte de un color, selecciona una regla de armonía y ajusta la paleta hasta encontrar una combinación adecuada para tu proyecto.",
+    "stepOneTitle": "1. Elige",
+    "stepOneText": "Selecciona un color base.",
+    "stepTwoTitle": "2. Combina",
+    "stepTwoText": "Escoge una armonía cromática.",
+    "stepThreeTitle": "3. Exporta",
+    "stepThreeText": "Copia o descarga la paleta."
+  }
+}

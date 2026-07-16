@@ -1,0 +1,62 @@
+{
+  "seo": {
+    "title": "Online Favicon Generator | Creative Lab",
+    "description": "Create PNG and ICO favicons from an image directly in your browser with Creative Lab. Generate web sizes and download the complete result.",
+    "ogTitle": "Online Favicon Generator",
+    "ogDescription": "Create favicons for your website directly in the browser.",
+    "twitterTitle": "Favicon Generator | Creative Lab",
+    "twitterDescription": "Generate PNG and ICO favicons from an image in your browser.",
+    "htmlLang": "en"
+  },
+  "product": {
+    "eyebrow": "Web identity",
+    "title": "Favicon Generator",
+    "description": "Turn an image into favicons ready for your website, with multiple sizes and PNG or ICO downloads."
+  },
+  "generator": {
+    "title": "Select an image",
+    "intro": "Use a square image or transparent logo for the best results.",
+    "uploadTitle": "Drag an image here or click to select it",
+    "uploadHelp": "JPG, PNG, WebP or SVG. Maximum 15 MB.",
+    "fitMode": "Image fit",
+    "fitContain": "Fit entire image",
+    "fitCover": "Fill and crop",
+    "background": "Background",
+    "transparent": "Transparent",
+    "sourcePreview": "Original preview",
+    "browserPreview": "Browser preview",
+    "sourceAlt": "Selected image preview",
+    "sizesTitle": "Sizes to generate",
+    "resultsTitle": "Generated favicons",
+    "resultsDescription": "Review the sizes before downloading.",
+    "generateButton": "Generate favicons",
+    "downloadPng": "Download PNG",
+    "downloadIco": "Download ICO"
+  },
+  "messages": {
+    "invalidFormat": "Select a JPG, PNG, WebP or SVG image.",
+    "fileTooLarge": "The image exceeds the 15 MB limit.",
+    "readError": "The image could not be read.",
+    "canvasError": "The browser could not generate the favicon.",
+    "generateError": "The favicon could not be generated.",
+    "loading": "Loading image...",
+    "ready": "Image ready to generate favicons.",
+    "selectSize": "Select at least one size.",
+    "processing": "Generating favicons...",
+    "completed": "Favicons generated.",
+    "creatingIco": "Creating ICO file...",
+    "icoCompleted": "ICO file created and downloaded.",
+    "icoSizeError": "Select at least one size of 256 pixels or less."
+  },
+  "info": {
+    "eyebrow": "A small detail that identifies your site",
+    "title": "How to create a favicon with Creative Lab",
+    "description": "Select an image, adjust the framing, generate multiple sizes and download the favicon as PNG or ICO.",
+    "stepOneTitle": "1. Upload",
+    "stepOneText": "Select a logo or image from your device.",
+    "stepTwoTitle": "2. Configure",
+    "stepTwoText": "Choose the background, fit and sizes you need.",
+    "stepThreeTitle": "3. Download",
+    "stepThreeText": "Save the PNG files or create an ICO file for your site."
+  }
+}

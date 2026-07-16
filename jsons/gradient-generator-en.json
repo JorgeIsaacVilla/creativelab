@@ -1,0 +1,46 @@
+{
+  "seo": {
+    "title": "CSS Gradient Generator | Creative Lab",
+    "description": "Create linear, radial and conic CSS gradients with multiple colors.",
+    "htmlLang": "en"
+  },
+  "product": {
+    "eyebrow": "Color composition",
+    "title": "Gradient Generator",
+    "description": "Design linear, radial and conic gradients with multiple colors, precise controls and ready-to-use CSS."
+  },
+  "generator": {
+    "title": "Design your gradient",
+    "intro": "Choose the gradient type, adjust its colors and copy the result.",
+    "type": "Gradient type",
+    "linear": "Linear",
+    "radial": "Radial",
+    "conic": "Conic",
+    "angle": "Angle",
+    "positionX": "Horizontal position",
+    "positionY": "Vertical position",
+    "stopsTitle": "Color stops",
+    "stopsDescription": "Add up to eight colors and define their position within the gradient.",
+    "addStop": "Add color",
+    "previewTitle": "Preview",
+    "previewDescription": "The result updates in real time.",
+    "previewLabel": "Creative Lab",
+    "previewText": "Design backgrounds with depth and movement.",
+    "codeTitle": "CSS code",
+    "codeDescription": "Copy the generated background and use it in your project.",
+    "copyCss": "Copy CSS",
+    "randomButton": "Random gradient",
+    "downloadButton": "Download gradient"
+  },
+  "info": {
+    "eyebrow": "Color with direction",
+    "title": "How to create a gradient with Creative Lab",
+    "description": "Select the gradient type, adjust its colors and positions, review the preview and copy the CSS code.",
+    "stepOneTitle": "1. Choose",
+    "stepOneText": "Select a linear, radial or conic gradient.",
+    "stepTwoTitle": "2. Adjust",
+    "stepTwoText": "Modify colors, positions, angle and center.",
+    "stepThreeTitle": "3. Export",
+    "stepThreeText": "Copy the CSS or download a PNG image."
+  }
+}

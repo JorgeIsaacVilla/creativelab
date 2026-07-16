@@ -1,0 +1,63 @@
+{
+  "seo": {
+    "title": "Recortador de imágenes online | Creative Lab",
+    "description": "Recorta imágenes JPG, PNG, WebP y SVG gratis desde tu navegador con Creative Lab. Elige una proporción, ajusta el área y descarga el resultado.",
+    "ogTitle": "Recortador de imágenes online",
+    "ogDescription": "Recorta imágenes directamente desde el navegador con proporciones personalizadas.",
+    "twitterTitle": "Recortador de imágenes | Creative Lab",
+    "twitterDescription": "Recorta imágenes JPG, PNG, WebP y SVG desde tu navegador.",
+    "htmlLang": "es"
+  },
+  "product": {
+    "eyebrow": "Composición visual",
+    "title": "Recortador de imágenes",
+    "description": "Selecciona el área exacta que deseas conservar, usa proporciones predeterminadas y descarga el recorte desde tu navegador."
+  },
+  "cropper": {
+    "title": "Selecciona una imagen",
+    "intro": "Carga una imagen, elige una proporción y ajusta el área de recorte.",
+    "uploadTitle": "Arrastra una imagen o haz clic para seleccionarla",
+    "uploadHelp": "JPG, PNG, WebP o SVG. Máximo 25 MB.",
+    "freeRatio": "Libre",
+    "squareRatio": "Cuadrada",
+    "classicRatio": "Clásica",
+    "wideRatio": "Panorámica",
+    "portraitRatio": "Retrato",
+    "storyRatio": "Historia",
+    "cropAlt": "Imagen preparada para recortar",
+    "outputFormat": "Formato de salida",
+    "keepOriginal": "Mantener formato original",
+    "quality": "Calidad",
+    "originalTitle": "Imagen original",
+    "resultTitle": "Resultado",
+    "originalAlt": "Vista previa de la imagen original",
+    "resultAlt": "Vista previa de la imagen recortada",
+    "fileName": "Archivo",
+    "dimensions": "Dimensiones",
+    "fileSize": "Peso",
+    "outputType": "Formato",
+    "cropButton": "Recortar imagen"
+  },
+  "messages": {
+    "invalidFormat": "Selecciona una imagen JPG, PNG, WebP o SVG.",
+    "fileTooLarge": "La imagen supera el límite de 25 MB.",
+    "readError": "No fue posible leer la imagen.",
+    "outsideImage": "El área de recorte debe estar sobre la imagen.",
+    "canvasError": "El navegador no pudo iniciar el recortador.",
+    "cropError": "No fue posible recortar la imagen.",
+    "ready": "Imagen lista para recortar.",
+    "processing": "Recortando imagen...",
+    "completed": "Recorte completado."
+  },
+  "info": {
+    "eyebrow": "Conserva solo lo importante",
+    "title": "Cómo recortar imágenes con Creative Lab",
+    "description": "Selecciona una imagen, ajusta el área visible y descarga el recorte en el formato que prefieras.",
+    "stepOneTitle": "1. Carga",
+    "stepOneText": "Selecciona una imagen JPG, PNG, WebP o SVG.",
+    "stepTwoTitle": "2. Selecciona",
+    "stepTwoText": "Mueve y ajusta el área de recorte o usa una proporción.",
+    "stepThreeTitle": "3. Descarga",
+    "stepThreeText": "Previsualiza y guarda la imagen recortada."
+  }
+}

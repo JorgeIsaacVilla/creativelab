@@ -1,0 +1,66 @@
+{
+  "seo": {
+    "title": "Online Image Background Remover | Creative Lab",
+    "description": "Remove backgrounds from JPG, PNG and WebP images directly in your browser with Creative Lab. Local processing, preview and transparent download.",
+    "ogTitle": "Online Image Background Remover",
+    "ogDescription": "Remove image backgrounds directly in your browser.",
+    "twitterTitle": "Background Remover | Creative Lab",
+    "twitterDescription": "Remove image backgrounds with local browser processing.",
+    "htmlLang": "en"
+  },
+  "product": {
+    "eyebrow": "Assisted editing",
+    "title": "Remove an image background",
+    "description": "Automatically remove the background, review the result and download a transparent image or apply a new color."
+  },
+  "remover": {
+    "title": "Select an image",
+    "intro": "The first run downloads the processing model. Background removal then runs in your browser.",
+    "uploadTitle": "Drag an image here or click to select it",
+    "uploadHelp": "JPG, PNG or WebP. Maximum 20 MB.",
+    "modelProgress": "Preparing the model",
+    "originalTitle": "Original image",
+    "resultTitle": "Result",
+    "originalAlt": "Original image preview",
+    "resultAlt": "Image preview without background",
+    "resultPlaceholder": "The result will appear here.",
+    "fileName": "File",
+    "dimensions": "Dimensions",
+    "fileSize": "File size",
+    "outputType": "Format",
+    "backgroundMode": "Result background",
+    "transparent": "Transparent",
+    "white": "White",
+    "black": "Black",
+    "custom": "Custom color",
+    "customColor": "Custom color",
+    "outputFormat": "Output format",
+    "quality": "Quality",
+    "removeButton": "Remove background",
+    "privacyNotice": "The image is processed locally. The tool does not use tokens or a request-limited API."
+  },
+  "messages": {
+    "invalidFormat": "Select a JPG, PNG or WebP image.",
+    "fileTooLarge": "The image exceeds the 20 MB limit.",
+    "readError": "The image could not be read.",
+    "loadingLibrary": "Preparing the background removal engine...",
+    "libraryError": "The background removal engine could not start.",
+    "ready": "Image ready for background removal.",
+    "processing": "Analyzing the image and removing the background...",
+    "completed": "Background removed successfully.",
+    "processingError": "The background could not be removed. Check your connection and try again.",
+    "canvasError": "The browser could not prepare the result.",
+    "exportError": "The download could not be prepared."
+  },
+  "info": {
+    "eyebrow": "Transparency in a few steps",
+    "title": "How to remove a background with Creative Lab",
+    "description": "Select an image, wait for local processing, review the result and download it with transparency or a new background color.",
+    "stepOneTitle": "1. Upload",
+    "stepOneText": "Select a JPG, PNG or WebP image.",
+    "stepTwoTitle": "2. Process",
+    "stepTwoText": "The model identifies the subject and removes the background in your browser.",
+    "stepThreeTitle": "3. Download",
+    "stepThreeText": "Choose transparency, color and format before saving."
+  }
+}

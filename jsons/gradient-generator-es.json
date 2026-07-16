@@ -1,0 +1,46 @@
+{
+  "seo": {
+    "title": "Generador de gradientes CSS | Creative Lab",
+    "description": "Crea gradientes CSS lineales, radiales y cónicos con múltiples colores.",
+    "htmlLang": "es"
+  },
+  "product": {
+    "eyebrow": "Composición cromática",
+    "title": "Generador de gradientes",
+    "description": "Diseña gradientes lineales, radiales y cónicos con múltiples colores, ajustes precisos y código CSS listo para usar."
+  },
+  "generator": {
+    "title": "Diseña tu gradiente",
+    "intro": "Elige el tipo de gradiente, ajusta sus colores y copia el resultado.",
+    "type": "Tipo de gradiente",
+    "linear": "Lineal",
+    "radial": "Radial",
+    "conic": "Cónico",
+    "angle": "Ángulo",
+    "positionX": "Posición horizontal",
+    "positionY": "Posición vertical",
+    "stopsTitle": "Puntos de color",
+    "stopsDescription": "Añade hasta ocho colores y define su posición dentro del gradiente.",
+    "addStop": "Añadir color",
+    "previewTitle": "Vista previa",
+    "previewDescription": "El resultado se actualiza en tiempo real.",
+    "previewLabel": "Creative Lab",
+    "previewText": "Diseña fondos con profundidad y movimiento.",
+    "codeTitle": "Código CSS",
+    "codeDescription": "Copia el fondo generado y úsalo en tu proyecto.",
+    "copyCss": "Copiar CSS",
+    "randomButton": "Gradiente aleatorio",
+    "downloadButton": "Descargar gradiente"
+  },
+  "info": {
+    "eyebrow": "Color con dirección",
+    "title": "Cómo crear un gradiente con Creative Lab",
+    "description": "Selecciona el tipo de gradiente, ajusta sus colores y posiciones, revisa la vista previa y copia el código CSS.",
+    "stepOneTitle": "1. Elige",
+    "stepOneText": "Selecciona un gradiente lineal, radial o cónico.",
+    "stepTwoTitle": "2. Ajusta",
+    "stepTwoText": "Modifica colores, posiciones, ángulo y centro.",
+    "stepThreeTitle": "3. Exporta",
+    "stepThreeText": "Copia el CSS o descarga una imagen PNG."
+  }
+}

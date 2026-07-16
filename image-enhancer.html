@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mejorador de imagen | Creative Lab</title>
+  <meta name="description" content="Mejora la calidad visual de tus imágenes en línea con ajuste automático, filtros avanzados y comparación antes/después.">
+  <meta property="og:title" content="Mejorador de imagen | Creative Lab">
+  <meta property="og:description" content="Sube una imagen, mejora brillo, contraste, nitidez y reducción de ruido, y compárala con un deslizador antes/después.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mejorador de imagen | Creative Lab">
+  <meta name="twitter:description" content="Editor visual para mejorar imágenes y comparar el resultado antes/después.">
+  <link rel="canonical" href="./image-enhancer.html">
+   <link rel="icon" href="./src/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./styles/main.css">
+</head>
+<body class="creative-lab-page">
+  <div class="site-shell">
+  <a class="skip-link" href="#main-content" data-i18n="common.skipLink">Saltar al contenido</a>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="site-brand" href="./index.html" aria-label="Volver al inicio">
+        <img class="site-brand__logo" src="./src/logo.svg" alt="Logo de Creative Lab" width="44" height="44">
+        <span class="site-brand__name">Creative Lab</span>
+      </a>
+
+      <div class="site-header__actions image-enhancer-header__actions">
+        <label class="language-control" for="language-selector">
+          <span class="sr-only" data-i18n="common.language">Idioma</span>
+          <select id="language-selector" aria-label="Seleccionar idioma">
+            <option value="es">ES</option>
+            <option value="en">EN</option>
+          </select>
+        </label>
+
+        <a class="back-to-portfolio" href="./index.html" data-i18n="common.backToPortfolio">
+          Regresar al portafolio de servicios
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" class="product-page image-enhancer-page">
+    <section class="product-hero">
+      <div class="product-hero__copy">
+        <span class="product-hero__eyebrow" data-i18n="hero.eyebrow">NUEVO · MEJORA AUTOMÁTICA</span>
+        <h1 data-i18n="hero.title">Mejora la calidad de una imagen y compara el resultado</h1>
+        <p data-i18n="hero.description">
+          Sube una imagen, mejora automáticamente su calidad visual y compárala en tiempo real con un deslizador interactivo. Ajusta nitidez, contraste, saturación, claridad, reducción de ruido y reescalado.
+        </p>
+
+        <ul class="feature-list">
+          <li data-i18n="hero.feature1">Mejora automática directamente en tu navegador</li>
+          <li data-i18n="hero.feature2">Comparador interactivo antes/después</li>
+          <li data-i18n="hero.feature3">Descarga de imagen mejorada o comparativa</li>
+        </ul>
+      </div>
+
+      <aside class="product-hero__ad image-enhancer-ad" aria-label="Publicidad">
+        <span data-i18n="common.adSpace">Espacio para publicidad</span>
+      </aside>
+    </section>
+
+    <section class="tool-layout">
+      <aside class="tool-panel">
+        <article class="image-enhancer-card">
+          <h2 data-i18n="upload.title">1. Cargar imagen</h2>
+          <div class="image-enhancer-upload" id="upload-zone">
+            <input id="image-input" type="file" accept="image/png,image/jpeg,image/webp,image/jpg" hidden>
+            <button class="button button--primary button--block" id="upload-button" type="button" data-i18n="upload.button">
+              Seleccionar imagen
+            </button>
+            <p data-i18n="upload.help">Formatos compatibles: PNG, JPG y WebP.</p>
+          </div>
+        </article>
+
+        <article class="image-enhancer-card">
+          <h2 data-i18n="presets.title">2. Mejora rápida</h2>
+
+          <div class="button-stack">
+            <button class="button button--primary button--block" id="auto-enhance" type="button" disabled data-i18n="presets.auto">
+              Mejorar automáticamente
+            </button>
+
+            <button class="button button--secondary button--block" id="reset-settings" type="button" disabled data-i18n="presets.reset">
+              Restablecer ajustes
+            </button>
+          </div>
+
+          <label class="field">
+            <span data-i18n="presets.upscale">Reescalado</span>
+            <select id="upscale-factor" disabled>
+              <option value="1">1x</option>
+              <option value="1.5">1.5x</option>
+              <option value="2">2x</option>
+            </select>
+          </label>
+
+          <label class="check-field">
+            <input id="apply-clahe" type="checkbox" checked disabled>
+            <span data-i18n="presets.clahe">Mejorar claridad local</span>
+          </label>
+        </article>
+
+        <article class="image-enhancer-card">
+          <h2 data-i18n="controls.title">3. Ajustes avanzados</h2>
+
+          <div class="range-field">
+            <label for="brightness">
+              <span data-i18n="controls.brightness">Brillo</span>
+              <strong id="brightness-value">0</strong>
+            </label>
+            <input id="brightness" type="range" min="-60" max="60" value="0" disabled>
+          </div>
+
+          <div class="range-field">
+            <label for="contrast">
+              <span data-i18n="controls.contrast">Contraste</span>
+              <strong id="contrast-value">0</strong>
+            </label>
+            <input id="contrast" type="range" min="-60" max="60" value="0" disabled>
+          </div>
+
+          <div class="range-field">
+            <label for="saturation">
+              <span data-i18n="controls.saturation">Saturación</span>
+              <strong id="saturation-value">0</strong>
+            </label>
+            <input id="saturation" type="range" min="-60" max="60" value="0" disabled>
+          </div>
+
+          <div class="range-field">
+            <label for="sharpen">
+              <span data-i18n="controls.sharpen">Nitidez</span>
+              <strong id="sharpen-value">0</strong>
+            </label>
+            <input id="sharpen" type="range" min="0" max="100" value="0" disabled>
+          </div>
+
+          <div class="range-field">
+            <label for="denoise">
+              <span data-i18n="controls.denoise">Reducción de ruido</span>
+              <strong id="denoise-value">0</strong>
+            </label>
+            <input id="denoise" type="range" min="0" max="30" value="0" disabled>
+          </div>
+
+          <div class="range-field">
+            <label for="clarity">
+              <span data-i18n="controls.clarity">Claridad</span>
+              <strong id="clarity-value">0</strong>
+            </label>
+            <input id="clarity" type="range" min="0" max="50" value="0" disabled>
+          </div>
+        </article>
+
+        <article class="image-enhancer-card">
+          <h2 data-i18n="actions.title">4. Exportar</h2>
+
+          <div class="button-stack">
+            <button class="button button--primary button--block" id="download-enhanced" type="button" disabled data-i18n="actions.downloadEnhanced">
+              Descargar imagen mejorada
+            </button>
+
+            <button class="button button--secondary button--block" id="download-comparison" type="button" disabled data-i18n="actions.downloadComparison">
+              Descargar comparativa
+            </button>
+          </div>
+
+          <p class="tool-note" data-i18n="actions.note">
+            La descarga comparativa genera una imagen con las etiquetas Antes y Después.
+          </p>
+        </article>
+      </aside>
+
+      <section class="tool-workspace">
+        <article class="image-enhancer-card status-card">
+          <div class="status-line">
+            <strong data-i18n="preview.title">Vista previa</strong>
+          </div>
+          <p id="status-message" data-i18n="preview.empty">
+            Carga una imagen para comenzar a mejorarla.
+          </p>
+        </article>
+
+        <article class="image-enhancer-card comparison-card">
+          <div class="comparison-toolbar">
+            <div class="comparison-labels">
+              <span data-i18n="preview.before">Antes</span>
+              <span data-i18n="preview.after">Después</span>
+            </div>
+
+            <label class="comparison-field">
+              <span data-i18n="preview.slider">Deslizador</span>
+              <input id="comparison-slider" type="range" min="0" max="100" value="50" disabled>
+            </label>
+          </div>
+
+          <div class="comparison-stage" id="comparison-stage">
+            <div class="comparison-before">
+              <canvas id="before-canvas"></canvas>
+            </div>
+
+            <div class="comparison-after" id="comparison-after">
+              <canvas id="after-canvas"></canvas>
+            </div>
+
+            <div class="comparison-divider" id="comparison-divider"></div>
+            <div class="comparison-placeholder" id="comparison-placeholder" data-i18n="preview.placeholder">
+              Aquí aparecerá la comparación antes/después.
+            </div>
+          </div>
+        </article>
+      </section>
+    </section>
+  </main>
+
+  </div>
+  <script>
+    (function () {
+      "use strict";
+
+      const state = {
+        originalImage: null,
+        processing: false,
+        processTimer: null,
+        currentLanguage: "es",
+        translations: {},
+        settings: {
+          brightness: 0,
+          contrast: 0,
+          saturation: 0,
+          sharpen: 0,
+          denoise: 0,
+          clarity: 0,
+          upscale: 1,
+          localClarity: true
+        }
+      };
+
+      const $ = (id) => document.getElementById(id);
+
+      const elements = {
+        lang: $("language-selector"),
+        imageInput: $("image-input"),
+        uploadButton: $("upload-button"),
+        autoEnhance: $("auto-enhance"),
+        resetSettings: $("reset-settings"),
+        upscale: $("upscale-factor"),
+        localClarity: $("apply-clahe"),
+        downloadEnhanced: $("download-enhanced"),
+        downloadComparison: $("download-comparison"),
+        comparisonSlider: $("comparison-slider"),
+        comparisonAfter: $("comparison-after"),
+        comparisonDivider: $("comparison-divider"),
+        placeholder: $("comparison-placeholder"),
+        beforeCanvas: $("before-canvas"),
+        afterCanvas: $("after-canvas"),
+        statusMessage: $("status-message"),
+        brightness: $("brightness"),
+        contrast: $("contrast"),
+        saturation: $("saturation"),
+        sharpen: $("sharpen"),
+        denoise: $("denoise"),
+        clarity: $("clarity"),
+        brightnessValue: $("brightness-value"),
+        contrastValue: $("contrast-value"),
+        saturationValue: $("saturation-value"),
+        sharpenValue: $("sharpen-value"),
+        denoiseValue: $("denoise-value"),
+        clarityValue: $("clarity-value"),
+        comparisonStage: $("comparison-stage")
+      };
+
+      const ranges = [
+        "brightness",
+        "contrast",
+        "saturation",
+        "sharpen",
+        "denoise",
+        "clarity"
+      ];
+
+      function t(path, fallback = "") {
+        return path.split(".").reduce((current, key) => {
+          if (current && Object.prototype.hasOwnProperty.call(current, key)) {
+            return current[key];
+          }
+          return undefined;
+        }, state.translations) ?? fallback;
+      }
+
+      async function loadTranslations(language) {
+        const safeLanguage = language === "en" ? "en" : "es";
+        state.currentLanguage = safeLanguage;
+        elements.lang.value = safeLanguage;
+        localStorage.setItem("creativeLabLanguage", safeLanguage);
+
+        try {
+          const response = await fetch(
+            `./jsons/image-enhancer-${safeLanguage}.json`,
+            { cache: "no-store" }
+          );
+
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+          }
+
+          state.translations = await response.json();
+          applyTranslations();
+        } catch (error) {
+          state.translations = {};
+          applyTranslations();
+        }
+      }
+
+      function applyTranslations() {
+        document.documentElement.lang = state.currentLanguage;
+        document.title = t("seo.title", document.title);
+
+        document.querySelectorAll("[data-i18n]").forEach((node) => {
+          node.textContent = t(node.dataset.i18n, node.textContent);
+        });
+
+        if (!state.originalImage) {
+          elements.statusMessage.textContent = t(
+            "preview.empty",
+            "Carga una imagen para comenzar a mejorarla."
+          );
+
+          elements.placeholder.textContent = t(
+            "preview.placeholder",
+            "Aquí aparecerá la comparación antes/después."
+          );
+        }
+      }
+
+      function setStatus(key, fallback, tone = "neutral") {
+        elements.statusMessage.textContent = t(key, fallback);
+        elements.statusMessage.dataset.tone = tone;
+      }
+
+      function setControlsEnabled(enabled) {
+        [
+          elements.autoEnhance,
+          elements.resetSettings,
+          elements.upscale,
+          elements.localClarity,
+          elements.downloadEnhanced,
+          elements.downloadComparison,
+          elements.comparisonSlider,
+          ...ranges.map((name) => elements[name])
+        ].forEach((element) => {
+          element.disabled = !enabled;
+        });
+      }
+
+      function updateRangeLabels() {
+        ranges.forEach((name) => {
+          const value = Number(elements[name].value);
+          elements[`${name}Value`].textContent = String(value);
+          state.settings[name] = value;
+        });
+
+        state.settings.upscale = Number(elements.upscale.value);
+        state.settings.localClarity = elements.localClarity.checked;
+      }
+
+      function resetSettingsValues() {
+        elements.brightness.value = "0";
+        elements.contrast.value = "0";
+        elements.saturation.value = "0";
+        elements.sharpen.value = "0";
+        elements.denoise.value = "0";
+        elements.clarity.value = "0";
+        elements.upscale.value = "1";
+        elements.localClarity.checked = true;
+        updateRangeLabels();
+      }
+
+      function readFileAsImage(file) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+
+          reader.onload = () => {
+            const image = new Image();
+            image.onload = () => resolve(image);
+            image.onerror = reject;
+            image.src = reader.result;
+          };
+
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
+      }
+
+      function prepareCanvas(canvas, width, height) {
+        canvas.width = Math.max(1, Math.round(width));
+        canvas.height = Math.max(1, Math.round(height));
+        canvas.style.aspectRatio = `${canvas.width} / ${canvas.height}`;
+      }
+
+      function drawImageToCanvas(image, canvas) {
+        const width = image.naturalWidth || image.width;
+        const height = image.naturalHeight || image.height;
+
+        prepareCanvas(canvas, width, height);
+
+        const context = canvas.getContext("2d", {
+          alpha: true,
+          willReadFrequently: true
+        });
+
+        context.clearRect(0, 0, width, height);
+        context.drawImage(image, 0, 0, width, height);
+      }
+
+      function updateComparisonMask() {
+        const value = Math.max(
+          0,
+          Math.min(100, Number(elements.comparisonSlider.value))
+        );
+
+        elements.comparisonAfter.style.width = "100%";
+        elements.comparisonAfter.style.clipPath =
+          `inset(0 ${100 - value}% 0 0)`;
+        elements.comparisonAfter.style.webkitClipPath =
+          `inset(0 ${100 - value}% 0 0)`;
+
+        elements.comparisonDivider.style.left = `${value}%`;
+      }
+
+      function createWorkingCanvas(width, height) {
+        const canvas = document.createElement("canvas");
+        prepareCanvas(canvas, width, height);
+        return canvas;
+      }
+
+      function clamp(value) {
+        return Math.max(0, Math.min(255, value));
+      }
+
+      function convolveImageData(imageData, kernel, divisor = 1, bias = 0) {
+        const { width, height, data } = imageData;
+        const output = new ImageData(width, height);
+        const destination = output.data;
+        const side = Math.sqrt(kernel.length);
+        const half = Math.floor(side / 2);
+
+        for (let y = 0; y < height; y += 1) {
+          for (let x = 0; x < width; x += 1) {
+            let red = 0;
+            let green = 0;
+            let blue = 0;
+
+            for (let ky = 0; ky < side; ky += 1) {
+              for (let kx = 0; kx < side; kx += 1) {
+                const sampleX = Math.max(0, Math.min(width - 1, x + kx - half));
+                const sampleY = Math.max(0, Math.min(height - 1, y + ky - half));
+                const sourceIndex = (sampleY * width + sampleX) * 4;
+                const weight = kernel[ky * side + kx];
+
+                red += data[sourceIndex] * weight;
+                green += data[sourceIndex + 1] * weight;
+                blue += data[sourceIndex + 2] * weight;
+              }
+            }
+
+            const destinationIndex = (y * width + x) * 4;
+            destination[destinationIndex] = clamp(red / divisor + bias);
+            destination[destinationIndex + 1] = clamp(green / divisor + bias);
+            destination[destinationIndex + 2] = clamp(blue / divisor + bias);
+            destination[destinationIndex + 3] = data[destinationIndex + 3];
+          }
+        }
+
+        return output;
+      }
+
+      function applyStableDenoise(sourceCanvas, amount) {
+        if (amount <= 0) return sourceCanvas;
+
+        const scale = Math.max(0.45, 1 - amount / 55);
+        const smallWidth = Math.max(1, Math.round(sourceCanvas.width * scale));
+        const smallHeight = Math.max(1, Math.round(sourceCanvas.height * scale));
+        const reduced = createWorkingCanvas(smallWidth, smallHeight);
+        const reducedContext = reduced.getContext("2d");
+
+        reducedContext.imageSmoothingEnabled = true;
+        reducedContext.imageSmoothingQuality = "high";
+        reducedContext.drawImage(sourceCanvas, 0, 0, smallWidth, smallHeight);
+
+        const result = createWorkingCanvas(sourceCanvas.width, sourceCanvas.height);
+        const resultContext = result.getContext("2d");
+
+        resultContext.imageSmoothingEnabled = true;
+        resultContext.imageSmoothingQuality = "high";
+        resultContext.drawImage(
+          reduced,
+          0,
+          0,
+          smallWidth,
+          smallHeight,
+          0,
+          0,
+          result.width,
+          result.height
+        );
+
+        return result;
+      }
+
+      function applyColorAdjustments(sourceCanvas, settings) {
+        const result = createWorkingCanvas(sourceCanvas.width, sourceCanvas.height);
+        const context = result.getContext("2d");
+
+        const brightness = Math.max(40, 100 + settings.brightness);
+        const contrast = Math.max(40, 100 + settings.contrast);
+        const saturation = Math.max(0, 100 + settings.saturation);
+
+        context.filter =
+          `brightness(${brightness}%) ` +
+          `contrast(${contrast}%) ` +
+          `saturate(${saturation}%)`;
+
+        context.drawImage(sourceCanvas, 0, 0);
+        context.filter = "none";
+
+        return result;
+      }
+
+      function applyClarityAndSharpen(sourceCanvas, clarity, sharpen, enabled) {
+        if ((!enabled || clarity <= 0) && sharpen <= 0) {
+          return sourceCanvas;
+        }
+
+        const context = sourceCanvas.getContext("2d", {
+          willReadFrequently: true
+        });
+
+        const imageData = context.getImageData(
+          0,
+          0,
+          sourceCanvas.width,
+          sourceCanvas.height
+        );
+
+        let working = imageData;
+
+        if (enabled && clarity > 0) {
+          const strength = Math.min(1.25, clarity / 40);
+          working = convolveImageData(
+            working,
+            [
+              0, -strength, 0,
+              -strength, 1 + 4 * strength, -strength,
+              0, -strength, 0
+            ]
+          );
+        }
+
+        if (sharpen > 0) {
+          const strength = Math.min(1.8, sharpen / 55);
+          working = convolveImageData(
+            working,
+            [
+              0, -strength, 0,
+              -strength, 1 + 4 * strength, -strength,
+              0, -strength, 0
+            ]
+          );
+        }
+
+        const result = createWorkingCanvas(sourceCanvas.width, sourceCanvas.height);
+        result.getContext("2d").putImageData(working, 0, 0);
+        return result;
+      }
+
+      function upscaleCanvas(sourceCanvas, factor) {
+        if (factor <= 1) {
+          return sourceCanvas;
+        }
+
+        const result = createWorkingCanvas(
+          Math.round(sourceCanvas.width * factor),
+          Math.round(sourceCanvas.height * factor)
+        );
+
+        const context = result.getContext("2d");
+        context.imageSmoothingEnabled = true;
+        context.imageSmoothingQuality = "high";
+        context.drawImage(sourceCanvas, 0, 0, result.width, result.height);
+
+        return result;
+      }
+
+      function copyCanvas(source, destination) {
+        prepareCanvas(destination, source.width, source.height);
+        const context = destination.getContext("2d");
+        context.clearRect(0, 0, destination.width, destination.height);
+        context.drawImage(source, 0, 0);
+      }
+
+      function applyAutomaticPreset() {
+        const megapixels =
+          (state.originalImage.naturalWidth * state.originalImage.naturalHeight) /
+          1000000;
+
+        elements.denoise.value = megapixels < 1 ? "6" : "9";
+        elements.sharpen.value = megapixels < 1 ? "34" : "26";
+        elements.clarity.value = "18";
+        elements.contrast.value = "12";
+        elements.brightness.value = "3";
+        elements.saturation.value = "8";
+        elements.upscale.value = megapixels < 1 ? "2" : "1.5";
+        elements.localClarity.checked = true;
+        updateRangeLabels();
+      }
+
+      function buildEnhancedImage(autoPreset = false) {
+        if (!state.originalImage || state.processing) return;
+
+        state.processing = true;
+        elements.autoEnhance.disabled = true;
+        setStatus("messages.processing", "Procesando imagen…", "neutral");
+
+        window.requestAnimationFrame(() => {
+          try {
+            if (autoPreset) {
+              applyAutomaticPreset();
+            } else {
+              updateRangeLabels();
+            }
+
+            const source = createWorkingCanvas(
+              state.originalImage.naturalWidth,
+              state.originalImage.naturalHeight
+            );
+
+            source.getContext("2d").drawImage(
+              state.originalImage,
+              0,
+              0,
+              source.width,
+              source.height
+            );
+
+            const denoised = applyStableDenoise(
+              source,
+              state.settings.denoise
+            );
+
+            const adjusted = applyColorAdjustments(
+              denoised,
+              state.settings
+            );
+
+            const detailed = applyClarityAndSharpen(
+              adjusted,
+              state.settings.clarity,
+              state.settings.sharpen,
+              state.settings.localClarity
+            );
+
+            const output = upscaleCanvas(
+              detailed,
+              state.settings.upscale
+            );
+
+            copyCanvas(output, elements.afterCanvas);
+            drawImageToCanvas(state.originalImage, elements.beforeCanvas);
+
+            elements.placeholder.hidden = true;
+
+            setStatus(
+              "messages.ready",
+              "Imagen mejorada. Puedes seguir ajustando los controles.",
+              "success"
+            );
+          } catch (error) {
+            setStatus(
+              "messages.processError",
+              "No se pudo procesar la imagen. Prueba con una imagen más pequeña.",
+              "error"
+            );
+          } finally {
+            state.processing = false;
+            elements.autoEnhance.disabled = false;
+            updateComparisonMask();
+          }
+        });
+      }
+
+      function scheduleEnhancement(delay = 260) {
+        if (!state.originalImage) return;
+
+        clearTimeout(state.processTimer);
+        state.processTimer = setTimeout(() => {
+          buildEnhancedImage(false);
+        }, delay);
+      }
+
+      function setComparisonFromPointer(event) {
+        const rect = elements.comparisonStage.getBoundingClientRect();
+        if (!rect.width) return;
+
+        const percentage =
+          ((event.clientX - rect.left) / rect.width) * 100;
+
+        elements.comparisonSlider.value = String(
+          Math.max(0, Math.min(100, percentage))
+        );
+
+        updateComparisonMask();
+      }
+
+      function beginComparisonDrag(event) {
+        if (elements.comparisonSlider.disabled) return;
+
+        event.preventDefault();
+        elements.comparisonStage.classList.add("is-dragging");
+        elements.comparisonStage.setPointerCapture?.(event.pointerId);
+        setComparisonFromPointer(event);
+      }
+
+      function continueComparisonDrag(event) {
+        if (!elements.comparisonStage.classList.contains("is-dragging")) {
+          return;
+        }
+
+        event.preventDefault();
+        setComparisonFromPointer(event);
+      }
+
+      function endComparisonDrag(event) {
+        if (!elements.comparisonStage.classList.contains("is-dragging")) {
+          return;
+        }
+
+        elements.comparisonStage.classList.remove("is-dragging");
+
+        if (
+          elements.comparisonStage.hasPointerCapture?.(event.pointerId)
+        ) {
+          elements.comparisonStage.releasePointerCapture(event.pointerId);
+        }
+      }
+
+      function getCanvasImageURL(canvas) {
+        return canvas.toDataURL("image/png");
+      }
+
+      function downloadDataURL(filename, dataUrl) {
+        const link = document.createElement("a");
+        link.href = dataUrl;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+      }
+
+      function buildComparisonExport() {
+        const before = elements.beforeCanvas;
+        const after = elements.afterCanvas;
+        const width = Math.max(before.width, after.width);
+        const height = Math.max(before.height, after.height);
+        const output = createWorkingCanvas(width, height + 84);
+        const context = output.getContext("2d");
+
+        context.fillStyle = "#08110b";
+        context.fillRect(0, 0, output.width, output.height);
+
+        context.drawImage(before, 0, 84, width / 2, height);
+        context.drawImage(after, width / 2, 84, width / 2, height);
+
+        context.fillStyle = "#66ff8f";
+        context.font = "700 24px Arial";
+        context.fillText(t("preview.before", "Antes"), 24, 42);
+
+        context.fillStyle = "#ffffff";
+        context.fillText(
+          t("preview.after", "Después"),
+          width / 2 + 24,
+          42
+        );
+
+        context.strokeStyle = "rgba(255,255,255,0.25)";
+        context.beginPath();
+        context.moveTo(width / 2, 20);
+        context.lineTo(width / 2, output.height - 20);
+        context.stroke();
+
+        return output.toDataURL("image/png");
+      }
+
+      async function handleImageUpload(file) {
+        if (!file) return;
+
+        try {
+          const image = await readFileAsImage(file);
+          state.originalImage = image;
+
+          drawImageToCanvas(image, elements.beforeCanvas);
+          drawImageToCanvas(image, elements.afterCanvas);
+
+          elements.placeholder.hidden = true;
+          resetSettingsValues();
+          setControlsEnabled(true);
+          updateComparisonMask();
+
+          setStatus(
+            "messages.imageLoaded",
+            "Imagen cargada. Ahora puedes mejorarla automáticamente o ajustar los controles.",
+            "success"
+          );
+        } catch (error) {
+          setStatus(
+            "messages.uploadError",
+            "No se pudo cargar la imagen.",
+            "error"
+          );
+        }
+      }
+
+      elements.uploadButton.addEventListener(
+        "click",
+        () => elements.imageInput.click()
+      );
+
+      elements.imageInput.addEventListener("change", (event) => {
+        handleImageUpload(event.target.files[0]);
+      });
+
+      elements.autoEnhance.addEventListener("click", () => {
+        buildEnhancedImage(true);
+      });
+
+      elements.resetSettings.addEventListener("click", () => {
+        resetSettingsValues();
+
+        if (state.originalImage) {
+          drawImageToCanvas(state.originalImage, elements.afterCanvas);
+          elements.placeholder.hidden = true;
+          updateComparisonMask();
+
+          setStatus(
+            "messages.reset",
+            "Ajustes restablecidos.",
+            "success"
+          );
+        }
+      });
+
+      ranges.forEach((name) => {
+        elements[name].addEventListener("input", () => {
+          updateRangeLabels();
+          scheduleEnhancement();
+        });
+      });
+
+      elements.upscale.addEventListener("change", () => {
+        updateRangeLabels();
+        scheduleEnhancement(120);
+      });
+
+      elements.localClarity.addEventListener("change", () => {
+        updateRangeLabels();
+        scheduleEnhancement(120);
+      });
+
+      elements.comparisonSlider.addEventListener(
+        "input",
+        updateComparisonMask
+      );
+
+      elements.comparisonStage.addEventListener(
+        "pointerdown",
+        beginComparisonDrag
+      );
+
+      elements.comparisonStage.addEventListener(
+        "pointermove",
+        continueComparisonDrag
+      );
+
+      elements.comparisonStage.addEventListener(
+        "pointerup",
+        endComparisonDrag
+      );
+
+      elements.comparisonStage.addEventListener(
+        "pointercancel",
+        endComparisonDrag
+      );
+
+      elements.downloadEnhanced.addEventListener("click", () => {
+        if (!state.originalImage) return;
+
+        downloadDataURL(
+          "creative-lab-enhanced.png",
+          getCanvasImageURL(elements.afterCanvas)
+        );
+      });
+
+      elements.downloadComparison.addEventListener("click", () => {
+        if (!state.originalImage) return;
+
+        downloadDataURL(
+          "creative-lab-before-after.png",
+          buildComparisonExport()
+        );
+      });
+
+      elements.lang.addEventListener("change", (event) => {
+        loadTranslations(event.target.value);
+      });
+
+      const savedLanguage = localStorage.getItem("creativeLabLanguage");
+      const browserLanguage =
+        (navigator.language || "es").toLowerCase().startsWith("en")
+          ? "en"
+          : "es";
+
+      loadTranslations(savedLanguage || browserLanguage);
+      resetSettingsValues();
+      setControlsEnabled(false);
+      updateComparisonMask();
+    })();
+  </script>
+</body>
+</html>

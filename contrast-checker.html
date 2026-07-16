@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Verificador de contraste de colores | Creative Lab</title>
+
+  <meta
+    name="description"
+    content="Comprueba el contraste entre texto y fondo según WCAG. Evalúa AA y AAA, previsualiza textos y encuentra combinaciones accesibles."
+  >
+
+  <meta
+    name="robots"
+    content="index, follow, max-image-preview:large, max-snippet:-1"
+  >
+
+  <meta name="author" content="Creative Lab">
+  <meta name="theme-color" content="#08140d">
+
+  <link rel="canonical" href="https://tudominio.com/contrast-checker.html">
+  <link rel="alternate" hreflang="es" href="https://tudominio.com/contrast-checker.html">
+  <link rel="alternate" hreflang="en" href="https://tudominio.com/en/contrast-checker.html">
+  <link rel="alternate" hreflang="x-default" href="https://tudominio.com/contrast-checker.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Creative Lab">
+  <meta property="og:title" content="Verificador de contraste de colores">
+  <meta
+    property="og:description"
+    content="Evalúa el contraste entre texto y fondo según WCAG AA y AAA."
+  >
+  <meta property="og:url" content="https://tudominio.com/contrast-checker.html">
+  <meta property="og:image" content="https://tudominio.com/src/contrast-checker-cover.webp">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Verificador de contraste | Creative Lab">
+  <meta
+    name="twitter:description"
+    content="Comprueba si una combinación de colores es accesible."
+  >
+  <meta name="twitter:image" content="https://tudominio.com/src/contrast-checker-cover.webp">
+
+  <link rel="icon" href="./src/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./styles/main.css">
+
+  <script src="./scripts/language.js" defer></script>
+  <script src="./scripts/shared.js" defer></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Creative Lab - Verificador de contraste",
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "Web",
+    "url": "https://tudominio.com/contrast-checker.html",
+    "description": "Herramienta online para comprobar contraste de colores según WCAG.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Creative Lab",
+      "url": "https://tudominio.com/"
+    }
+  }
+  </script>
+</head>
+
+<body data-page="contrast-checker">
+  <a class="skip-link" href="#main-content" data-i18n="common.skipToContent">
+    Saltar al contenido
+  </a>
+
+  <div class="site-shell">
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="site-brand" href="./index.html" aria-label="Ir al inicio">
+          <img
+            class="site-brand__logo"
+            src="./src/logo.svg"
+            alt="Logo de Creative Lab"
+            width="48"
+            height="48"
+            data-i18n-alt="brand.logoAlt"
+          >
+
+          <span class="site-brand__name" data-i18n="brand.name">
+            Creative Lab
+          </span>
+        </a>
+
+        <div class="site-header__actions">
+          <a
+            class="back-to-portfolio"
+            href="./index.html"
+            data-i18n="common.backToPortfolio"
+          >
+            Regresar al portafolio de servicios
+          </a>
+
+          <label class="language-control" for="language-selector">
+            <span class="sr-only" data-i18n="common.language">Idioma</span>
+
+            <select
+              id="language-selector"
+              name="language"
+              aria-label="Seleccionar idioma"
+            >
+              <option value="es">ES</option>
+              <option value="en">EN</option>
+            </select>
+          </label>
+        </div>
+      </div>
+    </header>
+
+    <aside
+      class="ad-slot ad-slot--top"
+      aria-label="Espacio publicitario"
+      data-ad-position="contrast-checker-top"
+    >
+      <span data-i18n="common.advertisement">Publicidad</span>
+    </aside>
+
+    <main class="product-page" id="main-content">
+      <section class="product-header" aria-labelledby="product-title">
+        <div class="product-header__content">
+          <p class="section-heading__eyebrow" data-i18n="product.eyebrow">
+            Accesibilidad visual
+          </p>
+
+          <h1 id="product-title" data-i18n="product.title">
+            Verificador de contraste
+          </h1>
+
+          <p class="product-header__description" data-i18n="product.description">
+            Comprueba si los colores de texto y fondo cumplen con los niveles
+            de contraste recomendados por WCAG.
+          </p>
+        </div>
+      </section>
+
+      <section class="tool-interface" aria-labelledby="checker-title">
+        <div>
+          <h2 id="checker-title" data-i18n="checker.title">
+            Compara dos colores
+          </h2>
+
+          <p data-i18n="checker.intro">
+            Selecciona el color del texto y el fondo para evaluar la legibilidad.
+          </p>
+        </div>
+
+        <div class="contrast-color-controls">
+          <article class="contrast-color-card">
+            <div class="contrast-color-card__heading">
+              <h3 data-i18n="checker.textColor">Color del texto</h3>
+            </div>
+
+            <div class="contrast-color-card__controls">
+              <input
+                id="text-color-picker"
+                type="color"
+                value="#FFFFFF"
+                data-i18n-aria-label="checker.textColorPicker"
+                aria-label="Selector de color del texto"
+              >
+
+              <div class="form-field">
+                <label for="text-color-input">HEX</label>
+
+                <div class="color-text-input">
+                  <input
+                    id="text-color-input"
+                    type="text"
+                    value="#FFFFFF"
+                    maxlength="7"
+                    spellcheck="false"
+                  >
+
+                  <button
+                    class="color-copy-button"
+                    id="copy-text-color"
+                    type="button"
+                    data-i18n-aria-label="checker.copyTextColor"
+                    aria-label="Copiar color del texto"
+                  >
+                    ⧉
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <button
+            class="contrast-swap-button"
+            id="swap-button"
+            type="button"
+            data-i18n-aria-label="checker.swapColors"
+            aria-label="Intercambiar colores"
+          >
+            ⇄
+          </button>
+
+          <article class="contrast-color-card">
+            <div class="contrast-color-card__heading">
+              <h3 data-i18n="checker.backgroundColor">Color del fondo</h3>
+            </div>
+
+            <div class="contrast-color-card__controls">
+              <input
+                id="background-color-picker"
+                type="color"
+                value="#08140D"
+                data-i18n-aria-label="checker.backgroundColorPicker"
+                aria-label="Selector de color del fondo"
+              >
+
+              <div class="form-field">
+                <label for="background-color-input">HEX</label>
+
+                <div class="color-text-input">
+                  <input
+                    id="background-color-input"
+                    type="text"
+                    value="#08140D"
+                    maxlength="7"
+                    spellcheck="false"
+                  >
+
+                  <button
+                    class="color-copy-button"
+                    id="copy-background-color"
+                    type="button"
+                    data-i18n-aria-label="checker.copyBackgroundColor"
+                    aria-label="Copiar color del fondo"
+                  >
+                    ⧉
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div
+          class="status-message status-message--info"
+          id="status-message"
+          role="status"
+          aria-live="polite"
+          hidden
+        ></div>
+
+        <div class="contrast-result-layout">
+          <article class="contrast-score-card">
+            <p data-i18n="checker.ratioLabel">Relación de contraste</p>
+
+            <strong id="contrast-ratio">15.88:1</strong>
+
+            <span id="contrast-summary" data-i18n="checker.excellent">
+              Contraste excelente
+            </span>
+          </article>
+
+          <div class="contrast-preview-card" id="contrast-preview">
+            <p class="contrast-preview-card__eyebrow" data-i18n="checker.previewEyebrow">
+              Vista previa
+            </p>
+
+            <h3 id="preview-heading" data-i18n="checker.previewHeading">
+              Diseño claro y accesible
+            </h3>
+
+            <p id="preview-paragraph" data-i18n="checker.previewParagraph">
+              Este texto permite comprobar cómo se verá la combinación elegida
+              en un bloque de contenido real.
+            </p>
+
+            <button class="contrast-preview-card__button" type="button">
+              <span data-i18n="checker.previewButton">Botón de ejemplo</span>
+            </button>
+          </div>
+        </div>
+
+        <section class="contrast-compliance-section" aria-labelledby="compliance-title">
+          <div class="contrast-compliance-section__heading">
+            <div>
+              <h3 id="compliance-title" data-i18n="checker.complianceTitle">
+                Cumplimiento WCAG
+              </h3>
+
+              <p data-i18n="checker.complianceDescription">
+                Resultados para texto normal, texto grande y elementos gráficos.
+              </p>
+            </div>
+          </div>
+
+          <div class="contrast-compliance-grid">
+            <article class="contrast-compliance-card">
+              <div class="contrast-compliance-card__heading">
+                <h4 data-i18n="checker.normalText">Texto normal</h4>
+                <span id="normal-aa-badge" class="contrast-badge">AA</span>
+              </div>
+
+              <dl>
+                <div>
+                  <dt>AA</dt>
+                  <dd id="normal-aa-result">—</dd>
+                </div>
+
+                <div>
+                  <dt>AAA</dt>
+                  <dd id="normal-aaa-result">—</dd>
+                </div>
+              </dl>
+            </article>
+
+            <article class="contrast-compliance-card">
+              <div class="contrast-compliance-card__heading">
+                <h4 data-i18n="checker.largeText">Texto grande</h4>
+                <span id="large-aa-badge" class="contrast-badge">AA</span>
+              </div>
+
+              <dl>
+                <div>
+                  <dt>AA</dt>
+                  <dd id="large-aa-result">—</dd>
+                </div>
+
+                <div>
+                  <dt>AAA</dt>
+                  <dd id="large-aaa-result">—</dd>
+                </div>
+              </dl>
+            </article>
+
+            <article class="contrast-compliance-card">
+              <div class="contrast-compliance-card__heading">
+                <h4 data-i18n="checker.uiElements">Elementos UI</h4>
+                <span id="ui-badge" class="contrast-badge">UI</span>
+              </div>
+
+              <dl>
+                <div>
+                  <dt data-i18n="checker.minimum">Mínimo</dt>
+                  <dd id="ui-result">—</dd>
+                </div>
+
+                <div>
+                  <dt data-i18n="checker.requiredRatio">Relación</dt>
+                  <dd>3:1</dd>
+                </div>
+              </dl>
+            </article>
+          </div>
+        </section>
+
+        <section class="contrast-suggestions-section" aria-labelledby="suggestions-title">
+          <div class="contrast-suggestions-section__heading">
+            <div>
+              <h3 id="suggestions-title" data-i18n="checker.suggestionsTitle">
+                Sugerencias accesibles
+              </h3>
+
+              <p data-i18n="checker.suggestionsDescription">
+                Alternativas cercanas que mejoran el contraste manteniendo el estilo.
+              </p>
+            </div>
+          </div>
+
+          <div class="contrast-suggestions-grid" id="suggestions-grid"></div>
+        </section>
+
+        <section class="contrast-code-panel">
+          <div class="contrast-code-panel__heading">
+            <div>
+              <h3 data-i18n="checker.exportTitle">Código de la combinación</h3>
+
+              <p data-i18n="checker.exportDescription">
+                Copia los estilos CSS de la combinación actual.
+              </p>
+            </div>
+          </div>
+
+          <div class="contrast-code-card">
+            <code id="css-export"></code>
+
+            <button
+              class="color-copy-button"
+              id="copy-css-button"
+              type="button"
+              data-i18n-aria-label="checker.copyCss"
+              aria-label="Copiar CSS"
+            >
+              ⧉
+            </button>
+          </div>
+        </section>
+
+        <div class="hero__actions">
+          <button
+            class="button button--secondary"
+            id="random-button"
+            type="button"
+          >
+            <span data-i18n="checker.randomButton">Combinación aleatoria</span>
+          </button>
+
+          <button
+            class="button button--secondary"
+            id="download-button"
+            type="button"
+          >
+            <span data-i18n="checker.downloadButton">Descargar resultado</span>
+          </button>
+
+          <button
+            class="button button--secondary"
+            id="reset-button"
+            type="button"
+          >
+            <span data-i18n="common.reset">Restablecer</span>
+          </button>
+        </div>
+
+        <p class="privacy-note" data-i18n="common.privacyNotice">
+          Tus datos se procesan localmente en tu navegador.
+        </p>
+      </section>
+
+      <aside
+        class="ad-slot ad-slot--bottom"
+        aria-label="Espacio publicitario"
+        data-ad-position="contrast-checker-bottom"
+      >
+        <span data-i18n="common.advertisement">Publicidad</span>
+      </aside>
+
+      <section class="about-section__content product-information">
+        <p class="section-heading__eyebrow" data-i18n="info.eyebrow">
+          Legibilidad para todos
+        </p>
+
+        <h2 data-i18n="info.title">
+          Cómo comprobar el contraste con Creative Lab
+        </h2>
+
+        <p data-i18n="info.description">
+          Elige los colores, revisa la relación de contraste y confirma si la
+          combinación cumple los niveles AA y AAA.
+        </p>
+
+        <div class="trust-grid">
+          <article class="trust-card">
+            <h3 data-i18n="info.stepOneTitle">1. Selecciona</h3>
+            <p data-i18n="info.stepOneText">
+              Elige el color del texto y del fondo.
+            </p>
+          </article>
+
+          <article class="trust-card">
+            <h3 data-i18n="info.stepTwoTitle">2. Comprueba</h3>
+            <p data-i18n="info.stepTwoText">
+              Revisa el contraste y el cumplimiento WCAG.
+            </p>
+          </article>
+
+          <article class="trust-card">
+            <h3 data-i18n="info.stepThreeTitle">3. Ajusta</h3>
+            <p data-i18n="info.stepThreeText">
+              Usa las sugerencias para mejorar la legibilidad.
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const DEFAULT_TEXT = "#FFFFFF";
+      const DEFAULT_BACKGROUND = "#08140D";
+
+      const textPicker = document.getElementById("text-color-picker");
+      const textInput = document.getElementById("text-color-input");
+      const backgroundPicker = document.getElementById("background-color-picker");
+      const backgroundInput = document.getElementById("background-color-input");
+      const swapButton = document.getElementById("swap-button");
+      const copyTextButton = document.getElementById("copy-text-color");
+      const copyBackgroundButton = document.getElementById("copy-background-color");
+      const ratioElement = document.getElementById("contrast-ratio");
+      const summaryElement = document.getElementById("contrast-summary");
+      const preview = document.getElementById("contrast-preview");
+      const previewButton = preview.querySelector(".contrast-preview-card__button");
+      const normalAaResult = document.getElementById("normal-aa-result");
+      const normalAaaResult = document.getElementById("normal-aaa-result");
+      const largeAaResult = document.getElementById("large-aa-result");
+      const largeAaaResult = document.getElementById("large-aaa-result");
+      const uiResult = document.getElementById("ui-result");
+      const normalAaBadge = document.getElementById("normal-aa-badge");
+      const largeAaBadge = document.getElementById("large-aa-badge");
+      const uiBadge = document.getElementById("ui-badge");
+      const suggestionsGrid = document.getElementById("suggestions-grid");
+      const cssExport = document.getElementById("css-export");
+      const copyCssButton = document.getElementById("copy-css-button");
+      const randomButton = document.getElementById("random-button");
+      const downloadButton = document.getElementById("download-button");
+      const resetButton = document.getElementById("reset-button");
+      const statusMessage = document.getElementById("status-message");
+
+      function clamp(value, minimum, maximum) {
+        return Math.min(maximum, Math.max(minimum, value));
+      }
+
+      function componentToHex(value) {
+        return clamp(Math.round(value), 0, 255)
+          .toString(16)
+          .padStart(2, "0")
+          .toUpperCase();
+      }
+
+      function rgbToHex(r, g, b) {
+        return `#${componentToHex(r)}${componentToHex(g)}${componentToHex(b)}`;
+      }
+
+      function parseHex(value) {
+        const normalized = value.trim().replace(/^#/, "");
+
+        if (!/^[0-9A-F]{6}$/i.test(normalized)) {
+          return null;
+        }
+
+        return {
+          r: parseInt(normalized.slice(0, 2), 16),
+          g: parseInt(normalized.slice(2, 4), 16),
+          b: parseInt(normalized.slice(4, 6), 16)
+        };
+      }
+
+      function linearize(value) {
+        const channel = value / 255;
+
+        return channel <= 0.03928
+          ? channel / 12.92
+          : Math.pow((channel + 0.055) / 1.055, 2.4);
+      }
+
+      function relativeLuminance(color) {
+        return (
+          0.2126 * linearize(color.r) +
+          0.7152 * linearize(color.g) +
+          0.0722 * linearize(color.b)
+        );
+      }
+
+      function contrastRatio(first, second) {
+        const firstLuminance = relativeLuminance(first);
+        const secondLuminance = relativeLuminance(second);
+        const lightest = Math.max(firstLuminance, secondLuminance);
+        const darkest = Math.min(firstLuminance, secondLuminance);
+
+        return (lightest + 0.05) / (darkest + 0.05);
+      }
+
+      function mixColor(color, target, amount) {
+        return {
+          r: Math.round(color.r + (target.r - color.r) * amount),
+          g: Math.round(color.g + (target.g - color.g) * amount),
+          b: Math.round(color.b + (target.b - color.b) * amount)
+        };
+      }
+
+      function showStatus(message, type = "info") {
+        statusMessage.hidden = false;
+        statusMessage.textContent = message;
+        statusMessage.className = `status-message status-message--${type}`;
+
+        window.setTimeout(() => {
+          statusMessage.hidden = true;
+        }, 1800);
+      }
+
+      async function copyText(value) {
+        try {
+          await navigator.clipboard.writeText(value);
+          showStatus("Valor copiado.", "success");
+        } catch {
+          showStatus("No fue posible copiar el valor.", "error");
+        }
+      }
+
+      function getComplianceLabel(passes) {
+        return passes ? "Cumple" : "No cumple";
+      }
+
+      function setResult(element, passes) {
+        element.textContent = getComplianceLabel(passes);
+        element.className = passes
+          ? "contrast-result contrast-result--pass"
+          : "contrast-result contrast-result--fail";
+      }
+
+      function setBadge(element, passes) {
+        element.className = passes
+          ? "contrast-badge contrast-badge--pass"
+          : "contrast-badge contrast-badge--fail";
+      }
+
+      function getSummary(ratio) {
+        if (ratio >= 7) return "Contraste excelente";
+        if (ratio >= 4.5) return "Buen contraste";
+        if (ratio >= 3) return "Contraste limitado";
+        return "Contraste insuficiente";
+      }
+
+      function buildSuggestions(textColor, backgroundColor) {
+        const suggestions = [];
+        const black = { r: 0, g: 0, b: 0 };
+        const white = { r: 255, g: 255, b: 255 };
+
+        const textTargets = [black, white];
+        const backgroundTargets = [black, white];
+
+        textTargets.forEach((target) => {
+          for (let amount = 0.08; amount <= 1; amount += 0.08) {
+            const candidate = mixColor(textColor, target, amount);
+            const ratio = contrastRatio(candidate, backgroundColor);
+
+            if (ratio >= 4.5) {
+              suggestions.push({
+                text: rgbToHex(candidate.r, candidate.g, candidate.b),
+                background: backgroundInput.value.toUpperCase(),
+                ratio,
+                type: "text"
+              });
+              break;
+            }
+          }
+        });
+
+        backgroundTargets.forEach((target) => {
+          for (let amount = 0.08; amount <= 1; amount += 0.08) {
+            const candidate = mixColor(backgroundColor, target, amount);
+            const ratio = contrastRatio(textColor, candidate);
+
+            if (ratio >= 4.5) {
+              suggestions.push({
+                text: textInput.value.toUpperCase(),
+                background: rgbToHex(candidate.r, candidate.g, candidate.b),
+                ratio,
+                type: "background"
+              });
+              break;
+            }
+          }
+        });
+
+        const unique = [];
+        const seen = new Set();
+
+        suggestions
+          .sort((a, b) => a.ratio - b.ratio)
+          .forEach((item) => {
+            const key = `${item.text}-${item.background}`;
+
+            if (!seen.has(key)) {
+              seen.add(key);
+              unique.push(item);
+            }
+          });
+
+        return unique.slice(0, 4);
+      }
+
+      function renderSuggestions(textColor, backgroundColor) {
+        suggestionsGrid.innerHTML = "";
+
+        const suggestions = buildSuggestions(textColor, backgroundColor);
+
+        suggestions.forEach((suggestion) => {
+          const card = document.createElement("button");
+          card.type = "button";
+          card.className = "contrast-suggestion-card";
+          card.style.color = suggestion.text;
+          card.style.backgroundColor = suggestion.background;
+
+          card.innerHTML = `
+            <span class="contrast-suggestion-card__sample">Aa</span>
+            <strong>${suggestion.ratio.toFixed(2)}:1</strong>
+            <small>${suggestion.text} / ${suggestion.background}</small>
+          `;
+
+          card.addEventListener("click", () => {
+            textPicker.value = suggestion.text;
+            textInput.value = suggestion.text;
+            backgroundPicker.value = suggestion.background;
+            backgroundInput.value = suggestion.background;
+            updateContrast();
+          });
+
+          suggestionsGrid.appendChild(card);
+        });
+      }
+
+      function updateContrast() {
+        const textColor = parseHex(textInput.value);
+        const backgroundColor = parseHex(backgroundInput.value);
+
+        if (!textColor || !backgroundColor) {
+          return;
+        }
+
+        const ratio = contrastRatio(textColor, backgroundColor);
+
+        ratioElement.textContent = `${ratio.toFixed(2)}:1`;
+        summaryElement.textContent = getSummary(ratio);
+
+        preview.style.color = textInput.value;
+        preview.style.backgroundColor = backgroundInput.value;
+
+        previewButton.style.color = backgroundInput.value;
+        previewButton.style.backgroundColor = textInput.value;
+
+        setResult(normalAaResult, ratio >= 4.5);
+        setResult(normalAaaResult, ratio >= 7);
+        setResult(largeAaResult, ratio >= 3);
+        setResult(largeAaaResult, ratio >= 4.5);
+        setResult(uiResult, ratio >= 3);
+
+        setBadge(normalAaBadge, ratio >= 4.5);
+        setBadge(largeAaBadge, ratio >= 3);
+        setBadge(uiBadge, ratio >= 3);
+
+        cssExport.textContent =
+          `.example {\n` +
+          `  color: ${textInput.value.toUpperCase()};\n` +
+          `  background-color: ${backgroundInput.value.toUpperCase()};\n` +
+          `}`;
+
+        renderSuggestions(textColor, backgroundColor);
+      }
+
+      function syncFromTextInput(input, picker) {
+        const color = parseHex(input.value);
+
+        if (!color) {
+          input.setAttribute("aria-invalid", "true");
+          return;
+        }
+
+        input.setAttribute("aria-invalid", "false");
+        picker.value = rgbToHex(color.r, color.g, color.b);
+        updateContrast();
+      }
+
+      function randomColor() {
+        return rgbToHex(
+          Math.floor(Math.random() * 256),
+          Math.floor(Math.random() * 256),
+          Math.floor(Math.random() * 256)
+        );
+      }
+
+      function downloadResult() {
+        const textColor = parseHex(textInput.value);
+        const backgroundColor = parseHex(backgroundInput.value);
+
+        if (!textColor || !backgroundColor) return;
+
+        const ratio = contrastRatio(textColor, backgroundColor);
+
+        const payload = {
+          textColor: textInput.value.toUpperCase(),
+          backgroundColor: backgroundInput.value.toUpperCase(),
+          contrastRatio: Number(ratio.toFixed(2)),
+          wcag: {
+            normalTextAA: ratio >= 4.5,
+            normalTextAAA: ratio >= 7,
+            largeTextAA: ratio >= 3,
+            largeTextAAA: ratio >= 4.5,
+            uiElements: ratio >= 3
+          }
+        };
+
+        const blob = new Blob(
+          [JSON.stringify(payload, null, 2)],
+          { type: "application/json;charset=utf-8" }
+        );
+
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+
+        link.href = url;
+        link.download = "creative-lab-contrast-result.json";
+        link.click();
+
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      }
+
+      textPicker.addEventListener("input", () => {
+        textInput.value = textPicker.value.toUpperCase();
+        updateContrast();
+      });
+
+      backgroundPicker.addEventListener("input", () => {
+        backgroundInput.value = backgroundPicker.value.toUpperCase();
+        updateContrast();
+      });
+
+      textInput.addEventListener("input", () =>
+        syncFromTextInput(textInput, textPicker)
+      );
+
+      backgroundInput.addEventListener("input", () =>
+        syncFromTextInput(backgroundInput, backgroundPicker)
+      );
+
+      swapButton.addEventListener("click", () => {
+        const previousText = textInput.value;
+
+        textInput.value = backgroundInput.value;
+        textPicker.value = backgroundInput.value;
+
+        backgroundInput.value = previousText;
+        backgroundPicker.value = previousText;
+
+        updateContrast();
+      });
+
+      copyTextButton.addEventListener("click", () =>
+        copyText(textInput.value.toUpperCase())
+      );
+
+      copyBackgroundButton.addEventListener("click", () =>
+        copyText(backgroundInput.value.toUpperCase())
+      );
+
+      copyCssButton.addEventListener("click", () =>
+        copyText(cssExport.textContent)
+      );
+
+      randomButton.addEventListener("click", () => {
+        textInput.value = randomColor();
+        backgroundInput.value = randomColor();
+        textPicker.value = textInput.value;
+        backgroundPicker.value = backgroundInput.value;
+        updateContrast();
+      });
+
+      downloadButton.addEventListener("click", downloadResult);
+
+      resetButton.addEventListener("click", () => {
+        textInput.value = DEFAULT_TEXT;
+        textPicker.value = DEFAULT_TEXT;
+        backgroundInput.value = DEFAULT_BACKGROUND;
+        backgroundPicker.value = DEFAULT_BACKGROUND;
+        updateContrast();
+      });
+
+      updateContrast();
+    })();
+  </script>
+</body>
+</html>

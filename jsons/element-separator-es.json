@@ -1,0 +1,57 @@
+{
+  "seo": {
+    "title": "Separador de elementos de imagen | Creative Lab",
+    "description": "Selecciona manualmente un elemento, aíslalo con transparencia y descárgalo como PNG."
+  },
+  "product": {
+    "eyebrow": "Extracción manual rápida",
+    "title": "Separador de elementos",
+    "description": "Marca el contorno de un elemento, aíslalo sobre fondo transparente y descárgalo como PNG."
+  },
+  "steps": {
+    "uploadTitle": "1. Carga una imagen",
+    "uploadButton": "Seleccionar imagen",
+    "uploadHelp": "PNG, JPG o WebP",
+    "selectTitle": "2. Marca el elemento",
+    "selectHelp": "Haz clic alrededor del contorno. Usa varios puntos para obtener una selección más precisa.",
+    "downloadTitle": "3. Descarga"
+  },
+  "actions": {
+    "undoPoint": "Deshacer último punto",
+    "clearSelection": "Limpiar selección",
+    "extract": "Aislar elemento",
+    "download": "Descargar PNG",
+    "reset": "Comenzar de nuevo"
+  },
+  "preview": {
+    "originalTitle": "Imagen y selección",
+    "originalHint": "Haz clic sobre la imagen para crear el contorno.",
+    "originalEmpty": "La imagen aparecerá aquí.",
+    "resultTitle": "Elemento aislado",
+    "resultHint": "El resultado tendrá fondo transparente.",
+    "resultEmpty": "El elemento aislado aparecerá aquí.",
+    "points": "{count} puntos",
+    "selectionCanvasLabel": "Área de selección del elemento",
+    "resultCanvasLabel": "Vista previa del elemento aislado"
+  },
+  "messages": {
+    "ready": "Carga una imagen para comenzar.",
+    "loaded": "Imagen cargada. Marca el contorno del elemento.",
+    "selecting": "Continúa marcando el contorno del elemento.",
+    "extracted": "Elemento aislado correctamente.",
+    "downloaded": "Elemento descargado como PNG.",
+    "cleared": "Selección limpiada.",
+    "error": "No se pudo cargar la imagen."
+  },
+  "info": {
+    "eyebrow": "Selección simple y transparente",
+    "title": "Cómo separar un elemento con Creative Lab",
+    "description": "La herramienta utiliza una selección manual por puntos para conservar únicamente el área marcada y exportarla como PNG transparente.",
+    "stepOneTitle": "1. Carga",
+    "stepOneText": "Selecciona una imagen PNG, JPG o WebP.",
+    "stepTwoTitle": "2. Delimita",
+    "stepTwoText": "Marca puntos alrededor del elemento que deseas conservar.",
+    "stepThreeTitle": "3. Descarga",
+    "stepThreeText": "Aísla el área y descárgala como PNG transparente."
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "seo": {
+    "title": "Online Color Converter | Creative Lab",
+    "description": "Convert colors between HEX, RGB, HSL, HSV and CMYK.",
+    "htmlLang": "en"
+  },
+  "product": {
+    "eyebrow": "Color conversion",
+    "title": "Color Converter",
+    "description": "Convert a color between HEX, RGB, HSL, HSV and CMYK, explore variants and copy the values."
+  },
+  "converter": {
+    "title": "Select or enter a color",
+    "intro": "Use the visual picker or enter a hexadecimal value.",
+    "colorPickerLabel": "Color picker",
+    "hexHelp": "Example: #66FF8F or #66FF8FFF",
+    "currentColor": "Current color",
+    "variantsTitle": "Color variants",
+    "variantsDescription": "Automatically calculated lighter and darker shades.",
+    "randomButton": "Random color"
+  },
+  "info": {
+    "eyebrow": "One color, multiple formats",
+    "title": "How to convert colors with Creative Lab",
+    "description": "Select a color, adjust its channels and copy the format you need.",
+    "stepOneTitle": "1. Select",
+    "stepOneText": "Choose a color or enter its hexadecimal value.",
+    "stepTwoTitle": "2. Convert",
+    "stepTwoText": "View HEX, RGB, HSL, HSV and CMYK.",
+    "stepThreeTitle": "3. Copy",
+    "stepThreeText": "Copy any value and use it in your project."
+  }
+}

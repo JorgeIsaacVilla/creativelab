@@ -1,0 +1,64 @@
+{
+  "seo": {
+    "title": "JPG, PNG, WebP and SVG Image Compressor | Creative Lab",
+    "description": "Compress JPG, PNG, WebP and SVG images for free in your browser with Creative Lab. Reduce file size, compare results and download instantly.",
+    "ogTitle": "JPG, PNG, WebP and SVG Image Compressor",
+    "ogDescription": "Reduce image file size directly in your browser.",
+    "twitterTitle": "Image Compressor | Creative Lab",
+    "twitterDescription": "Compress JPG, PNG, WebP and SVG directly in your browser.",
+    "htmlLang": "en"
+  },
+  "product": {
+    "eyebrow": "Image optimization",
+    "title": "JPG, PNG, WebP and SVG Image Compressor",
+    "description": "Reduce image file size directly in your browser and compare the result before downloading."
+  },
+  "compressor": {
+    "title": "Select an image",
+    "intro": "Upload an image, adjust quality and generate a lighter version.",
+    "uploadTitle": "Drag an image here or click to select it",
+    "uploadHelp": "Allowed formats: JPG, PNG, WebP and SVG. Maximum 25 MB.",
+    "outputFormat": "Output format",
+    "keepOriginal": "Keep original format",
+    "quality": "Quality",
+    "presetLightTitle": "Light compression",
+    "presetLightText": "Better visual quality",
+    "presetBalancedTitle": "Balanced",
+    "presetBalancedText": "Good balance between quality and size",
+    "presetStrongTitle": "Strong compression",
+    "presetStrongText": "Smaller file",
+    "originalTitle": "Original image",
+    "resultTitle": "Compressed image",
+    "originalAlt": "Original image preview",
+    "resultAlt": "Compressed image preview",
+    "fileName": "File",
+    "dimensions": "Dimensions",
+    "fileSize": "File size",
+    "outputType": "Format",
+    "savings": "Savings",
+    "compressionResult": "Compression result",
+    "compressButton": "Compress image"
+  },
+  "messages": {
+    "invalidFormat": "Select a JPG, PNG, WebP or SVG image.",
+    "fileTooLarge": "The image exceeds the 25 MB limit.",
+    "readError": "The image could not be read.",
+    "compressError": "The image could not be compressed.",
+    "canvasError": "The browser could not start the compressor.",
+    "ready": "Image ready to compress.",
+    "processing": "Compressing image...",
+    "completed": "Compression completed.",
+    "largerResult": "The generated version is not smaller. Try lower quality or WebP."
+  },
+  "info": {
+    "eyebrow": "Less weight, same idea",
+    "title": "How to compress images with Creative Lab",
+    "description": "Select an image, define the quality level and download an optimized version. Everything runs in your browser.",
+    "stepOneTitle": "1. Upload",
+    "stepOneText": "Select a JPG, PNG, WebP or SVG image.",
+    "stepTwoTitle": "2. Adjust",
+    "stepTwoText": "Choose a quality level or use one of the quick presets.",
+    "stepThreeTitle": "3. Download",
+    "stepThreeText": "Compare file size and save the compressed version."
+  }
+}

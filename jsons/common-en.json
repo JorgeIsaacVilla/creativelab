@@ -1,0 +1,62 @@
+{
+  "brand": {
+    "name": "Creative Lab",
+    "logoAlt": "Creative Lab logo"
+  },
+  "common": {
+    "skipToContent": "Skip to content",
+    "language": "Language",
+    "advertisement": "Advertisement",
+    "featured": "Featured",
+    "openTool": "Open tool",
+    "backToPortfolio": "Return to services portfolio",
+    "uploadFile": "Upload file",
+    "download": "Download",
+    "process": "Process",
+    "reset": "Start again",
+    "processing": "Processing",
+    "completed": "Process completed",
+    "error": "An error has occurred",
+    "selectFile": "Select file",
+    "dragAndDrop": "Drag your file here or click to select it",
+    "privacyNotice": "Your files are processed locally in your browser whenever possible."
+  },
+  "nav": {
+    "tools": "Tools",
+    "categories": "Categories",
+    "about": "About",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "footer": {
+    "description": "Creative tools to transform ideas into visual results.",
+    "toolsTitle": "Tools",
+    "companyTitle": "Platform",
+    "legalTitle": "Legal",
+    "contact": "Contact",
+    "advertising": "Advertising",
+    "privacy": "Privacy policy",
+    "terms": "Terms of use",
+    "cookies": "Cookie policy",
+    "rights": "All rights reserved.",
+    "adDisclosure": "This site may display advertising or sponsored links."
+  },
+  "tools": {
+    "socialDesigner": {
+      "title": "Social Designer",
+      "description": "Create posts, stories, ads and banners with text, images, shapes and effects."
+    },
+    "imageEnhancer": {
+      "title": "Image enhancer",
+      "description": "Improve sharpness, clarity, contrast and noise, then compare the result before and after."
+    },
+    "glassGenerator": {
+      "title": "Translucent effect generator",
+      "description": "Create glassmorphism cards with blur, transparency, borders, shadows and ready-to-use CSS."
+    },
+    "elementSeparator": {
+      "title": "Element separator",
+      "description": "Trace an element, isolate it on a transparent background and download it as a PNG."
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "seo": {
+    "title": "Aspect Ratio Calculator | Creative Lab",
+    "description": "Calculate aspect ratios, proportional dimensions and scales.",
+    "htmlLang": "en"
+  },
+  "product": {
+    "eyebrow": "Precise proportions",
+    "title": "Aspect Ratio Calculator",
+    "description": "Calculate proportions, equivalent dimensions and scales for images, video, screens and visual compositions."
+  },
+  "calculator": {
+    "title": "Define your dimensions",
+    "intro": "Enter width and height to find the simplified ratio and generate equivalent sizes.",
+    "width": "Width",
+    "height": "Height",
+    "swap": "Swap",
+    "ratioLabel": "Simplified ratio",
+    "landscape": "Landscape",
+    "previewTitle": "Proportional preview",
+    "previewDescription": "The frame visually represents the calculated ratio.",
+    "presetsTitle": "Common ratios",
+    "presetsDescription": "Select a common format to apply it quickly.",
+    "square": "Square",
+    "classic": "Classic",
+    "photo": "Photography",
+    "widescreen": "Widescreen",
+    "ultrawide": "Ultrawide",
+    "verticalVideo": "Vertical video",
+    "socialPortrait": "Social portrait",
+    "poster": "Poster",
+    "scaleTitle": "Calculate equivalent dimensions",
+    "scaleDescription": "Enter a new measurement and calculate the proportional dimension.",
+    "newWidth": "New width",
+    "newHeight": "New height",
+    "resultingHeight": "Resulting height",
+    "resultingWidth": "Resulting width",
+    "tableTitle": "Scaling table",
+    "tableDescription": "Common dimensions that preserve the same ratio.",
+    "scale": "Scale",
+    "pixels": "Pixels",
+    "codeTitle": "CSS for this ratio",
+    "codeDescription": "Copy the ready-to-use aspect-ratio property.",
+    "copyCss": "Copy CSS",
+    "downloadButton": "Download result"
+  },
+  "info": {
+    "eyebrow": "Sizes that preserve their shape",
+    "title": "How to calculate an aspect ratio",
+    "description": "Enter width and height, review the simplified ratio and calculate new dimensions without distortion.",
+    "stepOneTitle": "1. Enter",
+    "stepOneText": "Enter the original dimensions.",
+    "stepTwoTitle": "2. Calculate",
+    "stepTwoText": "Get the simplified ratio and orientation.",
+    "stepThreeTitle": "3. Scale",
+    "stepThreeText": "Generate equivalent dimensions automatically."
+  }
+}

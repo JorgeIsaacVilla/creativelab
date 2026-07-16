@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Separador de elementos de imagen | Creative Lab</title>
+  <meta
+    name="description"
+    content="Selecciona manualmente un elemento de una imagen, aíslalo con fondo transparente y descárgalo como PNG desde Creative Lab."
+  >
+  <meta
+    name="robots"
+    content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+  >
+  <meta name="author" content="Creative Lab">
+  <meta name="theme-color" content="#07150d">
+
+  <link rel="canonical" href="https://tudominio.com/element-separator.html">
+  <link rel="alternate" hreflang="es" href="https://tudominio.com/element-separator.html">
+  <link rel="alternate" hreflang="en" href="https://tudominio.com/en/element-separator.html">
+  <link rel="alternate" hreflang="x-default" href="https://tudominio.com/element-separator.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Creative Lab">
+  <meta property="og:title" content="Separador de elementos de imagen">
+  <meta property="og:description" content="Marca un objeto, aíslalo y descárgalo como PNG transparente.">
+  <meta property="og:url" content="https://tudominio.com/element-separator.html">
+  <meta property="og:image" content="https://tudominio.com/src/element-separator-cover.webp">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:locale:alternate" content="en_US">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Separador de elementos | Creative Lab">
+  <meta name="twitter:description" content="Aísla manualmente elementos y descárgalos como PNG transparente.">
+  <meta name="twitter:image" content="https://tudominio.com/src/element-separator-cover.webp">
+
+  <link rel="icon" href="./src/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./styles/main.css">
+
+  <script src="./scripts/language.js" defer></script>
+  <script src="./scripts/shared.js" defer></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Creative Lab - Separador de elementos",
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "Web",
+    "url": "https://tudominio.com/element-separator.html",
+    "description": "Herramienta para seleccionar manualmente un elemento, aislarlo con transparencia y descargarlo como PNG.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Creative Lab",
+      "url": "https://tudominio.com/"
+    }
+  }
+  </script>
+</head>
+
+<body data-page="element-separator">
+  <a class="skip-link" href="#main-content" data-i18n="common.skipToContent">
+    Saltar al contenido
+  </a>
+
+  <div class="site-shell">
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a
+          class="site-brand"
+          href="./index.html"
+          data-i18n-aria-label="common.goHome"
+          aria-label="Ir al inicio"
+        >
+          <img
+            class="site-brand__logo"
+            src="./src/logo.svg"
+            alt="Logo de Creative Lab"
+            width="48"
+            height="48"
+            data-i18n-alt="brand.logoAlt"
+          >
+          <span class="site-brand__name" data-i18n="brand.name">Creative Lab</span>
+        </a>
+
+        <div class="site-header__actions">
+          <a class="back-to-portfolio" href="./index.html" data-i18n="common.backToPortfolio">
+            Regresar al portafolio de servicios
+          </a>
+
+          <label class="language-control" for="language-selector">
+            <span class="sr-only" data-i18n="common.language">Idioma</span>
+            <select
+              id="language-selector"
+              name="language"
+              data-i18n-aria-label="common.selectLanguage"
+              aria-label="Seleccionar idioma"
+            >
+              <option value="es">ES</option>
+              <option value="en">EN</option>
+            </select>
+          </label>
+        </div>
+      </div>
+    </header>
+
+    <aside
+      class="ad-slot ad-slot--top"
+      aria-label="Espacio publicitario"
+      data-ad-position="element-separator-top"
+    >
+      <span data-i18n="common.advertisement">Publicidad</span>
+    </aside>
+
+    <main class="product-page element-separator-page" id="main-content">
+      <section class="product-header" aria-labelledby="product-title">
+        <div class="product-header__content">
+          <p class="section-heading__eyebrow" data-i18n="product.eyebrow">
+            Extracción manual rápida
+          </p>
+          <h1 id="product-title" data-i18n="product.title">
+            Separador de elementos
+          </h1>
+          <p class="product-header__description" data-i18n="product.description">
+            Marca el contorno de un elemento, aíslalo sobre fondo transparente y descárgalo como PNG.
+          </p>
+        </div>
+      </section>
+
+      <section class="separator-layout" aria-label="Editor de selección">
+        <aside class="separator-panel">
+          <article class="separator-card">
+            <h2 data-i18n="steps.uploadTitle">1. Carga una imagen</h2>
+
+            <input
+              id="image-input"
+              type="file"
+              accept="image/png,image/jpeg,image/webp"
+              hidden
+            >
+
+            <button
+              class="upload-zone separator-upload"
+              id="upload-button"
+              type="button"
+              aria-describedby="upload-help"
+            >
+              <span>
+                <strong data-i18n="steps.uploadButton">
+                  Seleccionar imagen
+                </strong>
+                <small id="upload-help" data-i18n="steps.uploadHelp">
+                  PNG, JPG o WebP
+                </small>
+              </span>
+            </button>
+          </article>
+
+          <article class="separator-card">
+            <h2 data-i18n="steps.selectTitle">2. Marca el elemento</h2>
+            <p class="separator-help" data-i18n="steps.selectHelp">
+              Haz clic alrededor del contorno. Usa varios puntos para obtener una selección más precisa.
+            </p>
+
+            <div class="button-stack">
+              <button
+                class="button button--secondary button--block"
+                id="undo-point"
+                type="button"
+                disabled
+                data-i18n="actions.undoPoint"
+              >
+                Deshacer último punto
+              </button>
+
+              <button
+                class="button button--secondary button--block"
+                id="clear-selection"
+                type="button"
+                disabled
+                data-i18n="actions.clearSelection"
+              >
+                Limpiar selección
+              </button>
+
+              <button
+                class="button button--primary button--block"
+                id="extract-element"
+                type="button"
+                disabled
+                data-i18n="actions.extract"
+              >
+                Aislar elemento
+              </button>
+            </div>
+          </article>
+
+          <article class="separator-card">
+            <h2 data-i18n="steps.downloadTitle">3. Descarga</h2>
+
+            <button
+              class="button button--primary button--block"
+              id="download-element"
+              type="button"
+              disabled
+              data-i18n="actions.download"
+            >
+              Descargar PNG
+            </button>
+
+            <button
+              class="button button--secondary button--block separator-reset"
+              id="reset-tool"
+              type="button"
+              data-i18n="actions.reset"
+            >
+              Comenzar de nuevo
+            </button>
+
+            <p
+              class="tool-note"
+              id="status-message"
+              role="status"
+              aria-live="polite"
+              data-i18n="messages.ready"
+            >
+              Carga una imagen para comenzar.
+            </p>
+          </article>
+        </aside>
+
+        <section class="separator-workspace">
+          <article class="separator-card">
+            <div class="separator-heading">
+              <div>
+                <strong data-i18n="preview.originalTitle">
+                  Imagen y selección
+                </strong>
+                <p data-i18n="preview.originalHint">
+                  Haz clic sobre la imagen para crear el contorno.
+                </p>
+              </div>
+
+              <span class="separator-counter" id="point-counter">0 puntos</span>
+            </div>
+
+            <div class="separator-stage" id="selection-stage">
+              <canvas
+                id="selection-canvas"
+                data-i18n-aria-label="preview.selectionCanvasLabel"
+                aria-label="Área de selección del elemento"
+              ></canvas>
+              <div
+                class="separator-placeholder"
+                id="selection-placeholder"
+                data-i18n="preview.originalEmpty"
+              >
+                La imagen aparecerá aquí.
+              </div>
+            </div>
+          </article>
+
+          <article class="separator-card">
+            <div class="separator-heading">
+              <div>
+                <strong data-i18n="preview.resultTitle">
+                  Elemento aislado
+                </strong>
+                <p data-i18n="preview.resultHint">
+                  El resultado tendrá fondo transparente.
+                </p>
+              </div>
+            </div>
+
+            <div class="separator-stage separator-stage--result">
+              <canvas
+                id="result-canvas"
+                data-i18n-aria-label="preview.resultCanvasLabel"
+                aria-label="Vista previa del elemento aislado"
+              ></canvas>
+              <div
+                class="separator-placeholder"
+                id="result-placeholder"
+                data-i18n="preview.resultEmpty"
+              >
+                El elemento aislado aparecerá aquí.
+              </div>
+            </div>
+          </article>
+        </section>
+      </section>
+
+      <aside
+        class="ad-slot ad-slot--bottom"
+        aria-label="Espacio publicitario"
+        data-ad-position="element-separator-bottom"
+      >
+        <span data-i18n="common.advertisement">Publicidad</span>
+      </aside>
+
+      <section
+        class="about-section__content product-information"
+        aria-labelledby="element-separator-info-title"
+      >
+        <p class="section-heading__eyebrow" data-i18n="info.eyebrow">
+          Selección simple y transparente
+        </p>
+        <h2 id="element-separator-info-title" data-i18n="info.title">
+          Cómo separar un elemento con Creative Lab
+        </h2>
+        <p data-i18n="info.description">
+          La herramienta utiliza una selección manual por puntos para conservar únicamente el área marcada y exportarla como PNG transparente.
+        </p>
+
+        <div class="trust-grid">
+          <article class="trust-card">
+            <h3 data-i18n="info.stepOneTitle">1. Carga</h3>
+            <p data-i18n="info.stepOneText">
+              Selecciona una imagen PNG, JPG o WebP.
+            </p>
+          </article>
+
+          <article class="trust-card">
+            <h3 data-i18n="info.stepTwoTitle">2. Delimita</h3>
+            <p data-i18n="info.stepTwoText">
+              Marca puntos alrededor del elemento que deseas conservar.
+            </p>
+          </article>
+
+          <article class="trust-card">
+            <h3 data-i18n="info.stepThreeTitle">3. Descarga</h3>
+            <p data-i18n="info.stepThreeText">
+              Aísla el área y descárgala como PNG transparente.
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <noscript>
+    <div class="noscript-message">
+      Esta herramienta necesita JavaScript para funcionar.
+    </div>
+  </noscript>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const state = {
+        image: null,
+        points: [],
+        resultReady: false,
+        filename: "elemento-separado.png"
+      };
+
+      const elements = {
+        imageInput: document.getElementById("image-input"),
+        uploadButton: document.getElementById("upload-button"),
+        undoPoint: document.getElementById("undo-point"),
+        clearSelection: document.getElementById("clear-selection"),
+        extractElement: document.getElementById("extract-element"),
+        downloadElement: document.getElementById("download-element"),
+        resetTool: document.getElementById("reset-tool"),
+        selectionCanvas: document.getElementById("selection-canvas"),
+        resultCanvas: document.getElementById("result-canvas"),
+        selectionPlaceholder: document.getElementById("selection-placeholder"),
+        resultPlaceholder: document.getElementById("result-placeholder"),
+        pointCounter: document.getElementById("point-counter"),
+        status: document.getElementById("status-message")
+      };
+
+      const selectionContext = elements.selectionCanvas.getContext("2d");
+      const resultContext = elements.resultCanvas.getContext("2d");
+
+      function translate(key, fallback) {
+        if (
+          window.CreativeLabLanguage &&
+          typeof window.CreativeLabLanguage.translate === "function"
+        ) {
+          return window.CreativeLabLanguage.translate(key, fallback);
+        }
+
+        return fallback;
+      }
+
+      function setStatus(key, fallback) {
+        elements.status.textContent = translate(key, fallback);
+      }
+
+      function updatePointCounter() {
+        elements.pointCounter.textContent = translate(
+          "preview.points",
+          "{count} puntos"
+        ).replace("{count}", String(state.points.length));
+      }
+
+      function updateControls() {
+        const hasPoints = state.points.length > 0;
+
+        elements.undoPoint.disabled = !hasPoints;
+        elements.clearSelection.disabled = !hasPoints;
+        elements.extractElement.disabled = state.points.length < 3;
+        elements.downloadElement.disabled = !state.resultReady;
+      }
+
+      function clearResult() {
+        state.resultReady = false;
+        resultContext.clearRect(
+          0,
+          0,
+          elements.resultCanvas.width,
+          elements.resultCanvas.height
+        );
+        elements.resultPlaceholder.hidden = false;
+        updateControls();
+      }
+
+      function loadImageFile(file) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+
+          reader.onload = () => {
+            const image = new Image();
+            image.onload = () => resolve(image);
+            image.onerror = reject;
+            image.src = reader.result;
+          };
+
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
+      }
+
+      function fitCanvasToImage(image) {
+        const maxWidth = 1100;
+        const maxHeight = 760;
+        const scale = Math.min(
+          1,
+          maxWidth / image.naturalWidth,
+          maxHeight / image.naturalHeight
+        );
+
+        elements.selectionCanvas.width = Math.max(
+          1,
+          Math.round(image.naturalWidth * scale)
+        );
+        elements.selectionCanvas.height = Math.max(
+          1,
+          Math.round(image.naturalHeight * scale)
+        );
+        elements.selectionCanvas.style.aspectRatio =
+          `${elements.selectionCanvas.width} / ${elements.selectionCanvas.height}`;
+      }
+
+      function drawSelection() {
+        const canvas = elements.selectionCanvas;
+
+        selectionContext.clearRect(0, 0, canvas.width, canvas.height);
+
+        if (!state.image) {
+          return;
+        }
+
+        selectionContext.drawImage(
+          state.image,
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        );
+
+        if (!state.points.length) {
+          return;
+        }
+
+        selectionContext.save();
+        selectionContext.lineWidth = 3;
+        selectionContext.strokeStyle = "#66ff8f";
+        selectionContext.fillStyle = "rgba(102, 255, 143, 0.14)";
+        selectionContext.shadowColor = "rgba(102, 255, 143, 0.7)";
+        selectionContext.shadowBlur = 10;
+
+        selectionContext.beginPath();
+        selectionContext.moveTo(state.points[0].x, state.points[0].y);
+
+        for (let index = 1; index < state.points.length; index += 1) {
+          selectionContext.lineTo(
+            state.points[index].x,
+            state.points[index].y
+          );
+        }
+
+        if (state.points.length >= 3) {
+          selectionContext.closePath();
+          selectionContext.fill();
+        }
+
+        selectionContext.stroke();
+        selectionContext.restore();
+
+        state.points.forEach((point, index) => {
+          selectionContext.save();
+          selectionContext.beginPath();
+          selectionContext.arc(point.x, point.y, 6, 0, Math.PI * 2);
+          selectionContext.fillStyle =
+            index === 0 ? "#b7ff38" : "#66ff8f";
+          selectionContext.strokeStyle = "#07140c";
+          selectionContext.lineWidth = 2;
+          selectionContext.fill();
+          selectionContext.stroke();
+          selectionContext.restore();
+        });
+      }
+
+      function pointerToCanvas(event) {
+        const bounds = elements.selectionCanvas.getBoundingClientRect();
+
+        return {
+          x:
+            (event.clientX - bounds.left) *
+            (elements.selectionCanvas.width / bounds.width),
+          y:
+            (event.clientY - bounds.top) *
+            (elements.selectionCanvas.height / bounds.height)
+        };
+      }
+
+      function addPoint(event) {
+        if (!state.image) {
+          return;
+        }
+
+        event.preventDefault();
+        state.points.push(pointerToCanvas(event));
+        clearResult();
+        drawSelection();
+        updatePointCounter();
+        updateControls();
+
+        setStatus(
+          "messages.selecting",
+          "Continúa marcando el contorno del elemento."
+        );
+      }
+
+      function extractElement() {
+        if (!state.image || state.points.length < 3) {
+          return;
+        }
+
+        const sourceCanvas = elements.selectionCanvas;
+        const scaleX = state.image.naturalWidth / sourceCanvas.width;
+        const scaleY = state.image.naturalHeight / sourceCanvas.height;
+
+        const imagePoints = state.points.map((point) => ({
+          x: point.x * scaleX,
+          y: point.y * scaleY
+        }));
+
+        const minX = Math.max(
+          0,
+          Math.floor(Math.min(...imagePoints.map((point) => point.x)))
+        );
+        const minY = Math.max(
+          0,
+          Math.floor(Math.min(...imagePoints.map((point) => point.y)))
+        );
+        const maxX = Math.min(
+          state.image.naturalWidth,
+          Math.ceil(Math.max(...imagePoints.map((point) => point.x)))
+        );
+        const maxY = Math.min(
+          state.image.naturalHeight,
+          Math.ceil(Math.max(...imagePoints.map((point) => point.y)))
+        );
+
+        const width = Math.max(1, maxX - minX);
+        const height = Math.max(1, maxY - minY);
+
+        elements.resultCanvas.width = width;
+        elements.resultCanvas.height = height;
+        elements.resultCanvas.style.aspectRatio = `${width} / ${height}`;
+
+        resultContext.clearRect(0, 0, width, height);
+        resultContext.save();
+        resultContext.beginPath();
+        resultContext.moveTo(
+          imagePoints[0].x - minX,
+          imagePoints[0].y - minY
+        );
+
+        for (let index = 1; index < imagePoints.length; index += 1) {
+          resultContext.lineTo(
+            imagePoints[index].x - minX,
+            imagePoints[index].y - minY
+          );
+        }
+
+        resultContext.closePath();
+        resultContext.clip();
+        resultContext.drawImage(
+          state.image,
+          minX,
+          minY,
+          width,
+          height,
+          0,
+          0,
+          width,
+          height
+        );
+        resultContext.restore();
+
+        state.resultReady = true;
+        elements.resultPlaceholder.hidden = true;
+        updateControls();
+
+        setStatus(
+          "messages.extracted",
+          "Elemento aislado correctamente."
+        );
+      }
+
+      function downloadResult() {
+        if (!state.resultReady) {
+          return;
+        }
+
+        const link = document.createElement("a");
+        link.download = state.filename;
+        link.href = elements.resultCanvas.toDataURL("image/png");
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+
+        setStatus(
+          "messages.downloaded",
+          "Elemento descargado como PNG."
+        );
+      }
+
+      function clearSelection() {
+        state.points = [];
+        clearResult();
+        drawSelection();
+        updatePointCounter();
+
+        setStatus(
+          "messages.cleared",
+          "Selección limpiada."
+        );
+      }
+
+      function resetTool() {
+        state.image = null;
+        state.points = [];
+        state.resultReady = false;
+        state.filename = "elemento-separado.png";
+
+        elements.imageInput.value = "";
+        selectionContext.clearRect(
+          0,
+          0,
+          elements.selectionCanvas.width,
+          elements.selectionCanvas.height
+        );
+        resultContext.clearRect(
+          0,
+          0,
+          elements.resultCanvas.width,
+          elements.resultCanvas.height
+        );
+
+        elements.selectionPlaceholder.hidden = false;
+        elements.resultPlaceholder.hidden = false;
+
+        updatePointCounter();
+        updateControls();
+        setStatus("messages.ready", "Carga una imagen para comenzar.");
+      }
+
+      async function handleImage(file) {
+        if (!file) {
+          return;
+        }
+
+        try {
+          const image = await loadImageFile(file);
+
+          state.image = image;
+          state.points = [];
+          state.resultReady = false;
+          state.filename =
+            `${file.name.replace(/\.[^/.]+$/, "")}-elemento.png`;
+
+          fitCanvasToImage(image);
+          drawSelection();
+
+          elements.selectionPlaceholder.hidden = true;
+          elements.resultPlaceholder.hidden = false;
+
+          updatePointCounter();
+          updateControls();
+
+          setStatus(
+            "messages.loaded",
+            "Imagen cargada. Marca el contorno del elemento."
+          );
+        } catch (error) {
+          setStatus(
+            "messages.error",
+            "No se pudo cargar la imagen."
+          );
+        }
+      }
+
+      function getDroppedImage(event) {
+        return event.dataTransfer?.files?.[0] || null;
+      }
+
+      elements.uploadButton.addEventListener(
+        "click",
+        () => elements.imageInput.click()
+      );
+
+      elements.imageInput.addEventListener("change", (event) => {
+        handleImage(event.target.files?.[0]);
+      });
+
+      ["dragenter", "dragover"].forEach((eventName) => {
+        elements.uploadButton.addEventListener(eventName, (event) => {
+          event.preventDefault();
+          elements.uploadButton.classList.add("is-dragging");
+        });
+      });
+
+      ["dragleave", "drop"].forEach((eventName) => {
+        elements.uploadButton.addEventListener(eventName, (event) => {
+          event.preventDefault();
+          elements.uploadButton.classList.remove("is-dragging");
+        });
+      });
+
+      elements.uploadButton.addEventListener("drop", (event) => {
+        handleImage(getDroppedImage(event));
+      });
+
+      elements.selectionCanvas.addEventListener("pointerdown", addPoint);
+
+      elements.undoPoint.addEventListener("click", () => {
+        state.points.pop();
+        clearResult();
+        drawSelection();
+        updatePointCounter();
+        updateControls();
+      });
+
+      elements.clearSelection.addEventListener("click", clearSelection);
+      elements.extractElement.addEventListener("click", extractElement);
+      elements.downloadElement.addEventListener("click", downloadResult);
+      elements.resetTool.addEventListener("click", resetTool);
+
+      document.addEventListener("creativeLab:languageChanged", () => {
+        updatePointCounter();
+
+        if (!state.image) {
+          setStatus("messages.ready", "Carga una imagen para comenzar.");
+        }
+      });
+
+      updatePointCounter();
+      updateControls();
+    })();
+  </script>
+</body>
+</html>

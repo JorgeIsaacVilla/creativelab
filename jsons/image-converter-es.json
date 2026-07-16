@@ -1,0 +1,55 @@
+{
+  "seo": {
+    "title": "JPG, PNG, WebP and SVG Image Converter | Creative Lab",
+    "description": "Convert JPG, PNG, WebP and SVG images for free in your browser with Creative Lab. Local processing, preview and instant download.",
+    "ogTitle": "JPG, PNG, WebP and SVG Image Converter",
+    "ogDescription": "Convert images directly in your browser quickly and privately.",
+    "twitterTitle": "Image Converter | Creative Lab",
+    "twitterDescription": "Convert JPG, PNG, WebP and SVG directly in your browser.",
+    "htmlLang": "en"
+  },
+  "product": {
+    "eyebrow": "Image conversion",
+    "title": "JPG, PNG, WebP and SVG Image Converter",
+    "description": "Convert your images directly in the browser without uploading files to a server."
+  },
+  "converter": {
+    "title": "Select an image",
+    "intro": "Upload a JPG, PNG, WebP or SVG image and choose the output format.",
+    "uploadTitle": "Drag an image here or click to select it",
+    "uploadHelp": "Allowed formats: JPG, PNG, WebP and SVG. Maximum 25 MB.",
+    "outputFormat": "Output format",
+    "quality": "Quality",
+    "originalTitle": "Original image",
+    "resultTitle": "Result",
+    "originalAlt": "Original image preview",
+    "resultAlt": "Converted image preview",
+    "fileName": "File",
+    "dimensions": "Dimensions",
+    "fileSize": "File size",
+    "outputType": "Format",
+    "reduction": "Difference",
+    "convertButton": "Convert image"
+  },
+  "messages": {
+    "invalidFormat": "Select a JPG, PNG, WebP or SVG image.",
+    "fileTooLarge": "The image exceeds the 25 MB limit.",
+    "readError": "The image could not be read.",
+    "convertError": "The image could not be converted.",
+    "canvasError": "The browser could not start the converter.",
+    "ready": "Image ready to convert.",
+    "processing": "Processing image...",
+    "completed": "Conversion completed."
+  },
+  "info": {
+    "eyebrow": "Fast and private conversion",
+    "title": "How to convert images with Creative Lab",
+    "description": "Select an image, choose the output format, adjust the quality and download the result. The process runs in your browser.",
+    "stepOneTitle": "1. Upload",
+    "stepOneText": "Select a JPG, PNG, WebP or SVG image from your device.",
+    "stepTwoTitle": "2. Configure",
+    "stepTwoText": "Choose the format and adjust quality when available.",
+    "stepThreeTitle": "3. Download",
+    "stepThreeText": "Convert and save the new image immediately."
+  }
+}

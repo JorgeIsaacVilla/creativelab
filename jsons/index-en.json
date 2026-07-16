@@ -1,0 +1,131 @@
+{
+    "seo": {
+        "title": "Creative Lab | Online tools for images, colors and design",
+        "description": "Online creative tools to convert, compress and resize images, generate palettes, gradients and visual resources directly in your browser.",
+        "ogTitle": "Creative Lab | Online creative tools",
+        "ogDescription": "Convert images, create palettes, gradients and visual resources from a fast and creative platform.",
+        "twitterTitle": "Creative Lab | Online creative tools",
+        "twitterDescription": "Visual tools for images, colors, gradients and design.",
+        "htmlLang": "en"
+    },
+    "home": {
+        "eyebrow": "Tools to imagine, create and transform",
+        "title": "Your online creative laboratory",
+        "description": "Convert images, explore colors, design gradients and create visual resources directly in your browser.",
+        "exploreTools": "Explore tools",
+        "learnMore": "Discover the platform",
+        "featureFast": "Fast",
+        "featurePrivate": "Local processing",
+        "featureBilingual": "English and Spanish",
+        "categoriesEyebrow": "Explore by category",
+        "categoriesTitle": "Resources for every part of your creative process",
+        "toolsEyebrow": "Services portfolio",
+        "toolsTitle": "Choose a tool and get started",
+        "toolsDescription": "Each tool works as an independent product within the same platform.",
+        "aboutEyebrow": "Creativity without interruptions",
+        "aboutTitle": "Simple, fast and accessible visual tools",
+        "aboutDescription": "Creative Lab brings together independent services for designers, creators and anyone who needs to transform visual resources without installing complex software.",
+        "privacyTitle": "Privacy",
+        "privacyDescription": "Whenever possible, your files are processed locally in your browser.",
+        "speedTitle": "Speed",
+        "speedDescription": "Direct interfaces, clear processes and fast downloads.",
+        "visualTitle": "Visual experience",
+        "visualDescription": "A modern identity inspired by nature, energy and space."
+    },
+    "categories": {
+        "images": {
+            "title": "Images",
+            "description": "Convert, compress, resize and transform."
+        },
+        "colors": {
+            "title": "Colors",
+            "description": "Create palettes, mix tones and check contrast."
+        },
+        "gradients": {
+            "title": "Gradients",
+            "description": "Design dynamic backgrounds and visual combinations."
+        },
+        "design": {
+            "title": "Design",
+            "description": "Calculate proportions and generate resources for your projects."
+        }
+    },
+    "tools": {
+        "imageToGlb": {
+            "title": "Image to GLB",
+            "description": "Convert an image into a three-dimensional GLB resource."
+        },
+        "imageConverter": {
+            "title": "Image converter",
+            "description": "Convert between JPG, PNG and WebP."
+        },
+        "imageCompressor": {
+            "title": "Image compressor",
+            "description": "Reduce file size while maintaining good visual quality."
+        },
+        "imageResizer": {
+            "title": "Image resizer",
+            "description": "Adjust width, height and proportions."
+        },
+        "imageCropper": {
+            "title": "Image cropper",
+            "description": "Crop images with visual precision."
+        },
+        "faviconGenerator": {
+            "title": "Favicon generator",
+            "description": "Prepare icons for websites and applications."
+        },
+        "watermark": {
+            "title": "Watermark tool",
+            "description": "Protect your images with text or a logo."
+        },
+        "imageFilters": {
+            "title": "Image filters",
+            "description": "Adjust brightness, contrast, saturation and more."
+        },
+        "colorConverter": {
+            "title": "Color converter",
+            "description": "Convert between HEX, RGB, HSL and CMYK."
+        },
+        "paletteExtractor": {
+            "title": "Palette extractor",
+            "description": "Extract the main colors from an image."
+        },
+        "paletteGenerator": {
+            "title": "Palette generator",
+            "description": "Create harmonious and customized color combinations."
+        },
+        "contrastChecker": {
+            "title": "Contrast checker",
+            "description": "Evaluate visual readability and accessibility."
+        },
+        "gradientGenerator": {
+            "title": "Gradient generator",
+            "description": "Create linear and radial gradients with a real-time preview."
+        },
+        "aspectRatio": {
+            "title": "Aspect ratio calculator",
+            "description": "Calculate proportional dimensions quickly."
+        },
+        "socialSizes": {
+            "title": "Social media sizes",
+            "description": "View and prepare formats for different platforms."
+        },
+        "beforeAfter": {
+            "title": "Before and after",
+            "description": "Compare two images using a slider."
+        },
+        "patternGenerator": {
+            "title": "Pattern generator",
+            "description": "Create repeating geometric compositions.",
+            "backgroundRemover": {
+                "title": "Quitar fondo",
+                "description": "Elimina el fondo de una imagen con procesamiento local en tu navegador."
+            }
+        },
+        "backgroundRemover": {
+            "title": "Background remover",
+            "description": "Remove an image background with local processing in your browser."
+        }
+    }
+}

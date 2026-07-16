@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Generador de gradientes CSS | Creative Lab</title>
+
+  <meta
+    name="description"
+    content="Crea gradientes CSS lineales, radiales y cónicos con múltiples colores, vista previa en tiempo real y código listo para copiar."
+  >
+
+  <meta
+    name="robots"
+    content="index, follow, max-image-preview:large, max-snippet:-1"
+  >
+
+  <meta name="author" content="Creative Lab">
+  <meta name="theme-color" content="#08140d">
+
+  <link rel="canonical" href="https://tudominio.com/gradient-generator.html">
+  <link rel="alternate" hreflang="es" href="https://tudominio.com/gradient-generator.html">
+  <link rel="alternate" hreflang="en" href="https://tudominio.com/en/gradient-generator.html">
+  <link rel="alternate" hreflang="x-default" href="https://tudominio.com/gradient-generator.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Creative Lab">
+  <meta property="og:title" content="Generador de gradientes CSS">
+  <meta
+    property="og:description"
+    content="Diseña gradientes lineales, radiales y cónicos con vista previa en tiempo real."
+  >
+  <meta property="og:url" content="https://tudominio.com/gradient-generator.html">
+  <meta property="og:image" content="https://tudominio.com/src/gradient-generator-cover.webp">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Generador de gradientes | Creative Lab">
+  <meta
+    name="twitter:description"
+    content="Crea gradientes CSS y copia el código listo para usar."
+  >
+  <meta name="twitter:image" content="https://tudominio.com/src/gradient-generator-cover.webp">
+
+   <link rel="icon" href="./src/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./styles/main.css">
+
+  <script src="./scripts/language.js" defer></script>
+  <script src="./scripts/shared.js" defer></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Creative Lab - Generador de gradientes",
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "Web",
+    "url": "https://tudominio.com/gradient-generator.html",
+    "description": "Generador online de gradientes CSS lineales, radiales y cónicos.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Creative Lab",
+      "url": "https://tudominio.com/"
+    }
+  }
+  </script>
+</head>
+
+<body data-page="gradient-generator">
+  <a class="skip-link" href="#main-content" data-i18n="common.skipToContent">
+    Saltar al contenido
+  </a>
+
+  <div class="site-shell">
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="site-brand" href="./index.html" aria-label="Ir al inicio">
+          <img
+            class="site-brand__logo"
+            src="./src/logo.svg"
+            alt="Logo de Creative Lab"
+            width="48"
+            height="48"
+            data-i18n-alt="brand.logoAlt"
+          >
+
+          <span class="site-brand__name" data-i18n="brand.name">
+            Creative Lab
+          </span>
+        </a>
+
+        <div class="site-header__actions">
+          <a
+            class="back-to-portfolio"
+            href="./index.html"
+            data-i18n="common.backToPortfolio"
+          >
+            Regresar al portafolio de servicios
+          </a>
+
+          <label class="language-control" for="language-selector">
+            <span class="sr-only" data-i18n="common.language">Idioma</span>
+
+            <select
+              id="language-selector"
+              name="language"
+              aria-label="Seleccionar idioma"
+            >
+              <option value="es">ES</option>
+              <option value="en">EN</option>
+            </select>
+          </label>
+        </div>
+      </div>
+    </header>
+
+    <aside
+      class="ad-slot ad-slot--top"
+      aria-label="Espacio publicitario"
+      data-ad-position="gradient-generator-top"
+    >
+      <span data-i18n="common.advertisement">Publicidad</span>
+    </aside>
+
+    <main class="product-page" id="main-content">
+      <section class="product-header" aria-labelledby="product-title">
+        <div class="product-header__content">
+          <p class="section-heading__eyebrow" data-i18n="product.eyebrow">
+            Composición cromática
+          </p>
+
+          <h1 id="product-title" data-i18n="product.title">
+            Generador de gradientes
+          </h1>
+
+          <p class="product-header__description" data-i18n="product.description">
+            Diseña gradientes lineales, radiales y cónicos con múltiples colores,
+            ajustes precisos y código CSS listo para usar.
+          </p>
+        </div>
+      </section>
+
+      <section class="tool-interface" aria-labelledby="generator-title">
+        <div>
+          <h2 id="generator-title" data-i18n="generator.title">
+            Diseña tu gradiente
+          </h2>
+
+          <p data-i18n="generator.intro">
+            Elige el tipo de gradiente, ajusta sus colores y copia el resultado.
+          </p>
+        </div>
+
+        <div class="control-grid">
+          <div class="form-field">
+            <label for="gradient-type" data-i18n="generator.type">
+              Tipo de gradiente
+            </label>
+
+            <select id="gradient-type">
+              <option value="linear" data-i18n="generator.linear">Lineal</option>
+              <option value="radial" data-i18n="generator.radial">Radial</option>
+              <option value="conic" data-i18n="generator.conic">Cónico</option>
+            </select>
+          </div>
+
+          <div class="form-field" id="angle-field">
+            <label for="gradient-angle">
+              <span data-i18n="generator.angle">Ángulo</span>
+              <span id="angle-value">135°</span>
+            </label>
+
+            <input
+              id="gradient-angle"
+              type="range"
+              min="0"
+              max="360"
+              value="135"
+              step="1"
+            >
+          </div>
+        </div>
+
+        <div class="control-grid" id="position-controls">
+          <div class="form-field">
+            <label for="position-x">
+              <span data-i18n="generator.positionX">Posición horizontal</span>
+              <span id="position-x-value">50%</span>
+            </label>
+
+            <input
+              id="position-x"
+              type="range"
+              min="0"
+              max="100"
+              value="50"
+            >
+          </div>
+
+          <div class="form-field">
+            <label for="position-y">
+              <span data-i18n="generator.positionY">Posición vertical</span>
+              <span id="position-y-value">50%</span>
+            </label>
+
+            <input
+              id="position-y"
+              type="range"
+              min="0"
+              max="100"
+              value="50"
+            >
+          </div>
+        </div>
+
+        <section class="gradient-stops-section" aria-labelledby="stops-title">
+          <div class="gradient-stops-section__heading">
+            <div>
+              <h3 id="stops-title" data-i18n="generator.stopsTitle">
+                Puntos de color
+              </h3>
+
+              <p data-i18n="generator.stopsDescription">
+                Añade hasta ocho colores y define su posición dentro del gradiente.
+              </p>
+            </div>
+
+            <button
+              class="button button--secondary"
+              id="add-stop-button"
+              type="button"
+            >
+              <span data-i18n="generator.addStop">Añadir color</span>
+            </button>
+          </div>
+
+          <div class="gradient-stops-list" id="stops-list"></div>
+        </section>
+
+        <div
+          class="status-message status-message--info"
+          id="status-message"
+          role="status"
+          aria-live="polite"
+          hidden
+        ></div>
+
+        <section class="gradient-preview-section" aria-labelledby="preview-title">
+          <div class="gradient-preview-section__heading">
+            <div>
+              <h3 id="preview-title" data-i18n="generator.previewTitle">
+                Vista previa
+              </h3>
+
+              <p data-i18n="generator.previewDescription">
+                El resultado se actualiza en tiempo real.
+              </p>
+            </div>
+          </div>
+
+          <div class="gradient-preview" id="gradient-preview">
+            <div class="gradient-preview__content">
+              <span data-i18n="generator.previewLabel">Creative Lab</span>
+              <strong data-i18n="generator.previewText">
+                Diseña fondos con profundidad y movimiento.
+              </strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="gradient-code-panel">
+          <div class="gradient-code-panel__heading">
+            <div>
+              <h3 data-i18n="generator.codeTitle">Código CSS</h3>
+
+              <p data-i18n="generator.codeDescription">
+                Copia el fondo generado y úsalo en tu proyecto.
+              </p>
+            </div>
+          </div>
+
+          <div class="gradient-code-card">
+            <code id="css-output"></code>
+
+            <button
+              class="color-copy-button"
+              id="copy-css-button"
+              type="button"
+              aria-label="Copiar CSS"
+              data-i18n-aria-label="generator.copyCss"
+            >
+              ⧉
+            </button>
+          </div>
+        </section>
+
+        <div class="hero__actions">
+          <button
+            class="button button--primary"
+            id="random-button"
+            type="button"
+          >
+            <span data-i18n="generator.randomButton">
+              Gradiente aleatorio
+            </span>
+          </button>
+
+          <button
+            class="button button--secondary"
+            id="download-button"
+            type="button"
+          >
+            <span data-i18n="generator.downloadButton">
+              Descargar gradiente
+            </span>
+          </button>
+
+          <button
+            class="button button--secondary"
+            id="reset-button"
+            type="button"
+          >
+            <span data-i18n="common.reset">Restablecer</span>
+          </button>
+        </div>
+
+        <p class="privacy-note" data-i18n="common.privacyNotice">
+          Tus datos se procesan localmente en tu navegador.
+        </p>
+      </section>
+
+      <aside
+        class="ad-slot ad-slot--bottom"
+        aria-label="Espacio publicitario"
+        data-ad-position="gradient-generator-bottom"
+      >
+        <span data-i18n="common.advertisement">Publicidad</span>
+      </aside>
+
+      <section class="about-section__content product-information">
+        <p class="section-heading__eyebrow" data-i18n="info.eyebrow">
+          Color con dirección
+        </p>
+
+        <h2 data-i18n="info.title">
+          Cómo crear un gradiente con Creative Lab
+        </h2>
+
+        <p data-i18n="info.description">
+          Selecciona el tipo de gradiente, ajusta sus colores y posiciones,
+          revisa la vista previa y copia el código CSS.
+        </p>
+
+        <div class="trust-grid">
+          <article class="trust-card">
+            <h3 data-i18n="info.stepOneTitle">1. Elige</h3>
+            <p data-i18n="info.stepOneText">
+              Selecciona un gradiente lineal, radial o cónico.
+            </p>
+          </article>
+
+          <article class="trust-card">
+            <h3 data-i18n="info.stepTwoTitle">2. Ajusta</h3>
+            <p data-i18n="info.stepTwoText">
+              Modifica colores, posiciones, ángulo y centro.
+            </p>
+          </article>
+
+          <article class="trust-card">
+            <h3 data-i18n="info.stepThreeTitle">3. Exporta</h3>
+            <p data-i18n="info.stepThreeText">
+              Copia el CSS o descarga una imagen PNG.
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const DEFAULT_STOPS = [
+        { color: "#08140D", position: 0 },
+        { color: "#1A6B43", position: 48 },
+        { color: "#66FF8F", position: 100 }
+      ];
+
+      const gradientType = document.getElementById("gradient-type");
+      const angleField = document.getElementById("angle-field");
+      const gradientAngle = document.getElementById("gradient-angle");
+      const angleValue = document.getElementById("angle-value");
+      const positionControls = document.getElementById("position-controls");
+      const positionX = document.getElementById("position-x");
+      const positionY = document.getElementById("position-y");
+      const positionXValue = document.getElementById("position-x-value");
+      const positionYValue = document.getElementById("position-y-value");
+      const stopsList = document.getElementById("stops-list");
+      const addStopButton = document.getElementById("add-stop-button");
+      const preview = document.getElementById("gradient-preview");
+      const cssOutput = document.getElementById("css-output");
+      const copyCssButton = document.getElementById("copy-css-button");
+      const randomButton = document.getElementById("random-button");
+      const downloadButton = document.getElementById("download-button");
+      const resetButton = document.getElementById("reset-button");
+      const statusMessage = document.getElementById("status-message");
+
+      let stops = DEFAULT_STOPS.map((stop) => ({ ...stop }));
+
+      function clamp(value, minimum, maximum) {
+        return Math.min(maximum, Math.max(minimum, value));
+      }
+
+      function componentToHex(value) {
+        return clamp(Math.round(value), 0, 255)
+          .toString(16)
+          .padStart(2, "0")
+          .toUpperCase();
+      }
+
+      function randomHex() {
+        return `#${componentToHex(Math.random() * 255)}${componentToHex(
+          Math.random() * 255
+        )}${componentToHex(Math.random() * 255)}`;
+      }
+
+      function showStatus(message, type = "info") {
+        statusMessage.hidden = false;
+        statusMessage.textContent = message;
+        statusMessage.className = `status-message status-message--${type}`;
+
+        window.setTimeout(() => {
+          statusMessage.hidden = true;
+        }, 1800);
+      }
+
+      async function copyText(value) {
+        try {
+          await navigator.clipboard.writeText(value);
+          showStatus("CSS copiado.", "success");
+        } catch {
+          showStatus("No fue posible copiar el CSS.", "error");
+        }
+      }
+
+      function getStopsCss() {
+        return [...stops]
+          .sort((a, b) => a.position - b.position)
+          .map((stop) => `${stop.color.toUpperCase()} ${stop.position}%`)
+          .join(", ");
+      }
+
+      function getGradientCss() {
+        const stopsCss = getStopsCss();
+
+        if (gradientType.value === "radial") {
+          return `radial-gradient(circle at ${positionX.value}% ${positionY.value}%, ${stopsCss})`;
+        }
+
+        if (gradientType.value === "conic") {
+          return `conic-gradient(from ${gradientAngle.value}deg at ${positionX.value}% ${positionY.value}%, ${stopsCss})`;
+        }
+
+        return `linear-gradient(${gradientAngle.value}deg, ${stopsCss})`;
+      }
+
+      function updateControlVisibility() {
+        const type = gradientType.value;
+
+        angleField.hidden = type === "radial";
+        positionControls.hidden = type === "linear";
+      }
+
+      function renderStops() {
+        stopsList.innerHTML = "";
+
+        stops.forEach((stop, index) => {
+          const card = document.createElement("article");
+          card.className = "gradient-stop-card";
+
+          card.innerHTML = `
+            <div class="gradient-stop-card__color">
+              <input
+                type="color"
+                value="${stop.color}"
+                aria-label="Color ${index + 1}"
+              >
+            </div>
+
+            <div class="gradient-stop-card__controls">
+              <div class="form-field">
+                <label>
+                  <span>HEX</span>
+                </label>
+
+                <input
+                  class="gradient-stop-card__hex"
+                  type="text"
+                  value="${stop.color.toUpperCase()}"
+                  maxlength="7"
+                  spellcheck="false"
+                >
+              </div>
+
+              <div class="form-field">
+                <label>
+                  <span>Posición</span>
+                  <span class="gradient-stop-position-value">${stop.position}%</span>
+                </label>
+
+                <input
+                  class="gradient-stop-position"
+                  type="range"
+                  min="0"
+                  max="100"
+                  value="${stop.position}"
+                >
+              </div>
+            </div>
+
+            <button
+              class="gradient-stop-remove"
+              type="button"
+              aria-label="Eliminar color"
+              ${stops.length <= 2 ? "disabled" : ""}
+            >
+              ×
+            </button>
+          `;
+
+          const colorPicker = card.querySelector('input[type="color"]');
+          const hexInput = card.querySelector(".gradient-stop-card__hex");
+          const positionInput = card.querySelector(".gradient-stop-position");
+          const positionLabel = card.querySelector(".gradient-stop-position-value");
+          const removeButton = card.querySelector(".gradient-stop-remove");
+
+          colorPicker.addEventListener("input", () => {
+            stop.color = colorPicker.value.toUpperCase();
+            hexInput.value = stop.color;
+            updateGradient();
+          });
+
+          hexInput.addEventListener("input", () => {
+            const normalized = hexInput.value.trim();
+
+            if (/^#[0-9A-F]{6}$/i.test(normalized)) {
+              stop.color = normalized.toUpperCase();
+              colorPicker.value = stop.color;
+              hexInput.setAttribute("aria-invalid", "false");
+              updateGradient();
+            } else {
+              hexInput.setAttribute("aria-invalid", "true");
+            }
+          });
+
+          positionInput.addEventListener("input", () => {
+            stop.position = Number(positionInput.value);
+            positionLabel.textContent = `${stop.position}%`;
+            updateGradient();
+          });
+
+          removeButton.addEventListener("click", () => {
+            if (stops.length <= 2) return;
+
+            stops.splice(index, 1);
+            renderStops();
+            updateGradient();
+          });
+
+          stopsList.appendChild(card);
+        });
+
+        addStopButton.disabled = stops.length >= 8;
+      }
+
+      function updateGradient() {
+        const css = getGradientCss();
+
+        preview.style.backgroundImage = css;
+        cssOutput.textContent = `background: ${css};`;
+      }
+
+      function addStop() {
+        if (stops.length >= 8) return;
+
+        const sorted = [...stops].sort((a, b) => a.position - b.position);
+        let largestGap = -1;
+        let newPosition = 50;
+
+        for (let index = 0; index < sorted.length - 1; index += 1) {
+          const gap = sorted[index + 1].position - sorted[index].position;
+
+          if (gap > largestGap) {
+            largestGap = gap;
+            newPosition = Math.round(
+              (sorted[index].position + sorted[index + 1].position) / 2
+            );
+          }
+        }
+
+        stops.push({
+          color: randomHex(),
+          position: newPosition
+        });
+
+        renderStops();
+        updateGradient();
+      }
+
+      function randomizeGradient() {
+        const types = ["linear", "radial", "conic"];
+        gradientType.value =
+          types[Math.floor(Math.random() * types.length)];
+
+        gradientAngle.value = String(Math.floor(Math.random() * 361));
+        positionX.value = String(Math.floor(Math.random() * 101));
+        positionY.value = String(Math.floor(Math.random() * 101));
+
+        const count = 2 + Math.floor(Math.random() * 5);
+        stops = Array.from({ length: count }, (_, index) => ({
+          color: randomHex(),
+          position:
+            count === 1
+              ? 0
+              : Math.round((index / (count - 1)) * 100)
+        }));
+
+        angleValue.textContent = `${gradientAngle.value}°`;
+        positionXValue.textContent = `${positionX.value}%`;
+        positionYValue.textContent = `${positionY.value}%`;
+
+        updateControlVisibility();
+        renderStops();
+        updateGradient();
+      }
+
+      function downloadGradient() {
+        const width = 1600;
+        const height = 900;
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d");
+
+        if (!context) {
+          showStatus("No fue posible preparar la imagen.", "error");
+          return;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+
+        const sortedStops = [...stops].sort((a, b) => a.position - b.position);
+        let gradient;
+
+        if (gradientType.value === "radial") {
+          const centerX = (Number(positionX.value) / 100) * width;
+          const centerY = (Number(positionY.value) / 100) * height;
+          const radius = Math.hypot(
+            Math.max(centerX, width - centerX),
+            Math.max(centerY, height - centerY)
+          );
+
+          gradient = context.createRadialGradient(
+            centerX,
+            centerY,
+            0,
+            centerX,
+            centerY,
+            radius
+          );
+        } else if (gradientType.value === "conic") {
+          if (typeof context.createConicGradient !== "function") {
+            showStatus(
+              "Este navegador no permite exportar gradientes cónicos como PNG.",
+              "error"
+            );
+            return;
+          }
+
+          gradient = context.createConicGradient(
+            (Number(gradientAngle.value) * Math.PI) / 180,
+            (Number(positionX.value) / 100) * width,
+            (Number(positionY.value) / 100) * height
+          );
+        } else {
+          const radians = ((Number(gradientAngle.value) - 90) * Math.PI) / 180;
+          const centerX = width / 2;
+          const centerY = height / 2;
+          const length =
+            Math.abs(width * Math.cos(radians)) +
+            Math.abs(height * Math.sin(radians));
+
+          const x1 = centerX - (Math.cos(radians) * length) / 2;
+          const y1 = centerY - (Math.sin(radians) * length) / 2;
+          const x2 = centerX + (Math.cos(radians) * length) / 2;
+          const y2 = centerY + (Math.sin(radians) * length) / 2;
+
+          gradient = context.createLinearGradient(x1, y1, x2, y2);
+        }
+
+        sortedStops.forEach((stop) => {
+          gradient.addColorStop(stop.position / 100, stop.color);
+        });
+
+        context.fillStyle = gradient;
+        context.fillRect(0, 0, width, height);
+
+        canvas.toBlob((blob) => {
+          if (!blob) {
+            showStatus("No fue posible preparar la descarga.", "error");
+            return;
+          }
+
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement("a");
+
+          link.href = url;
+          link.download = "creative-lab-gradient.png";
+          link.click();
+
+          setTimeout(() => URL.revokeObjectURL(url), 1000);
+        }, "image/png");
+      }
+
+      function resetTool() {
+        gradientType.value = "linear";
+        gradientAngle.value = "135";
+        positionX.value = "50";
+        positionY.value = "50";
+        angleValue.textContent = "135°";
+        positionXValue.textContent = "50%";
+        positionYValue.textContent = "50%";
+        stops = DEFAULT_STOPS.map((stop) => ({ ...stop }));
+
+        updateControlVisibility();
+        renderStops();
+        updateGradient();
+      }
+
+      gradientType.addEventListener("change", () => {
+        updateControlVisibility();
+        updateGradient();
+      });
+
+      gradientAngle.addEventListener("input", () => {
+        angleValue.textContent = `${gradientAngle.value}°`;
+        updateGradient();
+      });
+
+      positionX.addEventListener("input", () => {
+        positionXValue.textContent = `${positionX.value}%`;
+        updateGradient();
+      });
+
+      positionY.addEventListener("input", () => {
+        positionYValue.textContent = `${positionY.value}%`;
+        updateGradient();
+      });
+
+      addStopButton.addEventListener("click", addStop);
+      copyCssButton.addEventListener("click", () =>
+        copyText(cssOutput.textContent)
+      );
+      randomButton.addEventListener("click", randomizeGradient);
+      downloadButton.addEventListener("click", downloadGradient);
+      resetButton.addEventListener("click", resetTool);
+
+      updateControlVisibility();
+      renderStops();
+      updateGradient();
+    })();
+  </script>
+</body>
+</html>

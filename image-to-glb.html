@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Convertidor de imagen a GLB online | Creative Lab</title>
+
+  <meta
+    name="description"
+    content="Convierte imágenes PNG, JPG, WebP, GIF y SVG en archivos GLB directamente desde tu navegador con Creative Lab."
+  >
+  <meta
+    name="robots"
+    content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+  >
+  <meta name="author" content="Creative Lab">
+  <meta name="theme-color" content="#08140d">
+
+  <link rel="canonical" href="https://tudominio.com/image-to-glb.html">
+  <link rel="alternate" hreflang="es" href="https://tudominio.com/image-to-glb.html">
+  <link rel="alternate" hreflang="en" href="https://tudominio.com/en/image-to-glb.html">
+  <link rel="alternate" hreflang="x-default" href="https://tudominio.com/image-to-glb.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Creative Lab">
+  <meta property="og:title" content="Convertidor de imagen a GLB">
+  <meta property="og:description" content="Convierte una imagen en un archivo GLB directamente desde tu navegador.">
+  <meta property="og:url" content="https://tudominio.com/image-to-glb.html">
+  <meta property="og:image" content="https://tudominio.com/src/image-to-glb-cover.webp">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:locale:alternate" content="en_US">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Convertidor de imagen a GLB | Creative Lab">
+  <meta name="twitter:description" content="Convierte PNG, JPG, WebP, GIF y SVG en GLB desde tu navegador.">
+  <meta name="twitter:image" content="https://tudominio.com/src/image-to-glb-cover.webp">
+
+   <link rel="icon" href="./src/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./styles/main.css">
+
+  <script src="./scripts/language.js" defer></script>
+  <script src="./scripts/shared.js" defer></script>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Creative Lab - Convertidor de imagen a GLB",
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "Web",
+    "url": "https://tudominio.com/image-to-glb.html",
+    "description": "Convertidor online de imágenes PNG, JPG, WebP, GIF y SVG a GLB.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Creative Lab",
+      "url": "https://tudominio.com/"
+    }
+  }
+  </script>
+
+  <style>
+    .glb-viewer-stage {
+      position: relative;
+      width: 100%;
+      min-height: 380px;
+      overflow: hidden;
+    }
+
+    .glb-viewer-stage canvas {
+      position: absolute;
+      inset: 0;
+      display: block;
+      max-width: none;
+      touch-action: none;
+      cursor: grab;
+    }
+
+    .glb-viewer-stage canvas:active {
+      cursor: grabbing;
+    }
+
+    .glb-viewer-empty {
+      pointer-events: none;
+    }
+
+    .glb-viewer-empty[hidden] {
+      display: none !important;
+    }
+  </style>
+
+</head>
+
+<body data-page="image-to-glb">
+  <a class="skip-link" href="#main-content" data-i18n="common.skipToContent">
+    Saltar al contenido
+  </a>
+
+  <div class="site-shell">
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="site-brand" href="./index.html" data-i18n-aria-label="common.goHome" aria-label="Ir al inicio">
+          <img
+            class="site-brand__logo"
+            src="./src/logo.svg"
+            alt="Logo de Creative Lab"
+            width="48"
+            height="48"
+            data-i18n-alt="brand.logoAlt"
+          >
+          <span class="site-brand__name" data-i18n="brand.name">Creative Lab</span>
+        </a>
+
+        <div class="site-header__actions">
+          <a class="back-to-portfolio" href="./index.html" data-i18n="common.backToPortfolio">
+            Regresar al portafolio de servicios
+          </a>
+
+          <label class="language-control" for="language-selector">
+            <span class="sr-only" data-i18n="common.language">Idioma</span>
+            <select
+              id="language-selector"
+              name="language"
+              data-i18n-aria-label="common.selectLanguage"
+              aria-label="Seleccionar idioma"
+            >
+              <option value="es">ES</option>
+              <option value="en">EN</option>
+            </select>
+          </label>
+        </div>
+      </div>
+    </header>
+
+    <aside class="ad-slot ad-slot--top" aria-label="Espacio publicitario" data-ad-position="image-to-glb-top">
+      <span data-i18n="common.advertisement">Publicidad</span>
+    </aside>
+
+    <main class="product-page" id="main-content">
+      <section class="product-header" aria-labelledby="product-title">
+        <div class="product-header__content">
+          <p class="section-heading__eyebrow" data-i18n="product.eyebrow">Conversión 3D</p>
+          <h1 id="product-title" data-i18n="product.title">Convertidor de imagen a GLB</h1>
+          <p class="product-header__description" data-i18n="product.description">
+            Convierte una imagen en un plano 3D exportado como archivo GLB, listo para visores y proyectos compatibles.
+          </p>
+        </div>
+      </section>
+
+      <section class="tool-interface" aria-labelledby="converter-title">
+        <div>
+          <h2 id="converter-title" data-i18n="converter.title">Selecciona una imagen</h2>
+          <p data-i18n="converter.intro">
+            Para mejores resultados utiliza una imagen PNG con fondo transparente.
+          </p>
+        </div>
+
+        <input
+          id="file-input"
+          type="file"
+          accept="image/png,image/jpeg,image/webp,image/gif,image/svg+xml"
+          hidden
+        >
+
+        <button class="upload-zone" id="upload-zone" type="button" aria-describedby="upload-help">
+          <span>
+            <strong data-i18n="converter.uploadTitle">
+              Arrastra una imagen o haz clic para seleccionarla
+            </strong>
+            <small id="upload-help" data-i18n="converter.uploadHelp">
+              PNG, JPG, WebP, GIF o SVG. Máximo 25 MB.
+            </small>
+          </span>
+        </button>
+
+        <div
+          class="status-message status-message--info"
+          id="status-message"
+          role="status"
+          aria-live="polite"
+          hidden
+        ></div>
+
+        <div class="control-grid">
+          <div class="form-field">
+            <label for="maximum-size" data-i18n="converter.maximumSize">
+              Resolución máxima
+            </label>
+            <select id="maximum-size">
+              <option value="512">512 px</option>
+              <option value="1024" selected>1024 px</option>
+              <option value="2048">2048 px</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="alpha-test" data-i18n="converter.alphaThreshold">
+              Umbral de transparencia
+            </label>
+            <input
+              id="alpha-test"
+              type="range"
+              min="0"
+              max="20"
+              value="2"
+              step="1"
+            >
+            <small><span id="alpha-value">0.02</span></small>
+          </div>
+        </div>
+
+        <div class="result-panel" id="preview-panel" hidden>
+          <div class="control-grid">
+            <div>
+              <h3 data-i18n="converter.originalTitle">Imagen seleccionada</h3>
+              <div class="result-panel__preview glb-preview">
+                <img
+                  id="image-preview"
+                  alt="Vista previa de la imagen seleccionada"
+                  data-i18n-alt="converter.previewAlt"
+                >
+              </div>
+            </div>
+
+            <div>
+              <h3 data-i18n="converter.detailsTitle">Detalles</h3>
+
+              <dl class="image-information">
+                <div>
+                  <dt data-i18n="converter.fileName">Archivo</dt>
+                  <dd id="file-name">—</dd>
+                </div>
+
+                <div>
+                  <dt data-i18n="converter.dimensions">Dimensiones</dt>
+                  <dd id="image-dimensions">—</dd>
+                </div>
+
+                <div>
+                  <dt data-i18n="converter.fileSize">Peso</dt>
+                  <dd id="file-size">—</dd>
+                </div>
+              </dl>
+
+              <div class="glb-note">
+                <strong data-i18n="converter.noteTitle">Importante</strong>
+                <p data-i18n="converter.noteText">
+                  La imagen se convierte en un plano 3D con textura. Un GIF animado utiliza únicamente un fotograma.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="result-panel" id="viewer-panel" hidden>
+          <div class="glb-viewer-header">
+            <div>
+              <h3 data-i18n="viewer.title">Previsualización 3D</h3>
+              <p data-i18n="viewer.description">
+                Gira el modelo con el mouse o con tu dedo antes de descargar el GLB.
+              </p>
+            </div>
+          </div>
+
+          <div class="glb-viewer-stage" id="viewer-container">
+            <div class="glb-viewer-empty" id="viewer-empty" data-i18n="viewer.empty">
+              La vista 3D aparecerá aquí.
+            </div>
+          </div>
+        </div>
+
+        <div class="hero__actions">
+          <button class="button button--primary" id="download-button" type="button" disabled>
+            <span data-i18n="converter.downloadButton">Descargar GLB</span>
+          </button>
+
+          <button class="button button--secondary" id="reset-button" type="button">
+            <span data-i18n="common.reset">Comenzar de nuevo</span>
+          </button>
+        </div>
+
+        <p class="privacy-note" data-i18n="common.privacyNotice">
+          Tus archivos se procesan localmente en tu navegador siempre que sea posible.
+        </p>
+      </section>
+
+      <aside class="ad-slot ad-slot--bottom" aria-label="Espacio publicitario" data-ad-position="image-to-glb-bottom">
+        <span data-i18n="common.advertisement">Publicidad</span>
+      </aside>
+
+      <section class="about-section__content product-information" aria-labelledby="how-it-works-title">
+        <p class="section-heading__eyebrow" data-i18n="info.eyebrow">De imagen a recurso 3D</p>
+        <h2 id="how-it-works-title" data-i18n="info.title">Cómo crear un archivo GLB con Creative Lab</h2>
+        <p data-i18n="info.description">
+          La herramienta prepara la imagen, crea un plano 3D con su textura y exporta todo como archivo GLB.
+        </p>
+
+        <div class="trust-grid">
+          <article class="trust-card">
+            <h3 data-i18n="info.stepOneTitle">1. Carga</h3>
+            <p data-i18n="info.stepOneText">Selecciona una imagen compatible desde tu dispositivo.</p>
+          </article>
+
+          <article class="trust-card">
+            <h3 data-i18n="info.stepTwoTitle">2. Ajusta</h3>
+            <p data-i18n="info.stepTwoText">Define resolución y transparencia antes de exportar.</p>
+          </article>
+
+          <article class="trust-card">
+            <h3 data-i18n="info.stepThreeTitle">3. Descarga</h3>
+            <p data-i18n="info.stepThreeText">Revisa la vista 3D y descarga el archivo GLB.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <noscript>
+    <div class="noscript-message">
+      Esta herramienta necesita JavaScript para funcionar.
+    </div>
+  </noscript>
+
+  <script type="module">
+    import * as THREE from "three";
+    import { GLTFExporter } from "three/addons/exporters/GLTFExporter.js";
+    import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+    const MAX_FILE_SIZE = 25 * 1024 * 1024;
+
+    const fileInput = document.getElementById("file-input");
+    const uploadZone = document.getElementById("upload-zone");
+    const downloadButton = document.getElementById("download-button");
+    const resetButton = document.getElementById("reset-button");
+    const statusMessage = document.getElementById("status-message");
+    const previewPanel = document.getElementById("preview-panel");
+    const viewerPanel = document.getElementById("viewer-panel");
+    const viewerContainer = document.getElementById("viewer-container");
+    const viewerEmpty = document.getElementById("viewer-empty");
+    const imagePreview = document.getElementById("image-preview");
+    const fileName = document.getElementById("file-name");
+    const imageDimensions = document.getElementById("image-dimensions");
+    const fileSize = document.getElementById("file-size");
+    const maximumSize = document.getElementById("maximum-size");
+    const alphaTest = document.getElementById("alpha-test");
+    const alphaValue = document.getElementById("alpha-value");
+
+    let selectedFile = null;
+    let finalImage = null;
+    let previewObjectUrl = "";
+    let previewMesh = null;
+
+    let renderer = null;
+    let scene = null;
+    let camera = null;
+    let controls = null;
+    let animationFrameId = null;
+    let viewerResizeObserver = null;
+
+    function translate(key, fallback) {
+      if (
+        window.CreativeLabLanguage &&
+        typeof window.CreativeLabLanguage.translate === "function"
+      ) {
+        return window.CreativeLabLanguage.translate(key, fallback);
+      }
+
+      return fallback;
+    }
+
+    function formatBytes(bytes) {
+      if (!Number.isFinite(bytes) || bytes <= 0) {
+        return "0 KB";
+      }
+
+      const units = ["B", "KB", "MB", "GB"];
+      const unitIndex = Math.min(
+        Math.floor(Math.log(bytes) / Math.log(1024)),
+        units.length - 1
+      );
+      const value = bytes / Math.pow(1024, unitIndex);
+
+      return `${value.toFixed(value >= 10 || unitIndex === 0 ? 0 : 2)} ${units[unitIndex]}`;
+    }
+
+    function showStatus(message, type = "info") {
+      statusMessage.hidden = false;
+      statusMessage.textContent = message;
+      statusMessage.className = `status-message status-message--${type}`;
+    }
+
+    function hideStatus() {
+      statusMessage.hidden = true;
+      statusMessage.textContent = "";
+    }
+
+    function revokePreviewUrl() {
+      if (previewObjectUrl) {
+        URL.revokeObjectURL(previewObjectUrl);
+        previewObjectUrl = "";
+      }
+    }
+
+    function validateFile(file) {
+      const allowedTypes = [
+        "image/png",
+        "image/jpeg",
+        "image/webp",
+        "image/gif",
+        "image/svg+xml"
+      ];
+
+      if (!allowedTypes.includes(file.type)) {
+        throw new Error(
+          translate("messages.invalidFormat", "Selecciona una imagen PNG, JPG, WebP, GIF o SVG.")
+        );
+      }
+
+      if (file.size > MAX_FILE_SIZE) {
+        throw new Error(
+          translate("messages.fileTooLarge", "La imagen supera el límite de 25 MB.")
+        );
+      }
+    }
+
+    function fileToCleanPngImage(file, maxSize) {
+      return new Promise((resolve, reject) => {
+        const url = URL.createObjectURL(file);
+        const image = new Image();
+
+        image.onload = () => {
+          let width = image.naturalWidth;
+          let height = image.naturalHeight;
+
+          const scale = Math.min(1, maxSize / Math.max(width, height));
+          width = Math.max(1, Math.round(width * scale));
+          height = Math.max(1, Math.round(height * scale));
+
+          const canvas = document.createElement("canvas");
+          canvas.width = width;
+          canvas.height = height;
+
+          const context = canvas.getContext("2d", { alpha: true });
+
+          if (!context) {
+            URL.revokeObjectURL(url);
+            reject(
+              new Error(
+                translate("messages.canvasError", "No fue posible preparar la imagen.")
+              )
+            );
+            return;
+          }
+
+          context.clearRect(0, 0, width, height);
+          context.drawImage(image, 0, 0, width, height);
+
+          URL.revokeObjectURL(url);
+
+          const pngDataUrl = canvas.toDataURL("image/png");
+          const cleanImage = new Image();
+
+          cleanImage.onload = () => resolve(cleanImage);
+          cleanImage.onerror = () =>
+            reject(
+              new Error(
+                translate("messages.readError", "No fue posible procesar la imagen.")
+              )
+            );
+
+          cleanImage.src = pngDataUrl;
+        };
+
+        image.onerror = () => {
+          URL.revokeObjectURL(url);
+          reject(
+            new Error(
+              translate("messages.readError", "No fue posible leer la imagen.")
+            )
+          );
+        };
+
+        image.src = url;
+      });
+    }
+
+    function initViewer() {
+      scene = new THREE.Scene();
+      scene.background = null;
+
+      camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+      camera.position.set(0, 0.25, 4);
+
+      renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true,
+        preserveDrawingBuffer: false
+      });
+
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      viewerContainer.appendChild(renderer.domElement);
+
+      controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.08;
+      controls.enableRotate = true;
+      controls.enableZoom = true;
+      controls.enablePan = false;
+      controls.minDistance = 1.8;
+      controls.maxDistance = 8;
+      controls.target.set(0, 0.25, 0);
+
+      const ambientLight = new THREE.AmbientLight(0xffffff, 1.1);
+      scene.add(ambientLight);
+
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 1.25);
+      directionalLight.position.set(3, 5, 6);
+      scene.add(directionalLight);
+
+      const rimLight = new THREE.DirectionalLight(0xa4ffb5, 0.7);
+      rimLight.position.set(-3, 2, -4);
+      scene.add(rimLight);
+
+      const grid = new THREE.GridHelper(6, 12, 0x66ff8f, 0x183725);
+      grid.position.y = -1.2;
+      grid.material.transparent = true;
+      grid.material.opacity = 0.24;
+      scene.add(grid);
+
+      resizeViewer();
+      animateViewer();
+
+      window.addEventListener("resize", resizeViewer);
+
+      if ("ResizeObserver" in window) {
+        viewerResizeObserver = new ResizeObserver(() => {
+          resizeViewer();
+        });
+
+        viewerResizeObserver.observe(viewerContainer);
+      }
+    }
+
+    function resizeViewer() {
+      if (!renderer || !camera || !viewerContainer) {
+        return;
+      }
+
+      const bounds = viewerContainer.getBoundingClientRect();
+      const width = Math.max(320, Math.round(bounds.width || 400));
+      const height = Math.max(
+        300,
+        Math.round(bounds.height || viewerContainer.clientHeight || 380)
+      );
+
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.setSize(width, height, false);
+      renderer.domElement.style.width = `${width}px`;
+      renderer.domElement.style.height = `${height}px`;
+
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+    }
+
+    function animateViewer() {
+      animationFrameId = requestAnimationFrame(animateViewer);
+
+      if (controls) {
+        controls.update();
+      }
+
+      if (renderer && scene && camera) {
+        renderer.render(scene, camera);
+      }
+    }
+
+    function disposeMesh(mesh) {
+      if (!mesh) {
+        return;
+      }
+
+      if (mesh.material) {
+        if (mesh.material.map) {
+          mesh.material.map.dispose();
+        }
+        mesh.material.dispose();
+      }
+
+      if (mesh.geometry) {
+        mesh.geometry.dispose();
+      }
+    }
+
+    function clearPreviewMesh() {
+      if (previewMesh) {
+        scene.remove(previewMesh);
+        disposeMesh(previewMesh);
+        previewMesh = null;
+      }
+    }
+
+    function buildPlaneMesh(image, alphaThresholdValue) {
+      const aspect = image.naturalWidth / image.naturalHeight;
+
+      const texture = new THREE.Texture(image);
+      texture.colorSpace = THREE.SRGBColorSpace;
+      texture.needsUpdate = true;
+      // Nota: dejamos el valor por defecto de flipY para evitar que salga invertida.
+
+      const width = aspect >= 1 ? 2 : 2 * aspect;
+      const height = aspect >= 1 ? 2 / aspect : 2;
+
+      const geometry = new THREE.PlaneGeometry(width, height);
+      const material = new THREE.MeshBasicMaterial({
+        map: texture,
+        transparent: true,
+        opacity: 1,
+        alphaTest: alphaThresholdValue,
+        side: THREE.DoubleSide,
+        depthWrite: false
+      });
+
+      const plane = new THREE.Mesh(geometry, material);
+      plane.name = "CreativeLab_Image_Plane";
+      plane.position.set(0, 0.15, 0);
+
+      return plane;
+    }
+
+    function updateViewerModel() {
+      if (!finalImage || !scene) {
+        return;
+      }
+
+      clearPreviewMesh();
+
+      previewMesh = buildPlaneMesh(
+        finalImage,
+        Number(alphaTest.value) / 100
+      );
+
+      scene.add(previewMesh);
+
+      const aspect = finalImage.naturalWidth / finalImage.naturalHeight;
+      const fitHeight = aspect >= 1 ? 2 / aspect : 2;
+      camera.position.set(0, Math.max(0.15, fitHeight * 0.15), 4);
+      controls.target.set(0, 0.15, 0);
+      controls.update();
+
+      viewerEmpty.hidden = true;
+      viewerPanel.hidden = false;
+      downloadButton.disabled = false;
+
+      resizeViewer();
+      requestAnimationFrame(() => {
+        resizeViewer();
+        controls.update();
+      });
+    }
+
+    function resetTool() {
+      selectedFile = null;
+      finalImage = null;
+      fileInput.value = "";
+      imagePreview.removeAttribute("src");
+      fileName.textContent = "—";
+      imageDimensions.textContent = "—";
+      fileSize.textContent = "—";
+      previewPanel.hidden = true;
+      viewerPanel.hidden = true;
+      viewerEmpty.hidden = false;
+      downloadButton.disabled = true;
+      revokePreviewUrl();
+      clearPreviewMesh();
+      hideStatus();
+    }
+
+    async function selectFile(file) {
+      try {
+        hideStatus();
+        validateFile(file);
+
+        showStatus(
+          translate("messages.loading", "Cargando imagen..."),
+          "info"
+        );
+
+        const maxSize = Number(maximumSize.value);
+        const image = await fileToCleanPngImage(file, maxSize);
+
+        selectedFile = file;
+        finalImage = image;
+
+        revokePreviewUrl();
+        previewObjectUrl = URL.createObjectURL(file);
+
+        imagePreview.src = previewObjectUrl;
+        fileName.textContent = file.name;
+        imageDimensions.textContent = `${image.naturalWidth} × ${image.naturalHeight} px`;
+        fileSize.textContent = formatBytes(file.size);
+
+        previewPanel.hidden = false;
+
+        updateViewerModel();
+
+        showStatus(
+          translate("messages.ready", "Imagen lista para convertir."),
+          "success"
+        );
+      } catch (error) {
+        resetTool();
+        showStatus(error.message, "error");
+      }
+    }
+
+    function createGlbFromImage(image) {
+      return new Promise((resolve, reject) => {
+        const exportScene = new THREE.Scene();
+        exportScene.name = "CreativeLab_Image_GLTF";
+
+        const plane = buildPlaneMesh(
+          image,
+          Number(alphaTest.value) / 100
+        );
+
+        plane.position.set(0, plane.position.y + 0.85, 0);
+        exportScene.add(plane);
+
+        const helperGeometry = new THREE.BoxGeometry(0.01, 0.01, 0.01);
+        const helperMaterial = new THREE.MeshBasicMaterial({
+          transparent: true,
+          opacity: 0
+        });
+        const helper = new THREE.Mesh(helperGeometry, helperMaterial);
+        helper.name = "CreativeLab_Invisible_Helper";
+        exportScene.add(helper);
+
+        const cameraForExport = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+        cameraForExport.position.set(0, 1, 5);
+        cameraForExport.lookAt(0, 1, 0);
+        cameraForExport.name = "CreativeLab_Camera";
+        exportScene.add(cameraForExport);
+
+        const light = new THREE.DirectionalLight(0xffffff, 1);
+        light.position.set(2, 4, 5);
+        light.name = "CreativeLab_Light";
+        exportScene.add(light);
+
+        const exporter = new GLTFExporter();
+
+        exporter.parse(
+          exportScene,
+          (result) => {
+            disposeMesh(plane);
+            helperGeometry.dispose();
+            helperMaterial.dispose();
+
+            resolve(new Blob([result], { type: "model/gltf-binary" }));
+          },
+          (error) => {
+            disposeMesh(plane);
+            helperGeometry.dispose();
+            helperMaterial.dispose();
+            reject(error);
+          },
+          {
+            binary: true,
+            embedImages: true,
+            includeCustomExtensions: false,
+            forcePowerOfTwoTextures: false,
+            trs: false
+          }
+        );
+      });
+    }
+
+    function downloadBlob(blob, filename) {
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+
+      link.href = url;
+      link.download = filename;
+
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      setTimeout(() => {
+        URL.revokeObjectURL(url);
+      }, 1500);
+    }
+
+    async function downloadGlb() {
+      if (!selectedFile || !finalImage) {
+        return;
+      }
+
+      downloadButton.disabled = true;
+
+      showStatus(
+        translate("messages.creating", "Creando archivo GLB..."),
+        "info"
+      );
+
+      try {
+        const glbBlob = await createGlbFromImage(finalImage);
+        const baseName = selectedFile.name.replace(/\.[^/.]+$/, "");
+
+        downloadBlob(glbBlob, `${baseName}-creative-lab.glb`);
+
+        showStatus(
+          translate("messages.completed", "GLB creado y descargado."),
+          "success"
+        );
+      } catch (error) {
+        console.error(error);
+        showStatus(
+          translate("messages.convertError", "No fue posible crear el archivo GLB."),
+          "error"
+        );
+      } finally {
+        downloadButton.disabled = false;
+      }
+    }
+
+    uploadZone.addEventListener("click", () => {
+      fileInput.click();
+    });
+
+    fileInput.addEventListener("change", () => {
+      const file = fileInput.files && fileInput.files[0];
+      if (file) {
+        selectFile(file);
+      }
+    });
+
+    ["dragenter", "dragover"].forEach((eventName) => {
+      uploadZone.addEventListener(eventName, (event) => {
+        event.preventDefault();
+        uploadZone.classList.add("is-dragging");
+      });
+    });
+
+    ["dragleave", "drop"].forEach((eventName) => {
+      uploadZone.addEventListener(eventName, (event) => {
+        event.preventDefault();
+        uploadZone.classList.remove("is-dragging");
+      });
+    });
+
+    uploadZone.addEventListener("drop", (event) => {
+      const file = event.dataTransfer.files[0];
+      if (file) {
+        selectFile(file);
+      }
+    });
+
+    maximumSize.addEventListener("change", async () => {
+      if (selectedFile) {
+        await selectFile(selectedFile);
+      }
+    });
+
+    alphaTest.addEventListener("input", () => {
+      alphaValue.textContent = (Number(alphaTest.value) / 100).toFixed(2);
+
+      if (previewMesh && previewMesh.material) {
+        previewMesh.material.alphaTest = Number(alphaTest.value) / 100;
+        previewMesh.material.needsUpdate = true;
+      }
+    });
+
+    downloadButton.addEventListener("click", downloadGlb);
+    resetButton.addEventListener("click", resetTool);
+
+    document.addEventListener("creativeLab:languageChanged", () => {
+      if (!statusMessage.hidden) {
+        hideStatus();
+      }
+    });
+
+    initViewer();
+  </script>
+</body>
+</html>

@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generador de efecto translúcido | Creative Lab</title>
+  <meta name="description" content="Crea efectos glassmorphism y tarjetas translúcidas para interfaces, publicidad y redes sociales con Creative Lab.">
+  <meta name="keywords" content="glassmorphism, efecto translúcido, generador glass, blur css, diseño UI, creative lab">
+  <meta name="author" content="Creative Lab">
+  <meta property="og:title" content="Generador de efecto translúcido | Creative Lab">
+  <meta property="og:description" content="Diseña tarjetas translúcidas con blur, borde, sombra, colores y fondo personalizable.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Generador de efecto translúcido | Creative Lab">
+  <meta name="twitter:description" content="Crea efectos glassmorphism en línea y descarga el resultado.">
+  <link rel="canonical" href="./glass-generator.html">
+   <link rel="icon" href="./src/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./styles/main.css">
+</head>
+<body class="creative-lab-page">
+  <div class="site-shell">
+    <a class="skip-link" href="#main-content" data-i18n="common.skipLink">Saltar al contenido</a>
+
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="site-brand" href="./index.html" aria-label="Creative Lab">
+          <img class="site-brand__logo" src="./src/logo.svg" alt="Logo de Creative Lab" width="44" height="44">
+          <span class="site-brand__name">Creative Lab</span>
+        </a>
+
+        <div class="site-header__actions">
+          <label class="language-control" for="language-selector">
+            <span class="sr-only" data-i18n="common.language">Idioma</span>
+            <select id="language-selector" aria-label="Seleccionar idioma">
+              <option value="es">ES</option>
+              <option value="en">EN</option>
+            </select>
+          </label>
+
+          <a class="back-to-portfolio" href="./index.html" data-i18n="common.backToPortfolio">
+            Regresar al portafolio de servicios
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content" class="product-page glass-generator-page">
+      <section class="product-hero glass-hero">
+        <div class="product-hero__copy">
+          <span class="product-hero__eyebrow" data-i18n="hero.eyebrow">NUEVO · GLASSMORPHISM</span>
+          <h1 data-i18n="hero.title">Generador de efecto translúcido</h1>
+          <p data-i18n="hero.description">
+            Diseña tarjetas glassmorphism con fondo personalizable, blur, opacidad, bordes, sombras y texto editable. Copia el CSS o descarga una vista previa en PNG.
+          </p>
+
+          <ul class="feature-list">
+            <li data-i18n="hero.feature1">Previsualización en tiempo real</li>
+            <li data-i18n="hero.feature2">Fondo sólido, degradado o imagen</li>
+            <li data-i18n="hero.feature3">Exportación visual + CSS listo para usar</li>
+          </ul>
+        </div>
+
+        <aside class="glass-ad" aria-label="Publicidad">
+          <span data-i18n="common.adSpace">Espacio para publicidad</span>
+        </aside>
+      </section>
+
+      <section class="glass-layout">
+        <aside class="glass-panel">
+          <article class="glass-card">
+            <h2 data-i18n="controls.backgroundTitle">1. Fondo</h2>
+
+            <label class="field">
+              <span data-i18n="controls.backgroundMode">Tipo de fondo</span>
+              <select id="background-mode">
+                <option value="gradient" data-i18n="controls.bgGradient">Degradado</option>
+                <option value="solid" data-i18n="controls.bgSolid">Color sólido</option>
+                <option value="image" data-i18n="controls.bgImage">Imagen</option>
+              </select>
+            </label>
+
+            <div class="field-row">
+              <label class="field">
+                <span data-i18n="controls.color1">Color 1</span>
+                <input type="color" id="background-color-1" value="#152b6f">
+              </label>
+
+              <label class="field">
+                <span data-i18n="controls.color2">Color 2</span>
+                <input type="color" id="background-color-2" value="#7f2eff">
+              </label>
+            </div>
+
+            <label class="field">
+              <span data-i18n="controls.gradientAngle">Ángulo del degradado</span>
+              <input type="range" id="gradient-angle" min="0" max="360" value="135">
+              <strong id="gradient-angle-value">135°</strong>
+            </label>
+
+            <label class="field">
+              <span data-i18n="controls.imageUrl">URL de imagen</span>
+              <input type="url" id="background-image-url" placeholder="https://ejemplo.com/imagen.jpg">
+            </label>
+
+            <div class="button-stack">
+              <button class="button button--secondary button--block" id="load-image-url" type="button" data-i18n="controls.loadImageUrl">
+                Cargar imagen desde URL
+              </button>
+              <button class="button button--primary button--block" id="upload-image-button" type="button" data-i18n="controls.uploadImage">
+                Subir imagen desde equipo
+              </button>
+              <input type="file" id="background-image-file" accept="image/*" hidden>
+            </div>
+          </article>
+
+          <article class="glass-card">
+            <h2 data-i18n="controls.glassTitle">2. Tarjeta glass</h2>
+
+            <div class="field-row">
+              <label class="field">
+                <span data-i18n="controls.cardWidth">Ancho</span>
+                <input type="range" id="card-width" min="220" max="600" value="360">
+                <strong id="card-width-value">360px</strong>
+              </label>
+
+              <label class="field">
+                <span data-i18n="controls.cardHeight">Alto</span>
+                <input type="range" id="card-height" min="180" max="500" value="260">
+                <strong id="card-height-value">260px</strong>
+              </label>
+            </div>
+
+            <div class="field-row">
+              <label class="field">
+                <span data-i18n="controls.radius">Border radius</span>
+                <input type="range" id="card-radius" min="0" max="60" value="28">
+                <strong id="card-radius-value">28px</strong>
+              </label>
+
+              <label class="field">
+                <span data-i18n="controls.padding">Padding</span>
+                <input type="range" id="card-padding" min="12" max="56" value="28">
+                <strong id="card-padding-value">28px</strong>
+              </label>
+            </div>
+
+            <div class="field-row">
+              <label class="field">
+                <span data-i18n="controls.blur">Blur</span>
+                <input type="range" id="glass-blur" min="0" max="40" value="18">
+                <strong id="glass-blur-value">18px</strong>
+              </label>
+
+              <label class="field">
+                <span data-i18n="controls.opacity">Opacidad</span>
+                <input type="range" id="glass-opacity" min="0" max="100" value="22">
+                <strong id="glass-opacity-value">22%</strong>
+              </label>
+            </div>
+
+            <div class="field-row">
+              <label class="field">
+                <span data-i18n="controls.borderWidth">Borde</span>
+                <input type="range" id="glass-border-width" min="0" max="6" value="1">
+                <strong id="glass-border-width-value">1px</strong>
+              </label>
+
+              <label class="field">
+                <span data-i18n="controls.shadow">Sombra</span>
+                <input type="range" id="glass-shadow" min="0" max="80" value="35">
+                <strong id="glass-shadow-value">35px</strong>
+              </label>
+            </div>
+
+            <div class="field-row">
+              <label class="field">
+                <span data-i18n="controls.cardTint">Tinte</span>
+                <input type="color" id="glass-color" value="#ffffff">
+              </label>
+
+              <label class="field">
+                <span data-i18n="controls.borderColor">Color del borde</span>
+                <input type="color" id="glass-border-color" value="#ffffff">
+              </label>
+            </div>
+
+            <label class="check-field">
+              <input type="checkbox" id="glass-highlight" checked>
+              <span data-i18n="controls.highlight">Mostrar brillo superior</span>
+            </label>
+          </article>
+
+          <article class="glass-card">
+            <h2 data-i18n="controls.contentTitle">3. Contenido</h2>
+
+            <label class="field">
+              <span data-i18n="controls.titleText">Título</span>
+              <input type="text" id="title-text" value="Creative Lab Glass">
+            </label>
+
+            <label class="field">
+              <span data-i18n="controls.bodyText">Descripción</span>
+              <textarea id="body-text" rows="4">Diseña tarjetas translúcidas y estilos glassmorphism para interfaces, anuncios o publicaciones visuales.</textarea>
+            </label>
+
+            <div class="field-row">
+              <label class="field">
+                <span data-i18n="controls.titleColor">Color del título</span>
+                <input type="color" id="title-color" value="#ffffff">
+              </label>
+
+              <label class="field">
+                <span data-i18n="controls.bodyColor">Color del texto</span>
+                <input type="color" id="body-color" value="#eaf8ff">
+              </label>
+            </div>
+
+            <div class="field-row">
+              <label class="field">
+                <span data-i18n="controls.titleSize">Tamaño del título</span>
+                <input type="range" id="title-size" min="18" max="52" value="34">
+                <strong id="title-size-value">34px</strong>
+              </label>
+
+              <label class="field">
+                <span data-i18n="controls.bodySize">Tamaño del texto</span>
+                <input type="range" id="body-size" min="12" max="26" value="16">
+                <strong id="body-size-value">16px</strong>
+              </label>
+            </div>
+
+            <label class="field">
+              <span data-i18n="controls.align">Alineación</span>
+              <select id="text-align">
+                <option value="left" data-i18n="controls.alignLeft">Izquierda</option>
+                <option value="center" data-i18n="controls.alignCenter">Centro</option>
+                <option value="right" data-i18n="controls.alignRight">Derecha</option>
+              </select>
+            </label>
+          </article>
+
+          <article class="glass-card">
+            <h2 data-i18n="controls.actionsTitle">4. Acciones</h2>
+
+            <div class="button-stack">
+              <button class="button button--primary button--block" id="copy-css" type="button" data-i18n="controls.copyCss">
+                Copiar CSS
+              </button>
+
+              <button class="button button--secondary button--block" id="download-preview" type="button" data-i18n="controls.downloadPng">
+                Descargar PNG
+              </button>
+
+              <button class="button button--ghost button--block" id="reset-generator" type="button" data-i18n="controls.reset">
+                Restablecer diseño
+              </button>
+            </div>
+
+            <p class="tool-note" id="action-status" data-i18n="messages.ready">
+              Ajusta los controles y genera tu efecto translúcido.
+            </p>
+          </article>
+        </aside>
+
+        <section class="glass-workspace">
+          <article class="glass-card glass-preview-card">
+            <div class="glass-preview-topbar">
+              <strong data-i18n="preview.title">Vista previa</strong>
+              <span class="glass-preview-hint" data-i18n="preview.hint">Todo cambia en tiempo real</span>
+            </div>
+
+            <div class="glass-preview-stage" id="glass-preview-stage">
+              <div class="glass-scene" id="glass-scene">
+                <div class="glass-object" id="glass-object">
+                  <div class="glass-shine" id="glass-shine"></div>
+                  <div class="glass-content" id="glass-content">
+                    <h3 id="preview-title">Creative Lab Glass</h3>
+                    <p id="preview-body">Diseña tarjetas translúcidas y estilos glassmorphism para interfaces, anuncios o publicaciones visuales.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="glass-card glass-code-card">
+            <div class="glass-preview-topbar">
+              <strong data-i18n="preview.cssTitle">CSS generado</strong>
+              <button class="mini-copy-button" id="copy-css-secondary" type="button" data-i18n="controls.copyCssMini">
+                Copiar
+              </button>
+            </div>
+
+            <textarea id="css-output" class="css-output" rows="14" readonly></textarea>
+          </article>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script>
+    (function () {
+      const state = {
+        currentLanguage: 'es',
+        translations: {},
+        uploadedBackground: ''
+      };
+
+      const elements = {
+        languageSelector: document.getElementById('language-selector'),
+        backgroundMode: document.getElementById('background-mode'),
+        backgroundColor1: document.getElementById('background-color-1'),
+        backgroundColor2: document.getElementById('background-color-2'),
+        gradientAngle: document.getElementById('gradient-angle'),
+        gradientAngleValue: document.getElementById('gradient-angle-value'),
+        backgroundImageUrl: document.getElementById('background-image-url'),
+        loadImageUrl: document.getElementById('load-image-url'),
+        uploadImageButton: document.getElementById('upload-image-button'),
+        backgroundImageFile: document.getElementById('background-image-file'),
+
+        cardWidth: document.getElementById('card-width'),
+        cardHeight: document.getElementById('card-height'),
+        cardRadius: document.getElementById('card-radius'),
+        cardPadding: document.getElementById('card-padding'),
+        glassBlur: document.getElementById('glass-blur'),
+        glassOpacity: document.getElementById('glass-opacity'),
+        glassBorderWidth: document.getElementById('glass-border-width'),
+        glassShadow: document.getElementById('glass-shadow'),
+        glassColor: document.getElementById('glass-color'),
+        glassBorderColor: document.getElementById('glass-border-color'),
+        glassHighlight: document.getElementById('glass-highlight'),
+
+        cardWidthValue: document.getElementById('card-width-value'),
+        cardHeightValue: document.getElementById('card-height-value'),
+        cardRadiusValue: document.getElementById('card-radius-value'),
+        cardPaddingValue: document.getElementById('card-padding-value'),
+        glassBlurValue: document.getElementById('glass-blur-value'),
+        glassOpacityValue: document.getElementById('glass-opacity-value'),
+        glassBorderWidthValue: document.getElementById('glass-border-width-value'),
+        glassShadowValue: document.getElementById('glass-shadow-value'),
+
+        titleText: document.getElementById('title-text'),
+        bodyText: document.getElementById('body-text'),
+        titleColor: document.getElementById('title-color'),
+        bodyColor: document.getElementById('body-color'),
+        titleSize: document.getElementById('title-size'),
+        bodySize: document.getElementById('body-size'),
+        titleSizeValue: document.getElementById('title-size-value'),
+        bodySizeValue: document.getElementById('body-size-value'),
+        textAlign: document.getElementById('text-align'),
+
+        previewStage: document.getElementById('glass-preview-stage'),
+        scene: document.getElementById('glass-scene'),
+        object: document.getElementById('glass-object'),
+        shine: document.getElementById('glass-shine'),
+        previewTitle: document.getElementById('preview-title'),
+        previewBody: document.getElementById('preview-body'),
+
+        cssOutput: document.getElementById('css-output'),
+        copyCss: document.getElementById('copy-css'),
+        copyCssSecondary: document.getElementById('copy-css-secondary'),
+        downloadPreview: document.getElementById('download-preview'),
+        resetGenerator: document.getElementById('reset-generator'),
+        actionStatus: document.getElementById('action-status')
+      };
+
+      function rgbaFromHex(hex, alpha) {
+        const normalized = hex.replace('#', '');
+        const bigint = parseInt(normalized, 16);
+        const r = (bigint >> 16) & 255;
+        const g = (bigint >> 8) & 255;
+        const b = bigint & 255;
+        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+      }
+
+      function t(path, fallback = '') {
+        return path.split('.').reduce((acc, key) => (acc && key in acc ? acc[key] : undefined), state.translations) ?? fallback;
+      }
+
+      async function loadTranslations(language) {
+        const safeLanguage = language === 'en' ? 'en' : 'es';
+        state.currentLanguage = safeLanguage;
+        elements.languageSelector.value = safeLanguage;
+        localStorage.setItem('creativeLabLanguage', safeLanguage);
+
+        try {
+          const response = await fetch(`./jsons/glass-generator-${safeLanguage}.json`, { cache: 'no-store' });
+          if (!response.ok) throw new Error('Translation load failed');
+          state.translations = await response.json();
+          applyTranslations();
+        } catch (error) {
+          console.warn(error);
+        }
+      }
+
+      function applyTranslations() {
+        document.documentElement.lang = state.currentLanguage;
+        document.title = t('seo.title', document.title);
+
+        document.querySelectorAll('[data-i18n]').forEach((node) => {
+          node.textContent = t(node.dataset.i18n, node.textContent);
+        });
+      }
+
+      function setStatus(key, fallback) {
+        elements.actionStatus.textContent = t(key, fallback);
+      }
+
+      function updateValueLabels() {
+        elements.gradientAngleValue.textContent = `${elements.gradientAngle.value}°`;
+        elements.cardWidthValue.textContent = `${elements.cardWidth.value}px`;
+        elements.cardHeightValue.textContent = `${elements.cardHeight.value}px`;
+        elements.cardRadiusValue.textContent = `${elements.cardRadius.value}px`;
+        elements.cardPaddingValue.textContent = `${elements.cardPadding.value}px`;
+        elements.glassBlurValue.textContent = `${elements.glassBlur.value}px`;
+        elements.glassOpacityValue.textContent = `${elements.glassOpacity.value}%`;
+        elements.glassBorderWidthValue.textContent = `${elements.glassBorderWidth.value}px`;
+        elements.glassShadowValue.textContent = `${elements.glassShadow.value}px`;
+        elements.titleSizeValue.textContent = `${elements.titleSize.value}px`;
+        elements.bodySizeValue.textContent = `${elements.bodySize.value}px`;
+      }
+
+      function updateBackground() {
+        const mode = elements.backgroundMode.value;
+        const color1 = elements.backgroundColor1.value;
+        const color2 = elements.backgroundColor2.value;
+        const angle = elements.gradientAngle.value;
+
+        if (mode === 'solid') {
+          elements.scene.style.background = color1;
+          elements.scene.style.backgroundImage = 'none';
+        } else if (mode === 'gradient') {
+          elements.scene.style.background = `linear-gradient(${angle}deg, ${color1}, ${color2})`;
+          elements.scene.style.backgroundImage = 'none';
+        } else if (mode === 'image') {
+          const imageSource = state.uploadedBackground || elements.backgroundImageUrl.value.trim();
+          if (imageSource) {
+            elements.scene.style.background = `center / cover no-repeat url("${imageSource}")`;
+          } else {
+            elements.scene.style.background = `linear-gradient(${angle}deg, ${color1}, ${color2})`;
+          }
+        }
+      }
+
+      function generateCssCode() {
+        const tint = rgbaFromHex(elements.glassColor.value, Number(elements.glassOpacity.value) / 100);
+        const borderColor = rgbaFromHex(elements.glassBorderColor.value, 0.45);
+
+        return [
+          '.glass-card {',
+          `  width: ${elements.cardWidth.value}px;`,
+          `  min-height: ${elements.cardHeight.value}px;`,
+          `  padding: ${elements.cardPadding.value}px;`,
+          `  border-radius: ${elements.cardRadius.value}px;`,
+          `  background: ${tint};`,
+          `  border: ${elements.glassBorderWidth.value}px solid ${borderColor};`,
+          `  box-shadow: 0 18px ${elements.glassShadow.value}px rgba(0, 0, 0, 0.22);`,
+          `  backdrop-filter: blur(${elements.glassBlur.value}px);`,
+          `  -webkit-backdrop-filter: blur(${elements.glassBlur.value}px);`,
+          '  overflow: hidden;',
+          '}',
+          '',
+          '.glass-card__title {',
+          `  color: ${elements.titleColor.value};`,
+          `  font-size: ${elements.titleSize.value}px;`,
+          `  text-align: ${elements.textAlign.value};`,
+          '}',
+          '',
+          '.glass-card__body {',
+          `  color: ${elements.bodyColor.value};`,
+          `  font-size: ${elements.bodySize.value}px;`,
+          `  text-align: ${elements.textAlign.value};`,
+          '}'
+        ].join('\n');
+      }
+
+      function updatePreview() {
+        updateValueLabels();
+        updateBackground();
+
+        const tint = rgbaFromHex(elements.glassColor.value, Number(elements.glassOpacity.value) / 100);
+        const borderColor = rgbaFromHex(elements.glassBorderColor.value, 0.45);
+        const width = `${elements.cardWidth.value}px`;
+        const height = `${elements.cardHeight.value}px`;
+        const radius = `${elements.cardRadius.value}px`;
+        const padding = `${elements.cardPadding.value}px`;
+        const blur = `${elements.glassBlur.value}px`;
+        const borderWidth = `${elements.glassBorderWidth.value}px`;
+        const shadow = `${elements.glassShadow.value}px`;
+
+        elements.object.style.width = width;
+        elements.object.style.minHeight = height;
+        elements.object.style.padding = padding;
+        elements.object.style.borderRadius = radius;
+        elements.object.style.background = tint;
+        elements.object.style.border = `${borderWidth} solid ${borderColor}`;
+        elements.object.style.boxShadow = `0 20px ${shadow} rgba(0, 0, 0, 0.24)`;
+        elements.object.style.backdropFilter = `blur(${blur})`;
+        elements.object.style.webkitBackdropFilter = `blur(${blur})`;
+
+        elements.shine.style.display = elements.glassHighlight.checked ? 'block' : 'none';
+        elements.shine.style.borderRadius = radius;
+
+        elements.previewTitle.textContent = elements.titleText.value || 'Creative Lab Glass';
+        elements.previewBody.textContent = elements.bodyText.value || 'Diseña tarjetas translúcidas y estilos glassmorphism.';
+        elements.previewTitle.style.color = elements.titleColor.value;
+        elements.previewBody.style.color = elements.bodyColor.value;
+        elements.previewTitle.style.fontSize = `${elements.titleSize.value}px`;
+        elements.previewBody.style.fontSize = `${elements.bodySize.value}px`;
+        elements.previewTitle.style.textAlign = elements.textAlign.value;
+        elements.previewBody.style.textAlign = elements.textAlign.value;
+        elements.previewBody.style.opacity = '0.92';
+
+        elements.cssOutput.value = generateCssCode();
+      }
+
+      async function copyCss() {
+        try {
+          await navigator.clipboard.writeText(elements.cssOutput.value);
+          setStatus('messages.cssCopied', 'CSS copiado correctamente.');
+        } catch (error) {
+          setStatus('messages.copyError', 'No se pudo copiar el CSS.');
+        }
+      }
+
+      async function downloadPreview() {
+        try {
+          const canvas = await html2canvas(elements.scene, {
+            backgroundColor: null,
+            scale: 2,
+            useCORS: true
+          });
+
+          const link = document.createElement('a');
+          link.download = 'creative-lab-glass-effect.png';
+          link.href = canvas.toDataURL('image/png');
+          link.click();
+          setStatus('messages.downloadReady', 'Descarga generada correctamente.');
+        } catch (error) {
+          setStatus('messages.downloadError', 'No se pudo generar la descarga.');
+        }
+      }
+
+      function readImageFile(file) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
+      }
+
+      async function handleImageUpload(file) {
+        if (!file) return;
+        try {
+          state.uploadedBackground = await readImageFile(file);
+          elements.backgroundMode.value = 'image';
+          updatePreview();
+          setStatus('messages.imageLoaded', 'Imagen de fondo cargada correctamente.');
+        } catch (error) {
+          setStatus('messages.imageError', 'No se pudo cargar la imagen.');
+        }
+      }
+
+      function handleImageUrl() {
+        const url = elements.backgroundImageUrl.value.trim();
+        if (!url) {
+          setStatus('messages.urlEmpty', 'Escribe una URL de imagen válida.');
+          return;
+        }
+        state.uploadedBackground = '';
+        elements.backgroundMode.value = 'image';
+        updatePreview();
+        setStatus('messages.urlLoaded', 'Se aplicó la imagen desde la URL.');
+      }
+
+      function resetGenerator() {
+        elements.backgroundMode.value = 'gradient';
+        elements.backgroundColor1.value = '#152b6f';
+        elements.backgroundColor2.value = '#7f2eff';
+        elements.gradientAngle.value = '135';
+        elements.backgroundImageUrl.value = '';
+        state.uploadedBackground = '';
+
+        elements.cardWidth.value = '360';
+        elements.cardHeight.value = '260';
+        elements.cardRadius.value = '28';
+        elements.cardPadding.value = '28';
+        elements.glassBlur.value = '18';
+        elements.glassOpacity.value = '22';
+        elements.glassBorderWidth.value = '1';
+        elements.glassShadow.value = '35';
+        elements.glassColor.value = '#ffffff';
+        elements.glassBorderColor.value = '#ffffff';
+        elements.glassHighlight.checked = true;
+
+        elements.titleText.value = 'Creative Lab Glass';
+        elements.bodyText.value = 'Diseña tarjetas translúcidas y estilos glassmorphism para interfaces, anuncios o publicaciones visuales.';
+        elements.titleColor.value = '#ffffff';
+        elements.bodyColor.value = '#eaf8ff';
+        elements.titleSize.value = '34';
+        elements.bodySize.value = '16';
+        elements.textAlign.value = 'left';
+
+        updatePreview();
+        setStatus('messages.resetDone', 'Diseño restablecido.');
+      }
+
+      const liveControls = [
+        elements.backgroundMode,
+        elements.backgroundColor1,
+        elements.backgroundColor2,
+        elements.gradientAngle,
+        elements.cardWidth,
+        elements.cardHeight,
+        elements.cardRadius,
+        elements.cardPadding,
+        elements.glassBlur,
+        elements.glassOpacity,
+        elements.glassBorderWidth,
+        elements.glassShadow,
+        elements.glassColor,
+        elements.glassBorderColor,
+        elements.glassHighlight,
+        elements.titleText,
+        elements.bodyText,
+        elements.titleColor,
+        elements.bodyColor,
+        elements.titleSize,
+        elements.bodySize,
+        elements.textAlign
+      ];
+
+      liveControls.forEach((control) => {
+        control.addEventListener('input', updatePreview);
+        control.addEventListener('change', updatePreview);
+      });
+
+      elements.copyCss.addEventListener('click', copyCss);
+      elements.copyCssSecondary.addEventListener('click', copyCss);
+      elements.downloadPreview.addEventListener('click', downloadPreview);
+      elements.resetGenerator.addEventListener('click', resetGenerator);
+      elements.loadImageUrl.addEventListener('click', handleImageUrl);
+      elements.uploadImageButton.addEventListener('click', () => elements.backgroundImageFile.click());
+      elements.backgroundImageFile.addEventListener('change', (event) => handleImageUpload(event.target.files[0]));
+      elements.languageSelector.addEventListener('change', (event) => loadTranslations(event.target.value));
+
+      const savedLanguage = localStorage.getItem('creativeLabLanguage');
+      const browserLanguage = (navigator.language || 'es').toLowerCase().startsWith('en') ? 'en' : 'es';
+      loadTranslations(savedLanguage || browserLanguage);
+      updatePreview();
+    })();
+  </script>
+</body>
+</html>

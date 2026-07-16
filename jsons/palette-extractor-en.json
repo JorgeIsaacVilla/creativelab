@@ -1,0 +1,53 @@
+{
+  "seo": {
+    "title": "Image Palette Extractor | Creative Lab",
+    "description": "Extract dominant colors from an image directly in your browser.",
+    "htmlLang": "en"
+  },
+  "product": {
+    "eyebrow": "Color analysis",
+    "title": "Palette Extractor",
+    "description": "Upload an image, detect its dominant colors and export the palette as HEX, CSS or JSON."
+  },
+  "extractor": {
+    "title": "Select an image",
+    "intro": "The image is analyzed locally in your browser.",
+    "uploadTitle": "Drag an image here or click to select it",
+    "uploadHelp": "JPG, PNG, WebP or SVG. Maximum 20 MB.",
+    "colorCount": "Number of colors",
+    "quality": "Accuracy",
+    "fast": "Fast",
+    "balanced": "Balanced",
+    "precise": "Precise",
+    "imageTitle": "Selected image",
+    "previewAlt": "Image preview",
+    "fileName": "File",
+    "dimensions": "Dimensions",
+    "fileSize": "File size",
+    "paletteTitle": "Extracted palette",
+    "paletteDescription": "Click a color to copy it.",
+    "exportTitle": "Export palette",
+    "extractButton": "Extract palette",
+    "downloadButton": "Download palette"
+  },
+  "info": {
+    "eyebrow": "Colors born from an image",
+    "title": "How to extract a palette with Creative Lab",
+    "description": "Select an image, choose how many colors you need and export the palette.",
+    "stepOneTitle": "1. Upload",
+    "stepOneText": "Select a compatible image.",
+    "stepTwoTitle": "2. Analyze",
+    "stepTwoText": "Creative Lab detects dominant colors.",
+    "stepThreeTitle": "3. Export",
+    "stepThreeText": "Copy or download the palette."
+  },
+  "picker": {
+    "title": "Exact color at a point",
+    "description": "Click or tap anywhere on the image to read the exact color of that pixel.",
+    "canvasLabel": "Interactive image for selecting colors",
+    "noSelection": "No point has been selected yet.",
+    "copyHex": "Copy selected HEX",
+    "copyRgb": "Copy selected RGB",
+    "copyHsl": "Copy selected HSL"
+  }
+}

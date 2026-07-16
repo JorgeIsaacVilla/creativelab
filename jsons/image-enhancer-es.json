@@ -1,0 +1,62 @@
+{
+  "seo": {
+    "title": "Mejorador de imagen | Creative Lab"
+  },
+  "common": {
+    "skipLink": "Saltar al contenido",
+    "language": "Idioma",
+    "backToPortfolio": "Regresar al portafolio de servicios",
+    "adSpace": "Espacio para publicidad"
+  },
+  "hero": {
+    "eyebrow": "NUEVO · MEJORA AUTOMÁTICA",
+    "title": "Mejora la calidad de una imagen y compara el resultado",
+    "description": "Sube una imagen, mejora automáticamente su calidad visual y compárala en tiempo real con un deslizador interactivo. Ajusta nitidez, contraste, saturación, claridad, reducción de ruido y reescalado.",
+    "feature1": "Mejora automática directamente en tu navegador",
+    "feature2": "Comparador interactivo antes/después",
+    "feature3": "Descarga de imagen mejorada o comparativa"
+  },
+  "upload": {
+    "title": "1. Cargar imagen",
+    "button": "Seleccionar imagen",
+    "help": "Formatos compatibles: PNG, JPG y WebP."
+  },
+  "presets": {
+    "title": "2. Mejora rápida",
+    "auto": "Mejorar automáticamente",
+    "reset": "Restablecer ajustes",
+    "upscale": "Reescalado",
+    "clahe": "Mejorar claridad local"
+  },
+  "controls": {
+    "title": "3. Ajustes avanzados",
+    "brightness": "Brillo",
+    "contrast": "Contraste",
+    "saturation": "Saturación",
+    "sharpen": "Nitidez",
+    "denoise": "Reducción de ruido",
+    "clarity": "Claridad"
+  },
+  "actions": {
+    "title": "4. Exportar",
+    "downloadEnhanced": "Descargar imagen mejorada",
+    "downloadComparison": "Descargar comparativa",
+    "note": "La descarga comparativa genera una imagen con las etiquetas Antes y Después."
+  },
+  "preview": {
+    "title": "Vista previa",
+    "empty": "Carga una imagen para comenzar a mejorarla.",
+    "before": "Antes",
+    "after": "Después",
+    "slider": "Deslizador",
+    "placeholder": "Aquí aparecerá la comparación antes/después."
+  },
+  "messages": {
+    "imageLoaded": "Imagen cargada. Ahora puedes mejorarla automáticamente o ajustar los controles.",
+    "ready": "Imagen mejorada. Puedes seguir ajustando los controles.",
+    "uploadError": "No se pudo cargar la imagen.",
+    "processError": "No se pudo procesar la imagen.",
+    "processing": "Procesando imagen…",
+    "reset": "Ajustes restablecidos."
+  }
+}

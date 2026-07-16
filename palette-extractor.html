@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Extractor de paletas desde imágenes | Creative Lab</title>
+<meta name="description" content="Extrae colores dominantes de imágenes JPG, PNG, WebP o SVG directamente en tu navegador.">
+<link rel="canonical" href="https://tudominio.com/palette-extractor.html">
+<link rel="stylesheet" href="./styles/main.css">
+ <link rel="icon" href="./src/favicon.ico" type="image/x-icon">
+<script src="./scripts/language.js" defer></script>
+<script src="./scripts/shared.js" defer></script>
+</head>
+<body data-page="palette-extractor">
+<a class="skip-link" href="#main-content" data-i18n="common.skipToContent">Saltar al contenido</a>
+<div class="site-shell">
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-brand" href="./index.html">
+      <img class="site-brand__logo" src="./src/logo.svg" alt="Logo de Creative Lab" width="48" height="48" data-i18n-alt="brand.logoAlt">
+      <span class="site-brand__name" data-i18n="brand.name">Creative Lab</span>
+    </a>
+    <div class="site-header__actions">
+      <a class="back-to-portfolio" href="./index.html" data-i18n="common.backToPortfolio">Regresar al portafolio de servicios</a>
+      <label class="language-control" for="language-selector">
+        <span class="sr-only" data-i18n="common.language">Idioma</span>
+        <select id="language-selector" aria-label="Seleccionar idioma"><option value="es">ES</option><option value="en">EN</option></select>
+      </label>
+    </div>
+  </div>
+</header>
+
+<aside class="ad-slot ad-slot--top" aria-label="Espacio publicitario"><span data-i18n="common.advertisement">Publicidad</span></aside>
+
+<main class="product-page" id="main-content">
+<section class="product-header" aria-labelledby="product-title">
+  <div class="product-header__content">
+    <p class="section-heading__eyebrow" data-i18n="product.eyebrow">Análisis cromático</p>
+    <h1 id="product-title" data-i18n="product.title">Extractor de paletas</h1>
+    <p class="product-header__description" data-i18n="product.description">Carga una imagen, detecta sus colores dominantes y exporta la paleta en HEX, CSS o JSON.</p>
+  </div>
+</section>
+
+<section class="tool-interface" aria-labelledby="extractor-title">
+  <div>
+    <h2 id="extractor-title" data-i18n="extractor.title">Selecciona una imagen</h2>
+    <p data-i18n="extractor.intro">La imagen se analiza localmente en tu navegador.</p>
+  </div>
+
+  <input id="image-input" type="file" accept="image/jpeg,image/png,image/webp,image/svg+xml" hidden>
+  <button class="upload-zone" id="upload-zone" type="button">
+    <span>
+      <strong data-i18n="extractor.uploadTitle">Arrastra una imagen o haz clic para seleccionarla</strong>
+      <small data-i18n="extractor.uploadHelp">JPG, PNG, WebP o SVG. Máximo 20 MB.</small>
+    </span>
+  </button>
+
+  <div class="status-message status-message--info" id="status-message" role="status" aria-live="polite" hidden></div>
+
+  <div class="control-grid">
+    <div class="form-field">
+      <label for="color-count" data-i18n="extractor.colorCount">Cantidad de colores</label>
+      <select id="color-count"><option>4</option><option selected>5</option><option>6</option><option>8</option><option>10</option></select>
+    </div>
+    <div class="form-field">
+      <label for="quality" data-i18n="extractor.quality">Precisión</label>
+      <select id="quality"><option value="18" data-i18n="extractor.fast">Rápida</option><option value="10" selected data-i18n="extractor.balanced">Equilibrada</option><option value="5" data-i18n="extractor.precise">Precisa</option></select>
+    </div>
+  </div>
+
+  <div class="palette-extractor-layout" id="preview-panel" hidden>
+    <article>
+      <h3 data-i18n="extractor.imageTitle">Imagen seleccionada</h3>
+      <div class="palette-image-preview" id="image-stage">
+        <div class="palette-image-preview__canvas-wrap" id="canvas-wrap">
+          <canvas
+            id="image-canvas"
+            aria-label="Imagen interactiva para seleccionar colores"
+            data-i18n-aria-label="picker.canvasLabel"
+          ></canvas>
+          <span id="pixel-marker" class="pixel-marker" hidden aria-hidden="true"></span>
+          <div id="magnifier" class="pixel-magnifier" hidden aria-hidden="true">
+            <canvas id="magnifier-canvas" width="120" height="120"></canvas>
+          </div>
+        </div>
+      </div>
+      <dl class="image-information">
+        <div><dt data-i18n="extractor.fileName">Archivo</dt><dd id="file-name">—</dd></div>
+        <div><dt data-i18n="extractor.dimensions">Dimensiones</dt><dd id="dimensions">—</dd></div>
+        <div><dt data-i18n="extractor.fileSize">Peso</dt><dd id="file-size">—</dd></div>
+      </dl>
+
+      <section class="pixel-picker-panel" aria-labelledby="pixel-picker-title">
+        <div class="pixel-picker-panel__heading">
+          <div>
+            <h3 id="pixel-picker-title" data-i18n="picker.title">
+              Color exacto de un punto
+            </h3>
+            <p data-i18n="picker.description">
+              Haz clic o toca cualquier parte de la imagen para leer el color exacto de ese píxel.
+            </p>
+          </div>
+        </div>
+
+        <div class="pixel-picker-preview">
+          <span
+            id="picked-color-swatch"
+            class="pixel-picker-preview__swatch"
+            aria-hidden="true"
+          ></span>
+
+          <div class="pixel-picker-preview__details">
+            <strong id="picked-color-main">—</strong>
+            <span id="picked-position" data-i18n="picker.noSelection">
+              Aún no has seleccionado un punto.
+            </span>
+          </div>
+        </div>
+
+        <div class="pixel-values-grid">
+          <article class="pixel-value-card">
+            <div class="pixel-value-card__heading">
+              <h4>HEX</h4>
+              <button
+                class="color-copy-button"
+                id="copy-picked-hex"
+                type="button"
+                disabled
+                aria-label="Copiar HEX seleccionado"
+                data-i18n-aria-label="picker.copyHex"
+              >
+                ⧉
+              </button>
+            </div>
+            <code id="picked-hex">—</code>
+          </article>
+
+          <article class="pixel-value-card">
+            <div class="pixel-value-card__heading">
+              <h4>RGB</h4>
+              <button
+                class="color-copy-button"
+                id="copy-picked-rgb"
+                type="button"
+                disabled
+                aria-label="Copiar RGB seleccionado"
+                data-i18n-aria-label="picker.copyRgb"
+              >
+                ⧉
+              </button>
+            </div>
+            <code id="picked-rgb">—</code>
+          </article>
+
+          <article class="pixel-value-card">
+            <div class="pixel-value-card__heading">
+              <h4>HSL</h4>
+              <button
+                class="color-copy-button"
+                id="copy-picked-hsl"
+                type="button"
+                disabled
+                aria-label="Copiar HSL seleccionado"
+                data-i18n-aria-label="picker.copyHsl"
+              >
+                ⧉
+              </button>
+            </div>
+            <code id="picked-hsl">—</code>
+          </article>
+        </div>
+      </section>
+    </article>
+
+    <article>
+      <h3 data-i18n="extractor.paletteTitle">Paleta extraída</h3>
+      <p data-i18n="extractor.paletteDescription">Haz clic en un color para copiarlo.</p>
+      <div class="palette-strip" id="palette-strip"></div>
+      <div class="palette-color-list" id="palette-list"></div>
+    </article>
+  </div>
+
+  <section class="palette-code-panel" id="code-panel" hidden>
+    <h3 data-i18n="extractor.exportTitle">Exportar paleta</h3>
+    <div class="palette-export-grid">
+      <article class="palette-export-card"><div class="palette-export-card__heading"><h4>HEX</h4><button class="color-copy-button" data-copy="hex-export" type="button">⧉</button></div><code id="hex-export"></code></article>
+      <article class="palette-export-card"><div class="palette-export-card__heading"><h4>CSS</h4><button class="color-copy-button" data-copy="css-export" type="button">⧉</button></div><code id="css-export"></code></article>
+      <article class="palette-export-card"><div class="palette-export-card__heading"><h4>JSON</h4><button class="color-copy-button" data-copy="json-export" type="button">⧉</button></div><code id="json-export"></code></article>
+    </div>
+  </section>
+
+  <div class="hero__actions">
+    <button class="button button--primary" id="extract-button" type="button" disabled><span data-i18n="extractor.extractButton">Extraer paleta</span></button>
+    <button class="button button--secondary" id="download-button" type="button" disabled><span data-i18n="extractor.downloadButton">Descargar paleta</span></button>
+    <button class="button button--secondary" id="reset-button" type="button"><span data-i18n="common.reset">Comenzar de nuevo</span></button>
+  </div>
+
+  <p class="privacy-note" data-i18n="common.privacyNotice">Tus archivos se procesan localmente en tu navegador.</p>
+</section>
+
+<aside class="ad-slot ad-slot--bottom" aria-label="Espacio publicitario"><span data-i18n="common.advertisement">Publicidad</span></aside>
+
+<section class="about-section__content product-information">
+  <p class="section-heading__eyebrow" data-i18n="info.eyebrow">Colores nacidos de una imagen</p>
+  <h2 data-i18n="info.title">Cómo extraer una paleta con Creative Lab</h2>
+  <p data-i18n="info.description">Selecciona una imagen, define cuántos colores necesitas y exporta la paleta.</p>
+  <div class="trust-grid">
+    <article class="trust-card"><h3 data-i18n="info.stepOneTitle">1. Carga</h3><p data-i18n="info.stepOneText">Selecciona una imagen compatible.</p></article>
+    <article class="trust-card"><h3 data-i18n="info.stepTwoTitle">2. Analiza</h3><p data-i18n="info.stepTwoText">Creative Lab detecta los colores dominantes.</p></article>
+    <article class="trust-card"><h3 data-i18n="info.stepThreeTitle">3. Exporta</h3><p data-i18n="info.stepThreeText">Copia o descarga la paleta.</p></article>
+  </div>
+</section>
+</main>
+</div>
+
+<script>
+(() => {
+"use strict";
+const MAX=20*1024*1024, SIZE=220;
+const $=id=>document.getElementById(id);
+const input=$("image-input"), zone=$("upload-zone"), preview=$("preview-panel");
+const canvas=$("image-canvas"), canvasWrap=$("canvas-wrap"), marker=$("pixel-marker"), magnifier=$("magnifier"), magnifierCanvas=$("magnifier-canvas");
+const canvasContext=canvas.getContext("2d",{willReadFrequently:true}), magnifierContext=magnifierCanvas.getContext("2d");
+const nameEl=$("file-name"), dims=$("dimensions"), sizeEl=$("file-size"), count=$("color-count"), quality=$("quality");
+const strip=$("palette-strip"), list=$("palette-list"), code=$("code-panel"), hexOut=$("hex-export"), cssOut=$("css-export"), jsonOut=$("json-export");
+const extract=$("extract-button"), download=$("download-button"), reset=$("reset-button"), status=$("status-message");
+const pickedSwatch=$("picked-color-swatch"), pickedMain=$("picked-color-main"), pickedPosition=$("picked-position"), pickedHex=$("picked-hex"), pickedRgb=$("picked-rgb"), pickedHsl=$("picked-hsl");
+const copyPickedHex=$("copy-picked-hex"), copyPickedRgb=$("copy-picked-rgb"), copyPickedHsl=$("copy-picked-hsl");
+let file=null, source=null, url="", palette=[], pickedColor=null;
+
+const show=(m,t="info")=>{status.hidden=false;status.textContent=m;status.className=`status-message status-message--${t}`};
+const hide=()=>{status.hidden=true;status.textContent=""};
+const bytes=b=>{if(!b)return"0 KB";const u=["B","KB","MB","GB"],i=Math.min(Math.floor(Math.log(b)/Math.log(1024)),3),v=b/1024**i;return`${v.toFixed(v>=10||i===0?0:2)} ${u[i]}`};
+const hex=(r,g,b)=>"#"+[r,g,b].map(v=>Math.round(v).toString(16).padStart(2,"0")).join("").toUpperCase();
+const dist=(a,b)=>Math.hypot(a.r-b.r,a.g-b.g,a.b-b.b);
+const text=c=>(.299*c.r+.587*c.g+.114*c.b)/255>.62?"#07110A":"#FFF";
+
+function validate(f){
+  if(!["image/jpeg","image/png","image/webp","image/svg+xml"].includes(f.type))throw Error("Selecciona una imagen JPG, PNG, WebP o SVG.");
+  if(f.size>MAX)throw Error("La imagen supera el límite de 20 MB.");
+}
+function load(u){return new Promise((res,rej)=>{const im=new Image();im.onload=()=>res(im);im.onerror=()=>rej(Error("No fue posible leer la imagen."));im.src=u})}
+function samples(im,step){
+  const s=Math.min(1,SIZE/Math.max(im.naturalWidth,im.naturalHeight)),w=Math.max(1,Math.round(im.naturalWidth*s)),h=Math.max(1,Math.round(im.naturalHeight*s));
+  const c=document.createElement("canvas");c.width=w;c.height=h;const x=c.getContext("2d",{willReadFrequently:true});x.drawImage(im,0,0,w,h);
+  const d=x.getImageData(0,0,w,h).data,p=[];
+  for(let i=0;i<d.length;i+=4*step){if(d[i+3]<120)continue;const r=d[i],g=d[i+1],b=d[i+2];if((Math.max(r,g,b)<8||Math.min(r,g,b)>248)&&Math.random()>.2)continue;p.push({r,g,b})}
+  return p;
+}
+function kmeans(p,k){
+  let centers=[p[Math.floor(p.length/2)]];
+  while(centers.length<k){
+    let best=p[0],score=-1;
+    for(let i=0;i<p.length;i+=Math.max(1,Math.floor(p.length/1500))){
+      const s=Math.min(...centers.map(c=>dist(p[i],c)));if(s>score){score=s;best=p[i]}
+    }
+    centers.push({...best});
+  }
+  let clusters=[];
+  for(let it=0;it<9;it++){
+    clusters=centers.map(()=>({r:0,g:0,b:0,n:0}));
+    p.forEach(px=>{let bi=0,bd=Infinity;centers.forEach((c,i)=>{const d=dist(px,c);if(d<bd){bd=d;bi=i}});const q=clusters[bi];q.r+=px.r;q.g+=px.g;q.b+=px.b;q.n++});
+    centers=clusters.map((q,i)=>q.n?{r:q.r/q.n,g:q.g/q.n,b:q.b/q.n}:centers[i]);
+  }
+  return clusters.map((q,i)=>({r:Math.round(centers[i].r),g:Math.round(centers[i].g),b:Math.round(centers[i].b),n:q.n})).filter(c=>c.n).sort((a,b)=>b.n-a.n);
+}
+async function copy(v){try{await navigator.clipboard.writeText(v);show("Color copiado.","success")}catch{show("No fue posible copiar.","error")}}
+
+function rgbToHsl(r,g,b){
+  r/=255;g/=255;b/=255;
+  const max=Math.max(r,g,b),min=Math.min(r,g,b),d=max-min,l=(max+min)/2;
+  let h=0,s=0;
+  if(d){
+    s=l>.5?d/(2-max-min):d/(max+min);
+    if(max===r)h=(g-b)/d+(g<b?6:0);
+    else if(max===g)h=(b-r)/d+2;
+    else h=(r-g)/d+4;
+    h/=6;
+  }
+  return {h:Math.round(h*360),s:Math.round(s*100),l:Math.round(l*100)};
+}
+function drawSourceOnCanvas(){
+  if(!source||!canvasContext)return;
+  canvas.width=source.naturalWidth;
+  canvas.height=source.naturalHeight;
+  canvasContext.clearRect(0,0,canvas.width,canvas.height);
+  canvasContext.drawImage(source,0,0);
+}
+function getCanvasCoordinates(event){
+  const rect=canvas.getBoundingClientRect();
+  const clientX=event.touches&&event.touches[0]?event.touches[0].clientX:event.clientX;
+  const clientY=event.touches&&event.touches[0]?event.touches[0].clientY:event.clientY;
+  const x=Math.max(0,Math.min(canvas.width-1,Math.floor((clientX-rect.left)*(canvas.width/rect.width))));
+  const y=Math.max(0,Math.min(canvas.height-1,Math.floor((clientY-rect.top)*(canvas.height/rect.height))));
+  return {x,y,displayX:clientX-rect.left,displayY:clientY-rect.top};
+}
+function drawMagnifier(x,y,displayX,displayY){
+  if(!magnifierContext)return;
+  const zoom=12, sample=10, half=Math.floor(sample/2);
+  magnifierContext.imageSmoothingEnabled=false;
+  magnifierContext.clearRect(0,0,magnifierCanvas.width,magnifierCanvas.height);
+  magnifierContext.drawImage(
+    canvas,
+    Math.max(0,x-half),
+    Math.max(0,y-half),
+    sample,
+    sample,
+    0,
+    0,
+    sample*zoom,
+    sample*zoom
+  );
+  magnifierContext.strokeStyle="#66ff8f";
+  magnifierContext.lineWidth=2;
+  magnifierContext.strokeRect(60-zoom/2,60-zoom/2,zoom,zoom);
+  magnifier.style.left=`${displayX+18}px`;
+  magnifier.style.top=`${displayY+18}px`;
+}
+function selectPixel(event){
+  if(!source||!canvasContext)return;
+  const {x,y,displayX,displayY}=getCanvasCoordinates(event);
+  const data=canvasContext.getImageData(x,y,1,1).data;
+  const colorValue={r:data[0],g:data[1],b:data[2],a:data[3]};
+  const hexValue=hex(colorValue.r,colorValue.g,colorValue.b);
+  const hslValue=rgbToHsl(colorValue.r,colorValue.g,colorValue.b);
+  pickedColor={
+    hex:hexValue,
+    rgb:`rgb(${colorValue.r}, ${colorValue.g}, ${colorValue.b})`,
+    hsl:`hsl(${hslValue.h}, ${hslValue.s}%, ${hslValue.l}%)`,
+    x,
+    y
+  };
+  marker.hidden=false;
+  marker.style.left=`${displayX}px`;
+  marker.style.top=`${displayY}px`;
+  pickedSwatch.style.backgroundColor=hexValue;
+  pickedMain.textContent=hexValue;
+  pickedPosition.textContent=`X: ${x} · Y: ${y}`;
+  pickedHex.textContent=pickedColor.hex;
+  pickedRgb.textContent=pickedColor.rgb;
+  pickedHsl.textContent=pickedColor.hsl;
+  copyPickedHex.disabled=false;
+  copyPickedRgb.disabled=false;
+  copyPickedHsl.disabled=false;
+  drawMagnifier(x,y,displayX,displayY);
+}
+function previewPixel(event){
+  if(!source)return;
+  const {x,y,displayX,displayY}=getCanvasCoordinates(event);
+  magnifier.hidden=false;
+  drawMagnifier(x,y,displayX,displayY);
+}
+function hideMagnifier(){
+  magnifier.hidden=true;
+}
+function resetPickedColor(){
+  pickedColor=null;
+  marker.hidden=true;
+  magnifier.hidden=true;
+  pickedSwatch.style.backgroundColor="transparent";
+  pickedMain.textContent="—";
+  pickedPosition.textContent="Aún no has seleccionado un punto.";
+  pickedHex.textContent="—";
+  pickedRgb.textContent="—";
+  pickedHsl.textContent="—";
+  copyPickedHex.disabled=true;
+  copyPickedRgb.disabled=true;
+  copyPickedHsl.disabled=true;
+}
+
+function render(){
+  strip.innerHTML="";list.innerHTML="";
+  const values=palette.map(c=>hex(c.r,c.g,c.b));
+  palette.forEach((c,i)=>{
+    const value=values[i],button=document.createElement("button");button.type="button";button.className="palette-strip__color";button.style.background=value;button.style.color=text(c);button.innerHTML=`<span>${i+1}</span><strong>${value}</strong>`;button.onclick=()=>copy(value);strip.appendChild(button);
+    const card=document.createElement("article");card.className="palette-color-item";card.innerHTML=`<button class="palette-color-item__swatch" style="background:${value};color:${text(c)}" type="button">${i+1}</button><div class="palette-color-item__values"><strong>${value}</strong><span>rgb(${c.r}, ${c.g}, ${c.b})</span></div><button class="color-copy-button" type="button">⧉</button>`;card.querySelector(".palette-color-item__swatch").onclick=()=>copy(value);card.querySelector(".color-copy-button").onclick=()=>copy(value);list.appendChild(card);
+  });
+  hexOut.textContent=values.join("\n");
+  cssOut.textContent=":root {\n"+values.map((v,i)=>`  --palette-${i+1}: ${v};`).join("\n")+"\n}";
+  jsonOut.textContent=JSON.stringify({palette:values},null,2);
+  code.hidden=false;download.disabled=false;
+}
+async function select(f){
+  try{hide();validate(f);if(url)URL.revokeObjectURL(url);url=URL.createObjectURL(f);file=f;source=await load(url);drawSourceOnCanvas();resetPickedColor();nameEl.textContent=f.name;dims.textContent=`${source.naturalWidth} × ${source.naturalHeight} px`;sizeEl.textContent=bytes(f.size);preview.hidden=false;code.hidden=true;strip.innerHTML="";list.innerHTML="";extract.disabled=false;download.disabled=true;show("Imagen lista para analizar.","success")}
+  catch(e){resetTool();show(e.message,"error")}
+}
+async function run(){
+  if(!source)return;extract.disabled=true;show("Analizando colores...","info");
+  try{await new Promise(r=>setTimeout(r,25));const p=samples(source,+quality.value);if(p.length<20)throw Error("La imagen no contiene suficientes colores analizables.");palette=kmeans(p,+count.value);render();show("Paleta extraída correctamente.","success")}
+  catch(e){code.hidden=true;download.disabled=true;show(e.message,"error")}
+  finally{extract.disabled=false}
+}
+function save(){
+  if(!palette.length||!file)return;const data={source:file.name,palette:palette.map(c=>({hex:hex(c.r,c.g,c.b),rgb:{r:c.r,g:c.g,b:c.b}}))};const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"}),u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download=file.name.replace(/\.[^/.]+$/,"")+"-palette-creative-lab.json";a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)
+}
+function resetTool(){
+  file=null;source=null;palette=[];input.value="";if(url)URL.revokeObjectURL(url);url="";canvas.width=0;canvas.height=0;resetPickedColor();preview.hidden=true;code.hidden=true;strip.innerHTML="";list.innerHTML="";nameEl.textContent=dims.textContent=sizeEl.textContent="—";count.value="5";quality.value="10";extract.disabled=true;download.disabled=true;hide()
+}
+zone.onclick=()=>input.click();
+input.onchange=()=>{const f=input.files&&input.files[0];if(f)select(f)};
+["dragenter","dragover"].forEach(e=>zone.addEventListener(e,ev=>{ev.preventDefault();zone.classList.add("is-dragging")}));
+["dragleave","drop"].forEach(e=>zone.addEventListener(e,ev=>{ev.preventDefault();zone.classList.remove("is-dragging")}));
+zone.ondrop=e=>{const f=e.dataTransfer.files[0];if(f)select(f)};
+extract.onclick=run;download.onclick=save;reset.onclick=resetTool;
+document.querySelectorAll("[data-copy]").forEach(b=>b.onclick=()=>copy($(b.dataset.copy).textContent));
+canvas.addEventListener("click",selectPixel);
+canvas.addEventListener("mousemove",previewPixel);
+canvas.addEventListener("mouseleave",hideMagnifier);
+canvas.addEventListener("touchstart",event=>{event.preventDefault();selectPixel(event)},{passive:false});
+canvas.addEventListener("touchmove",event=>{event.preventDefault();previewPixel(event)},{passive:false});
+canvas.addEventListener("touchend",hideMagnifier);
+copyPickedHex.onclick=()=>pickedColor&&copy(pickedColor.hex);
+copyPickedRgb.onclick=()=>pickedColor&&copy(pickedColor.rgb);
+copyPickedHsl.onclick=()=>pickedColor&&copy(pickedColor.hsl);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+{
+  "seo": {
+    "title": "Redimensionador de imágenes online | Creative Lab",
+    "description": "Cambia el ancho y alto de imágenes JPG, PNG, WebP y SVG gratis desde tu navegador con Creative Lab. Mantén la proporción y descarga al instante.",
+    "ogTitle": "Redimensionador de imágenes online",
+    "ogDescription": "Cambia las dimensiones de tus imágenes directamente desde el navegador.",
+    "twitterTitle": "Redimensionador de imágenes | Creative Lab",
+    "twitterDescription": "Cambia el tamaño de imágenes JPG, PNG, WebP y SVG desde tu navegador.",
+    "htmlLang": "es"
+  },
+  "product": {
+    "eyebrow": "Ajuste de dimensiones",
+    "title": "Redimensionador de imágenes",
+    "description": "Cambia el ancho y alto de tus imágenes, conserva la proporción y descarga el resultado desde tu navegador."
+  },
+  "resizer": {
+    "title": "Selecciona una imagen",
+    "intro": "Carga una imagen y define sus nuevas dimensiones en píxeles o porcentaje.",
+    "uploadTitle": "Arrastra una imagen o haz clic para seleccionarla",
+    "uploadHelp": "JPG, PNG, WebP o SVG. Máximo 25 MB.",
+    "pixelsMode": "Píxeles",
+    "percentageMode": "Porcentaje",
+    "width": "Ancho",
+    "height": "Alto",
+    "scale": "Escala",
+    "lockAspect": "Mantener proporción",
+    "squarePreset": "Cuadrada",
+    "landscapePreset": "Horizontal",
+    "verticalPreset": "Vertical",
+    "socialPreset": "Vista social",
+    "outputFormat": "Formato de salida",
+    "keepOriginal": "Mantener formato original",
+    "quality": "Calidad",
+    "originalTitle": "Imagen original",
+    "resultTitle": "Resultado",
+    "originalAlt": "Vista previa de la imagen original",
+    "resultAlt": "Vista previa de la imagen redimensionada",
+    "fileName": "Archivo",
+    "dimensions": "Dimensiones",
+    "fileSize": "Peso",
+    "outputType": "Formato",
+    "resizeButton": "Redimensionar imagen"
+  },
+  "messages": {
+    "invalidFormat": "Selecciona una imagen JPG, PNG, WebP o SVG.",
+    "fileTooLarge": "La imagen supera el límite de 25 MB.",
+    "readError": "No fue posible leer la imagen.",
+    "invalidDimensions": "Introduce dimensiones válidas.",
+    "dimensionsTooLarge": "El ancho y el alto no pueden superar 12000 píxeles.",
+    "canvasError": "El navegador no pudo iniciar el redimensionador.",
+    "resizeError": "No fue posible redimensionar la imagen.",
+    "ready": "Imagen lista para redimensionar.",
+    "processing": "Redimensionando imagen...",
+    "completed": "Redimensionamiento completado."
+  },
+  "info": {
+    "eyebrow": "Tamaño exacto, resultado inmediato",
+    "title": "Cómo redimensionar imágenes con Creative Lab",
+    "description": "Selecciona una imagen, introduce las nuevas dimensiones o aplica un porcentaje y descarga el resultado.",
+    "stepOneTitle": "1. Carga",
+    "stepOneText": "Selecciona una imagen JPG, PNG, WebP o SVG.",
+    "stepTwoTitle": "2. Ajusta",
+    "stepTwoText": "Define ancho, alto o porcentaje y conserva la proporción.",
+    "stepThreeTitle": "3. Descarga",
+    "stepThreeText": "Previsualiza y guarda la imagen redimensionada."
+  }
+}

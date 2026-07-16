@@ -1,0 +1,15 @@
+Creative Lab - Background Remover dependency note
+
+This page uses @imgly/background-removal, distributed under the AGPL-3.0
+license at the time this package was prepared.
+
+Before publishing:
+1. Review the current library license.
+2. Preserve required copyright and license notices.
+3. If the Creative Lab source code will not be published under a compatible
+   license, obtain legal guidance or replace the dependency with one whose
+   license matches the project's distribution model.
+
+The library performs background removal in the browser and does not require
+tokens or a request-limited API. Model and runtime files are downloaded on the
+first use from the configured public path.

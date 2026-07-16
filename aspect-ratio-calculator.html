@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Calculadora de relación de aspecto | Creative Lab</title>
+
+  <meta
+    name="description"
+    content="Calcula relaciones de aspecto, dimensiones proporcionales y escalas para imágenes, video, pantallas y diseño."
+  >
+
+  <meta
+    name="robots"
+    content="index, follow, max-image-preview:large, max-snippet:-1"
+  >
+
+  <meta name="author" content="Creative Lab">
+  <meta name="theme-color" content="#08140d">
+
+  <link rel="canonical" href="https://tudominio.com/aspect-ratio-calculator.html">
+  <link rel="alternate" hreflang="es" href="https://tudominio.com/aspect-ratio-calculator.html">
+  <link rel="alternate" hreflang="en" href="https://tudominio.com/en/aspect-ratio-calculator.html">
+  <link rel="alternate" hreflang="x-default" href="https://tudominio.com/aspect-ratio-calculator.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Creative Lab">
+  <meta property="og:title" content="Calculadora de relación de aspecto">
+  <meta
+    property="og:description"
+    content="Calcula proporciones y dimensiones equivalentes para imágenes, video y pantallas."
+  >
+  <meta property="og:url" content="https://tudominio.com/aspect-ratio-calculator.html">
+  <meta property="og:image" content="https://tudominio.com/src/aspect-ratio-cover.webp">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Relación de aspecto | Creative Lab">
+  <meta
+    name="twitter:description"
+    content="Calcula dimensiones proporcionales y relaciones de aspecto."
+  >
+  <meta name="twitter:image" content="https://tudominio.com/src/aspect-ratio-cover.webp">
+
+  <link rel="icon" href="./src/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./styles/main.css">
+
+  <script src="./scripts/language.js" defer></script>
+  <script src="./scripts/shared.js" defer></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Creative Lab - Calculadora de relación de aspecto",
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "Web",
+    "url": "https://tudominio.com/aspect-ratio-calculator.html",
+    "description": "Calculadora online de relaciones de aspecto y dimensiones proporcionales.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Creative Lab",
+      "url": "https://tudominio.com/"
+    }
+  }
+  </script>
+</head>
+
+<body data-page="aspect-ratio-calculator">
+  <a class="skip-link" href="#main-content" data-i18n="common.skipToContent">
+    Saltar al contenido
+  </a>
+
+  <div class="site-shell">
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="site-brand" href="./index.html" aria-label="Ir al inicio">
+          <img
+            class="site-brand__logo"
+            src="./src/logo.svg"
+            alt="Logo de Creative Lab"
+            width="48"
+            height="48"
+            data-i18n-alt="brand.logoAlt"
+          >
+          <span class="site-brand__name" data-i18n="brand.name">Creative Lab</span>
+        </a>
+
+        <div class="site-header__actions">
+          <a
+            class="back-to-portfolio"
+            href="./index.html"
+            data-i18n="common.backToPortfolio"
+          >
+            Regresar al portafolio de servicios
+          </a>
+
+          <label class="language-control" for="language-selector">
+            <span class="sr-only" data-i18n="common.language">Idioma</span>
+            <select id="language-selector" aria-label="Seleccionar idioma">
+              <option value="es">ES</option>
+              <option value="en">EN</option>
+            </select>
+          </label>
+        </div>
+      </div>
+    </header>
+
+    <aside class="ad-slot ad-slot--top" aria-label="Espacio publicitario">
+      <span data-i18n="common.advertisement">Publicidad</span>
+    </aside>
+
+    <main class="product-page" id="main-content">
+      <section class="product-header" aria-labelledby="product-title">
+        <div class="product-header__content">
+          <p class="section-heading__eyebrow" data-i18n="product.eyebrow">
+            Proporciones precisas
+          </p>
+
+          <h1 id="product-title" data-i18n="product.title">
+            Calculadora de relación de aspecto
+          </h1>
+
+          <p class="product-header__description" data-i18n="product.description">
+            Calcula proporciones, dimensiones equivalentes y escalas para
+            imágenes, video, pantallas y composiciones visuales.
+          </p>
+        </div>
+      </section>
+
+      <section class="tool-interface" aria-labelledby="calculator-title">
+        <div>
+          <h2 id="calculator-title" data-i18n="calculator.title">
+            Define tus dimensiones
+          </h2>
+
+          <p data-i18n="calculator.intro">
+            Introduce ancho y alto para conocer la relación simplificada y generar tamaños equivalentes.
+          </p>
+        </div>
+
+        <div class="aspect-main-grid">
+          <section class="aspect-input-panel">
+            <div class="control-grid">
+              <div class="form-field">
+                <label for="source-width" data-i18n="calculator.width">
+                  Ancho
+                </label>
+
+                <input
+                  id="source-width"
+                  type="number"
+                  min="1"
+                  step="1"
+                  value="1920"
+                  inputmode="numeric"
+                >
+              </div>
+
+              <div class="form-field">
+                <label for="source-height" data-i18n="calculator.height">
+                  Alto
+                </label>
+
+                <input
+                  id="source-height"
+                  type="number"
+                  min="1"
+                  step="1"
+                  value="1080"
+                  inputmode="numeric"
+                >
+              </div>
+            </div>
+
+            <div class="hero__actions">
+              <button
+                class="button button--secondary"
+                id="swap-button"
+                type="button"
+              >
+                <span data-i18n="calculator.swap">Intercambiar</span>
+              </button>
+
+              <button
+                class="button button--secondary"
+                id="reset-button"
+                type="button"
+              >
+                <span data-i18n="common.reset">Restablecer</span>
+              </button>
+            </div>
+          </section>
+
+          <article class="aspect-result-card">
+            <p data-i18n="calculator.ratioLabel">Relación simplificada</p>
+
+            <strong id="ratio-result">16:9</strong>
+
+            <span id="orientation-result" data-i18n="calculator.landscape">
+              Horizontal
+            </span>
+
+            <small id="decimal-result">1.7778</small>
+          </article>
+        </div>
+
+        <div
+          class="status-message status-message--info"
+          id="status-message"
+          role="status"
+          aria-live="polite"
+          hidden
+        ></div>
+
+        <section class="aspect-preview-section" aria-labelledby="preview-title">
+          <div class="aspect-preview-section__heading">
+            <div>
+              <h3 id="preview-title" data-i18n="calculator.previewTitle">
+                Vista previa proporcional
+              </h3>
+
+              <p data-i18n="calculator.previewDescription">
+                El marco representa visualmente la proporción calculada.
+              </p>
+            </div>
+          </div>
+
+          <div class="aspect-preview-stage">
+            <div class="aspect-preview-frame" id="aspect-frame">
+              <span id="frame-label">16:9</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="aspect-presets-section" aria-labelledby="presets-title">
+          <div class="aspect-presets-section__heading">
+            <div>
+              <h3 id="presets-title" data-i18n="calculator.presetsTitle">
+                Proporciones comunes
+              </h3>
+
+              <p data-i18n="calculator.presetsDescription">
+                Selecciona un formato habitual para aplicarlo rápidamente.
+              </p>
+            </div>
+          </div>
+
+          <div class="aspect-presets-grid" id="presets-grid">
+            <button type="button" data-width="1" data-height="1">
+              <strong>1:1</strong>
+              <span data-i18n="calculator.square">Cuadrado</span>
+            </button>
+
+            <button type="button" data-width="4" data-height="3">
+              <strong>4:3</strong>
+              <span data-i18n="calculator.classic">Clásico</span>
+            </button>
+
+            <button type="button" data-width="3" data-height="2">
+              <strong>3:2</strong>
+              <span data-i18n="calculator.photo">Fotografía</span>
+            </button>
+
+            <button type="button" data-width="16" data-height="9">
+              <strong>16:9</strong>
+              <span data-i18n="calculator.widescreen">Panorámico</span>
+            </button>
+
+            <button type="button" data-width="21" data-height="9">
+              <strong>21:9</strong>
+              <span data-i18n="calculator.ultrawide">Ultra panorámico</span>
+            </button>
+
+            <button type="button" data-width="9" data-height="16">
+              <strong>9:16</strong>
+              <span data-i18n="calculator.verticalVideo">Video vertical</span>
+            </button>
+
+            <button type="button" data-width="4" data-height="5">
+              <strong>4:5</strong>
+              <span data-i18n="calculator.socialPortrait">Retrato social</span>
+            </button>
+
+            <button type="button" data-width="2" data-height="3">
+              <strong>2:3</strong>
+              <span data-i18n="calculator.poster">Póster</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="aspect-scale-section" aria-labelledby="scale-title">
+          <div class="aspect-scale-section__heading">
+            <div>
+              <h3 id="scale-title" data-i18n="calculator.scaleTitle">
+                Calcular dimensiones equivalentes
+              </h3>
+
+              <p data-i18n="calculator.scaleDescription">
+                Introduce una nueva medida y calcula la dimensión proporcional.
+              </p>
+            </div>
+          </div>
+
+          <div class="aspect-scale-grid">
+            <article class="aspect-scale-card">
+              <div class="form-field">
+                <label for="target-width" data-i18n="calculator.newWidth">
+                  Nuevo ancho
+                </label>
+
+                <input
+                  id="target-width"
+                  type="number"
+                  min="1"
+                  step="1"
+                  value="1280"
+                >
+              </div>
+
+              <div class="aspect-scale-result">
+                <span data-i18n="calculator.resultingHeight">
+                  Alto resultante
+                </span>
+                <strong id="target-height-result">720 px</strong>
+              </div>
+            </article>
+
+            <article class="aspect-scale-card">
+              <div class="form-field">
+                <label for="target-height" data-i18n="calculator.newHeight">
+                  Nuevo alto
+                </label>
+
+                <input
+                  id="target-height"
+                  type="number"
+                  min="1"
+                  step="1"
+                  value="720"
+                >
+              </div>
+
+              <div class="aspect-scale-result">
+                <span data-i18n="calculator.resultingWidth">
+                  Ancho resultante
+                </span>
+                <strong id="target-width-result">1280 px</strong>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="aspect-scale-table-section" aria-labelledby="table-title">
+          <div class="aspect-scale-table-section__heading">
+            <div>
+              <h3 id="table-title" data-i18n="calculator.tableTitle">
+                Tabla de escalado
+              </h3>
+
+              <p data-i18n="calculator.tableDescription">
+                Dimensiones comunes que mantienen la misma relación.
+              </p>
+            </div>
+          </div>
+
+          <div class="aspect-table-wrapper">
+            <table class="aspect-scale-table">
+              <thead>
+                <tr>
+                  <th data-i18n="calculator.scale">Escala</th>
+                  <th data-i18n="calculator.width">Ancho</th>
+                  <th data-i18n="calculator.height">Alto</th>
+                  <th data-i18n="calculator.pixels">Píxeles</th>
+                </tr>
+              </thead>
+              <tbody id="scale-table-body"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="aspect-code-panel">
+          <div class="aspect-code-panel__heading">
+            <div>
+              <h3 data-i18n="calculator.codeTitle">CSS para esta proporción</h3>
+
+              <p data-i18n="calculator.codeDescription">
+                Copia la propiedad aspect-ratio lista para usar.
+              </p>
+            </div>
+          </div>
+
+          <div class="aspect-code-card">
+            <code id="css-output">aspect-ratio: 16 / 9;</code>
+
+            <button
+              class="color-copy-button"
+              id="copy-css-button"
+              type="button"
+              aria-label="Copiar CSS"
+              data-i18n-aria-label="calculator.copyCss"
+            >
+              ⧉
+            </button>
+          </div>
+        </section>
+
+        <div class="hero__actions">
+          <button
+            class="button button--secondary"
+            id="download-button"
+            type="button"
+          >
+            <span data-i18n="calculator.downloadButton">
+              Descargar resultado
+            </span>
+          </button>
+        </div>
+
+        <p class="privacy-note" data-i18n="common.privacyNotice">
+          Tus datos se procesan localmente en tu navegador.
+        </p>
+      </section>
+
+      <aside class="ad-slot ad-slot--bottom" aria-label="Espacio publicitario">
+        <span data-i18n="common.advertisement">Publicidad</span>
+      </aside>
+
+      <section class="about-section__content product-information">
+        <p class="section-heading__eyebrow" data-i18n="info.eyebrow">
+          Tamaños que conservan su forma
+        </p>
+
+        <h2 data-i18n="info.title">
+          Cómo calcular una relación de aspecto
+        </h2>
+
+        <p data-i18n="info.description">
+          Introduce el ancho y el alto, revisa la proporción simplificada y
+          calcula nuevas dimensiones sin deformar el contenido.
+        </p>
+
+        <div class="trust-grid">
+          <article class="trust-card">
+            <h3 data-i18n="info.stepOneTitle">1. Introduce</h3>
+            <p data-i18n="info.stepOneText">
+              Escribe las dimensiones originales.
+            </p>
+          </article>
+
+          <article class="trust-card">
+            <h3 data-i18n="info.stepTwoTitle">2. Calcula</h3>
+            <p data-i18n="info.stepTwoText">
+              Obtén la relación simplificada y su orientación.
+            </p>
+          </article>
+
+          <article class="trust-card">
+            <h3 data-i18n="info.stepThreeTitle">3. Escala</h3>
+            <p data-i18n="info.stepThreeText">
+              Genera dimensiones equivalentes automáticamente.
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const DEFAULT_WIDTH = 1920;
+      const DEFAULT_HEIGHT = 1080;
+
+      const sourceWidth = document.getElementById("source-width");
+      const sourceHeight = document.getElementById("source-height");
+      const swapButton = document.getElementById("swap-button");
+      const resetButton = document.getElementById("reset-button");
+      const ratioResult = document.getElementById("ratio-result");
+      const decimalResult = document.getElementById("decimal-result");
+      const orientationResult = document.getElementById("orientation-result");
+      const aspectFrame = document.getElementById("aspect-frame");
+      const frameLabel = document.getElementById("frame-label");
+      const presetsGrid = document.getElementById("presets-grid");
+      const targetWidth = document.getElementById("target-width");
+      const targetHeight = document.getElementById("target-height");
+      const targetHeightResult = document.getElementById("target-height-result");
+      const targetWidthResult = document.getElementById("target-width-result");
+      const scaleTableBody = document.getElementById("scale-table-body");
+      const cssOutput = document.getElementById("css-output");
+      const copyCssButton = document.getElementById("copy-css-button");
+      const downloadButton = document.getElementById("download-button");
+      const statusMessage = document.getElementById("status-message");
+
+      function gcd(first, second) {
+        first = Math.abs(Math.round(first));
+        second = Math.abs(Math.round(second));
+
+        while (second !== 0) {
+          const remainder = first % second;
+          first = second;
+          second = remainder;
+        }
+
+        return first || 1;
+      }
+
+      function getDimensions() {
+        const width = Math.max(1, Number(sourceWidth.value) || 1);
+        const height = Math.max(1, Number(sourceHeight.value) || 1);
+
+        return { width, height };
+      }
+
+      function getSimplifiedRatio(width, height) {
+        const divisor = gcd(width, height);
+
+        return {
+          width: Math.round(width / divisor),
+          height: Math.round(height / divisor)
+        };
+      }
+
+      function getOrientation(width, height) {
+        if (width === height) return "Cuadrada";
+        return width > height ? "Horizontal" : "Vertical";
+      }
+
+      function showStatus(message, type = "info") {
+        statusMessage.hidden = false;
+        statusMessage.textContent = message;
+        statusMessage.className = `status-message status-message--${type}`;
+
+        window.setTimeout(() => {
+          statusMessage.hidden = true;
+        }, 1800);
+      }
+
+      async function copyText(value) {
+        try {
+          await navigator.clipboard.writeText(value);
+          showStatus("CSS copiado.", "success");
+        } catch {
+          showStatus("No fue posible copiar el CSS.", "error");
+        }
+      }
+
+      function updatePreview(width, height, ratio) {
+        const maximumWidth = 720;
+        const maximumHeight = 380;
+        const proportion = width / height;
+
+        let previewWidth = maximumWidth;
+        let previewHeight = previewWidth / proportion;
+
+        if (previewHeight > maximumHeight) {
+          previewHeight = maximumHeight;
+          previewWidth = previewHeight * proportion;
+        }
+
+        aspectFrame.style.width = `${previewWidth}px`;
+        aspectFrame.style.height = `${previewHeight}px`;
+        frameLabel.textContent = `${ratio.width}:${ratio.height}`;
+      }
+
+      function updateScaleResults(width, height) {
+        const newWidth = Math.max(1, Number(targetWidth.value) || 1);
+        const newHeight = Math.max(1, Number(targetHeight.value) || 1);
+
+        const resultingHeight = Math.round((newWidth * height) / width);
+        const resultingWidth = Math.round((newHeight * width) / height);
+
+        targetHeightResult.textContent = `${resultingHeight} px`;
+        targetWidthResult.textContent = `${resultingWidth} px`;
+      }
+
+      function updateScaleTable(width, height) {
+        const scales = [0.25, 0.5, 0.75, 1, 1.5, 2];
+        scaleTableBody.innerHTML = "";
+
+        scales.forEach((scale) => {
+          const scaledWidth = Math.max(1, Math.round(width * scale));
+          const scaledHeight = Math.max(1, Math.round(height * scale));
+          const pixels = scaledWidth * scaledHeight;
+
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${Math.round(scale * 100)}%</td>
+            <td>${scaledWidth.toLocaleString()} px</td>
+            <td>${scaledHeight.toLocaleString()} px</td>
+            <td>${pixels.toLocaleString()}</td>
+          `;
+
+          scaleTableBody.appendChild(row);
+        });
+      }
+
+      function updateCalculator() {
+        const { width, height } = getDimensions();
+        const ratio = getSimplifiedRatio(width, height);
+        const decimal = width / height;
+        const orientation = getOrientation(width, height);
+
+        ratioResult.textContent = `${ratio.width}:${ratio.height}`;
+        decimalResult.textContent = decimal.toFixed(4);
+        orientationResult.textContent = orientation;
+
+        cssOutput.textContent =
+          `aspect-ratio: ${ratio.width} / ${ratio.height};`;
+
+        updatePreview(width, height, ratio);
+        updateScaleResults(width, height);
+        updateScaleTable(width, height);
+
+        presetsGrid.querySelectorAll("button").forEach((button) => {
+          const presetWidth = Number(button.dataset.width);
+          const presetHeight = Number(button.dataset.height);
+
+          button.classList.toggle(
+            "is-active",
+            ratio.width === presetWidth && ratio.height === presetHeight
+          );
+        });
+      }
+
+      function applyPreset(width, height) {
+        const currentWidth = Math.max(1, Number(sourceWidth.value) || 1920);
+
+        sourceWidth.value = String(currentWidth);
+        sourceHeight.value = String(
+          Math.max(1, Math.round((currentWidth * height) / width))
+        );
+
+        targetWidth.value = String(currentWidth);
+        targetHeight.value = sourceHeight.value;
+
+        updateCalculator();
+      }
+
+      function downloadResult() {
+        const { width, height } = getDimensions();
+        const ratio = getSimplifiedRatio(width, height);
+
+        const payload = {
+          width,
+          height,
+          aspectRatio: `${ratio.width}:${ratio.height}`,
+          decimalRatio: Number((width / height).toFixed(4)),
+          orientation: getOrientation(width, height),
+          css: `aspect-ratio: ${ratio.width} / ${ratio.height};`,
+          equivalents: [0.25, 0.5, 0.75, 1, 1.5, 2].map((scale) => ({
+            scale: `${Math.round(scale * 100)}%`,
+            width: Math.round(width * scale),
+            height: Math.round(height * scale)
+          }))
+        };
+
+        const blob = new Blob(
+          [JSON.stringify(payload, null, 2)],
+          { type: "application/json;charset=utf-8" }
+        );
+
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+
+        link.href = url;
+        link.download = "creative-lab-aspect-ratio.json";
+        link.click();
+
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      }
+
+      sourceWidth.addEventListener("input", updateCalculator);
+      sourceHeight.addEventListener("input", updateCalculator);
+      targetWidth.addEventListener("input", updateCalculator);
+      targetHeight.addEventListener("input", updateCalculator);
+
+      swapButton.addEventListener("click", () => {
+        const currentWidth = sourceWidth.value;
+
+        sourceWidth.value = sourceHeight.value;
+        sourceHeight.value = currentWidth;
+
+        const currentTargetWidth = targetWidth.value;
+        targetWidth.value = targetHeight.value;
+        targetHeight.value = currentTargetWidth;
+
+        updateCalculator();
+      });
+
+      resetButton.addEventListener("click", () => {
+        sourceWidth.value = String(DEFAULT_WIDTH);
+        sourceHeight.value = String(DEFAULT_HEIGHT);
+        targetWidth.value = "1280";
+        targetHeight.value = "720";
+        updateCalculator();
+      });
+
+      presetsGrid.querySelectorAll("button").forEach((button) => {
+        button.addEventListener("click", () => {
+          applyPreset(
+            Number(button.dataset.width),
+            Number(button.dataset.height)
+          );
+        });
+      });
+
+      copyCssButton.addEventListener("click", () =>
+        copyText(cssOutput.textContent)
+      );
+
+      downloadButton.addEventListener("click", downloadResult);
+
+      updateCalculator();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+Creative Lab Social Designer dependency notice
+
+Fabric.js 5.3.0
+Source: https://github.com/fabricjs/fabric.js
+License: MIT
+
+The application loads Fabric.js from jsDelivr:
+https://cdn.jsdelivr.net/npm/fabric@5.3.0/dist/fabric.min.js
+
+You may host the same file locally if preferred.

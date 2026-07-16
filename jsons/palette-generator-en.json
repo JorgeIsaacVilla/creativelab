@@ -1,0 +1,47 @@
+{
+  "seo": {
+    "title": "Color Palette Generator | Creative Lab",
+    "description": "Generate harmonious color palettes from a base color.",
+    "htmlLang": "en"
+  },
+  "product": {
+    "eyebrow": "Color harmony",
+    "title": "Palette Generator",
+    "description": "Choose a base color and create harmonious combinations for design, branding, interfaces and creative projects."
+  },
+  "generator": {
+    "title": "Build your palette",
+    "intro": "Select a base color, choose a harmony and adjust the result.",
+    "colorPickerLabel": "Base color picker",
+    "baseColor": "Base color",
+    "copyBase": "Copy base color",
+    "harmony": "Harmony type",
+    "analogous": "Analogous",
+    "complementary": "Complementary",
+    "split": "Split complementary",
+    "triadic": "Triadic",
+    "tetradic": "Tetradic",
+    "monochromatic": "Monochromatic",
+    "paletteSize": "Number of colors",
+    "saturation": "Saturation",
+    "lightness": "Lightness",
+    "resultTitle": "Generated palette",
+    "resultDescription": "Click a color to copy it. Use the lock to keep it.",
+    "exportTitle": "Export palette",
+    "exportDescription": "Copy the palette as HEX, CSS or JSON.",
+    "generateButton": "Generate palette",
+    "randomButton": "Random color",
+    "downloadButton": "Download palette"
+  },
+  "info": {
+    "eyebrow": "Intentional combinations",
+    "title": "How to generate a palette with Creative Lab",
+    "description": "Start from a color, select a harmony rule and adjust the palette until it fits your project.",
+    "stepOneTitle": "1. Choose",
+    "stepOneText": "Select a base color.",
+    "stepTwoTitle": "2. Combine",
+    "stepTwoText": "Choose a color harmony.",
+    "stepThreeTitle": "3. Export",
+    "stepThreeText": "Copy or download the palette."
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "seo": {
+    "title": "Extractor de paletas desde imágenes | Creative Lab",
+    "description": "Extrae colores dominantes de una imagen directamente en tu navegador.",
+    "htmlLang": "es"
+  },
+  "product": {
+    "eyebrow": "Análisis cromático",
+    "title": "Extractor de paletas",
+    "description": "Carga una imagen, detecta sus colores dominantes y exporta la paleta en HEX, CSS o JSON."
+  },
+  "extractor": {
+    "title": "Selecciona una imagen",
+    "intro": "La imagen se analiza localmente en tu navegador.",
+    "uploadTitle": "Arrastra una imagen o haz clic para seleccionarla",
+    "uploadHelp": "JPG, PNG, WebP o SVG. Máximo 20 MB.",
+    "colorCount": "Cantidad de colores",
+    "quality": "Precisión",
+    "fast": "Rápida",
+    "balanced": "Equilibrada",
+    "precise": "Precisa",
+    "imageTitle": "Imagen seleccionada",
+    "previewAlt": "Vista previa de la imagen",
+    "fileName": "Archivo",
+    "dimensions": "Dimensiones",
+    "fileSize": "Peso",
+    "paletteTitle": "Paleta extraída",
+    "paletteDescription": "Haz clic en un color para copiarlo.",
+    "exportTitle": "Exportar paleta",
+    "extractButton": "Extraer paleta",
+    "downloadButton": "Descargar paleta"
+  },
+  "info": {
+    "eyebrow": "Colores nacidos de una imagen",
+    "title": "Cómo extraer una paleta con Creative Lab",
+    "description": "Selecciona una imagen, define cuántos colores necesitas y exporta la paleta.",
+    "stepOneTitle": "1. Carga",
+    "stepOneText": "Selecciona una imagen compatible.",
+    "stepTwoTitle": "2. Analiza",
+    "stepTwoText": "Creative Lab detecta los colores dominantes.",
+    "stepThreeTitle": "3. Exporta",
+    "stepThreeText": "Copia o descarga la paleta."
+  },
+  "picker": {
+    "title": "Color exacto de un punto",
+    "description": "Haz clic o toca cualquier parte de la imagen para leer el color exacto de ese píxel.",
+    "canvasLabel": "Imagen interactiva para seleccionar colores",
+    "noSelection": "Aún no has seleccionado un punto.",
+    "copyHex": "Copiar HEX seleccionado",
+    "copyRgb": "Copiar RGB seleccionado",
+    "copyHsl": "Copiar HSL seleccionado"
+  }
+}

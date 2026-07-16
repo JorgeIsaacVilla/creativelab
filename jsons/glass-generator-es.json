@@ -1,0 +1,77 @@
+{
+  "seo": {
+    "title": "Generador de efecto translúcido | Creative Lab"
+  },
+  "common": {
+    "skipLink": "Saltar al contenido",
+    "language": "Idioma",
+    "backToPortfolio": "Regresar al portafolio de servicios",
+    "adSpace": "Espacio para publicidad"
+  },
+  "hero": {
+    "eyebrow": "NUEVO · GLASSMORPHISM",
+    "title": "Generador de efecto translúcido",
+    "description": "Diseña tarjetas glassmorphism con fondo personalizable, blur, opacidad, bordes, sombras y texto editable. Copia el CSS o descarga una vista previa en PNG.",
+    "feature1": "Previsualización en tiempo real",
+    "feature2": "Fondo sólido, degradado o imagen",
+    "feature3": "Exportación visual + CSS listo para usar"
+  },
+  "controls": {
+    "backgroundTitle": "1. Fondo",
+    "backgroundMode": "Tipo de fondo",
+    "bgGradient": "Degradado",
+    "bgSolid": "Color sólido",
+    "bgImage": "Imagen",
+    "color1": "Color 1",
+    "color2": "Color 2",
+    "gradientAngle": "Ángulo del degradado",
+    "imageUrl": "URL de imagen",
+    "loadImageUrl": "Cargar imagen desde URL",
+    "uploadImage": "Subir imagen desde equipo",
+    "glassTitle": "2. Tarjeta glass",
+    "cardWidth": "Ancho",
+    "cardHeight": "Alto",
+    "radius": "Border radius",
+    "padding": "Padding",
+    "blur": "Blur",
+    "opacity": "Opacidad",
+    "borderWidth": "Borde",
+    "shadow": "Sombra",
+    "cardTint": "Tinte",
+    "borderColor": "Color del borde",
+    "highlight": "Mostrar brillo superior",
+    "contentTitle": "3. Contenido",
+    "titleText": "Título",
+    "bodyText": "Descripción",
+    "titleColor": "Color del título",
+    "bodyColor": "Color del texto",
+    "titleSize": "Tamaño del título",
+    "bodySize": "Tamaño del texto",
+    "align": "Alineación",
+    "alignLeft": "Izquierda",
+    "alignCenter": "Centro",
+    "alignRight": "Derecha",
+    "actionsTitle": "4. Acciones",
+    "copyCss": "Copiar CSS",
+    "downloadPng": "Descargar PNG",
+    "reset": "Restablecer diseño",
+    "copyCssMini": "Copiar"
+  },
+  "preview": {
+    "title": "Vista previa",
+    "hint": "Todo cambia en tiempo real",
+    "cssTitle": "CSS generado"
+  },
+  "messages": {
+    "ready": "Ajusta los controles y genera tu efecto translúcido.",
+    "cssCopied": "CSS copiado correctamente.",
+    "copyError": "No se pudo copiar el CSS.",
+    "downloadReady": "Descarga generada correctamente.",
+    "downloadError": "No se pudo generar la descarga.",
+    "imageLoaded": "Imagen de fondo cargada correctamente.",
+    "imageError": "No se pudo cargar la imagen.",
+    "urlEmpty": "Escribe una URL de imagen válida.",
+    "urlLoaded": "Se aplicó la imagen desde la URL.",
+    "resetDone": "Diseño restablecido."
+  }
+}

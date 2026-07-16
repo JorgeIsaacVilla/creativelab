@@ -1,0 +1,62 @@
+{
+  "brand": {
+    "name": "Creative Lab",
+    "logoAlt": "Logo de Creative Lab"
+  },
+  "common": {
+    "skipToContent": "Saltar al contenido",
+    "language": "Idioma",
+    "advertisement": "Publicidad",
+    "featured": "Destacado",
+    "openTool": "Abrir herramienta",
+    "backToPortfolio": "Regresar al portafolio de servicios",
+    "uploadFile": "Cargar archivo",
+    "download": "Descargar",
+    "process": "Procesar",
+    "reset": "Comenzar de nuevo",
+    "processing": "Procesando",
+    "completed": "Proceso completado",
+    "error": "Ha ocurrido un error",
+    "selectFile": "Seleccionar archivo",
+    "dragAndDrop": "Arrastra tu archivo aquí o haz clic para seleccionarlo",
+    "privacyNotice": "Tus archivos se procesan localmente en tu navegador siempre que sea posible."
+  },
+  "nav": {
+    "tools": "Herramientas",
+    "categories": "Categorías",
+    "about": "Acerca de",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú"
+  },
+  "footer": {
+    "description": "Herramientas creativas para transformar ideas en resultados visuales.",
+    "toolsTitle": "Herramientas",
+    "companyTitle": "Plataforma",
+    "legalTitle": "Legal",
+    "contact": "Contacto",
+    "advertising": "Publicidad",
+    "privacy": "Política de privacidad",
+    "terms": "Términos de uso",
+    "cookies": "Política de cookies",
+    "rights": "Todos los derechos reservados.",
+    "adDisclosure": "Este sitio puede mostrar publicidad o enlaces patrocinados."
+  },
+  "tools": {
+    "socialDesigner": {
+      "title": "Social Designer",
+      "description": "Crea posts, historias, anuncios y banners con textos, imágenes, formas y efectos."
+    },
+    "imageEnhancer": {
+      "title": "Mejorador de imagen",
+      "description": "Mejora nitidez, claridad, contraste y ruido, y compara el resultado antes y después."
+    },
+    "glassGenerator": {
+      "title": "Generador de efecto translúcido",
+      "description": "Crea tarjetas glassmorphism con blur, transparencia, bordes, sombras y CSS listo para usar."
+    },
+    "elementSeparator": {
+      "title": "Separador de elementos",
+      "description": "Marca un elemento, aíslalo sobre fondo transparente y descárgalo como PNG."
+    }
+  }
+}

@@ -1,0 +1,123 @@
+{
+    "seo": {
+        "title": "Creative Lab | Herramientas online para imágenes, colores y diseño",
+        "description": "Herramientas creativas online para convertir imágenes, comprimir, redimensionar, generar paletas, gradientes y recursos visuales directamente desde el navegador.",
+        "ogTitle": "Creative Lab | Herramientas creativas online",
+        "ogDescription": "Convierte imágenes, crea paletas, gradientes y recursos visuales desde una plataforma rápida y creativa.",
+        "twitterTitle": "Creative Lab | Herramientas creativas online",
+        "twitterDescription": "Herramientas visuales para imágenes, colores, gradientes y diseño.",
+        "htmlLang": "es"
+    },
+    "home": {
+        "eyebrow": "Herramientas para imaginar, crear y transformar",
+        "title": "Tu laboratorio creativo en línea",
+        "description": "Convierte imágenes, explora colores, diseña gradientes y crea recursos visuales directamente desde tu navegador.",
+        "exploreTools": "Explorar herramientas",
+        "learnMore": "Conocer la plataforma",
+        "featureFast": "Rápido",
+        "featurePrivate": "Procesamiento local",
+        "featureBilingual": "Español e inglés",
+        "categoriesEyebrow": "Explora por categoría",
+        "categoriesTitle": "Recursos para cada parte de tu proceso creativo",
+        "toolsEyebrow": "Portafolio de servicios",
+        "toolsTitle": "Elige una herramienta y comienza",
+        "toolsDescription": "Cada herramienta funciona como un producto independiente dentro de la misma plataforma.",
+        "aboutEyebrow": "Creatividad sin interrupciones",
+        "aboutTitle": "Herramientas visuales simples, rápidas y accesibles",
+        "aboutDescription": "Creative Lab reúne servicios independientes para diseñadores, creadores y personas que necesitan transformar recursos visuales sin instalar programas complejos.",
+        "privacyTitle": "Privacidad",
+        "privacyDescription": "Siempre que sea posible, tus archivos se procesan localmente en el navegador.",
+        "speedTitle": "Velocidad",
+        "speedDescription": "Interfaces directas, procesos claros y descargas rápidas.",
+        "visualTitle": "Experiencia visual",
+        "visualDescription": "Una identidad moderna inspirada en naturaleza, energía y espacio."
+    },
+    "categories": {
+        "images": {
+            "title": "Imágenes",
+            "description": "Convierte, comprime, redimensiona y transforma."
+        },
+        "colors": {
+            "title": "Colores",
+            "description": "Crea paletas, mezcla tonos y comprueba contrastes."
+        },
+        "gradients": {
+            "title": "Gradientes",
+            "description": "Diseña fondos dinámicos y combinaciones visuales."
+        },
+        "design": {
+            "title": "Diseño",
+            "description": "Calcula proporciones y genera recursos para tus proyectos."
+        }
+    },
+    "tools": {
+        "imageToGlb": {
+            "title": "Imagen a GLB",
+            "description": "Convierte una imagen en un recurso tridimensional GLB."
+        },
+        "imageConverter": {
+            "title": "Convertidor de imágenes",
+            "description": "Convierte entre JPG, PNG y WebP."
+        },
+        "imageCompressor": {
+            "title": "Compresor de imágenes",
+            "description": "Reduce el peso manteniendo una buena calidad visual."
+        },
+        "imageResizer": {
+            "title": "Redimensionador",
+            "description": "Ajusta ancho, alto y proporciones."
+        },
+        "imageCropper": {
+            "title": "Recortador",
+            "description": "Recorta imágenes con precisión visual."
+        },
+        "faviconGenerator": {
+            "title": "Generador de favicon",
+            "description": "Prepara iconos para sitios web y aplicaciones."
+        },
+        "watermark": {
+            "title": "Marca de agua",
+            "description": "Protege tus imágenes con texto o logotipo."
+        },
+        "imageFilters": {
+            "title": "Filtros de imagen",
+            "description": "Ajusta brillo, contraste, saturación y más."
+        },
+        "colorConverter": {
+            "title": "Convertidor de color",
+            "description": "Convierte entre HEX, RGB, HSL y CMYK."
+        },
+        "paletteExtractor": {
+            "title": "Extractor de paletas",
+            "description": "Obtén los colores principales de una imagen."
+        },
+        "paletteGenerator": {
+            "title": "Generador de paletas",
+            "description": "Crea combinaciones armónicas y personalizadas."
+        },
+        "contrastChecker": {
+            "title": "Verificador de contraste",
+            "description": "Evalúa legibilidad y accesibilidad visual."
+        },
+        "gradientGenerator": {
+            "title": "Generador de gradientes",
+            "description": "Crea gradientes lineales y radiales con vista previa en tiempo real."
+        },
+        "aspectRatio": {
+            "title": "Relación de aspecto",
+            "description": "Calcula dimensiones proporcionales rápidamente."
+        },
+        "socialSizes": {
+            "title": "Tamaños para redes",
+            "description": "Consulta y prepara formatos para distintas plataformas."
+        },
+        "beforeAfter": {
+            "title": "Antes y después",
+            "description": "Compara dos imágenes con un control deslizante."
+        },
+        "patternGenerator": {
+            "title": "Generador de patrones",
+            "description": "Crea composiciones geométricas repetitivas."
+        }
+    }
+}

@@ -1,0 +1,63 @@
+{
+  "seo": {
+    "title": "Image enhancer | Creative Lab"
+  },
+  "common": {
+    "skipLink": "Skip to content",
+    "language": "Language",
+    "backToPortfolio": "Back to services portfolio",
+    "adSpace": "Advertising space"
+  },
+  "hero": {
+    "eyebrow": "NEW · AUTOMATIC ENHANCEMENT",
+    "title": "Improve image quality and compare the result",
+    "description": "Upload an image, improve its visual quality automatically and compare it in real time with an interactive slider. Adjust sharpness, contrast, saturation, clarity, noise reduction and upscaling.",
+    "feature1": "Automatic enhancement with OpenCV.js",
+    "feature2": "Interactive before/after comparison",
+    "feature3": "Download the enhanced image or the comparison"
+  },
+  "upload": {
+    "title": "1. Upload image",
+    "button": "Select image",
+    "help": "Supported formats: PNG, JPG and WebP."
+  },
+  "presets": {
+    "title": "2. Quick enhancement",
+    "auto": "Enhance automatically",
+    "reset": "Reset settings",
+    "upscale": "Upscaling",
+    "clahe": "Improve local clarity"
+  },
+  "controls": {
+    "title": "3. Advanced controls",
+    "brightness": "Brightness",
+    "contrast": "Contrast",
+    "saturation": "Saturation",
+    "sharpen": "Sharpness",
+    "denoise": "Noise reduction",
+    "clarity": "Clarity"
+  },
+  "actions": {
+    "title": "4. Export",
+    "downloadEnhanced": "Download enhanced image",
+    "downloadComparison": "Download comparison",
+    "note": "The comparison download creates an image with Before and After labels."
+  },
+  "preview": {
+    "title": "Preview",
+    "empty": "Upload an image to start enhancing it.",
+    "before": "Before",
+    "after": "After",
+    "slider": "Slider",
+    "placeholder": "The before/after comparison will appear here."
+  },
+  "messages": {
+    "opencvLoading": "OpenCV.js: loading…",
+    "opencvReady": "OpenCV.js: ready",
+    "imageLoaded": "Image loaded. You can now enhance it automatically or adjust the controls.",
+    "ready": "Image enhanced. You can keep refining the controls.",
+    "uploadError": "The image could not be loaded.",
+    "processError": "The image could not be processed.",
+    "processing": "Processing image…"
+  }
+}

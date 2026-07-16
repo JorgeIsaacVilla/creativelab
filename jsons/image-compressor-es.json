@@ -1,0 +1,64 @@
+{
+  "seo": {
+    "title": "Compresor de imágenes JPG, PNG, WebP y SVG | Creative Lab",
+    "description": "Comprime imágenes JPG, PNG, WebP y SVG gratis desde tu navegador con Creative Lab. Reduce el peso, compara resultados y descarga al instante.",
+    "ogTitle": "Compresor de imágenes JPG, PNG, WebP y SVG",
+    "ogDescription": "Reduce el peso de tus imágenes directamente desde el navegador.",
+    "twitterTitle": "Compresor de imágenes | Creative Lab",
+    "twitterDescription": "Comprime JPG, PNG, WebP y SVG directamente desde tu navegador.",
+    "htmlLang": "es"
+  },
+  "product": {
+    "eyebrow": "Optimización de imágenes",
+    "title": "Compresor de imágenes JPG, PNG, WebP y SVG",
+    "description": "Reduce el peso de tus imágenes directamente desde el navegador y compara el resultado antes de descargar."
+  },
+  "compressor": {
+    "title": "Selecciona una imagen",
+    "intro": "Carga una imagen, ajusta la calidad y genera una versión más ligera.",
+    "uploadTitle": "Arrastra una imagen o haz clic para seleccionarla",
+    "uploadHelp": "Formatos permitidos: JPG, PNG, WebP y SVG. Máximo 25 MB.",
+    "outputFormat": "Formato de salida",
+    "keepOriginal": "Mantener formato original",
+    "quality": "Calidad",
+    "presetLightTitle": "Compresión ligera",
+    "presetLightText": "Mejor calidad visual",
+    "presetBalancedTitle": "Equilibrada",
+    "presetBalancedText": "Buen balance entre calidad y peso",
+    "presetStrongTitle": "Compresión fuerte",
+    "presetStrongText": "Archivo más pequeño",
+    "originalTitle": "Imagen original",
+    "resultTitle": "Imagen comprimida",
+    "originalAlt": "Vista previa de la imagen original",
+    "resultAlt": "Vista previa de la imagen comprimida",
+    "fileName": "Archivo",
+    "dimensions": "Dimensiones",
+    "fileSize": "Peso",
+    "outputType": "Formato",
+    "savings": "Ahorro",
+    "compressionResult": "Resultado de compresión",
+    "compressButton": "Comprimir imagen"
+  },
+  "messages": {
+    "invalidFormat": "Selecciona una imagen JPG, PNG, WebP o SVG.",
+    "fileTooLarge": "La imagen supera el límite de 25 MB.",
+    "readError": "No fue posible leer la imagen.",
+    "compressError": "No fue posible comprimir la imagen.",
+    "canvasError": "El navegador no pudo iniciar el compresor.",
+    "ready": "Imagen lista para comprimir.",
+    "processing": "Comprimiendo imagen...",
+    "completed": "Compresión completada.",
+    "largerResult": "La versión generada no pesa menos. Prueba con menor calidad o con WebP."
+  },
+  "info": {
+    "eyebrow": "Menos peso, misma idea",
+    "title": "Cómo comprimir imágenes con Creative Lab",
+    "description": "Selecciona una imagen, define el nivel de calidad y descarga una versión optimizada. Todo ocurre dentro de tu navegador.",
+    "stepOneTitle": "1. Carga",
+    "stepOneText": "Selecciona una imagen JPG, PNG, WebP o SVG.",
+    "stepTwoTitle": "2. Ajusta",
+    "stepTwoText": "Elige un nivel de calidad o utiliza uno de los ajustes rápidos.",
+    "stepThreeTitle": "3. Descarga",
+    "stepThreeText": "Compara el peso y guarda la versión comprimida."
+  }
+}

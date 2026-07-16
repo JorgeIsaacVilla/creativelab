@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Generador de favicon online | Creative Lab</title>
+
+  <meta
+    name="description"
+    content="Crea favicons PNG e ICO desde una imagen directamente en tu navegador con Creative Lab. Genera tamaños para web y descarga un paquete completo."
+  >
+
+  <meta
+    name="robots"
+    content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+  >
+
+  <meta name="author" content="Creative Lab">
+  <meta name="theme-color" content="#08140d">
+
+  <link rel="canonical" href="https://tudominio.com/favicon-generator.html">
+  <link rel="alternate" hreflang="es" href="https://tudominio.com/favicon-generator.html">
+  <link rel="alternate" hreflang="en" href="https://tudominio.com/en/favicon-generator.html">
+  <link rel="alternate" hreflang="x-default" href="https://tudominio.com/favicon-generator.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Creative Lab">
+  <meta property="og:title" content="Generador de favicon online">
+  <meta
+    property="og:description"
+    content="Crea favicons para tu sitio web directamente desde el navegador."
+  >
+  <meta property="og:url" content="https://tudominio.com/favicon-generator.html">
+  <meta property="og:image" content="https://tudominio.com/src/favicon-generator-cover.webp">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:locale:alternate" content="en_US">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Generador de favicon | Creative Lab">
+  <meta
+    name="twitter:description"
+    content="Genera favicons PNG e ICO desde una imagen en tu navegador."
+  >
+  <meta name="twitter:image" content="https://tudominio.com/src/favicon-generator-cover.webp">
+
+  <link rel="icon" href="./src/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./styles/main.css">
+
+  <script src="./scripts/language.js" defer></script>
+  <script src="./scripts/shared.js" defer></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Creative Lab - Generador de favicon",
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "Web",
+    "url": "https://tudominio.com/favicon-generator.html",
+    "description": "Generador online de favicons PNG e ICO.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Creative Lab",
+      "url": "https://tudominio.com/"
+    }
+  }
+  </script>
+</head>
+
+<body data-page="favicon-generator">
+  <a class="skip-link" href="#main-content" data-i18n="common.skipToContent">
+    Saltar al contenido
+  </a>
+
+  <div class="site-shell">
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a
+          class="site-brand"
+          href="./index.html"
+          data-i18n-aria-label="common.goHome"
+          aria-label="Ir al inicio"
+        >
+          <img
+            class="site-brand__logo"
+            src="./src/logo.svg"
+            alt="Logo de Creative Lab"
+            width="48"
+            height="48"
+            data-i18n-alt="brand.logoAlt"
+          >
+
+          <span class="site-brand__name" data-i18n="brand.name">
+            Creative Lab
+          </span>
+        </a>
+
+        <div class="site-header__actions">
+          <a
+            class="back-to-portfolio"
+            href="./index.html"
+            data-i18n="common.backToPortfolio"
+          >
+            Regresar al portafolio de servicios
+          </a>
+
+          <label class="language-control" for="language-selector">
+            <span class="sr-only" data-i18n="common.language">Idioma</span>
+
+            <select
+              id="language-selector"
+              name="language"
+              data-i18n-aria-label="common.selectLanguage"
+              aria-label="Seleccionar idioma"
+            >
+              <option value="es">ES</option>
+              <option value="en">EN</option>
+            </select>
+          </label>
+        </div>
+      </div>
+    </header>
+
+    <aside
+      class="ad-slot ad-slot--top"
+      aria-label="Espacio publicitario"
+      data-ad-position="favicon-generator-top"
+    >
+      <span data-i18n="common.advertisement">Publicidad</span>
+    </aside>
+
+    <main class="product-page" id="main-content">
+      <section class="product-header" aria-labelledby="product-title">
+        <div class="product-header__content">
+          <p class="section-heading__eyebrow" data-i18n="product.eyebrow">
+            Identidad web
+          </p>
+
+          <h1 id="product-title" data-i18n="product.title">
+            Generador de favicon
+          </h1>
+
+          <p class="product-header__description" data-i18n="product.description">
+            Convierte una imagen en favicons listos para usar en tu sitio web,
+            con distintos tamaños y descarga en PNG o ICO.
+          </p>
+        </div>
+      </section>
+
+      <section class="tool-interface" aria-labelledby="generator-title">
+        <div>
+          <h2 id="generator-title" data-i18n="generator.title">
+            Selecciona una imagen
+          </h2>
+
+          <p data-i18n="generator.intro">
+            Usa una imagen cuadrada o un logotipo con fondo transparente para obtener mejores resultados.
+          </p>
+        </div>
+
+        <input
+          id="image-input"
+          type="file"
+          accept="image/jpeg,image/png,image/webp,image/svg+xml"
+          hidden
+        >
+
+        <button
+          class="upload-zone"
+          id="upload-zone"
+          type="button"
+          aria-describedby="upload-help"
+        >
+          <span>
+            <strong data-i18n="generator.uploadTitle">
+              Arrastra una imagen o haz clic para seleccionarla
+            </strong>
+
+            <small id="upload-help" data-i18n="generator.uploadHelp">
+              JPG, PNG, WebP o SVG. Máximo 15 MB.
+            </small>
+          </span>
+        </button>
+
+        <div
+          class="status-message status-message--info"
+          id="status-message"
+          role="status"
+          aria-live="polite"
+          hidden
+        ></div>
+
+        <div class="control-grid">
+          <div class="form-field">
+            <label for="fit-mode" data-i18n="generator.fitMode">
+              Ajuste de imagen
+            </label>
+
+            <select id="fit-mode">
+              <option value="contain" data-i18n="generator.fitContain">
+                Ajustar completa
+              </option>
+              <option value="cover" data-i18n="generator.fitCover">
+                Llenar y recortar
+              </option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="background-color" data-i18n="generator.background">
+              Fondo
+            </label>
+
+            <div class="favicon-color-control">
+              <input
+                id="background-color"
+                type="color"
+                value="#000000"
+              >
+
+              <label class="transparent-toggle">
+                <input id="transparent-background" type="checkbox" checked>
+                <span data-i18n="generator.transparent">
+                  Transparente
+                </span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="favicon-preview-panel" id="preview-panel" hidden>
+          <div>
+            <h3 data-i18n="generator.sourcePreview">Vista previa original</h3>
+
+            <div class="favicon-source-preview">
+              <img
+                id="source-preview"
+                alt="Vista previa de la imagen seleccionada"
+                data-i18n-alt="generator.sourceAlt"
+              >
+            </div>
+          </div>
+
+          <div>
+            <h3 data-i18n="generator.browserPreview">Vista previa en navegador</h3>
+
+            <div class="browser-tab-preview">
+              <div class="browser-tab-preview__top">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+
+              <div class="browser-tab-preview__tab">
+                <canvas id="browser-favicon" width="32" height="32"></canvas>
+
+                <div>
+                  <strong data-i18n="brand.name">Creative Lab</strong>
+                  <small>tudominio.com</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <fieldset class="favicon-sizes">
+          <legend data-i18n="generator.sizesTitle">
+            Tamaños que se generarán
+          </legend>
+
+          <label>
+            <input type="checkbox" value="16" checked>
+            <span>16 × 16</span>
+          </label>
+
+          <label>
+            <input type="checkbox" value="32" checked>
+            <span>32 × 32</span>
+          </label>
+
+          <label>
+            <input type="checkbox" value="48" checked>
+            <span>48 × 48</span>
+          </label>
+
+          <label>
+            <input type="checkbox" value="64" checked>
+            <span>64 × 64</span>
+          </label>
+
+          <label>
+            <input type="checkbox" value="180" checked>
+            <span>180 × 180</span>
+          </label>
+
+          <label>
+            <input type="checkbox" value="192" checked>
+            <span>192 × 192</span>
+          </label>
+
+          <label>
+            <input type="checkbox" value="512" checked>
+            <span>512 × 512</span>
+          </label>
+        </fieldset>
+
+        <div class="favicon-results" id="results-panel" hidden>
+          <div class="favicon-results__header">
+            <div>
+              <h3 data-i18n="generator.resultsTitle">Favicons generados</h3>
+              <p data-i18n="generator.resultsDescription">
+                Revisa los tamaños antes de descargar.
+              </p>
+            </div>
+          </div>
+
+          <div class="favicon-results__grid" id="results-grid"></div>
+        </div>
+
+        <div class="hero__actions">
+          <button
+            class="button button--primary"
+            id="generate-button"
+            type="button"
+            disabled
+          >
+            <span data-i18n="generator.generateButton">
+              Generar favicons
+            </span>
+          </button>
+
+          <button
+            class="button button--secondary"
+            id="download-png-button"
+            type="button"
+            disabled
+          >
+            <span data-i18n="generator.downloadPng">
+              Descargar PNG
+            </span>
+          </button>
+
+          <button
+            class="button button--secondary"
+            id="download-ico-button"
+            type="button"
+            disabled
+          >
+            <span data-i18n="generator.downloadIco">
+              Descargar ICO
+            </span>
+          </button>
+
+          <button
+            class="button button--secondary"
+            id="reset-button"
+            type="button"
+          >
+            <span data-i18n="common.reset">
+              Comenzar de nuevo
+            </span>
+          </button>
+        </div>
+
+        <p class="privacy-note" data-i18n="common.privacyNotice">
+          Tus archivos se procesan localmente en tu navegador siempre que
+          sea posible.
+        </p>
+      </section>
+
+      <aside
+        class="ad-slot ad-slot--bottom"
+        aria-label="Espacio publicitario"
+        data-ad-position="favicon-generator-bottom"
+      >
+        <span data-i18n="common.advertisement">Publicidad</span>
+      </aside>
+
+      <section
+        class="about-section__content product-information"
+        aria-labelledby="how-it-works-title"
+      >
+        <p class="section-heading__eyebrow" data-i18n="info.eyebrow">
+          Un detalle pequeño que identifica tu sitio
+        </p>
+
+        <h2 id="how-it-works-title" data-i18n="info.title">
+          Cómo crear un favicon con Creative Lab
+        </h2>
+
+        <p data-i18n="info.description">
+          Selecciona una imagen, ajusta el encuadre, genera varios tamaños y
+          descarga el favicon en PNG o ICO.
+        </p>
+
+        <div class="trust-grid">
+          <article class="trust-card">
+            <h3 data-i18n="info.stepOneTitle">1. Carga</h3>
+            <p data-i18n="info.stepOneText">
+              Selecciona un logotipo o imagen desde tu dispositivo.
+            </p>
+          </article>
+
+          <article class="trust-card">
+            <h3 data-i18n="info.stepTwoTitle">2. Configura</h3>
+            <p data-i18n="info.stepTwoText">
+              Elige el fondo, el ajuste y los tamaños que necesitas.
+            </p>
+          </article>
+
+          <article class="trust-card">
+            <h3 data-i18n="info.stepThreeTitle">3. Descarga</h3>
+            <p data-i18n="info.stepThreeText">
+              Guarda los PNG o crea un archivo ICO para tu sitio.
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <noscript>
+    <div class="noscript-message">
+      Esta herramienta necesita JavaScript para funcionar.
+    </div>
+  </noscript>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const MAX_FILE_SIZE = 15 * 1024 * 1024;
+
+      const input = document.getElementById("image-input");
+      const uploadZone = document.getElementById("upload-zone");
+      const fitMode = document.getElementById("fit-mode");
+      const backgroundColor = document.getElementById("background-color");
+      const transparentBackground = document.getElementById("transparent-background");
+      const previewPanel = document.getElementById("preview-panel");
+      const sourcePreview = document.getElementById("source-preview");
+      const browserFavicon = document.getElementById("browser-favicon");
+      const generateButton = document.getElementById("generate-button");
+      const downloadPngButton = document.getElementById("download-png-button");
+      const downloadIcoButton = document.getElementById("download-ico-button");
+      const resetButton = document.getElementById("reset-button");
+      const statusMessage = document.getElementById("status-message");
+      const resultsPanel = document.getElementById("results-panel");
+      const resultsGrid = document.getElementById("results-grid");
+      const sizeInputs = document.querySelectorAll(".favicon-sizes input[type='checkbox']");
+
+      let selectedFile = null;
+      let sourceImage = null;
+      let sourceObjectUrl = "";
+      let generatedItems = [];
+
+      function translate(key, fallback) {
+        if (
+          window.CreativeLabLanguage &&
+          typeof window.CreativeLabLanguage.translate === "function"
+        ) {
+          return window.CreativeLabLanguage.translate(key, fallback);
+        }
+
+        return fallback;
+      }
+
+      function showStatus(message, type = "info") {
+        statusMessage.hidden = false;
+        statusMessage.textContent = message;
+        statusMessage.className = `status-message status-message--${type}`;
+      }
+
+      function hideStatus() {
+        statusMessage.hidden = true;
+        statusMessage.textContent = "";
+      }
+
+      function revokeUrl(url) {
+        if (url) {
+          URL.revokeObjectURL(url);
+        }
+      }
+
+      function validateFile(file) {
+        const allowedTypes = [
+          "image/jpeg",
+          "image/png",
+          "image/webp",
+          "image/svg+xml"
+        ];
+
+        if (!allowedTypes.includes(file.type)) {
+          throw new Error(
+            translate(
+              "messages.invalidFormat",
+              "Selecciona una imagen JPG, PNG, WebP o SVG."
+            )
+          );
+        }
+
+        if (file.size > MAX_FILE_SIZE) {
+          throw new Error(
+            translate(
+              "messages.fileTooLarge",
+              "La imagen supera el límite de 15 MB."
+            )
+          );
+        }
+      }
+
+      function loadImage(file) {
+        return new Promise((resolve, reject) => {
+          const image = new Image();
+          const url = URL.createObjectURL(file);
+
+          image.onload = () => {
+            resolve({ image, url });
+          };
+
+          image.onerror = () => {
+            URL.revokeObjectURL(url);
+            reject(
+              new Error(
+                translate(
+                  "messages.readError",
+                  "No fue posible leer la imagen."
+                )
+              )
+            );
+          };
+
+          image.src = url;
+        });
+      }
+
+      function getSelectedSizes() {
+        return [...sizeInputs]
+          .filter((item) => item.checked)
+          .map((item) => Number(item.value))
+          .sort((a, b) => a - b);
+      }
+
+      function drawFavicon(canvas, size) {
+        const context = canvas.getContext("2d");
+
+        if (!context || !sourceImage) {
+          throw new Error(
+            translate(
+              "messages.canvasError",
+              "El navegador no pudo generar el favicon."
+            )
+          );
+        }
+
+        canvas.width = size;
+        canvas.height = size;
+
+        context.clearRect(0, 0, size, size);
+
+        if (!transparentBackground.checked) {
+          context.fillStyle = backgroundColor.value;
+          context.fillRect(0, 0, size, size);
+        }
+
+        const imageWidth = sourceImage.naturalWidth;
+        const imageHeight = sourceImage.naturalHeight;
+        const imageRatio = imageWidth / imageHeight;
+
+        let drawWidth = size;
+        let drawHeight = size;
+        let drawX = 0;
+        let drawY = 0;
+
+        if (fitMode.value === "contain") {
+          if (imageRatio > 1) {
+            drawHeight = size / imageRatio;
+            drawY = (size - drawHeight) / 2;
+          } else {
+            drawWidth = size * imageRatio;
+            drawX = (size - drawWidth) / 2;
+          }
+        } else {
+          if (imageRatio > 1) {
+            drawWidth = size * imageRatio;
+            drawX = (size - drawWidth) / 2;
+          } else {
+            drawHeight = size / imageRatio;
+            drawY = (size - drawHeight) / 2;
+          }
+        }
+
+        context.imageSmoothingEnabled = true;
+        context.imageSmoothingQuality = "high";
+        context.drawImage(
+          sourceImage,
+          drawX,
+          drawY,
+          drawWidth,
+          drawHeight
+        );
+      }
+
+      function updateBrowserPreview() {
+        if (!sourceImage) {
+          return;
+        }
+
+        drawFavicon(browserFavicon, 32);
+      }
+
+      function canvasToBlob(canvas, type = "image/png") {
+        return new Promise((resolve, reject) => {
+          canvas.toBlob((blob) => {
+            if (blob) {
+              resolve(blob);
+              return;
+            }
+
+            reject(
+              new Error(
+                translate(
+                  "messages.generateError",
+                  "No fue posible generar el favicon."
+                )
+              )
+            );
+          }, type);
+        });
+      }
+
+      function clearGeneratedItems() {
+        generatedItems.forEach((item) => {
+          revokeUrl(item.url);
+        });
+
+        generatedItems = [];
+        resultsGrid.innerHTML = "";
+        resultsPanel.hidden = true;
+        downloadPngButton.disabled = true;
+        downloadIcoButton.disabled = true;
+      }
+
+      async function selectFile(file) {
+        try {
+          hideStatus();
+          clearGeneratedItems();
+          validateFile(file);
+
+          showStatus(
+            translate("messages.loading", "Cargando imagen..."),
+            "info"
+          );
+
+          const loaded = await loadImage(file);
+
+          revokeUrl(sourceObjectUrl);
+
+          selectedFile = file;
+          sourceImage = loaded.image;
+          sourceObjectUrl = loaded.url;
+
+          sourcePreview.src = sourceObjectUrl;
+          previewPanel.hidden = false;
+          generateButton.disabled = false;
+
+          updateBrowserPreview();
+
+          showStatus(
+            translate(
+              "messages.ready",
+              "Imagen lista para generar favicons."
+            ),
+            "success"
+          );
+        } catch (error) {
+          resetTool();
+          showStatus(error.message, "error");
+        }
+      }
+
+      async function generateFavicons() {
+        if (!sourceImage || !selectedFile) {
+          return;
+        }
+
+        const sizes = getSelectedSizes();
+
+        if (!sizes.length) {
+          showStatus(
+            translate(
+              "messages.selectSize",
+              "Selecciona al menos un tamaño."
+            ),
+            "error"
+          );
+          return;
+        }
+
+        generateButton.disabled = true;
+        clearGeneratedItems();
+
+        showStatus(
+          translate(
+            "messages.processing",
+            "Generando favicons..."
+          ),
+          "info"
+        );
+
+        try {
+          for (const size of sizes) {
+            const canvas = document.createElement("canvas");
+            drawFavicon(canvas, size);
+
+            const blob = await canvasToBlob(canvas);
+            const url = URL.createObjectURL(blob);
+
+            generatedItems.push({
+              size,
+              blob,
+              url,
+              canvas
+            });
+
+            const card = document.createElement("article");
+            card.className = "favicon-result-card";
+
+            const preview = document.createElement("div");
+            preview.className = "favicon-result-card__preview";
+
+            const image = document.createElement("img");
+            image.src = url;
+            image.alt = `${size} × ${size}`;
+
+            const title = document.createElement("strong");
+            title.textContent = `${size} × ${size}`;
+
+            preview.appendChild(image);
+            card.appendChild(preview);
+            card.appendChild(title);
+            resultsGrid.appendChild(card);
+          }
+
+          resultsPanel.hidden = false;
+          downloadPngButton.disabled = false;
+          downloadIcoButton.disabled = false;
+
+          showStatus(
+            translate(
+              "messages.completed",
+              "Favicons generados."
+            ),
+            "success"
+          );
+        } catch (error) {
+          clearGeneratedItems();
+          showStatus(error.message, "error");
+        } finally {
+          generateButton.disabled = false;
+        }
+      }
+
+      function downloadBlob(blob, filename) {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+
+        link.href = url;
+        link.download = filename;
+
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+
+        setTimeout(() => {
+          URL.revokeObjectURL(url);
+        }, 1500);
+      }
+
+      function downloadPngFiles() {
+        if (!generatedItems.length) {
+          return;
+        }
+
+        const baseName = selectedFile.name.replace(/\.[^/.]+$/, "");
+
+        generatedItems.forEach((item, index) => {
+          setTimeout(() => {
+            downloadBlob(
+              item.blob,
+              `${baseName}-${item.size}x${item.size}.png`
+            );
+          }, index * 180);
+        });
+      }
+
+      function createIcoBlob(items) {
+        const pngItems = items
+          .filter((item) => item.size <= 256)
+          .sort((a, b) => a.size - b.size);
+
+        if (!pngItems.length) {
+          throw new Error(
+            translate(
+              "messages.icoSizeError",
+              "Selecciona al menos un tamaño de 256 píxeles o menos."
+            )
+          );
+        }
+
+        return Promise.all(
+          pngItems.map(async (item) => {
+            return {
+              size: item.size,
+              buffer: await item.blob.arrayBuffer()
+            };
+          })
+        ).then((entries) => {
+          const headerSize = 6;
+          const directorySize = entries.length * 16;
+          let imageOffset = headerSize + directorySize;
+          let totalSize = imageOffset;
+
+          entries.forEach((entry) => {
+            totalSize += entry.buffer.byteLength;
+          });
+
+          const output = new ArrayBuffer(totalSize);
+          const view = new DataView(output);
+          const bytes = new Uint8Array(output);
+
+          view.setUint16(0, 0, true);
+          view.setUint16(2, 1, true);
+          view.setUint16(4, entries.length, true);
+
+          entries.forEach((entry, index) => {
+            const directoryOffset = headerSize + index * 16;
+            const sizeByte = entry.size >= 256 ? 0 : entry.size;
+
+            view.setUint8(directoryOffset, sizeByte);
+            view.setUint8(directoryOffset + 1, sizeByte);
+            view.setUint8(directoryOffset + 2, 0);
+            view.setUint8(directoryOffset + 3, 0);
+            view.setUint16(directoryOffset + 4, 1, true);
+            view.setUint16(directoryOffset + 6, 32, true);
+            view.setUint32(
+              directoryOffset + 8,
+              entry.buffer.byteLength,
+              true
+            );
+            view.setUint32(directoryOffset + 12, imageOffset, true);
+
+            bytes.set(new Uint8Array(entry.buffer), imageOffset);
+            imageOffset += entry.buffer.byteLength;
+          });
+
+          return new Blob([output], {
+            type: "image/x-icon"
+          });
+        });
+      }
+
+      async function downloadIco() {
+        if (!generatedItems.length || !selectedFile) {
+          return;
+        }
+
+        downloadIcoButton.disabled = true;
+
+        showStatus(
+          translate(
+            "messages.creatingIco",
+            "Creando archivo ICO..."
+          ),
+          "info"
+        );
+
+        try {
+          const icoBlob = await createIcoBlob(generatedItems);
+          const baseName = selectedFile.name.replace(/\.[^/.]+$/, "");
+
+          downloadBlob(
+            icoBlob,
+            `${baseName}-creative-lab.ico`
+          );
+
+          showStatus(
+            translate(
+              "messages.icoCompleted",
+              "Archivo ICO creado y descargado."
+            ),
+            "success"
+          );
+        } catch (error) {
+          showStatus(error.message, "error");
+        } finally {
+          downloadIcoButton.disabled = false;
+        }
+      }
+
+      function resetTool() {
+        selectedFile = null;
+        sourceImage = null;
+        input.value = "";
+
+        revokeUrl(sourceObjectUrl);
+        sourceObjectUrl = "";
+
+        sourcePreview.removeAttribute("src");
+        previewPanel.hidden = true;
+
+        fitMode.value = "contain";
+        backgroundColor.value = "#000000";
+        transparentBackground.checked = true;
+
+        sizeInputs.forEach((item) => {
+          item.checked = true;
+        });
+
+        generateButton.disabled = true;
+        clearGeneratedItems();
+        hideStatus();
+
+        const context = browserFavicon.getContext("2d");
+        if (context) {
+          context.clearRect(
+            0,
+            0,
+            browserFavicon.width,
+            browserFavicon.height
+          );
+        }
+      }
+
+      uploadZone.addEventListener("click", () => {
+        input.click();
+      });
+
+      input.addEventListener("change", () => {
+        const file = input.files && input.files[0];
+
+        if (file) {
+          selectFile(file);
+        }
+      });
+
+      ["dragenter", "dragover"].forEach((eventName) => {
+        uploadZone.addEventListener(eventName, (event) => {
+          event.preventDefault();
+          uploadZone.classList.add("is-dragging");
+        });
+      });
+
+      ["dragleave", "drop"].forEach((eventName) => {
+        uploadZone.addEventListener(eventName, (event) => {
+          event.preventDefault();
+          uploadZone.classList.remove("is-dragging");
+        });
+      });
+
+      uploadZone.addEventListener("drop", (event) => {
+        const file = event.dataTransfer.files[0];
+
+        if (file) {
+          selectFile(file);
+        }
+      });
+
+      fitMode.addEventListener("change", () => {
+        clearGeneratedItems();
+        updateBrowserPreview();
+      });
+
+      backgroundColor.addEventListener("input", () => {
+        clearGeneratedItems();
+        updateBrowserPreview();
+      });
+
+      transparentBackground.addEventListener("change", () => {
+        backgroundColor.disabled = transparentBackground.checked;
+        clearGeneratedItems();
+        updateBrowserPreview();
+      });
+
+      sizeInputs.forEach((item) => {
+        item.addEventListener("change", clearGeneratedItems);
+      });
+
+      generateButton.addEventListener("click", generateFavicons);
+      downloadPngButton.addEventListener("click", downloadPngFiles);
+      downloadIcoButton.addEventListener("click", downloadIco);
+      resetButton.addEventListener("click", resetTool);
+
+      document.addEventListener(
+        "creativeLab:languageChanged",
+        () => {
+          if (!statusMessage.hidden) {
+            hideStatus();
+          }
+        }
+      );
+
+      backgroundColor.disabled = true;
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+{
+  "seo": {
+    "title": "Calculadora de relación de aspecto | Creative Lab",
+    "description": "Calcula relaciones de aspecto, dimensiones proporcionales y escalas.",
+    "htmlLang": "es"
+  },
+  "product": {
+    "eyebrow": "Proporciones precisas",
+    "title": "Calculadora de relación de aspecto",
+    "description": "Calcula proporciones, dimensiones equivalentes y escalas para imágenes, video, pantallas y composiciones visuales."
+  },
+  "calculator": {
+    "title": "Define tus dimensiones",
+    "intro": "Introduce ancho y alto para conocer la relación simplificada y generar tamaños equivalentes.",
+    "width": "Ancho",
+    "height": "Alto",
+    "swap": "Intercambiar",
+    "ratioLabel": "Relación simplificada",
+    "landscape": "Horizontal",
+    "previewTitle": "Vista previa proporcional",
+    "previewDescription": "El marco representa visualmente la proporción calculada.",
+    "presetsTitle": "Proporciones comunes",
+    "presetsDescription": "Selecciona un formato habitual para aplicarlo rápidamente.",
+    "square": "Cuadrado",
+    "classic": "Clásico",
+    "photo": "Fotografía",
+    "widescreen": "Panorámico",
+    "ultrawide": "Ultra panorámico",
+    "verticalVideo": "Video vertical",
+    "socialPortrait": "Retrato social",
+    "poster": "Póster",
+    "scaleTitle": "Calcular dimensiones equivalentes",
+    "scaleDescription": "Introduce una nueva medida y calcula la dimensión proporcional.",
+    "newWidth": "Nuevo ancho",
+    "newHeight": "Nuevo alto",
+    "resultingHeight": "Alto resultante",
+    "resultingWidth": "Ancho resultante",
+    "tableTitle": "Tabla de escalado",
+    "tableDescription": "Dimensiones comunes que mantienen la misma relación.",
+    "scale": "Escala",
+    "pixels": "Píxeles",
+    "codeTitle": "CSS para esta proporción",
+    "codeDescription": "Copia la propiedad aspect-ratio lista para usar.",
+    "copyCss": "Copiar CSS",
+    "downloadButton": "Descargar resultado"
+  },
+  "info": {
+    "eyebrow": "Tamaños que conservan su forma",
+    "title": "Cómo calcular una relación de aspecto",
+    "description": "Introduce el ancho y el alto, revisa la proporción simplificada y calcula nuevas dimensiones sin deformar el contenido.",
+    "stepOneTitle": "1. Introduce",
+    "stepOneText": "Escribe las dimensiones originales.",
+    "stepTwoTitle": "2. Calcula",
+    "stepTwoText": "Obtén la relación simplificada y su orientación.",
+    "stepThreeTitle": "3. Escala",
+    "stepThreeText": "Genera dimensiones equivalentes automáticamente."
+  }
+}

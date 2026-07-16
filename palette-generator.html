@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Generador de paletas de colores | Creative Lab</title>
+  <meta
+    name="description"
+    content="Genera paletas de colores armónicas a partir de un color base. Crea combinaciones complementarias, análogas, triádicas, monocromáticas y más."
+  >
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="author" content="Creative Lab">
+  <meta name="theme-color" content="#08140d">
+
+  <link rel="canonical" href="https://tudominio.com/palette-generator.html">
+  <link rel="alternate" hreflang="es" href="https://tudominio.com/palette-generator.html">
+  <link rel="alternate" hreflang="en" href="https://tudominio.com/en/palette-generator.html">
+  <link rel="alternate" hreflang="x-default" href="https://tudominio.com/palette-generator.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Creative Lab">
+  <meta property="og:title" content="Generador de paletas de colores">
+  <meta property="og:description" content="Crea paletas armónicas listas para diseño y desarrollo.">
+  <meta property="og:url" content="https://tudominio.com/palette-generator.html">
+  <meta property="og:image" content="https://tudominio.com/src/palette-generator-cover.webp">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Generador de paletas | Creative Lab">
+  <meta name="twitter:description" content="Genera combinaciones de colores armónicas en tu navegador.">
+  <meta name="twitter:image" content="https://tudominio.com/src/palette-generator-cover.webp">
+
+   <link rel="icon" href="./src/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./styles/main.css">
+
+  <script src="./scripts/language.js" defer></script>
+  <script src="./scripts/shared.js" defer></script>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"SoftwareApplication",
+    "name":"Creative Lab - Generador de paletas",
+    "applicationCategory":"DesignApplication",
+    "operatingSystem":"Web",
+    "url":"https://tudominio.com/palette-generator.html",
+    "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}
+  }
+  </script>
+</head>
+
+<body data-page="palette-generator">
+  <a class="skip-link" href="#main-content" data-i18n="common.skipToContent">
+    Saltar al contenido
+  </a>
+
+  <div class="site-shell">
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="site-brand" href="./index.html" aria-label="Ir al inicio">
+          <img
+            class="site-brand__logo"
+            src="./src/logo.svg"
+            alt="Logo de Creative Lab"
+            width="48"
+            height="48"
+            data-i18n-alt="brand.logoAlt"
+          >
+          <span class="site-brand__name" data-i18n="brand.name">Creative Lab</span>
+        </a>
+
+        <div class="site-header__actions">
+          <a
+            class="back-to-portfolio"
+            href="./index.html"
+            data-i18n="common.backToPortfolio"
+          >
+            Regresar al portafolio de servicios
+          </a>
+
+          <label class="language-control" for="language-selector">
+            <span class="sr-only" data-i18n="common.language">Idioma</span>
+            <select id="language-selector" aria-label="Seleccionar idioma">
+              <option value="es">ES</option>
+              <option value="en">EN</option>
+            </select>
+          </label>
+        </div>
+      </div>
+    </header>
+
+    <aside class="ad-slot ad-slot--top" aria-label="Espacio publicitario">
+      <span data-i18n="common.advertisement">Publicidad</span>
+    </aside>
+
+    <main class="product-page" id="main-content">
+      <section class="product-header" aria-labelledby="product-title">
+        <div class="product-header__content">
+          <p class="section-heading__eyebrow" data-i18n="product.eyebrow">
+            Armonía cromática
+          </p>
+
+          <h1 id="product-title" data-i18n="product.title">
+            Generador de paletas
+          </h1>
+
+          <p class="product-header__description" data-i18n="product.description">
+            Elige un color base y crea combinaciones armónicas para diseño,
+            branding, interfaces y proyectos creativos.
+          </p>
+        </div>
+      </section>
+
+      <section class="tool-interface" aria-labelledby="generator-title">
+        <div>
+          <h2 id="generator-title" data-i18n="generator.title">
+            Construye tu paleta
+          </h2>
+
+          <p data-i18n="generator.intro">
+            Selecciona un color base, elige una armonía y ajusta el resultado.
+          </p>
+        </div>
+
+        <div class="palette-generator-controls">
+          <div class="palette-generator-base">
+            <div class="palette-generator-base__picker">
+              <input
+                id="base-color-picker"
+                type="color"
+                value="#66ff8f"
+                aria-label="Selector de color base"
+                data-i18n-aria-label="generator.colorPickerLabel"
+              >
+            </div>
+
+            <div class="form-field">
+              <label for="base-color-input" data-i18n="generator.baseColor">
+                Color base
+              </label>
+
+              <div class="color-text-input">
+                <input
+                  id="base-color-input"
+                  type="text"
+                  value="#66FF8F"
+                  maxlength="7"
+                  spellcheck="false"
+                >
+
+                <button
+                  class="color-copy-button"
+                  type="button"
+                  id="copy-base-color"
+                  aria-label="Copiar color base"
+                  data-i18n-aria-label="generator.copyBase"
+                >
+                  ⧉
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="control-grid">
+            <div class="form-field">
+              <label for="harmony-mode" data-i18n="generator.harmony">
+                Tipo de armonía
+              </label>
+
+              <select id="harmony-mode">
+                <option value="analogous" data-i18n="generator.analogous">Análoga</option>
+                <option value="complementary" data-i18n="generator.complementary">Complementaria</option>
+                <option value="split" data-i18n="generator.split">Complementaria dividida</option>
+                <option value="triadic" data-i18n="generator.triadic">Triádica</option>
+                <option value="tetradic" data-i18n="generator.tetradic">Tetrádica</option>
+                <option value="monochromatic" data-i18n="generator.monochromatic">Monocromática</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="palette-size" data-i18n="generator.paletteSize">
+                Cantidad de colores
+              </label>
+
+              <select id="palette-size">
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5" selected>5</option>
+                <option value="6">6</option>
+                <option value="8">8</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="control-grid">
+            <div class="form-field">
+              <label for="saturation-adjustment">
+                <span data-i18n="generator.saturation">Saturación</span>
+                <span id="saturation-value">0</span>
+              </label>
+
+              <input
+                id="saturation-adjustment"
+                type="range"
+                min="-40"
+                max="40"
+                value="0"
+              >
+            </div>
+
+            <div class="form-field">
+              <label for="lightness-adjustment">
+                <span data-i18n="generator.lightness">Luminosidad</span>
+                <span id="lightness-value">0</span>
+              </label>
+
+              <input
+                id="lightness-adjustment"
+                type="range"
+                min="-30"
+                max="30"
+                value="0"
+              >
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="status-message status-message--info"
+          id="status-message"
+          role="status"
+          aria-live="polite"
+          hidden
+        ></div>
+
+        <section class="generated-palette-section" aria-labelledby="palette-title">
+          <div class="generated-palette-section__heading">
+            <div>
+              <h3 id="palette-title" data-i18n="generator.resultTitle">
+                Paleta generada
+              </h3>
+
+              <p data-i18n="generator.resultDescription">
+                Haz clic en un color para copiarlo. Usa el candado para conservarlo.
+              </p>
+            </div>
+          </div>
+
+          <div class="generated-palette-strip" id="palette-strip"></div>
+          <div class="generated-palette-list" id="palette-list"></div>
+        </section>
+
+        <section class="palette-code-panel">
+          <div class="palette-code-panel__heading">
+            <div>
+              <h3 data-i18n="generator.exportTitle">Exportar paleta</h3>
+              <p data-i18n="generator.exportDescription">
+                Copia la paleta en HEX, CSS o JSON.
+              </p>
+            </div>
+          </div>
+
+          <div class="palette-export-grid">
+            <article class="palette-export-card">
+              <div class="palette-export-card__heading">
+                <h4>HEX</h4>
+                <button
+                  class="color-copy-button"
+                  type="button"
+                  data-copy-target="hex-export"
+                  aria-label="Copiar HEX"
+                >
+                  ⧉
+                </button>
+              </div>
+              <code id="hex-export"></code>
+            </article>
+
+            <article class="palette-export-card">
+              <div class="palette-export-card__heading">
+                <h4>CSS</h4>
+                <button
+                  class="color-copy-button"
+                  type="button"
+                  data-copy-target="css-export"
+                  aria-label="Copiar CSS"
+                >
+                  ⧉
+                </button>
+              </div>
+              <code id="css-export"></code>
+            </article>
+
+            <article class="palette-export-card">
+              <div class="palette-export-card__heading">
+                <h4>JSON</h4>
+                <button
+                  class="color-copy-button"
+                  type="button"
+                  data-copy-target="json-export"
+                  aria-label="Copiar JSON"
+                >
+                  ⧉
+                </button>
+              </div>
+              <code id="json-export"></code>
+            </article>
+          </div>
+        </section>
+
+        <div class="hero__actions">
+          <button class="button button--primary" id="generate-button" type="button">
+            <span data-i18n="generator.generateButton">Generar paleta</span>
+          </button>
+
+          <button class="button button--secondary" id="random-button" type="button">
+            <span data-i18n="generator.randomButton">Color aleatorio</span>
+          </button>
+
+          <button class="button button--secondary" id="download-button" type="button">
+            <span data-i18n="generator.downloadButton">Descargar paleta</span>
+          </button>
+
+          <button class="button button--secondary" id="reset-button" type="button">
+            <span data-i18n="common.reset">Restablecer</span>
+          </button>
+        </div>
+
+        <p class="privacy-note" data-i18n="common.privacyNotice">
+          Tus datos se procesan localmente en tu navegador.
+        </p>
+      </section>
+
+      <aside class="ad-slot ad-slot--bottom" aria-label="Espacio publicitario">
+        <span data-i18n="common.advertisement">Publicidad</span>
+      </aside>
+
+      <section class="about-section__content product-information">
+        <p class="section-heading__eyebrow" data-i18n="info.eyebrow">
+          Combinaciones con intención
+        </p>
+
+        <h2 data-i18n="info.title">
+          Cómo generar una paleta con Creative Lab
+        </h2>
+
+        <p data-i18n="info.description">
+          Parte de un color, selecciona una regla de armonía y ajusta la paleta
+          hasta encontrar una combinación adecuada para tu proyecto.
+        </p>
+
+        <div class="trust-grid">
+          <article class="trust-card">
+            <h3 data-i18n="info.stepOneTitle">1. Elige</h3>
+            <p data-i18n="info.stepOneText">Selecciona un color base.</p>
+          </article>
+
+          <article class="trust-card">
+            <h3 data-i18n="info.stepTwoTitle">2. Combina</h3>
+            <p data-i18n="info.stepTwoText">Escoge una armonía cromática.</p>
+          </article>
+
+          <article class="trust-card">
+            <h3 data-i18n="info.stepThreeTitle">3. Exporta</h3>
+            <p data-i18n="info.stepThreeText">Copia o descarga la paleta.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const DEFAULT_COLOR = "#66FF8F";
+
+      const picker = document.getElementById("base-color-picker");
+      const baseInput = document.getElementById("base-color-input");
+      const harmonyMode = document.getElementById("harmony-mode");
+      const paletteSize = document.getElementById("palette-size");
+      const saturation = document.getElementById("saturation-adjustment");
+      const lightness = document.getElementById("lightness-adjustment");
+      const saturationValue = document.getElementById("saturation-value");
+      const lightnessValue = document.getElementById("lightness-value");
+      const paletteStrip = document.getElementById("palette-strip");
+      const paletteList = document.getElementById("palette-list");
+      const hexExport = document.getElementById("hex-export");
+      const cssExport = document.getElementById("css-export");
+      const jsonExport = document.getElementById("json-export");
+      const generateButton = document.getElementById("generate-button");
+      const randomButton = document.getElementById("random-button");
+      const downloadButton = document.getElementById("download-button");
+      const resetButton = document.getElementById("reset-button");
+      const copyBaseButton = document.getElementById("copy-base-color");
+      const statusMessage = document.getElementById("status-message");
+
+      let palette = [];
+      let lockedColors = new Map();
+
+      function clamp(value, minimum, maximum) {
+        return Math.min(maximum, Math.max(minimum, value));
+      }
+
+      function normalizeHue(value) {
+        return ((value % 360) + 360) % 360;
+      }
+
+      function parseHex(value) {
+        const normalized = value.trim().replace(/^#/, "");
+
+        if (!/^[0-9a-f]{6}$/i.test(normalized)) {
+          return null;
+        }
+
+        return {
+          r: parseInt(normalized.slice(0, 2), 16),
+          g: parseInt(normalized.slice(2, 4), 16),
+          b: parseInt(normalized.slice(4, 6), 16)
+        };
+      }
+
+      function componentToHex(value) {
+        return clamp(Math.round(value), 0, 255)
+          .toString(16)
+          .padStart(2, "0")
+          .toUpperCase();
+      }
+
+      function rgbToHex(r, g, b) {
+        return `#${componentToHex(r)}${componentToHex(g)}${componentToHex(b)}`;
+      }
+
+      function rgbToHsl(r, g, b) {
+        r /= 255;
+        g /= 255;
+        b /= 255;
+
+        const maximum = Math.max(r, g, b);
+        const minimum = Math.min(r, g, b);
+        const difference = maximum - minimum;
+        let hue = 0;
+        let saturationValue = 0;
+        const lightnessValue = (maximum + minimum) / 2;
+
+        if (difference !== 0) {
+          saturationValue =
+            lightnessValue > 0.5
+              ? difference / (2 - maximum - minimum)
+              : difference / (maximum + minimum);
+
+          if (maximum === r) {
+            hue = (g - b) / difference + (g < b ? 6 : 0);
+          } else if (maximum === g) {
+            hue = (b - r) / difference + 2;
+          } else {
+            hue = (r - g) / difference + 4;
+          }
+
+          hue /= 6;
+        }
+
+        return {
+          h: hue * 360,
+          s: saturationValue * 100,
+          l: lightnessValue * 100
+        };
+      }
+
+      function hslToRgb(h, s, l) {
+        h = normalizeHue(h) / 360;
+        s = clamp(s, 0, 100) / 100;
+        l = clamp(l, 0, 100) / 100;
+
+        if (s === 0) {
+          const value = Math.round(l * 255);
+          return { r: value, g: value, b: value };
+        }
+
+        const hueToRgb = (p, q, t) => {
+          if (t < 0) t += 1;
+          if (t > 1) t -= 1;
+          if (t < 1 / 6) return p + (q - p) * 6 * t;
+          if (t < 1 / 2) return q;
+          if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+          return p;
+        };
+
+        const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+        const p = 2 * l - q;
+
+        return {
+          r: Math.round(hueToRgb(p, q, h + 1 / 3) * 255),
+          g: Math.round(hueToRgb(p, q, h) * 255),
+          b: Math.round(hueToRgb(p, q, h - 1 / 3) * 255)
+        };
+      }
+
+      function getHarmonyOffsets(mode, count) {
+        const presets = {
+          complementary: [0, 180],
+          split: [0, 150, 210],
+          triadic: [0, 120, 240],
+          tetradic: [0, 90, 180, 270],
+          analogous: [-60, -30, 0, 30, 60],
+          monochromatic: [0]
+        };
+
+        const source = presets[mode] || presets.analogous;
+        const result = [];
+
+        for (let index = 0; index < count; index += 1) {
+          if (mode === "monochromatic") {
+            result.push(0);
+          } else if (count === 1) {
+            result.push(0);
+          } else {
+            const position = index / Math.max(1, count - 1);
+            const sourcePosition = position * (source.length - 1);
+            const lower = Math.floor(sourcePosition);
+            const upper = Math.min(source.length - 1, Math.ceil(sourcePosition));
+            const blend = sourcePosition - lower;
+            result.push(source[lower] + (source[upper] - source[lower]) * blend);
+          }
+        }
+
+        return result;
+      }
+
+      function getTextColor({ r, g, b }) {
+        const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+        return luminance > 0.62 ? "#07110A" : "#FFFFFF";
+      }
+
+      function generatePalette() {
+        const baseRgb = parseHex(baseInput.value);
+
+        if (!baseRgb) {
+          baseInput.setAttribute("aria-invalid", "true");
+          showStatus("Introduce un color HEX válido.", "error");
+          return;
+        }
+
+        baseInput.setAttribute("aria-invalid", "false");
+
+        const baseHsl = rgbToHsl(baseRgb.r, baseRgb.g, baseRgb.b);
+        const count = Number(paletteSize.value);
+        const offsets = getHarmonyOffsets(harmonyMode.value, count);
+        const saturationOffset = Number(saturation.value);
+        const lightnessOffset = Number(lightness.value);
+
+        const generated = offsets.map((offset, index) => {
+          if (lockedColors.has(index)) {
+            return lockedColors.get(index);
+          }
+
+          let targetLightness = baseHsl.l + lightnessOffset;
+
+          if (harmonyMode.value === "monochromatic") {
+            const position = count === 1 ? 0.5 : index / (count - 1);
+            targetLightness = 18 + position * 64 + lightnessOffset;
+          } else {
+            const variation = ((index % 3) - 1) * 7;
+            targetLightness += variation;
+          }
+
+          const targetSaturation = clamp(
+            baseHsl.s + saturationOffset + ((index % 2) ? -4 : 4),
+            10,
+            100
+          );
+
+          const rgb = hslToRgb(
+            baseHsl.h + offset,
+            targetSaturation,
+            clamp(targetLightness, 8, 92)
+          );
+
+          return {
+            ...rgb,
+            hex: rgbToHex(rgb.r, rgb.g, rgb.b),
+            h: normalizeHue(baseHsl.h + offset),
+            s: targetSaturation,
+            l: clamp(targetLightness, 8, 92)
+          };
+        });
+
+        palette = generated;
+        renderPalette();
+      }
+
+      function showStatus(message, type = "info") {
+        statusMessage.hidden = false;
+        statusMessage.textContent = message;
+        statusMessage.className = `status-message status-message--${type}`;
+
+        window.setTimeout(() => {
+          statusMessage.hidden = true;
+        }, 1800);
+      }
+
+      async function copyText(value) {
+        try {
+          await navigator.clipboard.writeText(value);
+          showStatus("Valor copiado.", "success");
+        } catch {
+          showStatus("No fue posible copiar el valor.", "error");
+        }
+      }
+
+      function renderPalette() {
+        paletteStrip.innerHTML = "";
+        paletteList.innerHTML = "";
+
+        palette.forEach((color, index) => {
+          const textColor = getTextColor(color);
+          const locked = lockedColors.has(index);
+
+          const swatch = document.createElement("button");
+          swatch.type = "button";
+          swatch.className = "generated-palette-strip__color";
+          swatch.style.backgroundColor = color.hex;
+          swatch.style.color = textColor;
+          swatch.innerHTML = `
+            <span>${index + 1}</span>
+            <strong>${color.hex}</strong>
+          `;
+          swatch.addEventListener("click", () => copyText(color.hex));
+          paletteStrip.appendChild(swatch);
+
+          const card = document.createElement("article");
+          card.className = "generated-color-card";
+          card.innerHTML = `
+            <button
+              class="generated-color-card__swatch"
+              type="button"
+              style="background:${color.hex};color:${textColor}"
+              aria-label="${color.hex}"
+            >
+              ${index + 1}
+            </button>
+
+            <div class="generated-color-card__values">
+              <strong>${color.hex}</strong>
+              <span>rgb(${color.r}, ${color.g}, ${color.b})</span>
+              <span>hsl(${Math.round(color.h)}, ${Math.round(color.s)}%, ${Math.round(color.l)}%)</span>
+            </div>
+
+            <div class="generated-color-card__actions">
+              <button
+                class="color-copy-button"
+                type="button"
+                aria-label="Copiar ${color.hex}"
+              >
+                ⧉
+              </button>
+
+              <button
+                class="palette-lock-button ${locked ? "is-locked" : ""}"
+                type="button"
+                aria-pressed="${locked}"
+                aria-label="${locked ? "Desbloquear color" : "Bloquear color"}"
+              >
+                ${locked ? "●" : "○"}
+              </button>
+            </div>
+          `;
+
+          card
+            .querySelector(".generated-color-card__swatch")
+            .addEventListener("click", () => copyText(color.hex));
+
+          card
+            .querySelector(".color-copy-button")
+            .addEventListener("click", () => copyText(color.hex));
+
+          card
+            .querySelector(".palette-lock-button")
+            .addEventListener("click", () => {
+              if (lockedColors.has(index)) {
+                lockedColors.delete(index);
+              } else {
+                lockedColors.set(index, color);
+              }
+
+              renderPalette();
+            });
+
+          paletteList.appendChild(card);
+        });
+
+        const hexValues = palette.map((color) => color.hex);
+
+        hexExport.textContent = hexValues.join("\n");
+
+        cssExport.textContent = `:root {\n${hexValues
+          .map((value, index) => `  --palette-${index + 1}: ${value};`)
+          .join("\n")}\n}`;
+
+        jsonExport.textContent = JSON.stringify(
+          {
+            harmony: harmonyMode.value,
+            baseColor: baseInput.value.toUpperCase(),
+            palette: hexValues
+          },
+          null,
+          2
+        );
+      }
+
+      function randomizeBaseColor() {
+        const value = rgbToHex(
+          Math.floor(Math.random() * 256),
+          Math.floor(Math.random() * 256),
+          Math.floor(Math.random() * 256)
+        );
+
+        picker.value = value;
+        baseInput.value = value;
+        lockedColors.clear();
+        generatePalette();
+      }
+
+      function downloadPalette() {
+        const payload = {
+          harmony: harmonyMode.value,
+          baseColor: baseInput.value.toUpperCase(),
+          palette: palette.map((color) => ({
+            hex: color.hex,
+            rgb: {
+              r: color.r,
+              g: color.g,
+              b: color.b
+            },
+            hsl: {
+              h: Math.round(color.h),
+              s: Math.round(color.s),
+              l: Math.round(color.l)
+            }
+          }))
+        };
+
+        const blob = new Blob(
+          [JSON.stringify(payload, null, 2)],
+          { type: "application/json;charset=utf-8" }
+        );
+
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+
+        link.href = url;
+        link.download = "creative-lab-palette.json";
+        link.click();
+
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      }
+
+      function resetTool() {
+        picker.value = DEFAULT_COLOR;
+        baseInput.value = DEFAULT_COLOR;
+        harmonyMode.value = "analogous";
+        paletteSize.value = "5";
+        saturation.value = "0";
+        lightness.value = "0";
+        saturationValue.textContent = "0";
+        lightnessValue.textContent = "0";
+        lockedColors.clear();
+        generatePalette();
+      }
+
+      picker.addEventListener("input", () => {
+        baseInput.value = picker.value.toUpperCase();
+        lockedColors.clear();
+        generatePalette();
+      });
+
+      baseInput.addEventListener("input", () => {
+        const parsed = parseHex(baseInput.value);
+
+        if (parsed) {
+          const normalized = rgbToHex(parsed.r, parsed.g, parsed.b);
+          picker.value = normalized;
+          lockedColors.clear();
+          generatePalette();
+        }
+      });
+
+      harmonyMode.addEventListener("change", () => {
+        lockedColors.clear();
+        generatePalette();
+      });
+
+      paletteSize.addEventListener("change", () => {
+        lockedColors.clear();
+        generatePalette();
+      });
+
+      saturation.addEventListener("input", () => {
+        saturationValue.textContent = saturation.value;
+        generatePalette();
+      });
+
+      lightness.addEventListener("input", () => {
+        lightnessValue.textContent = lightness.value;
+        generatePalette();
+      });
+
+      document.querySelectorAll("[data-copy-target]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const target = document.getElementById(button.dataset.copyTarget);
+          if (target) copyText(target.textContent);
+        });
+      });
+
+      copyBaseButton.addEventListener("click", () =>
+        copyText(baseInput.value.toUpperCase())
+      );
+
+      generateButton.addEventListener("click", generatePalette);
+      randomButton.addEventListener("click", randomizeBaseColor);
+      downloadButton.addEventListener("click", downloadPalette);
+      resetButton.addEventListener("click", resetTool);
+
+      generatePalette();
+    })();
+  </script>
+</body>
+</html>

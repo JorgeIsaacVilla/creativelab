@@ -1,0 +1,54 @@
+{
+  "seo": {
+    "title": "Verificador de contraste de colores | Creative Lab",
+    "description": "Comprueba el contraste entre texto y fondo según WCAG.",
+    "htmlLang": "es"
+  },
+  "product": {
+    "eyebrow": "Accesibilidad visual",
+    "title": "Verificador de contraste",
+    "description": "Comprueba si los colores de texto y fondo cumplen con los niveles de contraste recomendados por WCAG."
+  },
+  "checker": {
+    "title": "Compara dos colores",
+    "intro": "Selecciona el color del texto y el fondo para evaluar la legibilidad.",
+    "textColor": "Color del texto",
+    "backgroundColor": "Color del fondo",
+    "textColorPicker": "Selector de color del texto",
+    "backgroundColorPicker": "Selector de color del fondo",
+    "copyTextColor": "Copiar color del texto",
+    "copyBackgroundColor": "Copiar color del fondo",
+    "swapColors": "Intercambiar colores",
+    "ratioLabel": "Relación de contraste",
+    "excellent": "Contraste excelente",
+    "previewEyebrow": "Vista previa",
+    "previewHeading": "Diseño claro y accesible",
+    "previewParagraph": "Este texto permite comprobar cómo se verá la combinación elegida en un bloque de contenido real.",
+    "previewButton": "Botón de ejemplo",
+    "complianceTitle": "Cumplimiento WCAG",
+    "complianceDescription": "Resultados para texto normal, texto grande y elementos gráficos.",
+    "normalText": "Texto normal",
+    "largeText": "Texto grande",
+    "uiElements": "Elementos UI",
+    "minimum": "Mínimo",
+    "requiredRatio": "Relación",
+    "suggestionsTitle": "Sugerencias accesibles",
+    "suggestionsDescription": "Alternativas cercanas que mejoran el contraste manteniendo el estilo.",
+    "exportTitle": "Código de la combinación",
+    "exportDescription": "Copia los estilos CSS de la combinación actual.",
+    "copyCss": "Copiar CSS",
+    "randomButton": "Combinación aleatoria",
+    "downloadButton": "Descargar resultado"
+  },
+  "info": {
+    "eyebrow": "Legibilidad para todos",
+    "title": "Cómo comprobar el contraste con Creative Lab",
+    "description": "Elige los colores, revisa la relación de contraste y confirma si la combinación cumple los niveles AA y AAA.",
+    "stepOneTitle": "1. Selecciona",
+    "stepOneText": "Elige el color del texto y del fondo.",
+    "stepTwoTitle": "2. Comprueba",
+    "stepTwoText": "Revisa el contraste y el cumplimiento WCAG.",
+    "stepThreeTitle": "3. Ajusta",
+    "stepThreeText": "Usa las sugerencias para mejorar la legibilidad."
+  }
+}

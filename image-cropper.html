@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Recortador de imágenes online | Creative Lab</title>
+
+  <meta
+    name="description"
+    content="Recorta imágenes JPG, PNG, WebP y SVG gratis desde tu navegador con Creative Lab. Elige una proporción, ajusta el área y descarga el resultado."
+  >
+
+  <meta
+    name="robots"
+    content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+  >
+
+  <meta name="author" content="Creative Lab">
+  <meta name="theme-color" content="#08140d">
+
+  <link rel="canonical" href="https://tudominio.com/image-cropper.html">
+  <link rel="alternate" hreflang="es" href="https://tudominio.com/image-cropper.html">
+  <link rel="alternate" hreflang="en" href="https://tudominio.com/en/image-cropper.html">
+  <link rel="alternate" hreflang="x-default" href="https://tudominio.com/image-cropper.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Creative Lab">
+  <meta property="og:title" content="Recortador de imágenes online">
+  <meta
+    property="og:description"
+    content="Recorta imágenes directamente desde el navegador con proporciones personalizadas."
+  >
+  <meta property="og:url" content="https://tudominio.com/image-cropper.html">
+  <meta property="og:image" content="https://tudominio.com/src/image-cropper-cover.webp">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:locale:alternate" content="en_US">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Recortador de imágenes | Creative Lab">
+  <meta
+    name="twitter:description"
+    content="Recorta imágenes JPG, PNG, WebP y SVG desde tu navegador."
+  >
+  <meta name="twitter:image" content="https://tudominio.com/src/image-cropper-cover.webp">
+
+   <link rel="icon" href="./src/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./styles/main.css">
+
+  <script src="./scripts/language.js" defer></script>
+  <script src="./scripts/shared.js" defer></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Creative Lab - Recortador de imágenes",
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "Web",
+    "url": "https://tudominio.com/image-cropper.html",
+    "description": "Recortador online de imágenes JPG, PNG, WebP y SVG.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Creative Lab",
+      "url": "https://tudominio.com/"
+    }
+  }
+  </script>
+</head>
+
+<body data-page="image-cropper">
+  <a class="skip-link" href="#main-content" data-i18n="common.skipToContent">
+    Saltar al contenido
+  </a>
+
+  <div class="site-shell">
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a
+          class="site-brand"
+          href="./index.html"
+          data-i18n-aria-label="common.goHome"
+          aria-label="Ir al inicio"
+        >
+          <img
+            class="site-brand__logo"
+            src="./src/logo.svg"
+            alt="Logo de Creative Lab"
+            width="48"
+            height="48"
+            data-i18n-alt="brand.logoAlt"
+          >
+
+          <span class="site-brand__name" data-i18n="brand.name">
+            Creative Lab
+          </span>
+        </a>
+
+        <div class="site-header__actions">
+          <a
+            class="back-to-portfolio"
+            href="./index.html"
+            data-i18n="common.backToPortfolio"
+          >
+            Regresar al portafolio de servicios
+          </a>
+
+          <label class="language-control" for="language-selector">
+            <span class="sr-only" data-i18n="common.language">Idioma</span>
+
+            <select
+              id="language-selector"
+              name="language"
+              data-i18n-aria-label="common.selectLanguage"
+              aria-label="Seleccionar idioma"
+            >
+              <option value="es">ES</option>
+              <option value="en">EN</option>
+            </select>
+          </label>
+        </div>
+      </div>
+    </header>
+
+    <aside
+      class="ad-slot ad-slot--top"
+      aria-label="Espacio publicitario"
+      data-ad-position="image-cropper-top"
+    >
+      <span data-i18n="common.advertisement">Publicidad</span>
+    </aside>
+
+    <main class="product-page" id="main-content">
+      <section class="product-header" aria-labelledby="product-title">
+        <div class="product-header__content">
+          <p class="section-heading__eyebrow" data-i18n="product.eyebrow">
+            Composición visual
+          </p>
+
+          <h1 id="product-title" data-i18n="product.title">
+            Recortador de imágenes
+          </h1>
+
+          <p class="product-header__description" data-i18n="product.description">
+            Selecciona el área exacta que deseas conservar, usa proporciones
+            predeterminadas y descarga el recorte desde tu navegador.
+          </p>
+        </div>
+      </section>
+
+      <section class="tool-interface" aria-labelledby="cropper-title">
+        <div>
+          <h2 id="cropper-title" data-i18n="cropper.title">
+            Selecciona una imagen
+          </h2>
+
+          <p data-i18n="cropper.intro">
+            Carga una imagen, elige una proporción y ajusta el área de recorte.
+          </p>
+        </div>
+
+        <input
+          id="image-input"
+          type="file"
+          accept="image/jpeg,image/png,image/webp,image/svg+xml"
+          hidden
+        >
+
+        <button
+          class="upload-zone"
+          id="upload-zone"
+          type="button"
+          aria-describedby="upload-help"
+        >
+          <span>
+            <strong data-i18n="cropper.uploadTitle">
+              Arrastra una imagen o haz clic para seleccionarla
+            </strong>
+
+            <small id="upload-help" data-i18n="cropper.uploadHelp">
+              JPG, PNG, WebP o SVG. Máximo 25 MB.
+            </small>
+          </span>
+        </button>
+
+        <div
+          class="status-message status-message--info"
+          id="status-message"
+          role="status"
+          aria-live="polite"
+          hidden
+        ></div>
+
+        <div class="crop-ratio-presets" role="group" aria-label="Proporción de recorte">
+          <button class="crop-ratio-button is-active" type="button" data-ratio="free">
+            <strong data-i18n="cropper.freeRatio">Libre</strong>
+            <span>—</span>
+          </button>
+
+          <button class="crop-ratio-button" type="button" data-ratio="1:1">
+            <strong>1:1</strong>
+            <span data-i18n="cropper.squareRatio">Cuadrada</span>
+          </button>
+
+          <button class="crop-ratio-button" type="button" data-ratio="4:3">
+            <strong>4:3</strong>
+            <span data-i18n="cropper.classicRatio">Clásica</span>
+          </button>
+
+          <button class="crop-ratio-button" type="button" data-ratio="16:9">
+            <strong>16:9</strong>
+            <span data-i18n="cropper.wideRatio">Panorámica</span>
+          </button>
+
+          <button class="crop-ratio-button" type="button" data-ratio="3:4">
+            <strong>3:4</strong>
+            <span data-i18n="cropper.portraitRatio">Retrato</span>
+          </button>
+
+          <button class="crop-ratio-button" type="button" data-ratio="9:16">
+            <strong>9:16</strong>
+            <span data-i18n="cropper.storyRatio">Historia</span>
+          </button>
+        </div>
+
+        <div class="crop-workspace" id="crop-workspace" hidden>
+          <div class="crop-stage" id="crop-stage">
+            <img
+              id="crop-image"
+              alt="Imagen preparada para recortar"
+              data-i18n-alt="cropper.cropAlt"
+              draggable="false"
+            >
+
+            <div class="crop-overlay" id="crop-overlay"></div>
+
+            <div class="crop-selection" id="crop-selection" tabindex="0">
+              <span class="crop-grid-line crop-grid-line--vertical crop-grid-line--one"></span>
+              <span class="crop-grid-line crop-grid-line--vertical crop-grid-line--two"></span>
+              <span class="crop-grid-line crop-grid-line--horizontal crop-grid-line--one"></span>
+              <span class="crop-grid-line crop-grid-line--horizontal crop-grid-line--two"></span>
+
+              <span class="crop-handle crop-handle--nw" data-handle="nw"></span>
+              <span class="crop-handle crop-handle--ne" data-handle="ne"></span>
+              <span class="crop-handle crop-handle--sw" data-handle="sw"></span>
+              <span class="crop-handle crop-handle--se" data-handle="se"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="control-grid">
+          <div class="form-field">
+            <label for="output-format" data-i18n="cropper.outputFormat">
+              Formato de salida
+            </label>
+
+            <select id="output-format">
+              <option value="original" data-i18n="cropper.keepOriginal">
+                Mantener formato original
+              </option>
+              <option value="image/jpeg">JPG</option>
+              <option value="image/png">PNG</option>
+              <option value="image/webp">WebP</option>
+              <option value="image/svg+xml">SVG</option>
+            </select>
+          </div>
+
+          <div class="form-field" id="quality-field">
+            <label for="output-quality">
+              <span data-i18n="cropper.quality">Calidad</span>
+              <span id="quality-value">90%</span>
+            </label>
+
+            <input
+              id="output-quality"
+              type="range"
+              min="10"
+              max="100"
+              value="90"
+              step="1"
+            >
+          </div>
+        </div>
+
+        <div class="result-panel" id="result-panel" hidden>
+          <div class="control-grid">
+            <div>
+              <h3 data-i18n="cropper.originalTitle">Imagen original</h3>
+
+              <div class="result-panel__preview">
+                <img
+                  id="original-preview"
+                  alt="Vista previa de la imagen original"
+                  data-i18n-alt="cropper.originalAlt"
+                >
+              </div>
+
+              <dl class="image-information">
+                <div>
+                  <dt data-i18n="cropper.fileName">Archivo</dt>
+                  <dd id="original-name">—</dd>
+                </div>
+
+                <div>
+                  <dt data-i18n="cropper.dimensions">Dimensiones</dt>
+                  <dd id="original-dimensions">—</dd>
+                </div>
+
+                <div>
+                  <dt data-i18n="cropper.fileSize">Peso</dt>
+                  <dd id="original-size">—</dd>
+                </div>
+              </dl>
+            </div>
+
+            <div>
+              <h3 data-i18n="cropper.resultTitle">Resultado</h3>
+
+              <div class="result-panel__preview">
+                <img
+                  id="result-preview"
+                  alt="Vista previa de la imagen recortada"
+                  data-i18n-alt="cropper.resultAlt"
+                >
+              </div>
+
+              <dl class="image-information">
+                <div>
+                  <dt data-i18n="cropper.dimensions">Dimensiones</dt>
+                  <dd id="result-dimensions">—</dd>
+                </div>
+
+                <div>
+                  <dt data-i18n="cropper.outputType">Formato</dt>
+                  <dd id="result-type">—</dd>
+                </div>
+
+                <div>
+                  <dt data-i18n="cropper.fileSize">Peso</dt>
+                  <dd id="result-size">—</dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero__actions">
+          <button
+            class="button button--primary"
+            id="crop-button"
+            type="button"
+            disabled
+          >
+            <span data-i18n="cropper.cropButton">
+              Recortar imagen
+            </span>
+          </button>
+
+          <button
+            class="button button--secondary"
+            id="download-button"
+            type="button"
+            disabled
+          >
+            <span data-i18n="common.download">
+              Descargar
+            </span>
+          </button>
+
+          <button
+            class="button button--secondary"
+            id="reset-button"
+            type="button"
+          >
+            <span data-i18n="common.reset">
+              Comenzar de nuevo
+            </span>
+          </button>
+        </div>
+
+        <p class="privacy-note" data-i18n="common.privacyNotice">
+          Tus archivos se procesan localmente en tu navegador siempre que
+          sea posible.
+        </p>
+      </section>
+
+      <aside
+        class="ad-slot ad-slot--bottom"
+        aria-label="Espacio publicitario"
+        data-ad-position="image-cropper-bottom"
+      >
+        <span data-i18n="common.advertisement">Publicidad</span>
+      </aside>
+
+      <section
+        class="about-section__content product-information"
+        aria-labelledby="how-it-works-title"
+      >
+        <p class="section-heading__eyebrow" data-i18n="info.eyebrow">
+          Conserva solo lo importante
+        </p>
+
+        <h2 id="how-it-works-title" data-i18n="info.title">
+          Cómo recortar imágenes con Creative Lab
+        </h2>
+
+        <p data-i18n="info.description">
+          Selecciona una imagen, ajusta el área visible y descarga el recorte
+          en el formato que prefieras.
+        </p>
+
+        <div class="trust-grid">
+          <article class="trust-card">
+            <h3 data-i18n="info.stepOneTitle">1. Carga</h3>
+            <p data-i18n="info.stepOneText">
+              Selecciona una imagen JPG, PNG, WebP o SVG.
+            </p>
+          </article>
+
+          <article class="trust-card">
+            <h3 data-i18n="info.stepTwoTitle">2. Selecciona</h3>
+            <p data-i18n="info.stepTwoText">
+              Mueve y ajusta el área de recorte o usa una proporción.
+            </p>
+          </article>
+
+          <article class="trust-card">
+            <h3 data-i18n="info.stepThreeTitle">3. Descarga</h3>
+            <p data-i18n="info.stepThreeText">
+              Previsualiza y guarda la imagen recortada.
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <noscript>
+    <div class="noscript-message">
+      Esta herramienta necesita JavaScript para funcionar.
+    </div>
+  </noscript>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const MAX_FILE_SIZE = 25 * 1024 * 1024;
+      const MIN_SELECTION_SIZE = 40;
+
+      const input = document.getElementById("image-input");
+      const uploadZone = document.getElementById("upload-zone");
+      const cropWorkspace = document.getElementById("crop-workspace");
+      const cropStage = document.getElementById("crop-stage");
+      const cropImage = document.getElementById("crop-image");
+      const cropSelection = document.getElementById("crop-selection");
+      const ratioButtons = document.querySelectorAll(".crop-ratio-button");
+      const outputFormat = document.getElementById("output-format");
+      const qualityField = document.getElementById("quality-field");
+      const qualityInput = document.getElementById("output-quality");
+      const qualityValue = document.getElementById("quality-value");
+      const cropButton = document.getElementById("crop-button");
+      const downloadButton = document.getElementById("download-button");
+      const resetButton = document.getElementById("reset-button");
+      const statusMessage = document.getElementById("status-message");
+      const resultPanel = document.getElementById("result-panel");
+      const originalPreview = document.getElementById("original-preview");
+      const resultPreview = document.getElementById("result-preview");
+      const originalName = document.getElementById("original-name");
+      const originalDimensions = document.getElementById("original-dimensions");
+      const originalSize = document.getElementById("original-size");
+      const resultDimensions = document.getElementById("result-dimensions");
+      const resultType = document.getElementById("result-type");
+      const resultSize = document.getElementById("result-size");
+
+      let selectedFile = null;
+      let sourceImage = null;
+      let originalObjectUrl = "";
+      let resultObjectUrl = "";
+      let resultBlob = null;
+      let activeRatio = null;
+
+      let selection = {
+        x: 0,
+        y: 0,
+        width: 0,
+        height: 0
+      };
+
+      let interaction = null;
+
+      function translate(key, fallback) {
+        if (
+          window.CreativeLabLanguage &&
+          typeof window.CreativeLabLanguage.translate === "function"
+        ) {
+          return window.CreativeLabLanguage.translate(key, fallback);
+        }
+
+        return fallback;
+      }
+
+      function formatBytes(bytes) {
+        if (!Number.isFinite(bytes) || bytes <= 0) {
+          return "0 KB";
+        }
+
+        const units = ["B", "KB", "MB", "GB"];
+        const unitIndex = Math.min(
+          Math.floor(Math.log(bytes) / Math.log(1024)),
+          units.length - 1
+        );
+
+        const value = bytes / Math.pow(1024, unitIndex);
+
+        return `${value.toFixed(value >= 10 || unitIndex === 0 ? 0 : 2)} ${
+          units[unitIndex]
+        }`;
+      }
+
+      function getExtension(mimeType) {
+        const extensions = {
+          "image/png": "png",
+          "image/jpeg": "jpg",
+          "image/webp": "webp",
+          "image/svg+xml": "svg"
+        };
+
+        return extensions[mimeType] || "png";
+      }
+
+      function getReadableFormat(mimeType) {
+        const names = {
+          "image/png": "PNG",
+          "image/jpeg": "JPG",
+          "image/webp": "WebP",
+          "image/svg+xml": "SVG"
+        };
+
+        return names[mimeType] || mimeType;
+      }
+
+      function getSelectedMimeType() {
+        if (outputFormat.value === "original") {
+          return selectedFile ? selectedFile.type : "image/png";
+        }
+
+        return outputFormat.value;
+      }
+
+      function showStatus(message, type = "info") {
+        statusMessage.hidden = false;
+        statusMessage.textContent = message;
+        statusMessage.className = `status-message status-message--${type}`;
+      }
+
+      function hideStatus() {
+        statusMessage.hidden = true;
+        statusMessage.textContent = "";
+      }
+
+      function revokeUrl(url) {
+        if (url) {
+          URL.revokeObjectURL(url);
+        }
+      }
+
+      function clearResult() {
+        revokeUrl(resultObjectUrl);
+        resultObjectUrl = "";
+        resultBlob = null;
+        resultPreview.removeAttribute("src");
+        resultDimensions.textContent = "—";
+        resultType.textContent = "—";
+        resultSize.textContent = "—";
+        resultPanel.hidden = true;
+        downloadButton.disabled = true;
+      }
+
+      function updateQualityVisibility() {
+        const mimeType = getSelectedMimeType();
+
+        qualityField.hidden = !(
+          mimeType === "image/jpeg" ||
+          mimeType === "image/webp"
+        );
+      }
+
+      function resetTool() {
+        selectedFile = null;
+        sourceImage = null;
+        input.value = "";
+
+        revokeUrl(originalObjectUrl);
+        revokeUrl(resultObjectUrl);
+
+        originalObjectUrl = "";
+        resultObjectUrl = "";
+        resultBlob = null;
+
+        cropImage.removeAttribute("src");
+        originalPreview.removeAttribute("src");
+        resultPreview.removeAttribute("src");
+
+        originalName.textContent = "—";
+        originalDimensions.textContent = "—";
+        originalSize.textContent = "—";
+        resultDimensions.textContent = "—";
+        resultType.textContent = "—";
+        resultSize.textContent = "—";
+
+        cropWorkspace.hidden = true;
+        resultPanel.hidden = true;
+        cropButton.disabled = true;
+        downloadButton.disabled = true;
+
+        outputFormat.value = "original";
+        qualityInput.value = "90";
+        qualityValue.textContent = "90%";
+
+        setRatio("free");
+        updateQualityVisibility();
+        hideStatus();
+      }
+
+      function validateFile(file) {
+        const allowedTypes = [
+          "image/jpeg",
+          "image/png",
+          "image/webp",
+          "image/svg+xml"
+        ];
+
+        if (!allowedTypes.includes(file.type)) {
+          throw new Error(
+            translate(
+              "messages.invalidFormat",
+              "Selecciona una imagen JPG, PNG, WebP o SVG."
+            )
+          );
+        }
+
+        if (file.size > MAX_FILE_SIZE) {
+          throw new Error(
+            translate(
+              "messages.fileTooLarge",
+              "La imagen supera el límite de 25 MB."
+            )
+          );
+        }
+      }
+
+      function loadImage(file) {
+        return new Promise((resolve, reject) => {
+          const image = new Image();
+          const url = URL.createObjectURL(file);
+
+          image.onload = () => {
+            resolve({ image, url });
+          };
+
+          image.onerror = () => {
+            URL.revokeObjectURL(url);
+
+            reject(
+              new Error(
+                translate(
+                  "messages.readError",
+                  "No fue posible leer la imagen."
+                )
+              )
+            );
+          };
+
+          image.src = url;
+        });
+      }
+
+      function getStageBounds() {
+        return {
+          width: cropStage.clientWidth,
+          height: cropStage.clientHeight
+        };
+      }
+
+      function parseRatio(value) {
+        if (value === "free") {
+          return null;
+        }
+
+        const [width, height] = value.split(":").map(Number);
+
+        return width / height;
+      }
+
+      function setRatio(value) {
+        activeRatio = parseRatio(value);
+
+        ratioButtons.forEach((button) => {
+          button.classList.toggle(
+            "is-active",
+            button.dataset.ratio === value
+          );
+        });
+
+        if (sourceImage) {
+          createInitialSelection();
+        }
+
+        clearResult();
+      }
+
+      function createInitialSelection() {
+        const bounds = getStageBounds();
+
+        let width = bounds.width * 0.72;
+        let height = bounds.height * 0.72;
+
+        if (activeRatio) {
+          if (width / height > activeRatio) {
+            width = height * activeRatio;
+          } else {
+            height = width / activeRatio;
+          }
+        }
+
+        selection = {
+          x: (bounds.width - width) / 2,
+          y: (bounds.height - height) / 2,
+          width,
+          height
+        };
+
+        renderSelection();
+      }
+
+      function clampSelection() {
+        const bounds = getStageBounds();
+
+        selection.width = Math.max(
+          MIN_SELECTION_SIZE,
+          Math.min(selection.width, bounds.width)
+        );
+
+        selection.height = Math.max(
+          MIN_SELECTION_SIZE,
+          Math.min(selection.height, bounds.height)
+        );
+
+        selection.x = Math.max(
+          0,
+          Math.min(selection.x, bounds.width - selection.width)
+        );
+
+        selection.y = Math.max(
+          0,
+          Math.min(selection.y, bounds.height - selection.height)
+        );
+      }
+
+      function renderSelection() {
+        clampSelection();
+
+        cropSelection.style.left = `${selection.x}px`;
+        cropSelection.style.top = `${selection.y}px`;
+        cropSelection.style.width = `${selection.width}px`;
+        cropSelection.style.height = `${selection.height}px`;
+      }
+
+      async function selectFile(file) {
+        try {
+          hideStatus();
+          validateFile(file);
+          clearResult();
+
+          const loaded = await loadImage(file);
+
+          revokeUrl(originalObjectUrl);
+
+          selectedFile = file;
+          sourceImage = loaded.image;
+          originalObjectUrl = loaded.url;
+
+          cropImage.src = originalObjectUrl;
+          originalPreview.src = originalObjectUrl;
+
+          originalName.textContent = file.name;
+          originalDimensions.textContent =
+            `${sourceImage.naturalWidth} × ${sourceImage.naturalHeight} px`;
+          originalSize.textContent = formatBytes(file.size);
+
+          cropWorkspace.hidden = false;
+          cropButton.disabled = false;
+
+          cropImage.onload = () => {
+            createInitialSelection();
+          };
+
+          updateQualityVisibility();
+
+          showStatus(
+            translate(
+              "messages.ready",
+              "Imagen lista para recortar."
+            ),
+            "success"
+          );
+        } catch (error) {
+          resetTool();
+          showStatus(error.message, "error");
+        }
+      }
+
+      function getPointerPosition(event) {
+        const rect = cropStage.getBoundingClientRect();
+
+        return {
+          x: event.clientX - rect.left,
+          y: event.clientY - rect.top
+        };
+      }
+
+      function startInteraction(event) {
+        if (!sourceImage) {
+          return;
+        }
+
+        const handle = event.target.dataset.handle || null;
+        const position = getPointerPosition(event);
+
+        interaction = {
+          type: handle ? "resize" : "move",
+          handle,
+          startX: position.x,
+          startY: position.y,
+          startSelection: { ...selection }
+        };
+
+        cropSelection.setPointerCapture(event.pointerId);
+        event.preventDefault();
+      }
+
+      function applyRatioResize(next, handle) {
+        if (!activeRatio) {
+          return next;
+        }
+
+        const horizontalDelta =
+          Math.abs(next.width - interaction.startSelection.width);
+
+        const verticalDelta =
+          Math.abs(next.height - interaction.startSelection.height);
+
+        if (horizontalDelta >= verticalDelta) {
+          next.height = next.width / activeRatio;
+        } else {
+          next.width = next.height * activeRatio;
+        }
+
+        if (handle.includes("w")) {
+          next.x =
+            interaction.startSelection.x +
+            interaction.startSelection.width -
+            next.width;
+        }
+
+        if (handle.includes("n")) {
+          next.y =
+            interaction.startSelection.y +
+            interaction.startSelection.height -
+            next.height;
+        }
+
+        return next;
+      }
+
+      function moveInteraction(event) {
+        if (!interaction) {
+          return;
+        }
+
+        const position = getPointerPosition(event);
+        const deltaX = position.x - interaction.startX;
+        const deltaY = position.y - interaction.startY;
+        const start = interaction.startSelection;
+
+        if (interaction.type === "move") {
+          selection.x = start.x + deltaX;
+          selection.y = start.y + deltaY;
+        } else {
+          let next = { ...start };
+          const handle = interaction.handle;
+
+          if (handle.includes("e")) {
+            next.width = start.width + deltaX;
+          }
+
+          if (handle.includes("s")) {
+            next.height = start.height + deltaY;
+          }
+
+          if (handle.includes("w")) {
+            next.x = start.x + deltaX;
+            next.width = start.width - deltaX;
+          }
+
+          if (handle.includes("n")) {
+            next.y = start.y + deltaY;
+            next.height = start.height - deltaY;
+          }
+
+          next = applyRatioResize(next, handle);
+
+          selection = next;
+        }
+
+        renderSelection();
+        clearResult();
+        event.preventDefault();
+      }
+
+      function endInteraction(event) {
+        if (!interaction) {
+          return;
+        }
+
+        interaction = null;
+
+        if (cropSelection.hasPointerCapture(event.pointerId)) {
+          cropSelection.releasePointerCapture(event.pointerId);
+        }
+      }
+
+      function getCropCoordinates() {
+        const stageRect = cropStage.getBoundingClientRect();
+        const imageRect = cropImage.getBoundingClientRect();
+
+        const displayedWidth = imageRect.width;
+        const displayedHeight = imageRect.height;
+
+        const offsetX = imageRect.left - stageRect.left;
+        const offsetY = imageRect.top - stageRect.top;
+
+        const visibleX = Math.max(selection.x, offsetX);
+        const visibleY = Math.max(selection.y, offsetY);
+        const visibleRight = Math.min(
+          selection.x + selection.width,
+          offsetX + displayedWidth
+        );
+        const visibleBottom = Math.min(
+          selection.y + selection.height,
+          offsetY + displayedHeight
+        );
+
+        const visibleWidth = visibleRight - visibleX;
+        const visibleHeight = visibleBottom - visibleY;
+
+        if (visibleWidth <= 0 || visibleHeight <= 0) {
+          throw new Error(
+            translate(
+              "messages.outsideImage",
+              "El área de recorte debe estar sobre la imagen."
+            )
+          );
+        }
+
+        const scaleX = sourceImage.naturalWidth / displayedWidth;
+        const scaleY = sourceImage.naturalHeight / displayedHeight;
+
+        return {
+          x: Math.max(0, Math.round((visibleX - offsetX) * scaleX)),
+          y: Math.max(0, Math.round((visibleY - offsetY) * scaleY)),
+          width: Math.max(1, Math.round(visibleWidth * scaleX)),
+          height: Math.max(1, Math.round(visibleHeight * scaleY))
+        };
+      }
+
+      function canvasToBlob(canvas, type, quality) {
+        return new Promise((resolve, reject) => {
+          canvas.toBlob(
+            (blob) => {
+              if (blob) {
+                resolve(blob);
+                return;
+              }
+
+              reject(
+                new Error(
+                  translate(
+                    "messages.cropError",
+                    "No fue posible recortar la imagen."
+                  )
+                )
+              );
+            },
+            type,
+            quality
+          );
+        });
+      }
+
+      function createSvgBlob(canvas, width, height) {
+        const embeddedImage = canvas.toDataURL("image/png");
+
+        const svgContent = [
+          '<svg xmlns="http://www.w3.org/2000/svg"',
+          ' width="' + width + '"',
+          ' height="' + height + '"',
+          ' viewBox="0 0 ' + width + ' ' + height + '">',
+          '<image href="' + embeddedImage + '"',
+          ' width="' + width + '"',
+          ' height="' + height + '"',
+          ' preserveAspectRatio="none"/>',
+          '</svg>'
+        ].join("");
+
+        return new Blob([svgContent], {
+          type: "image/svg+xml;charset=utf-8"
+        });
+      }
+
+      async function cropImageResult() {
+        if (!selectedFile || !sourceImage) {
+          return;
+        }
+
+        cropButton.disabled = true;
+        downloadButton.disabled = true;
+
+        showStatus(
+          translate("messages.processing", "Recortando imagen..."),
+          "info"
+        );
+
+        try {
+          const crop = getCropCoordinates();
+          const mimeType = getSelectedMimeType();
+          const quality = Number(qualityInput.value) / 100;
+
+          const canvas = document.createElement("canvas");
+          const context = canvas.getContext("2d", {
+            alpha: mimeType !== "image/jpeg"
+          });
+
+          if (!context) {
+            throw new Error(
+              translate(
+                "messages.canvasError",
+                "El navegador no pudo iniciar el recortador."
+              )
+            );
+          }
+
+          canvas.width = crop.width;
+          canvas.height = crop.height;
+
+          if (mimeType === "image/jpeg") {
+            context.fillStyle = "#ffffff";
+            context.fillRect(0, 0, canvas.width, canvas.height);
+          }
+
+          context.drawImage(
+            sourceImage,
+            crop.x,
+            crop.y,
+            crop.width,
+            crop.height,
+            0,
+            0,
+            crop.width,
+            crop.height
+          );
+
+          if (mimeType === "image/svg+xml") {
+            resultBlob = createSvgBlob(
+              canvas,
+              crop.width,
+              crop.height
+            );
+          } else {
+            resultBlob = await canvasToBlob(
+              canvas,
+              mimeType,
+              quality
+            );
+          }
+
+          revokeUrl(resultObjectUrl);
+          resultObjectUrl = URL.createObjectURL(resultBlob);
+
+          resultPreview.src = resultObjectUrl;
+          resultDimensions.textContent =
+            `${crop.width} × ${crop.height} px`;
+          resultType.textContent = getReadableFormat(mimeType);
+          resultSize.textContent = formatBytes(resultBlob.size);
+
+          resultPanel.hidden = false;
+          downloadButton.disabled = false;
+
+          showStatus(
+            translate(
+              "messages.completed",
+              "Recorte completado."
+            ),
+            "success"
+          );
+        } catch (error) {
+          clearResult();
+          showStatus(error.message, "error");
+        } finally {
+          cropButton.disabled = false;
+        }
+      }
+
+      function downloadResult() {
+        if (!resultBlob || !selectedFile) {
+          return;
+        }
+
+        const mimeType = getSelectedMimeType();
+        const extension = getExtension(mimeType);
+        const originalBaseName = selectedFile.name.replace(
+          /\.[^/.]+$/,
+          ""
+        );
+
+        const link = document.createElement("a");
+        link.href = resultObjectUrl;
+        link.download =
+          `${originalBaseName}-cropped-creative-lab.${extension}`;
+
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+      }
+
+      uploadZone.addEventListener("click", () => {
+        input.click();
+      });
+
+      input.addEventListener("change", () => {
+        const file = input.files && input.files[0];
+
+        if (file) {
+          selectFile(file);
+        }
+      });
+
+      ["dragenter", "dragover"].forEach((eventName) => {
+        uploadZone.addEventListener(eventName, (event) => {
+          event.preventDefault();
+          uploadZone.classList.add("is-dragging");
+        });
+      });
+
+      ["dragleave", "drop"].forEach((eventName) => {
+        uploadZone.addEventListener(eventName, (event) => {
+          event.preventDefault();
+          uploadZone.classList.remove("is-dragging");
+        });
+      });
+
+      uploadZone.addEventListener("drop", (event) => {
+        const file = event.dataTransfer.files[0];
+
+        if (file) {
+          selectFile(file);
+        }
+      });
+
+      ratioButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          setRatio(button.dataset.ratio);
+        });
+      });
+
+      cropSelection.addEventListener("pointerdown", startInteraction);
+      cropSelection.addEventListener("pointermove", moveInteraction);
+      cropSelection.addEventListener("pointerup", endInteraction);
+      cropSelection.addEventListener("pointercancel", endInteraction);
+
+      outputFormat.addEventListener("change", () => {
+        updateQualityVisibility();
+        clearResult();
+      });
+
+      qualityInput.addEventListener("input", () => {
+        qualityValue.textContent = `${qualityInput.value}%`;
+        clearResult();
+      });
+
+      cropButton.addEventListener("click", cropImageResult);
+      downloadButton.addEventListener("click", downloadResult);
+      resetButton.addEventListener("click", resetTool);
+
+      window.addEventListener("resize", () => {
+        if (sourceImage) {
+          createInitialSelection();
+        }
+      });
+
+      document.addEventListener(
+        "creativeLab:languageChanged",
+        () => {
+          if (!statusMessage.hidden) {
+            hideStatus();
+          }
+        }
+      );
+
+      setRatio("free");
+      updateQualityVisibility();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Convertidor de colores online | Creative Lab</title>
+  <meta name="description" content="Convierte colores entre HEX, RGB, HSL, HSV y CMYK directamente desde tu navegador con Creative Lab.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#08140d">
+  <link rel="canonical" href="https://tudominio.com/color-converter.html">
+  <link rel="alternate" hreflang="es" href="https://tudominio.com/color-converter.html">
+  <link rel="alternate" hreflang="en" href="https://tudominio.com/en/color-converter.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Creative Lab">
+  <meta property="og:title" content="Convertidor de colores online">
+  <meta property="og:description" content="Convierte colores entre HEX, RGB, HSL, HSV y CMYK.">
+  <meta property="og:url" content="https://tudominio.com/color-converter.html">
+  <meta property="og:image" content="https://tudominio.com/src/color-converter-cover.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Convertidor de colores | Creative Lab">
+  <meta name="twitter:description" content="Convierte valores HEX, RGB, HSL, HSV y CMYK.">
+  <link rel="icon" href="./src/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./styles/main.css">
+  <script src="./scripts/language.js" defer></script>
+  <script src="./scripts/shared.js" defer></script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"SoftwareApplication",
+    "name":"Creative Lab - Convertidor de colores",
+    "applicationCategory":"DesignApplication",
+    "operatingSystem":"Web",
+    "url":"https://tudominio.com/color-converter.html",
+    "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}
+  }
+  </script>
+</head>
+<body data-page="color-converter">
+  <a class="skip-link" href="#main-content" data-i18n="common.skipToContent">Saltar al contenido</a>
+  <div class="site-shell">
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="site-brand" href="./index.html">
+          <img class="site-brand__logo" src="./src/logo.svg" alt="Logo de Creative Lab" width="48" height="48" data-i18n-alt="brand.logoAlt">
+          <span class="site-brand__name" data-i18n="brand.name">Creative Lab</span>
+        </a>
+        <div class="site-header__actions">
+          <a class="back-to-portfolio" href="./index.html" data-i18n="common.backToPortfolio">Regresar al portafolio de servicios</a>
+          <label class="language-control" for="language-selector">
+            <span class="sr-only" data-i18n="common.language">Idioma</span>
+            <select id="language-selector" aria-label="Seleccionar idioma">
+              <option value="es">ES</option><option value="en">EN</option>
+            </select>
+          </label>
+        </div>
+      </div>
+    </header>
+
+    <aside class="ad-slot ad-slot--top" aria-label="Espacio publicitario">
+      <span data-i18n="common.advertisement">Publicidad</span>
+    </aside>
+
+    <main class="product-page" id="main-content">
+      <section class="product-header" aria-labelledby="product-title">
+        <div class="product-header__content">
+          <p class="section-heading__eyebrow" data-i18n="product.eyebrow">Conversión cromática</p>
+          <h1 id="product-title" data-i18n="product.title">Convertidor de colores</h1>
+          <p class="product-header__description" data-i18n="product.description">Convierte un color entre HEX, RGB, HSL, HSV y CMYK, explora variantes y copia los valores.</p>
+        </div>
+      </section>
+
+      <section class="tool-interface" aria-labelledby="converter-title">
+        <div>
+          <h2 id="converter-title" data-i18n="converter.title">Selecciona o escribe un color</h2>
+          <p data-i18n="converter.intro">Usa el selector visual o introduce un valor hexadecimal.</p>
+        </div>
+
+        <div class="color-input-panel">
+          <div class="color-input-panel__picker">
+            <input id="color-picker" type="color" value="#66ff8f" data-i18n-aria-label="converter.colorPickerLabel" aria-label="Selector de color">
+          </div>
+          <div class="form-field">
+            <label for="hex-input">HEX</label>
+            <div class="color-text-input">
+              <input id="hex-input" type="text" value="#66FF8F" maxlength="9" spellcheck="false">
+              <button class="color-copy-button" type="button" data-copy-target="hex-input" aria-label="Copiar HEX">⧉</button>
+            </div>
+            <small data-i18n="converter.hexHelp">Ejemplo: #66FF8F o #66FF8FFF</small>
+          </div>
+        </div>
+
+        <div class="status-message status-message--info" id="status-message" role="status" aria-live="polite" hidden></div>
+
+        <div class="color-preview-layout">
+          <article class="color-preview-card">
+            <div class="color-preview-card__swatch" id="main-swatch"></div>
+            <div class="color-preview-card__content">
+              <p data-i18n="converter.currentColor">Color actual</p>
+              <strong id="current-color-value">#66FF8F</strong>
+              <div class="color-contrast-samples">
+                <span class="color-contrast-sample color-contrast-sample--dark">Aa</span>
+                <span class="color-contrast-sample color-contrast-sample--light">Aa</span>
+              </div>
+            </div>
+          </article>
+
+          <div class="color-channel-controls">
+            <div class="color-channel-row"><label for="red-range">R</label><input id="red-range" type="range" min="0" max="255" value="102"><output id="red-output">102</output></div>
+            <div class="color-channel-row"><label for="green-range">G</label><input id="green-range" type="range" min="0" max="255" value="255"><output id="green-output">255</output></div>
+            <div class="color-channel-row"><label for="blue-range">B</label><input id="blue-range" type="range" min="0" max="255" value="143"><output id="blue-output">143</output></div>
+            <div class="color-channel-row"><label for="alpha-range">A</label><input id="alpha-range" type="range" min="0" max="100" value="100"><output id="alpha-output">100%</output></div>
+          </div>
+        </div>
+
+        <div class="color-values-grid">
+          <article class="color-value-card"><div class="color-value-card__heading"><h3>RGB</h3><button class="color-copy-button" type="button" data-copy-target="rgb-value">⧉</button></div><code id="rgb-value"></code></article>
+          <article class="color-value-card"><div class="color-value-card__heading"><h3>HSL</h3><button class="color-copy-button" type="button" data-copy-target="hsl-value">⧉</button></div><code id="hsl-value"></code></article>
+          <article class="color-value-card"><div class="color-value-card__heading"><h3>HSV</h3><button class="color-copy-button" type="button" data-copy-target="hsv-value">⧉</button></div><code id="hsv-value"></code></article>
+          <article class="color-value-card"><div class="color-value-card__heading"><h3>CMYK</h3><button class="color-copy-button" type="button" data-copy-target="cmyk-value">⧉</button></div><code id="cmyk-value"></code></article>
+        </div>
+
+        <section class="color-variants-section">
+          <div class="color-variants-section__heading">
+            <h3 data-i18n="converter.variantsTitle">Variantes del color</h3>
+            <p data-i18n="converter.variantsDescription">Tonos más claros y más oscuros calculados automáticamente.</p>
+          </div>
+          <div class="color-variants-grid" id="variants-grid"></div>
+        </section>
+
+        <div class="hero__actions">
+          <button class="button button--secondary" id="random-button" type="button"><span data-i18n="converter.randomButton">Color aleatorio</span></button>
+          <button class="button button--secondary" id="reset-button" type="button"><span data-i18n="common.reset">Restablecer</span></button>
+        </div>
+      </section>
+
+      <aside class="ad-slot ad-slot--bottom" aria-label="Espacio publicitario">
+        <span data-i18n="common.advertisement">Publicidad</span>
+      </aside>
+
+      <section class="about-section__content product-information">
+        <p class="section-heading__eyebrow" data-i18n="info.eyebrow">Un color, múltiples formatos</p>
+        <h2 data-i18n="info.title">Cómo convertir colores con Creative Lab</h2>
+        <p data-i18n="info.description">Selecciona un color, ajusta sus canales y copia el formato que necesites.</p>
+        <div class="trust-grid">
+          <article class="trust-card"><h3 data-i18n="info.stepOneTitle">1. Selecciona</h3><p data-i18n="info.stepOneText">Escoge un color o escribe su valor hexadecimal.</p></article>
+          <article class="trust-card"><h3 data-i18n="info.stepTwoTitle">2. Convierte</h3><p data-i18n="info.stepTwoText">Consulta HEX, RGB, HSL, HSV y CMYK.</p></article>
+          <article class="trust-card"><h3 data-i18n="info.stepThreeTitle">3. Copia</h3><p data-i18n="info.stepThreeText">Copia cualquier valor y úsalo en tu proyecto.</p></article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+  (() => {
+    "use strict";
+    const DEFAULT={r:102,g:255,b:143,a:1};
+    const $=id=>document.getElementById(id);
+    const picker=$("color-picker"),hex=$("hex-input"),swatch=$("main-swatch"),current=$("current-color-value");
+    const rr=$("red-range"),gr=$("green-range"),br=$("blue-range"),ar=$("alpha-range");
+    const ro=$("red-output"),go=$("green-output"),bo=$("blue-output"),ao=$("alpha-output");
+    const rgb=$("rgb-value"),hsl=$("hsl-value"),hsv=$("hsv-value"),cmyk=$("cmyk-value"),variants=$("variants-grid"),status=$("status-message");
+    let color={...DEFAULT};
+    const clamp=(v,min,max)=>Math.min(max,Math.max(min,v));
+    const hx=v=>clamp(Math.round(v),0,255).toString(16).padStart(2,"0").toUpperCase();
+    const hex6=c=>`#${hx(c.r)}${hx(c.g)}${hx(c.b)}`;
+    const hexa=c=>c.a>=.999?hex6(c):`${hex6(c)}${hx(c.a*255)}`;
+    function parseHex(v){
+      let n=v.trim().replace(/^#/,"");
+      if(n.length===3||n.length===4)n=[...n].map(x=>x+x).join("");
+      if(![6,8].includes(n.length)||!/^[0-9a-f]+$/i.test(n))return null;
+      return {r:parseInt(n.slice(0,2),16),g:parseInt(n.slice(2,4),16),b:parseInt(n.slice(4,6),16),a:n.length===8?parseInt(n.slice(6,8),16)/255:1};
+    }
+    function toHsl({r,g,b}){
+      r/=255;g/=255;b/=255;const max=Math.max(r,g,b),min=Math.min(r,g,b),d=max-min,l=(max+min)/2;let h=0,s=0;
+      if(d){s=l>.5?d/(2-max-min):d/(max+min);if(max===r)h=(g-b)/d+(g<b?6:0);else if(max===g)h=(b-r)/d+2;else h=(r-g)/d+4;h/=6;}
+      return {h:Math.round(h*360),s:Math.round(s*100),l:Math.round(l*100)};
+    }
+    function toHsv({r,g,b}){
+      r/=255;g/=255;b/=255;const max=Math.max(r,g,b),min=Math.min(r,g,b),d=max-min;let h=0;
+      if(d){if(max===r)h=60*(((g-b)/d)%6);else if(max===g)h=60*((b-r)/d+2);else h=60*((r-g)/d+4);}if(h<0)h+=360;
+      return {h:Math.round(h),s:Math.round(max?d/max*100:0),v:Math.round(max*100)};
+    }
+    function toCmyk({r,g,b}){
+      r/=255;g/=255;b/=255;const k=1-Math.max(r,g,b);if(k>=.999)return{c:0,m:0,y:0,k:100};
+      return {c:Math.round((1-r-k)/(1-k)*100),m:Math.round((1-g-k)/(1-k)*100),y:Math.round((1-b-k)/(1-k)*100),k:Math.round(k*100)};
+    }
+    const mix=(c,t,a)=>({r:Math.round(c.r+(t.r-c.r)*a),g:Math.round(c.g+(t.g-c.g)*a),b:Math.round(c.b+(t.b-c.b)*a),a:c.a});
+    const textColor=c=>(.299*c.r+.587*c.g+.114*c.b)/255>.62?"#07110A":"#FFF";
+    function message(text,type="success"){status.hidden=false;status.textContent=text;status.className=`status-message status-message--${type}`;setTimeout(()=>status.hidden=true,1600);}
+    function renderVariants(){
+      variants.innerHTML="";
+      const defs=[["light",.8,"80%"],["light",.6,"60%"],["light",.4,"40%"],["light",.2,"20%"],["base",0,"Base"],["dark",.2,"20%"],["dark",.4,"40%"],["dark",.6,"60%"],["dark",.8,"80%"]];
+      defs.forEach(([type,amount,label])=>{
+        let c={...color};if(type==="light")c=mix(color,{r:255,g:255,b:255},amount);if(type==="dark")c=mix(color,{r:0,g:0,b:0},amount);
+        const value=hex6(c),btn=document.createElement("button");btn.type="button";btn.className="color-variant";btn.style.background=value;btn.style.color=textColor(c);btn.innerHTML=`<span>${label}</span><strong>${value}</strong>`;
+        btn.onclick=async()=>{try{await navigator.clipboard.writeText(value);message("Color copiado.");}catch{message("No fue posible copiar.","error");}};
+        variants.appendChild(btn);
+      });
+    }
+    function render(){
+      const hs=toHsl(color),hv=toHsv(color),cm=toCmyk(color),alpha=Math.round(color.a*100),value=hexa(color);
+      picker.value=hex6(color);hex.value=value;rr.value=color.r;gr.value=color.g;br.value=color.b;ar.value=alpha;
+      ro.textContent=color.r;go.textContent=color.g;bo.textContent=color.b;ao.textContent=`${alpha}%`;current.textContent=value;
+      swatch.style.background=`rgba(${color.r},${color.g},${color.b},${color.a})`;
+      rgb.textContent=color.a>=.999?`rgb(${color.r}, ${color.g}, ${color.b})`:`rgba(${color.r}, ${color.g}, ${color.b}, ${color.a.toFixed(2)})`;
+      hsl.textContent=color.a>=.999?`hsl(${hs.h}, ${hs.s}%, ${hs.l}%)`:`hsla(${hs.h}, ${hs.s}%, ${hs.l}%, ${color.a.toFixed(2)})`;
+      hsv.textContent=`hsv(${hv.h}, ${hv.s}%, ${hv.v}%)`;
+      cmyk.textContent=`cmyk(${cm.c}%, ${cm.m}%, ${cm.y}%, ${cm.k}%)`;renderVariants();
+    }
+    function setColor(c){color={r:clamp(Math.round(c.r),0,255),g:clamp(Math.round(c.g),0,255),b:clamp(Math.round(c.b),0,255),a:clamp(Number(c.a),0,1)};render();}
+    picker.oninput=()=>{const c=parseHex(picker.value);if(c){c.a=color.a;setColor(c);}};
+    hex.oninput=()=>{const c=parseHex(hex.value);hex.setAttribute("aria-invalid",String(!c));if(c)setColor(c);};
+    [rr,gr,br,ar].forEach(el=>el.oninput=()=>setColor({r:+rr.value,g:+gr.value,b:+br.value,a:+ar.value/100}));
+    document.querySelectorAll("[data-copy-target]").forEach(btn=>btn.onclick=async()=>{const t=$(btn.dataset.copyTarget),value=("value"in t?t.value:t.textContent).trim();try{await navigator.clipboard.writeText(value);message("Valor copiado.");}catch{message("No fue posible copiar.","error");}});
+    $("random-button").onclick=()=>setColor({r:Math.random()*255,g:Math.random()*255,b:Math.random()*255,a:1});
+    $("reset-button").onclick=()=>setColor(DEFAULT);
+    render();
+  })();
+  </script>
+</body>
+</html>

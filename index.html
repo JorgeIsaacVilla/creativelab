@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO principal: reemplazar "tudominio.com" cuando se compre el dominio -->
+  <title>Creative Lab | Herramientas online para imágenes, colores y diseño</title>
+  <meta
+    name="description"
+    content="Herramientas creativas online para convertir, comprimir, redimensionar y editar imágenes, crear paletas, gradientes y diseños publicitarios para redes sociales desde el navegador."
+  >
+  <meta
+    name="robots"
+    content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+  >
+  <meta name="author" content="Creative Lab">
+  <meta name="theme-color" content="#08140d">
+
+  <link rel="canonical" href="https://tudominio.com/">
+
+  <!-- Versiones de idioma: actualizar cuando existan URLs separadas -->
+  <link rel="alternate" hreflang="es" href="https://tudominio.com/">
+  <link rel="alternate" hreflang="en" href="https://tudominio.com/en/">
+  <link rel="alternate" hreflang="x-default" href="https://tudominio.com/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Creative Lab">
+  <meta property="og:title" content="Herramientas creativas online">
+  <meta
+    property="og:description"
+    content="Convierte, comprime y edita imágenes, crea paletas, gradientes y diseños publicitarios para redes sociales."
+  >
+  <meta property="og:url" content="https://tudominio.com/">
+  <meta property="og:image" content="https://tudominio.com/src/social-cover.webp">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:locale:alternate" content="en_US">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Herramientas creativas online">
+  <meta
+    name="twitter:description"
+    content="Herramientas visuales para imágenes, colores, gradientes y diseño publicitario para redes sociales."
+  >
+  <meta name="twitter:image" content="https://tudominio.com/src/social-cover.webp">
+
+  <!-- Recursos -->
+  <link rel="icon" href="./src/favicon.png" type="image/png">
+  <link rel="stylesheet" href="./styles/main.css">
+
+  <!-- Scripts compartidos -->
+  <script src="./scripts/language.js" defer></script>
+  <script src="./scripts/shared.js" defer></script>
+
+  <!-- Datos estructurados -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://tudominio.com/#organization",
+        "name": "Creative Lab",
+        "url": "https://tudominio.com/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://tudominio.com/src/logo.svg"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://tudominio.com/#website",
+        "url": "https://tudominio.com/",
+        "name": "Creative Lab",
+        "description": "Herramientas creativas online para imágenes, colores y diseño.",
+        "publisher": {
+          "@id": "https://tudominio.com/#organization"
+        },
+        "inLanguage": ["es", "en"]
+      },
+      {
+        "@type": "ItemList",
+        "name": "Herramientas creativas disponibles",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Convertidor de imágenes",
+            "url": "https://tudominio.com/image-converter.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Compresor de imágenes",
+            "url": "https://tudominio.com/image-compressor.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Redimensionador de imágenes",
+            "url": "https://tudominio.com/image-resizer.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Generador de paletas",
+            "url": "https://tudominio.com/palette-generator.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "name": "Generador de gradientes",
+            "url": "https://tudominio.com/gradient-generator.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 6,
+            "name": "Quitar fondo de imagen",
+            "url": "https://tudominio.com/background-remover.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 7,
+            "name": "Social Designer",
+            "url": "https://tudominio.com/social-designer.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 8,
+            "name": "Mejorador de imagen",
+            "url": "https://tudominio.com/image-enhancer.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 9,
+            "name": "Generador de efecto translúcido",
+            "url": "https://tudominio.com/glass-generator.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 10,
+            "name": "Separador de elementos",
+            "url": "https://tudominio.com/element-separator.html"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    .tool-card--image-enhancer {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(102, 255, 143, 0.65) !important;
+      background:
+        radial-gradient(circle at top right, rgba(102, 255, 143, 0.22), transparent 42%),
+        linear-gradient(145deg, rgba(15, 44, 27, 0.96), rgba(7, 18, 11, 0.96)) !important;
+      box-shadow: 0 18px 48px rgba(33, 255, 103, 0.12);
+    }
+
+    .tool-card--image-enhancer::after {
+      content: "";
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      right: -70px;
+      bottom: -80px;
+      border-radius: 50%;
+      background: rgba(102, 255, 143, 0.11);
+      pointer-events: none;
+    }
+
+    .tool-card--image-enhancer .tool-card__badge {
+      display: inline-flex;
+      width: max-content;
+      margin-bottom: 0.7rem;
+      padding: 0.32rem 0.65rem;
+      border-radius: 999px;
+      background: #66ff8f;
+      color: #07110a;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .tool-card--image-enhancer .tool-card__icon {
+      font-size: 2rem;
+    }
+  </style>
+
+  <style>
+    .tool-card--glass-generator {
+      border-color: rgba(160, 224, 255, 0.48);
+      background:
+        radial-gradient(circle at 84% 12%, rgba(213, 241, 255, 0.16), transparent 34%),
+        linear-gradient(145deg, rgba(21, 45, 55, 0.94), rgba(8, 22, 28, 0.92));
+      box-shadow:
+        var(--shadow-medium),
+        0 0 30px rgba(120, 220, 255, 0.08);
+    }
+
+    .tool-card--glass-generator .tool-card__icon {
+      color: #d8f6ff;
+      background: rgba(196, 239, 255, 0.08);
+      border-color: rgba(196, 239, 255, 0.2);
+    }
+  </style>
+</head>
+
+<body data-page="index">
+  <a class="skip-link" href="#main-content" data-i18n="common.skipToContent">
+    Saltar al contenido
+  </a>
+
+  <!-- Fondo interactivo -->
+  <canvas
+    id="particle-canvas"
+    class="particle-canvas"
+    aria-hidden="true"
+  ></canvas>
+
+  <div class="site-shell">
+    <header class="site-header" id="site-header">
+      <div class="site-header__inner">
+        <a class="site-brand" href="./index.html" aria-label="Ir al inicio">
+          <img
+            class="site-brand__logo"
+            src="./src/logo.svg"
+            alt="Logo de la plataforma"
+            width="48"
+            height="48"
+          >
+          <span class="site-brand__name" data-i18n="brand.name">
+            Creative Lab
+          </span>
+        </a>
+
+        <nav class="site-nav" aria-label="Navegación principal">
+          <a href="#tools" data-i18n="nav.tools">Herramientas</a>
+          <a href="#categories" data-i18n="nav.categories">Categorías</a>
+          <a href="#about" data-i18n="nav.about">Acerca de</a>
+        </nav>
+
+        <div class="site-header__actions">
+          <label class="language-control" for="language-selector">
+            <span class="sr-only" data-i18n="common.language">Idioma</span>
+            <select
+              id="language-selector"
+              name="language"
+              aria-label="Seleccionar idioma"
+            >
+              <option value="es">ES</option>
+              <option value="en">EN</option>
+            </select>
+          </label>
+
+          <button
+            class="menu-toggle"
+            id="menu-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="mobile-navigation"
+            data-i18n-aria-label="nav.openMenu"
+            aria-label="Abrir menú"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+
+      <nav
+        class="mobile-navigation"
+        id="mobile-navigation"
+        aria-label="Navegación móvil"
+        hidden
+      >
+        <a href="#tools" data-i18n="nav.tools">Herramientas</a>
+        <a href="#categories" data-i18n="nav.categories">Categorías</a>
+        <a href="#about" data-i18n="nav.about">Acerca de</a>
+      </nav>
+    </header>
+
+    <!-- Publicidad superior reservada -->
+    <aside
+      class="ad-slot ad-slot--top"
+      aria-label="Espacio publicitario"
+      data-ad-position="home-top"
+    >
+      <span data-i18n="common.advertisement">Publicidad</span>
+    </aside>
+
+    <main id="main-content">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero__content">
+          <p class="hero__eyebrow" data-i18n="home.eyebrow">
+            Herramientas para imaginar, crear y transformar
+          </p>
+
+          <h1 id="hero-title" data-i18n="home.title">
+            Tu laboratorio creativo en línea
+          </h1>
+
+          <p class="hero__description" data-i18n="home.description">
+            Convierte imágenes, explora colores, diseña gradientes y crea
+            recursos visuales directamente desde tu navegador.
+          </p>
+
+          <div class="hero__actions">
+            <a class="button button--primary button--space" href="#tools">
+              <span data-i18n="home.exploreTools">Explorar herramientas</span>
+            </a>
+
+            <a class="button button--secondary" href="#about">
+              <span data-i18n="home.learnMore">Conocer la plataforma</span>
+            </a>
+          </div>
+
+          <ul class="hero__features" aria-label="Características principales">
+            <li data-i18n="home.featureFast">Rápido</li>
+            <li data-i18n="home.featurePrivate">Procesamiento local</li>
+            <li data-i18n="home.featureBilingual">Español e inglés</li>
+          </ul>
+        </div>
+
+        <div class="hero__visual" aria-hidden="true">
+          <div class="orb orb--one"></div>
+          <div class="orb orb--two"></div>
+          <div class="orb orb--three"></div>
+
+          <div class="hero-tool-preview">
+            <span class="hero-tool-preview__glow"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="categories-section" id="categories" aria-labelledby="categories-title">
+        <div class="section-heading">
+          <p class="section-heading__eyebrow" data-i18n="home.categoriesEyebrow">
+            Explora por categoría
+          </p>
+          <h2 id="categories-title" data-i18n="home.categoriesTitle">
+            Recursos para cada parte de tu proceso creativo
+          </h2>
+        </div>
+
+        <div class="category-grid">
+          <a class="category-card category-card--images" href="#images-tools">
+            <span class="category-card__icon" aria-hidden="true">◫</span>
+            <h3 data-i18n="categories.images.title">Imágenes</h3>
+            <p data-i18n="categories.images.description">
+              Convierte, comprime, redimensiona, recorta y elimina fondos.
+            </p>
+          </a>
+
+          <a class="category-card category-card--colors" href="#colors-tools">
+            <span class="category-card__icon" aria-hidden="true">◉</span>
+            <h3 data-i18n="categories.colors.title">Colores</h3>
+            <p data-i18n="categories.colors.description">
+              Crea paletas, mezcla tonos y comprueba contrastes.
+            </p>
+          </a>
+
+          <a class="category-card category-card--gradients" href="#gradient-tools">
+            <span class="category-card__icon" aria-hidden="true">◒</span>
+            <h3 data-i18n="categories.gradients.title">Gradientes</h3>
+            <p data-i18n="categories.gradients.description">
+              Diseña fondos dinámicos y combinaciones visuales.
+            </p>
+          </a>
+
+          <a class="category-card category-card--design" href="#design-tools">
+            <span class="category-card__icon" aria-hidden="true">✦</span>
+            <h3 data-i18n="categories.design.title">Diseño</h3>
+            <p data-i18n="categories.design.description">
+              Calcula proporciones y genera recursos para tus proyectos.
+            </p>
+          </a>
+        </div>
+      </section>
+
+      <section class="tools-section" id="tools" aria-labelledby="tools-title">
+        <div class="section-heading section-heading--center">
+          <p class="section-heading__eyebrow" data-i18n="home.toolsEyebrow">
+            Portafolio de servicios
+          </p>
+          <h2 id="tools-title" data-i18n="home.toolsTitle">
+            Elige una herramienta y comienza
+          </h2>
+          <p data-i18n="home.toolsDescription">
+            Cada herramienta funciona como un producto independiente dentro de
+            la misma plataforma.
+          </p>
+        </div>
+
+        <div class="tool-group" id="images-tools">
+          <div class="tool-group__heading">
+            <h3 data-i18n="categories.images.title">Imágenes</h3>
+          </div>
+
+          <div class="tools-grid">
+            <a class="tool-card tool-card--featured" href="./image-to-glb.html">
+              <span class="tool-card__badge" data-i18n="common.featured">Destacado</span>
+              <span class="tool-card__icon" aria-hidden="true">3D</span>
+              <h4 data-i18n="tools.imageToGlb.title">Imagen a GLB</h4>
+              <p data-i18n="tools.imageToGlb.description">
+                Convierte una imagen en un recurso tridimensional GLB.
+              </p>
+              <span class="tool-card__action" data-i18n="common.openTool">
+                Abrir herramienta
+              </span>
+            </a>
+
+            <a class="tool-card" href="./image-converter.html">
+              <span class="tool-card__icon" aria-hidden="true">↔</span>
+              <h4 data-i18n="tools.imageConverter.title">Convertidor de imágenes</h4>
+              <p data-i18n="tools.imageConverter.description">
+                Convierte entre JPG, PNG y WebP.
+              </p>
+              <span class="tool-card__action" data-i18n="common.openTool">
+                Abrir herramienta
+              </span>
+            </a>
+
+            <a class="tool-card" href="./image-compressor.html">
+              <span class="tool-card__icon" aria-hidden="true">⇲</span>
+              <h4 data-i18n="tools.imageCompressor.title">Compresor de imágenes</h4>
+              <p data-i18n="tools.imageCompressor.description">
+                Reduce el peso manteniendo una buena calidad visual.
+              </p>
+              <span class="tool-card__action" data-i18n="common.openTool">
+                Abrir herramienta
+              </span>
+            </a>
+
+            <a class="tool-card" href="./image-resizer.html">
+              <span class="tool-card__icon" aria-hidden="true">⤢</span>
+              <h4 data-i18n="tools.imageResizer.title">Redimensionador</h4>
+              <p data-i18n="tools.imageResizer.description">
+                Ajusta ancho, alto y proporciones.
+              </p>
+              <span class="tool-card__action" data-i18n="common.openTool">
+                Abrir herramienta
+              </span>
+            </a>
+
+            <a class="tool-card" href="./image-cropper.html">
+              <span class="tool-card__icon" aria-hidden="true">⌗</span>
+              <h4 data-i18n="tools.imageCropper.title">Recortador</h4>
+              <p data-i18n="tools.imageCropper.description">
+                Recorta imágenes con precisión visual.
+              </p>
+              <span class="tool-card__action" data-i18n="common.openTool">
+                Abrir herramienta
+              </span>
+            </a>
+
+            <a class="tool-card" href="./favicon-generator.html">
+              <span class="tool-card__icon" aria-hidden="true">◆</span>
+              <h4 data-i18n="tools.faviconGenerator.title">Generador de favicon</h4>
+              <p data-i18n="tools.faviconGenerator.description">
+                Prepara iconos para sitios web y aplicaciones.
+              </p>
+              <span class="tool-card__action" data-i18n="common.openTool">
+                Abrir herramienta
+              </span>
+            </a>
+
+            <a class="tool-card tool-card--featured" href="./background-remover.html">
+              <span class="tool-card__badge" data-i18n="common.featured">Destacado</span>
+              <span class="tool-card__icon" aria-hidden="true">✂</span>
+              <h4 data-i18n="tools.backgroundRemover.title">Quitar fondo</h4>
+              <p data-i18n="tools.backgroundRemover.description">
+                Elimina el fondo de una imagen con procesamiento local en tu navegador.
+              </p>
+              <span class="tool-card__action" data-i18n="common.openTool">
+                Abrir herramienta
+              </span>
+            </a>
+
+            <a class="tool-card" href="./element-separator.html">
+              <span class="tool-card__icon" aria-hidden="true">✂</span>
+              <h4 data-i18n="tools.elementSeparator.title">Separador de elementos</h4>
+              <p data-i18n="tools.elementSeparator.description">
+                Marca un elemento, aíslalo sobre fondo transparente y descárgalo como PNG.
+              </p>
+              <span class="tool-card__action" data-i18n="common.openTool">
+                Abrir herramienta
+              </span>
+            </a>
+
+          </div>
+        </div>
+
+        <aside
+          class="ad-slot ad-slot--between-tools"
+          aria-label="Espacio publicitario"
+          data-ad-position="home-middle"
+        >
+          <span data-i18n="common.advertisement">Publicidad</span>
+        </aside>
+
+        <div class="tool-group" id="colors-tools">
+          <div class="tool-group__heading">
+            <h3 data-i18n="categories.colors.title">Colores</h3>
+          </div>
+
+          <div class="tools-grid">
+            <a class="tool-card" href="./color-converter.html">
+              <span class="tool-card__icon" aria-hidden="true">HEX</span>
+              <h4 data-i18n="tools.colorConverter.title">Convertidor de color</h4>
+              <p data-i18n="tools.colorConverter.description">
+                Convierte entre HEX, RGB, HSL y CMYK.
+              </p>
+              <span class="tool-card__action" data-i18n="common.openTool">
+                Abrir herramienta
+              </span>
+            </a>
+
+            <a class="tool-card" href="./palette-extractor.html">
+              <span class="tool-card__icon" aria-hidden="true">◍</span>
+              <h4 data-i18n="tools.paletteExtractor.title">Extractor de paletas</h4>
+              <p data-i18n="tools.paletteExtractor.description">
+                Obtén los colores principales de una imagen.
+              </p>
+              <span class="tool-card__action" data-i18n="common.openTool">
+                Abrir herramienta
+              </span>
+            </a>
+
+            <a class="tool-card" href="./palette-generator.html">
+              <span class="tool-card__icon" aria-hidden="true">●●●</span>
+              <h4 data-i18n="tools.paletteGenerator.title">Generador de paletas</h4>
+              <p data-i18n="tools.paletteGenerator.description">
+                Crea combinaciones armónicas y personalizadas.
+              </p>
+              <span class="tool-card__action" data-i18n="common.openTool">
+                Abrir herramienta
+              </span>
+            </a>
+
+            <a class="tool-card" href="./contrast-checker.html">
+              <span class="tool-card__icon" aria-hidden="true">✨</span>
+              <h4 data-i18n="tools.contrastChecker.title">Verificador de contraste</h4>
+              <p data-i18n="tools.contrastChecker.description">
+                Evalúa legibilidad y accesibilidad visual.
+              </p>
+              <span class="tool-card__action" data-i18n="common.openTool">
+                Abrir herramienta
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <div class="tool-group" id="gradient-tools">
+          <div class="tool-group__heading">
+            <h3 data-i18n="categories.gradients.title">Gradientes</h3>
+          </div>
+
+          <div class="tools-grid">
+            <a class="tool-card tool-card--featured" href="./gradient-generator.html">
+              <span class="tool-card__badge" data-i18n="common.featured">Destacado</span>
+              <span class="tool-card__icon" aria-hidden="true">◒</span>
+              <h4 data-i18n="tools.gradientGenerator.title">Generador de gradientes</h4>
+              <p data-i18n="tools.gradientGenerator.description">
+                Crea gradientes lineales y radiales con vista previa en tiempo real.
+              </p>
+              <span class="tool-card__action" data-i18n="common.openTool">
+                Abrir herramienta
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <div class="tool-group" id="design-tools">
+          <div class="tool-group__heading">
+            <h3 data-i18n="categories.design.title">Diseño</h3>
+          </div>
+
+          <div class="tools-grid">
+            <a class="tool-card" href="./aspect-ratio-calculator.html">
+              <span class="tool-card__icon" aria-hidden="true">16:9</span>
+              <h4 data-i18n="tools.aspectRatio.title">Relación de aspecto</h4>
+              <p data-i18n="tools.aspectRatio.description">
+                Calcula dimensiones proporcionales rápidamente.
+              </p>
+              <span class="tool-card__action" data-i18n="common.openTool">
+                Abrir herramienta
+              </span>
+            </a>
+
+            <a class="tool-card tool-card--featured" href="./social-designer.html">
+              <span class="tool-card__badge" data-i18n="common.featured">Destacado</span>
+              <span class="tool-card__icon" aria-hidden="true">✦</span>
+              <h4 data-i18n="tools.socialDesigner.title">Social Designer</h4>
+              <p data-i18n="tools.socialDesigner.description">
+                Crea posts, historias, anuncios y banners con textos, imágenes, formas y efectos.
+              </p>
+              <span class="tool-card__action" data-i18n="common.openTool">
+                Abrir herramienta
+              </span>
+            </a>
+
+            <a class="tool-card tool-card--featured tool-card--glass-generator" href="./glass-generator.html">
+              <span class="tool-card__badge" data-i18n="common.featured">Destacado</span>
+              <span class="tool-card__icon" aria-hidden="true">◫</span>
+              <h4 data-i18n="tools.glassGenerator.title">Generador de efecto translúcido</h4>
+              <p data-i18n="tools.glassGenerator.description">
+                Crea tarjetas glassmorphism con blur, transparencia, bordes, sombras y CSS listo para usar.
+              </p>
+              <span class="tool-card__action" data-i18n="common.openTool">
+                Abrir herramienta
+              </span>
+            </a>
+
+            <a class="tool-card tool-card--featured tool-card--image-enhancer" href="./image-enhancer.html">
+              <span class="tool-card__badge" data-i18n="common.featured">Destacado</span>
+              <span class="tool-card__icon" aria-hidden="true">◐</span>
+              <h4 data-i18n="tools.imageEnhancer.title">Mejorador de imagen</h4>
+              <p data-i18n="tools.imageEnhancer.description">
+                Mejora nitidez, claridad, contraste y ruido, y compara el resultado antes y después.
+              </p>
+              <span class="tool-card__action" data-i18n="common.openTool">
+                Abrir herramienta
+              </span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-section" id="about" aria-labelledby="about-title">
+        <div class="about-section__content">
+          <p class="section-heading__eyebrow" data-i18n="home.aboutEyebrow">
+            Creatividad sin interrupciones
+          </p>
+
+          <h2 id="about-title" data-i18n="home.aboutTitle">
+            Herramientas visuales simples, rápidas y accesibles
+          </h2>
+
+          <p data-i18n="home.aboutDescription">
+            La plataforma reúne servicios independientes para diseñadores,
+            creadores y personas que necesitan transformar recursos visuales
+            sin instalar programas complejos.
+          </p>
+
+          <div class="trust-grid">
+            <article class="trust-card">
+              <h3 data-i18n="home.privacyTitle">Privacidad</h3>
+              <p data-i18n="home.privacyDescription">
+                Siempre que sea posible, tus archivos se procesan localmente en
+                el navegador.
+              </p>
+            </article>
+
+            <article class="trust-card">
+              <h3 data-i18n="home.speedTitle">Velocidad</h3>
+              <p data-i18n="home.speedDescription">
+                Interfaces directas, procesos claros y descargas rápidas.
+              </p>
+            </article>
+
+            <article class="trust-card">
+              <h3 data-i18n="home.visualTitle">Experiencia visual</h3>
+              <p data-i18n="home.visualDescription">
+                Una identidad moderna inspirada en naturaleza, energía y espacio.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <aside
+        class="ad-slot ad-slot--bottom"
+        aria-label="Espacio publicitario"
+        data-ad-position="home-bottom"
+      >
+        <span data-i18n="common.advertisement">Publicidad</span>
+      </aside>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__grid">
+        <div class="site-footer__brand">
+          <a class="site-brand" href="./index.html">
+            <img
+              class="site-brand__logo"
+              src="./src/logo.svg"
+              alt="Logo de la plataforma"
+              width="42"
+              height="42"
+              loading="lazy"
+            >
+            <span class="site-brand__name" data-i18n="brand.name">
+              Creative Lab
+            </span>
+          </a>
+
+          <p data-i18n="footer.description">
+            Herramientas creativas para transformar ideas en resultados visuales.
+          </p>
+        </div>
+
+        <div class="site-footer__column">
+          <h2 data-i18n="footer.toolsTitle">Herramientas</h2>
+          <a href="./image-converter.html" data-i18n="tools.imageConverter.title">
+            Convertidor de imágenes
+          </a>
+          <a href="./palette-generator.html" data-i18n="tools.paletteGenerator.title">
+            Generador de paletas
+          </a>
+          <a href="./gradient-generator.html" data-i18n="tools.gradientGenerator.title">
+            Generador de gradientes
+          </a>
+        </div>
+
+        <div class="site-footer__column">
+          <h2 data-i18n="footer.companyTitle">Plataforma</h2>
+          <a href="#about" data-i18n="nav.about">Acerca de</a>
+          <a href="./contact.html" data-i18n="footer.contact">Contacto</a>
+          <a href="./advertising.html" data-i18n="footer.advertising">
+            Publicidad
+          </a>
+        </div>
+
+        <div class="site-footer__column">
+          <h2 data-i18n="footer.legalTitle">Legal</h2>
+          <a href="./privacy.html" data-i18n="footer.privacy">
+            Política de privacidad
+          </a>
+          <a href="./terms.html" data-i18n="footer.terms">
+            Términos de uso
+          </a>
+          <a href="./cookies.html" data-i18n="footer.cookies">
+            Política de cookies
+          </a>
+        </div>
+      </div>
+
+      <div class="site-footer__bottom">
+        <p>
+          © <span id="current-year"></span>
+          <span data-i18n="brand.name">Creative Lab</span>.
+          <span data-i18n="footer.rights">Todos los derechos reservados.</span>
+        </p>
+
+        <p class="site-footer__monetization-note" data-i18n="footer.adDisclosure">
+          Este sitio puede mostrar publicidad o enlaces patrocinados.
+        </p>
+      </div>
+    </footer>
+  </div>
+
+  <noscript>
+    <div class="noscript-message">
+      Esta plataforma necesita JavaScript para ejecutar sus herramientas.
+    </div>
+  </noscript>
+
+  <!-- JavaScript específico del index -->
+  <script>
+    (() => {
+      "use strict";
+
+      const canvas = document.getElementById("particle-canvas");
+      const context = canvas?.getContext("2d");
+      const yearElement = document.getElementById("current-year");
+      const menuToggle = document.getElementById("menu-toggle");
+      const mobileNavigation = document.getElementById("mobile-navigation");
+
+      if (yearElement) {
+        yearElement.textContent = String(new Date().getFullYear());
+      }
+
+      if (menuToggle && mobileNavigation) {
+        menuToggle.addEventListener("click", () => {
+          const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+
+          menuToggle.setAttribute("aria-expanded", String(!isOpen));
+          mobileNavigation.hidden = isOpen;
+        });
+
+        mobileNavigation.addEventListener("click", (event) => {
+          if (event.target instanceof HTMLAnchorElement) {
+            menuToggle.setAttribute("aria-expanded", "false");
+            mobileNavigation.hidden = true;
+          }
+        });
+      }
+
+      if (!canvas || !context) {
+        return;
+      }
+
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+      if (reduceMotion) {
+        canvas.hidden = true;
+        return;
+      }
+
+      let width = 0;
+      let height = 0;
+      let animationFrame = 0;
+      let particles = [];
+      let pointer = {
+        x: window.innerWidth / 2,
+        y: window.innerHeight / 2,
+        active: false
+      };
+
+      const getParticleCount = () => {
+        if (window.innerWidth < 600) {
+          return 24;
+        }
+
+        if (window.innerWidth < 1000) {
+          return 42;
+        }
+
+        return 72;
+      };
+
+      const createParticle = () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        radius: Math.random() * 2.2 + 0.6,
+        velocityX: (Math.random() - 0.5) * 0.35,
+        velocityY: (Math.random() - 0.5) * 0.35,
+        opacity: Math.random() * 0.55 + 0.18
+      });
+
+      const resizeCanvas = () => {
+        const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+
+        width = window.innerWidth;
+        height = window.innerHeight;
+
+        canvas.width = Math.floor(width * pixelRatio);
+        canvas.height = Math.floor(height * pixelRatio);
+        canvas.style.width = `${width}px`;
+        canvas.style.height = `${height}px`;
+
+        context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+        particles = Array.from(
+          { length: getParticleCount() },
+          createParticle
+        );
+      };
+
+      const updateParticle = (particle) => {
+        particle.x += particle.velocityX;
+        particle.y += particle.velocityY;
+
+        if (particle.x < -20) particle.x = width + 20;
+        if (particle.x > width + 20) particle.x = -20;
+        if (particle.y < -20) particle.y = height + 20;
+        if (particle.y > height + 20) particle.y = -20;
+
+        if (!pointer.active) {
+          return;
+        }
+
+        const deltaX = particle.x - pointer.x;
+        const deltaY = particle.y - pointer.y;
+        const distance = Math.hypot(deltaX, deltaY);
+        const interactionRadius = 150;
+
+        if (distance > 0 && distance < interactionRadius) {
+          const force = (interactionRadius - distance) / interactionRadius;
+
+          particle.x += (deltaX / distance) * force * 1.4;
+          particle.y += (deltaY / distance) * force * 1.4;
+        }
+      };
+
+      const drawParticle = (particle) => {
+        context.beginPath();
+        context.arc(
+          particle.x,
+          particle.y,
+          particle.radius,
+          0,
+          Math.PI * 2
+        );
+        context.fillStyle = `rgba(84, 255, 143, ${particle.opacity})`;
+        context.fill();
+      };
+
+      const connectParticles = () => {
+        const maximumDistance = window.innerWidth < 700 ? 75 : 105;
+
+        for (let index = 0; index < particles.length; index += 1) {
+          for (
+            let comparison = index + 1;
+            comparison < particles.length;
+            comparison += 1
+          ) {
+            const first = particles[index];
+            const second = particles[comparison];
+            const distance = Math.hypot(
+              first.x - second.x,
+              first.y - second.y
+            );
+
+            if (distance >= maximumDistance) {
+              continue;
+            }
+
+            const opacity = (1 - distance / maximumDistance) * 0.12;
+
+            context.beginPath();
+            context.moveTo(first.x, first.y);
+            context.lineTo(second.x, second.y);
+            context.strokeStyle = `rgba(120, 255, 164, ${opacity})`;
+            context.lineWidth = 0.8;
+            context.stroke();
+          }
+        }
+      };
+
+      const animate = () => {
+        context.clearRect(0, 0, width, height);
+
+        particles.forEach((particle) => {
+          updateParticle(particle);
+          drawParticle(particle);
+        });
+
+        connectParticles();
+        animationFrame = window.requestAnimationFrame(animate);
+      };
+
+      const handlePointerMove = (event) => {
+        pointer = {
+          x: event.clientX,
+          y: event.clientY,
+          active: true
+        };
+      };
+
+      const handlePointerLeave = () => {
+        pointer.active = false;
+      };
+
+      const handleVisibilityChange = () => {
+        if (document.hidden) {
+          window.cancelAnimationFrame(animationFrame);
+          return;
+        }
+
+        animationFrame = window.requestAnimationFrame(animate);
+      };
+
+      resizeCanvas();
+      animate();
+
+      window.addEventListener("resize", resizeCanvas, { passive: true });
+      window.addEventListener("pointermove", handlePointerMove, {
+        passive: true
+      });
+      document.addEventListener("pointerleave", handlePointerLeave);
+      document.addEventListener(
+        "visibilitychange",
+        handleVisibilityChange
+      );
+    })();
+  </script>
+</body>
+</html>

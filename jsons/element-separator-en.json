@@ -1,0 +1,57 @@
+{
+  "seo": {
+    "title": "Image element separator | Creative Lab",
+    "description": "Manually select an element, isolate it with transparency and download it as a PNG."
+  },
+  "product": {
+    "eyebrow": "Quick manual extraction",
+    "title": "Element separator",
+    "description": "Trace an element, isolate it on a transparent background and download it as a PNG."
+  },
+  "steps": {
+    "uploadTitle": "1. Upload an image",
+    "uploadButton": "Select image",
+    "uploadHelp": "PNG, JPG or WebP",
+    "selectTitle": "2. Trace the element",
+    "selectHelp": "Click around the outline. Use several points for a more precise selection.",
+    "downloadTitle": "3. Download"
+  },
+  "actions": {
+    "undoPoint": "Undo last point",
+    "clearSelection": "Clear selection",
+    "extract": "Isolate element",
+    "download": "Download PNG",
+    "reset": "Start again"
+  },
+  "preview": {
+    "originalTitle": "Image and selection",
+    "originalHint": "Click over the image to create the outline.",
+    "originalEmpty": "The image will appear here.",
+    "resultTitle": "Isolated element",
+    "resultHint": "The result will have a transparent background.",
+    "resultEmpty": "The isolated element will appear here.",
+    "points": "{count} points",
+    "selectionCanvasLabel": "Element selection area",
+    "resultCanvasLabel": "Isolated element preview"
+  },
+  "messages": {
+    "ready": "Upload an image to begin.",
+    "loaded": "Image loaded. Trace the element outline.",
+    "selecting": "Continue tracing the element outline.",
+    "extracted": "Element isolated successfully.",
+    "downloaded": "Element downloaded as a PNG.",
+    "cleared": "Selection cleared.",
+    "error": "The image could not be loaded."
+  },
+  "info": {
+    "eyebrow": "Simple transparent selection",
+    "title": "How to separate an element with Creative Lab",
+    "description": "The tool uses a manual point selection to preserve only the marked area and export it as a transparent PNG.",
+    "stepOneTitle": "1. Upload",
+    "stepOneText": "Select a PNG, JPG or WebP image.",
+    "stepTwoTitle": "2. Trace",
+    "stepTwoText": "Place points around the element you want to keep.",
+    "stepThreeTitle": "3. Download",
+    "stepThreeText": "Isolate the area and download it as a transparent PNG."
+  }
+}

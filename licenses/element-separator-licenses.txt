@@ -1,0 +1,14 @@
+Creative Lab · Separador de elementos
+
+Dependencias externas de este producto:
+- Ninguna.
+
+Tecnologías nativas utilizadas:
+- HTML5
+- CSS
+- JavaScript
+- Canvas 2D API
+- FileReader API
+
+Estas APIs forman parte de los navegadores modernos y no requieren licencias,
+tokens, cuentas de terceros, pagos ni atribuciones externas.
