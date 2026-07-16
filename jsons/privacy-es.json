@@ -1,0 +1,24 @@
+{
+  "seo": {
+    "title": "Política de privacidad | Alfora",
+    "description": "Política de privacidad y tratamiento de información de Alfora."
+  },
+  "page": {
+    "eyebrow": "Información y transparencia",
+    "title": "Política de privacidad",
+    "description": "Conoce cómo Alfora trata la información y los archivos utilizados dentro de la plataforma."
+  },
+  "legal": {
+    "updated": "Última actualización: julio de 2026",
+    "processingTitle": "Procesamiento de archivos",
+    "processingText": "Siempre que sea técnicamente posible, los archivos se procesan directamente en el navegador del usuario y no se envían a los servidores de Alfora.",
+    "dataTitle": "Información proporcionada",
+    "dataText": "Alfora solo recibe la información que el usuario decide comunicar mediante correo electrónico u otros canales habilitados. Esta información se utiliza para responder consultas, prestar soporte y mejorar la plataforma.",
+    "technicalTitle": "Datos técnicos y servicios externos",
+    "technicalText": "Los servicios de alojamiento, seguridad, analítica o contenido externo pueden procesar datos técnicos como dirección IP, navegador, dispositivo, fecha de acceso y páginas visitadas, de acuerdo con sus propias políticas.",
+    "retentionTitle": "Conservación y derechos",
+    "retentionText": "Los mensajes pueden conservarse durante el tiempo necesario para responder y prestar soporte. El usuario puede solicitar corrección o eliminación de la información que haya proporcionado directamente a Alfora, cuando corresponda.",
+    "changesTitle": "Cambios en esta política",
+    "changesText": "Esta política puede actualizarse para reflejar cambios técnicos, legales o de funcionamiento de la plataforma."
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "footer": {
+    "contact": "Contacto",
+    "donations": "Donaciones",
+    "privacy": "Política de privacidad",
+    "terms": "Términos de uso",
+    "cookies": "Política de cookies",
+    "adDisclosure": "Alfora es gratuita y puede recibir aportes voluntarios para continuar creciendo."
+  },
+  "modals": {"close": "Cerrar ventana"},
+  "contact": {
+    "eyebrow": "Estamos para escucharte",
+    "title": "Ponte en contacto con Alfora",
+    "description": "Gracias por comunicarte con nosotros. Este espacio está diseñado para que puedas contarnos tus novedades, ideas, sugerencias o dificultades relacionadas con la plataforma. Cada mensaje nos ayuda a cuidar y mejorar Alfora para que siga siendo una herramienta útil para todos.",
+    "nameLabel": "Nombre",
+    "namePlaceholder": "Escribe tu nombre",
+    "emailLabel": "Correo electrónico",
+    "emailPlaceholder": "nombre@correo.com",
+    "messageLabel": "Mensaje",
+    "messagePlaceholder": "Cuéntanos cómo podemos ayudarte",
+    "sendButton": "Preparar correo",
+    "mailtoNotice": "Al continuar, se abrirá la aplicación de correo configurada en tu dispositivo.",
+    "emailSubject": "Mensaje enviado desde Alfora",
+    "emailName": "Nombre",
+    "emailAddress": "Correo",
+    "emailMessage": "Mensaje"
+  },
+  "donations": {
+    "eyebrow": "Ayúdanos a seguir construyendo",
+    "title": "Apoya el crecimiento de Alfora",
+    "description": "Alfora es completamente gratuita porque deseamos de corazón que estas herramientas sean útiles para tu trabajo, que puedas crear con alegría y desarrollar tus dones dando gracias a Dios. Tus aportes voluntarios nos ayudan a mantener la plataforma, mejorar sus servicios y continuar construyendo nuevas herramientas. Cada contribución, sin importar su tamaño, es una motivación enorme para seguir adelante.",
+    "button": "Quiero aportar",
+    "voluntary": "Los aportes son completamente voluntarios."
+  },
+  "privacy": {
+    "title": "Política de privacidad",
+    "processingTitle": "Procesamiento de archivos",
+    "processingText": "Siempre que sea técnicamente posible, los archivos se procesan directamente en el navegador del usuario y no se envían a los servidores de Alfora.",
+    "dataTitle": "Datos proporcionados",
+    "dataText": "Alfora solo recibe la información que el usuario decide comunicar por correo electrónico u otros canales habilitados.",
+    "analyticsTitle": "Analítica y servicios externos",
+    "analyticsText": "La plataforma puede utilizar servicios de analítica, alojamiento, seguridad o contenido externo. Estos proveedores pueden procesar datos técnicos como dirección IP, navegador, dispositivo y páginas visitadas.",
+    "contactTitle": "Contacto",
+    "contactText": "Para consultas relacionadas con privacidad, utiliza el formulario de contacto de la plataforma."
+  },
+  "terms": {
+    "title": "Términos de uso",
+    "acceptanceTitle": "Aceptación",
+    "acceptanceText": "Al utilizar Alfora aceptas estos términos y te comprometes a utilizar la plataforma de forma responsable y conforme a la ley.",
+    "serviceTitle": "Naturaleza del servicio",
+    "serviceText": "Alfora ofrece herramientas creativas gratuitas. Las funciones pueden cambiar, actualizarse, suspenderse o retirarse cuando sea necesario.",
+    "userContentTitle": "Contenido del usuario",
+    "userContentText": "El usuario conserva la responsabilidad sobre los archivos y contenidos que procesa, incluyendo los derechos necesarios para utilizarlos.",
+    "prohibitedTitle": "Usos prohibidos",
+    "prohibitedText": "No está permitido utilizar la plataforma para actividades ilegales, dañinas, fraudulentas o que vulneren derechos de terceros.",
+    "warrantyTitle": "Disponibilidad",
+    "warrantyText": "La plataforma se ofrece tal como está. Aunque procuramos mantenerla disponible y segura, no garantizamos que funcione sin interrupciones o errores en todos los dispositivos."
+  },
+  "cookies": {
+    "title": "Política de cookies",
+    "whatTitle": "Qué son las cookies",
+    "whatText": "Las cookies y tecnologías similares son pequeños datos almacenados en el dispositivo para recordar preferencias y permitir determinadas funciones.",
+    "essentialTitle": "Cookies esenciales",
+    "essentialText": "Alfora puede utilizar almacenamiento local o cookies esenciales para recordar preferencias como el idioma elegido.",
+    "externalTitle": "Servicios externos",
+    "externalText": "Algunos servicios de analítica, alojamiento, contenido incrustado o donaciones pueden utilizar sus propias cookies según sus políticas.",
+    "controlTitle": "Control del usuario",
+    "controlText": "Puedes eliminar o bloquear cookies desde la configuración de tu navegador. Algunas funciones podrían dejar de recordar tus preferencias."
+  }
+}

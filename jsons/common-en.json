@@ -34,12 +34,12 @@
     "companyTitle": "Platform",
     "legalTitle": "Legal",
     "contact": "Contact",
-    "advertising": "Advertising",
     "privacy": "Privacy policy",
     "terms": "Terms of use",
     "cookies": "Cookie policy",
     "rights": "All rights reserved.",
-    "adDisclosure": "This site may display advertising or sponsored links."
+    "adDisclosure": "Alfora is free and may receive voluntary contributions to continue growing.",
+    "donations": "Donations"
   },
   "tools": {
     "socialDesigner": {

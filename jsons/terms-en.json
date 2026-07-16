@@ -1,0 +1,26 @@
+{
+  "seo": {
+    "title": "Terms of use | Alfora",
+    "description": "Conditions for responsibly using Alfora’s tools."
+  },
+  "page": {
+    "eyebrow": "Responsible use",
+    "title": "Terms of use",
+    "description": "These conditions explain the responsible use of the tools available on Alfora."
+  },
+  "legal": {
+    "updated": "Last updated: July 2026",
+    "acceptanceTitle": "Acceptance",
+    "acceptanceText": "By accessing and using Alfora, users accept these terms and agree to use the platform responsibly and in accordance with the law.",
+    "serviceTitle": "Nature of the service",
+    "serviceText": "Alfora provides free creative tools accessible through the browser. Features may be changed, updated, suspended or removed when necessary.",
+    "responsibilityTitle": "User responsibility",
+    "responsibilityText": "Users are responsible for the files and content they process, having the necessary rights to use them, reviewing results and keeping copies of their original files.",
+    "prohibitedTitle": "Prohibited uses",
+    "prohibitedText": "Alfora may not be used for illegal, fraudulent or harmful activities; infringement of third-party rights; introduction of malicious code; disruption of the platform; or processing content without authorization.",
+    "availabilityTitle": "Availability and results",
+    "availabilityText": "Alfora is provided as is. Uninterrupted availability, compatibility with every device and suitability of every result for each purpose are not guaranteed. Users must verify results before using them.",
+    "changesTitle": "Changes",
+    "changesText": "These terms may be updated when the platform’s features or legal and operational needs change."
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "seo": {
+    "title": "Donaciones | Alfora",
+    "description": "Apoya voluntariamente el crecimiento y mantenimiento de Alfora."
+  },
+  "page": {
+    "eyebrow": "Ayúdanos a seguir construyendo",
+    "title": "Apoya el crecimiento de Alfora",
+    "intro": "Tu apoyo nos anima a continuar desarrollando herramientas creativas gratuitas."
+  },
+  "donation": {
+    "title": "Gracias por creer en este proyecto",
+    "message": "Alfora es completamente gratuita porque deseamos de corazón que estas herramientas sean útiles para tu trabajo, que puedas crear con alegría, desarrollar tus dones y dar gracias a Dios por ellos. Tus aportes voluntarios nos ayudan a mantener la plataforma, mejorar sus servicios y continuar construyendo nuevas herramientas. Cada contribución, sin importar su tamaño, representa una gran motivación para seguir adelante.",
+    "button": "Quiero aportar",
+    "note": "Todos los aportes son completamente voluntarios."
+  }
+}

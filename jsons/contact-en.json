@@ -1,0 +1,22 @@
+{
+  "seo": {
+    "title": "Contact | Alfora",
+    "description": "Contact Alfora to share ideas, suggestions, news or difficulties."
+  },
+  "page": {
+    "eyebrow": "We are here to listen",
+    "title": "Contact Alfora",
+    "description": "Thank you for contacting us. This space is designed for you to share news, ideas, suggestions or difficulties related to the platform. Every message helps us care for and improve Alfora so it can remain a useful tool for everyone."
+  },
+  "form": {
+    "title": "Write to us",
+    "nameLabel": "Name",
+    "namePlaceholder": "Enter your name",
+    "emailLabel": "Email address",
+    "emailPlaceholder": "name@email.com",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Tell us how we can help",
+    "sendButton": "Prepare email",
+    "notice": "Your device’s configured email application will open."
+  }
+}

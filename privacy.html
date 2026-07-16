@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Política de privacidad | Alfora</title>
+  <meta name="description" content="Política de privacidad y tratamiento de información de Alfora.">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Alfora">
+  <meta name="theme-color" content="#08140d">
+  <link rel="icon" href="./src/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./styles/main.css">
+  <script src="./scripts/language.js" defer></script>
+  <script src="./scripts/shared.js" defer></script>
+
+  <style>
+    .information-page {
+      width: min(calc(100% - 2rem), 920px);
+      margin: 0 auto;
+      padding: var(--space-12) 0 var(--space-20);
+    }
+
+    .information-hero {
+      margin-bottom: var(--space-8);
+    }
+
+    .information-hero h1 {
+      max-width: 820px;
+      margin-bottom: var(--space-5);
+      font-size: clamp(2.35rem, 7vw, 4.8rem);
+      background: linear-gradient(115deg, #ffffff 0%, #dffff0 48%, #7cff9d 76%, #b7ff38 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .information-hero__description {
+      max-width: 760px;
+      margin-bottom: 0;
+      color: var(--color-text-soft);
+      font-size: var(--font-size-md);
+    }
+
+    .information-card {
+      padding: clamp(1.35rem, 5vw, 3rem);
+      background: var(--gradient-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-medium);
+    }
+
+    .information-card + .information-card {
+      margin-top: var(--space-6);
+    }
+
+    .information-card h2 {
+      margin-bottom: var(--space-5);
+      font-size: clamp(1.65rem, 4vw, 2.45rem);
+    }
+
+    .information-card h3 {
+      margin: var(--space-8) 0 var(--space-3);
+      color: var(--color-primary);
+      font-size: var(--font-size-md);
+      letter-spacing: 0;
+    }
+
+    .information-card p,
+    .information-card li {
+      color: var(--color-text-soft);
+    }
+
+    .information-card p:last-child,
+    .information-card ul:last-child {
+      margin-bottom: 0;
+    }
+
+    .information-card ul {
+      padding-left: 1.25rem;
+    }
+
+    .information-form {
+      display: grid;
+      gap: var(--space-5);
+    }
+
+    .information-form textarea {
+      min-height: 180px;
+    }
+
+    .information-form__actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    .information-note {
+      margin: 0;
+      color: var(--color-text-muted);
+      font-size: var(--font-size-sm);
+    }
+
+    .donation-message {
+      max-width: 760px;
+      margin-bottom: var(--space-8);
+      font-size: var(--font-size-md);
+    }
+
+    .donation-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    .legal-update {
+      margin-bottom: var(--space-6);
+      color: var(--color-text-muted);
+      font-size: var(--font-size-sm);
+    }
+
+    @media (max-width: 620px) {
+      .information-page {
+        width: min(calc(100% - 1.25rem), 920px);
+        padding-top: var(--space-8);
+      }
+
+      .information-card {
+        border-radius: var(--radius-lg);
+      }
+
+      .information-form__actions,
+      .donation-actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .information-form__actions .button,
+      .donation-actions .button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body data-page="privacy">
+
+  <a class="skip-link" href="#main-content" data-i18n="common.skipToContent">Saltar al contenido</a>
+
+  <div class="site-shell">
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="site-brand" href="./index.html" aria-label="Ir al inicio">
+          <img class="site-brand__logo" src="./src/logo.svg" alt="Logo de Alfora" width="48" height="48" data-i18n-alt="brand.logoAlt">
+          <span class="site-brand__name" data-i18n="brand.name">Alfora</span>
+        </a>
+
+        <div class="site-header__actions">
+          <a class="back-to-portfolio" href="./index.html" data-i18n="common.backToPortfolio">Regresar al portafolio de servicios</a>
+          <label class="language-control" for="language-selector">
+            <span class="sr-only" data-i18n="common.language">Idioma</span>
+            <select id="language-selector" aria-label="Seleccionar idioma">
+              <option value="es">ES</option>
+              <option value="en">EN</option>
+            </select>
+          </label>
+        </div>
+      </div>
+    </header>
+
+    <main class="information-page" id="main-content">
+      <section class="information-hero" aria-labelledby="page-title">
+        <p class="section-heading__eyebrow" data-i18n="page.eyebrow">Información y transparencia</p>
+        <h1 id="page-title" data-i18n="page.title">Política de privacidad</h1>
+        <p class="information-hero__description" data-i18n="page.description">Conoce cómo Alfora trata la información y los archivos utilizados dentro de la plataforma.</p>
+      </section>
+      <article class="information-card">
+        <p class="legal-update" data-i18n="legal.updated">Última actualización: julio de 2026</p>
+        <h3 data-i18n="legal.processingTitle">Procesamiento de archivos</h3>
+        <p data-i18n="legal.processingText">Siempre que sea técnicamente posible, los archivos se procesan directamente en el navegador del usuario y no se envían a los servidores de Alfora.</p>
+        <h3 data-i18n="legal.dataTitle">Información proporcionada</h3>
+        <p data-i18n="legal.dataText">Alfora solo recibe la información que el usuario decide comunicar mediante correo electrónico u otros canales habilitados. Esta información se utiliza para responder consultas, prestar soporte y mejorar la plataforma.</p>
+        <h3 data-i18n="legal.technicalTitle">Datos técnicos y servicios externos</h3>
+        <p data-i18n="legal.technicalText">Los servicios de alojamiento, seguridad, analítica o contenido externo pueden procesar datos técnicos como dirección IP, navegador, dispositivo, fecha de acceso y páginas visitadas, de acuerdo con sus propias políticas.</p>
+        <h3 data-i18n="legal.retentionTitle">Conservación y derechos</h3>
+        <p data-i18n="legal.retentionText">Los mensajes pueden conservarse durante el tiempo necesario para responder y prestar soporte. El usuario puede solicitar corrección o eliminación de la información que haya proporcionado directamente a Alfora, cuando corresponda.</p>
+        <h3 data-i18n="legal.changesTitle">Cambios en esta política</h3>
+        <p data-i18n="legal.changesText">Esta política puede actualizarse para reflejar cambios técnicos, legales o de funcionamiento de la plataforma.</p>
+      </article>
+    </main>
+
+  </div>
+
+  <noscript>
+    <div class="noscript-message">Esta plataforma necesita JavaScript para ejecutar sus funciones.</div>
+  </noscript>
+
+
+</body>
+</html>

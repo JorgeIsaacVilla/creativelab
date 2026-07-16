@@ -1,0 +1,24 @@
+{
+  "seo": {
+    "title": "Cookie policy | Alfora",
+    "description": "Information about cookies and local storage used by Alfora."
+  },
+  "page": {
+    "eyebrow": "Preferences and operation",
+    "title": "Cookie policy",
+    "description": "Learn which storage technologies Alfora may use and how you can manage them."
+  },
+  "legal": {
+    "updated": "Last updated: July 2026",
+    "whatTitle": "What cookies are",
+    "whatText": "Cookies and similar technologies allow small pieces of data to be stored on a device to remember preferences and enable certain functions.",
+    "essentialTitle": "Essential storage",
+    "essentialText": "Alfora may use local storage or essential cookies to remember the selected language, maintain interface preferences and apply settings required for operation.",
+    "analyticsTitle": "Analytics and external services",
+    "analyticsText": "Hosting, analytics, embedded content, security or donation providers may use their own cookies according to their policies.",
+    "controlTitle": "User control",
+    "controlText": "Users can block or delete cookies through their browser settings. Some preferences may no longer be remembered.",
+    "changesTitle": "Changes",
+    "changesText": "This policy may be updated when technologies and services are added or removed."
+  }
+}

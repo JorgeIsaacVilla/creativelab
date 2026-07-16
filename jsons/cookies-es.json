@@ -1,0 +1,24 @@
+{
+  "seo": {
+    "title": "Política de cookies | Alfora",
+    "description": "Información sobre cookies y almacenamiento local utilizado por Alfora."
+  },
+  "page": {
+    "eyebrow": "Preferencias y funcionamiento",
+    "title": "Política de cookies",
+    "description": "Conoce qué tecnologías de almacenamiento puede utilizar Alfora y cómo puedes gestionarlas."
+  },
+  "legal": {
+    "updated": "Última actualización: julio de 2026",
+    "whatTitle": "Qué son las cookies",
+    "whatText": "Las cookies y tecnologías similares permiten almacenar pequeños datos en el dispositivo para recordar preferencias y habilitar determinadas funciones.",
+    "essentialTitle": "Almacenamiento esencial",
+    "essentialText": "Alfora puede utilizar almacenamiento local o cookies esenciales para recordar el idioma seleccionado, mantener preferencias de interfaz y aplicar configuraciones necesarias para el funcionamiento.",
+    "analyticsTitle": "Analítica y servicios externos",
+    "analyticsText": "Los proveedores de alojamiento, analítica, contenido incrustado, seguridad o donaciones pueden utilizar sus propias cookies de acuerdo con sus políticas.",
+    "controlTitle": "Control del usuario",
+    "controlText": "El usuario puede bloquear o eliminar cookies desde la configuración de su navegador. Al hacerlo, algunas preferencias podrían dejar de recordarse.",
+    "changesTitle": "Cambios",
+    "changesText": "Esta política puede actualizarse cuando se incorporen o retiren tecnologías y servicios."
+  }
+}

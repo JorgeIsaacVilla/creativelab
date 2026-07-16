@@ -1,0 +1,70 @@
+{
+  "footer": {
+    "contact": "Contact",
+    "donations": "Donations",
+    "privacy": "Privacy policy",
+    "terms": "Terms of use",
+    "cookies": "Cookie policy",
+    "adDisclosure": "Alfora is free and may receive voluntary contributions to continue growing."
+  },
+  "modals": {"close": "Close window"},
+  "contact": {
+    "eyebrow": "We are here to listen",
+    "title": "Contact Alfora",
+    "description": "Thank you for contacting us. This space is designed for you to share news, ideas, suggestions or difficulties related to the platform. Every message helps us care for and improve Alfora so it can remain a useful tool for everyone.",
+    "nameLabel": "Name",
+    "namePlaceholder": "Enter your name",
+    "emailLabel": "Email address",
+    "emailPlaceholder": "name@email.com",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Tell us how we can help",
+    "sendButton": "Prepare email",
+    "mailtoNotice": "Your device's configured email application will open when you continue.",
+    "emailSubject": "Message sent from Alfora",
+    "emailName": "Name",
+    "emailAddress": "Email",
+    "emailMessage": "Message"
+  },
+  "donations": {
+    "eyebrow": "Help us keep building",
+    "title": "Support Alfora's growth",
+    "description": "Alfora is completely free because we sincerely want these tools to be useful in your work, helping you create with joy and develop your gifts while giving thanks to God. Voluntary contributions help us maintain the platform, improve its services and continue building new tools. Every contribution, regardless of size, is a great encouragement for us to keep moving forward.",
+    "button": "I want to contribute",
+    "voluntary": "Contributions are completely voluntary."
+  },
+  "privacy": {
+    "title": "Privacy policy",
+    "processingTitle": "File processing",
+    "processingText": "Whenever technically possible, files are processed directly in the user's browser and are not sent to Alfora's servers.",
+    "dataTitle": "Information provided",
+    "dataText": "Alfora only receives information that the user chooses to communicate by email or through other enabled channels.",
+    "analyticsTitle": "Analytics and external services",
+    "analyticsText": "The platform may use analytics, hosting, security or external content services. These providers may process technical data such as IP address, browser, device and pages visited.",
+    "contactTitle": "Contact",
+    "contactText": "For privacy-related questions, use the platform's contact form."
+  },
+  "terms": {
+    "title": "Terms of use",
+    "acceptanceTitle": "Acceptance",
+    "acceptanceText": "By using Alfora, you accept these terms and agree to use the platform responsibly and in accordance with the law.",
+    "serviceTitle": "Nature of the service",
+    "serviceText": "Alfora provides free creative tools. Features may be changed, updated, suspended or removed when necessary.",
+    "userContentTitle": "User content",
+    "userContentText": "Users remain responsible for the files and content they process, including having the necessary rights to use them.",
+    "prohibitedTitle": "Prohibited uses",
+    "prohibitedText": "The platform may not be used for illegal, harmful or fraudulent activities, or to infringe the rights of others.",
+    "warrantyTitle": "Availability",
+    "warrantyText": "The platform is provided as is. Although we aim to keep it available and secure, we do not guarantee uninterrupted or error-free operation on every device."
+  },
+  "cookies": {
+    "title": "Cookie policy",
+    "whatTitle": "What cookies are",
+    "whatText": "Cookies and similar technologies are small pieces of data stored on a device to remember preferences and enable certain functions.",
+    "essentialTitle": "Essential cookies",
+    "essentialText": "Alfora may use local storage or essential cookies to remember preferences such as the selected language.",
+    "externalTitle": "External services",
+    "externalText": "Analytics, hosting, embedded content or donation services may use their own cookies according to their policies.",
+    "controlTitle": "User control",
+    "controlText": "You can remove or block cookies through your browser settings. Some features may stop remembering your preferences."
+  }
+}

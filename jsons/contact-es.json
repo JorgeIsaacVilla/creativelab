@@ -1,0 +1,22 @@
+{
+  "seo": {
+    "title": "Contacto | Alfora",
+    "description": "Comunícate con Alfora para compartir ideas, sugerencias, novedades o dificultades."
+  },
+  "page": {
+    "eyebrow": "Estamos para escucharte",
+    "title": "Ponte en contacto con Alfora",
+    "description": "Gracias por comunicarte con nosotros. Este espacio está diseñado para que puedas contarnos tus novedades, ideas, sugerencias o dificultades relacionadas con la plataforma. Cada mensaje nos ayuda a cuidar y mejorar Alfora para que continúe siendo una herramienta útil para todos."
+  },
+  "form": {
+    "title": "Escríbenos",
+    "nameLabel": "Nombre",
+    "namePlaceholder": "Escribe tu nombre",
+    "emailLabel": "Correo electrónico",
+    "emailPlaceholder": "nombre@correo.com",
+    "messageLabel": "Mensaje",
+    "messagePlaceholder": "Cuéntanos cómo podemos ayudarte",
+    "sendButton": "Preparar correo",
+    "notice": "Se abrirá la aplicación de correo configurada en tu dispositivo."
+  }
+}

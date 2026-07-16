@@ -1,0 +1,17 @@
+{
+  "seo": {
+    "title": "Donations | Alfora",
+    "description": "Voluntarily support the growth and maintenance of Alfora."
+  },
+  "page": {
+    "eyebrow": "Help us keep building",
+    "title": "Support Alfora’s growth",
+    "intro": "Your support encourages us to continue developing free creative tools."
+  },
+  "donation": {
+    "title": "Thank you for believing in this project",
+    "message": "Alfora is completely free because we sincerely want these tools to be useful in your work, helping you create with joy, develop your gifts and give thanks to God for them. Voluntary contributions help us maintain the platform, improve its services and continue building new tools. Every contribution, regardless of size, is a great encouragement for us to keep moving forward.",
+    "button": "I want to contribute",
+    "note": "All contributions are completely voluntary."
+  }
+}
