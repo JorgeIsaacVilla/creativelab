@@ -364,9 +364,23 @@
         });
       }
 
-      function compressSvgText(svgText) {
-        return svgText.replace(/<!--[\s\S]*?-->/g, "").replace(/>\s+</g, "><").replace(/\s{2,}/g, " ").replace(/\s*=\s*/g, "=").trim();
-      }
+function compressSvgText(svgText) {
+  if (typeof svgText !== "string") {
+    return "";
+  }
+
+  const commentsPattern = new RegExp("<!--[\\s\\S]*?-->", "g");
+  const betweenTagsPattern = new RegExp(">\\s+<", "g");
+  const repeatedSpacesPattern = new RegExp("\\s{2,}", "g");
+  const equalsSpacesPattern = new RegExp("\\s*=\\s*", "g");
+
+  return svgText
+    .replace(commentsPattern, "")
+    .replace(betweenTagsPattern, "><")
+    .replace(repeatedSpacesPattern, " ")
+    .replace(equalsSpacesPattern, "=")
+    .trim();
+}
 
       function createSvgBlobFromRaster(image, width, height, quality) {
         const canvas = document.createElement("canvas");
