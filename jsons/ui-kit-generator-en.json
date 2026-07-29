@@ -16,10 +16,10 @@
     "components": "Component settings",
     "componentsHelp": "Customize shape, slant and overall effect. Changes are reflected in buttons, fields, tags and panels.",
     "individual": "Individual customization",
-    "individualHelp": "Choose a specific component to apply a custom variation without modifying the rest of the system.",
+    "individualHelp": "Choose an element from these sections or click it directly in the preview. Every change is applied automatically.",
     "export": "Export",
     "exportHelp": "Download the complete UI kit as a single SVG file ready for Figma or Adobe XD.",
-    "exportNote": "The file keeps vectors, text and styles to make importing easier and allow continued editing."
+    "exportNote": "The file keeps vectors, text and styles to simplify importing and continued editing."
   },
   "fields": {
     "background": "Canvas background",
@@ -56,23 +56,32 @@
     "checkbox": "Checklist",
     "accordion": "Accordion menu",
     "input": "Input",
-    "tag": "Tag"
+    "tag": "Tag",
+    "checkboxCombined": "Selector and checklist",
+    "tableSelector": "Table selector",
+    "inputFields": "Input fields"
   },
   "actions": {
     "applyOverride": "Apply variation",
     "removeOverride": "Remove variation",
     "download": "Download UI",
-    "reset": "Reset"
+    "reset": "Reset",
+    "applySimilar": "Apply styles to all similar elements"
   },
   "preview": {
     "title": "UI kit preview",
-    "description": "The composition follows the reference schematic order: branding, buttons, palette, checklist, accordion, typography and inputs.",
-    "tip": "Scroll horizontally if you are on a small screen. The download is always generated as SVG."
+    "description": "Click an element in the preview to automatically open its customization tools.",
+    "tip": "The preview is responsive. On smaller screens, you can scroll inside the canvas."
   },
   "projectLoader": {
     "title": "Load Alfora UI (.svg)",
     "description": "Open a UI Kit SVG previously created with Alfora and restore its settings, variations and CSS variables.",
     "button": "Select UI.svg",
     "badge": "✓ Compatible with Alfora UI Kit"
+  },
+  "tabs": {
+    "palette": "Palette",
+    "typography": "Typography",
+    "components": "Components"
   }
 }

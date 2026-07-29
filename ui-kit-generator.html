@@ -30,7 +30,9 @@
     .ui-kit-interface {
       padding: var(--space-6);
     }
-
+.product-header h1 {
+      margin-bottom: 0!important;
+    }
     .ui-layout {
       display: grid;
       width: 100%;
@@ -575,6 +577,130 @@
         min-width: 900px;
       }
     }
+
+.ui-css-section {
+      display: grid ! important;
+      gap: 32px ! important;
+    }
+    /* Workspace v8: full-width, centered preview and lateral tools */
+    .product-page { max-width: none; width: 100%; padding: 32px;}
+    .ui-kit-interface--full { width: 100%; max-width: none; padding-inline: clamp(12px, 1.6vw, 28px); }
+    .ui-workspace { display:grid; grid-template-columns:minmax(280px, 340px) minmax(0, 1fr) minmax(280px, 340px); gap:clamp(14px, 1.4vw, 24px); align-items:start; width:100%; }
+    .ui-sidebar { display:grid; gap:var(--space-4); min-width:0; max-width:100%; overflow-x:hidden; }
+    .ui-sidebar--left, .ui-sidebar--right { position:sticky; top:calc(var(--space-4) + 72px); max-height:calc(100vh - 92px); overflow-y:auto; overflow-x:hidden; padding-right:4px; scrollbar-width:thin; scrollbar-color:var(--color-primary) rgba(102,255,143,.06); }
+    .ui-sidebar *, .ui-control-section, .ui-tab-content, .ui-tab-panel { min-width:0; max-width:100%; box-sizing:border-box; }
+    .ui-sidebar::-webkit-scrollbar, .ui-css-code::-webkit-scrollbar, .ui-preview-shell::-webkit-scrollbar { width:10px; height:10px; }
+    .ui-sidebar::-webkit-scrollbar-track, .ui-css-code::-webkit-scrollbar-track, .ui-preview-shell::-webkit-scrollbar-track { background:rgba(102,255,143,.04); border-radius:999px; }
+    .ui-sidebar::-webkit-scrollbar-thumb, .ui-css-code::-webkit-scrollbar-thumb, .ui-preview-shell::-webkit-scrollbar-thumb { background:linear-gradient(180deg,var(--color-primary-strong),var(--color-lime)); border:2px solid var(--color-background); border-radius:999px; }
+    .ui-workspace__center { min-width:0; }
+    .ui-preview-panel { margin:0; padding:clamp(14px,1.5vw,24px); }
+    .ui-preview-shell { min-height:clamp(520px,70vh,840px); display:flex; align-items:center; }
+    #ui-preview { width:100%; }
+    #ui-preview svg { display:block; width:100%; height:auto; min-width:0; cursor:crosshair; }
+    #ui-preview [data-ui-target] { cursor:pointer; transition:filter .15s ease, opacity .15s ease; }
+    #ui-preview [data-ui-target]:hover { filter:drop-shadow(0 0 10px rgba(102,255,143,.7)); }
+    .ui-system-tabs { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:4px; width:100%; max-width:100%; padding:5px; overflow:hidden; background:rgba(102,255,143,.045); border:1px solid var(--color-border); border-radius:var(--radius-lg); position:sticky; top:0; z-index:3; backdrop-filter:blur(14px); }
+    .ui-tab-button { min-width:0; min-height:42px; padding:8px 5px; overflow:hidden; border:1px solid transparent; border-radius:var(--radius-md); color:var(--color-text-soft); background:transparent; font-size:clamp(.72rem,.78vw,.88rem); line-height:1.1; font-weight:800; text-align:center; text-overflow:ellipsis; white-space:nowrap; cursor:pointer; }
+    .ui-tab-button.is-active { color:var(--color-background); background:var(--color-primary); border-color:var(--color-primary); }
+    .ui-tab-panel { display:none; margin-top:var(--space-3); }
+    .ui-tab-panel.is-active { display:block; }
+    .ui-target-groups { display:grid; gap:var(--space-3); margin:var(--space-4) 0; }
+    .ui-target-group { padding:var(--space-3); border:1px solid rgba(102,255,143,.16); border-radius:var(--radius-md); background:rgba(102,255,143,.025); }
+    .ui-target-group h4 { margin:0 0 var(--space-2); color:var(--color-primary-soft); font-size:var(--font-size-sm); }
+    .ui-target-options { display:flex; flex-wrap:wrap; gap:7px; }
+    .ui-target-button { padding:7px 10px; border:1px solid var(--color-border); border-radius:999px; color:var(--color-text-soft); background:var(--color-surface-strong); font-size:var(--font-size-xs); font-weight:800; cursor:pointer; }
+    .ui-target-button:hover, .ui-target-button.is-active { color:var(--color-background); border-color:var(--color-primary); background:var(--color-primary); }
+    .ui-hidden-select { position:absolute!important; width:1px!important; height:1px!important; opacity:0!important; pointer-events:none!important; }
+    .ui-actions--stacked { display:grid; grid-template-columns:1fr; }
+    .ui-css-section .ui-css-toolbar { align-items:flex-start; }
+    .ui-css-section .ui-css-actions { display:grid; width:100%; gap:var(--space-2); }
+    .ui-css-code { width:100%; max-width:100%; max-height:300px; margin:0; overflow-y:auto; overflow-x:hidden; white-space:pre-wrap; overflow-wrap:anywhere; word-break:break-word; tab-size:2; }
+    .ui-css-code code { display:block; width:100%; min-width:0; white-space:inherit; overflow-wrap:inherit; word-break:inherit; }
+    .ui-css-section { overflow:hidden; }
+    .ui-css-toolbar, .ui-css-toolbar > div, .ui-css-actions { width:100%; min-width:0; max-width:100%; }
+    .ui-css-actions .button { width:100%; min-width:0; }
+    .ui-project-loader, .ui-project-loader__top, .ui-actions { min-width:0; max-width:100%; }
+    .ui-sidebar .ui-control-section { padding:var(--space-4); }
+    .ui-sidebar .ui-grid-3 { grid-template-columns:repeat(3,minmax(0,1fr)); }
+    .ui-sidebar .ui-grid-2 { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    @media (max-width:1450px) { .ui-workspace { grid-template-columns:minmax(260px,310px) minmax(0,1fr) minmax(260px,310px); gap:14px; } .ui-sidebar .ui-grid-3 { grid-template-columns:1fr; } }
+    @media (max-width:1120px) { .ui-workspace { grid-template-columns:minmax(0,1fr); } .ui-workspace__center { order:1; } .ui-sidebar--right { order:2; } .ui-sidebar--left { order:3; } .ui-sidebar--left,.ui-sidebar--right { position:static; max-height:none; overflow:visible; } .ui-preview-shell { min-height:0; } .ui-sidebar--right .ui-tab-content { min-height:0; } }
+    @media (max-width:760px) { .ui-kit-interface--full { padding-inline:var(--space-3); } .ui-system-tabs { grid-template-columns:repeat(3,minmax(0,1fr)); } .ui-tab-button { font-size:.7rem; padding-inline:3px; } .ui-sidebar .ui-grid-2,.ui-sidebar .ui-grid-3 { grid-template-columns:1fr; } #ui-preview svg { min-width:820px; } .ui-preview-shell { overflow:auto; align-items:flex-start; } }
+
+
+    /* Color code format controls */
+    .ui-color-format-control {
+      display: grid;
+      gap: var(--space-2);
+      margin-bottom: var(--space-4);
+      padding: var(--space-3);
+      background: rgba(102, 255, 143, 0.035);
+      border: 1px solid rgba(102, 255, 143, 0.18);
+      border-radius: var(--radius-md);
+    }
+
+    .ui-color-format-control__label {
+      margin: 0;
+      color: var(--color-text-soft);
+      font-size: var(--font-size-sm);
+      font-weight: 800;
+    }
+
+    .ui-color-format-options {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+      width: 100%;
+    }
+
+    .ui-color-format-button {
+      min-width: 0;
+      min-height: 38px;
+      padding: 7px 8px;
+      color: var(--color-text-soft);
+      background: var(--color-surface-strong);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font: inherit;
+      font-size: var(--font-size-xs);
+      font-weight: 900;
+      cursor: pointer;
+      transition: border-color var(--transition-fast), background var(--transition-fast), color var(--transition-fast);
+    }
+
+    .ui-color-format-button:hover,
+    .ui-color-format-button.is-active {
+      color: var(--color-background);
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+    }
+
+    .ui-color-code {
+      width: 100%;
+      min-width: 0;
+      min-height: 38px;
+      margin-top: 6px;
+      padding: 0 10px;
+      color: var(--color-text);
+      background: var(--color-surface-strong);
+      border: 1px solid var(--color-border);
+      border-radius: calc(var(--radius-md) - 2px);
+      outline: 0;
+      font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+      font-size: 0.76rem;
+      text-transform: none;
+    }
+
+    .ui-color-code:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(102, 255, 143, 0.08);
+    }
+
+    .ui-color-code.is-invalid {
+      border-color: var(--color-error);
+      box-shadow: 0 0 0 3px rgba(255, 90, 90, 0.08);
+    }
+
   </style>
 </head>
 <body data-page="ui-kit-generator">
@@ -617,25 +743,149 @@
         <div class="section-heading">
           <p class="section-heading__eyebrow" data-i18n="product.eyebrow">Diseño de interfaz</p>
           <h1 data-i18n="product.title">Generador UI Kit</h1>
-          <p class="product-header__description" data-i18n="product.description">
-            Crea una hoja visual organizada con botones, estilos, inputs, checklists, acordeones y tipografía. Personaliza el sistema completo o modifica elementos individuales y descarga el resultado final en formato SVG.
-          </p>
         </div>
       </div>
     </section>
 
-    <section class="tool-interface ui-kit-interface">
-      <div class="ui-layout">
-        <aside class="ui-panel" aria-labelledby="ui-controls-title">
-          <div class="ui-panel__intro">
-            <h2 id="ui-controls-title" data-i18n="controls.title">Panel de control</h2>
-            <p data-i18n="controls.description">Define el sistema visual general y, si lo necesitas, personaliza un elemento específico sin alterar todo el kit.</p>
-          </div>
+    <section class="tool-interface ui-kit-interface ui-kit-interface--full">
+  <div class="ui-workspace">
+    <aside class="ui-sidebar ui-sidebar--left" aria-label="Herramientas de personalización y exportación">
+      <section class="ui-control-section ui-individual-section" id="individual-tools">
+  <h3 data-i18n="sections.individual">Personalización individual</h3>
+  <p data-i18n="sections.individualHelp">Selecciona un elemento desde estas secciones o haz clic directamente sobre el visor. Cada cambio se aplica automáticamente.</p>
 
-          <div class="ui-control-stack ui-control-stack--top">
-            <section class="ui-control-section">
+  <div class="ui-target-groups" id="ui-target-groups">
+    <section class="ui-target-group" aria-labelledby="target-buttons-title">
+      <h4 id="target-buttons-title">Button variants</h4>
+      <div class="ui-target-options">
+        <button type="button" class="ui-target-button is-active" data-target="allButtons">Todos los botones</button>
+        <button type="button" class="ui-target-button" data-target="primaryFilled" data-i18n="targets.primaryFilled">Botón plano</button>
+        <button type="button" class="ui-target-button" data-target="gradientFilled" data-i18n="targets.gradientFilled">Botón gradiente</button>
+        <button type="button" class="ui-target-button" data-target="glassFilled" data-i18n="targets.glassFilled">Botón translúcido</button>
+        <button type="button" class="ui-target-button" data-target="outline" data-i18n="targets.outline">Botón outline</button>
+      </div>
+    </section>
+    <section class="ui-target-group" aria-labelledby="target-selections-title">
+      <h4 id="target-selections-title">Selections / Checklist</h4>
+      <div class="ui-target-options"><button type="button" class="ui-target-button" data-target="checkbox" data-i18n="targets.checkboxCombined">Selector y checklist</button></div>
+    </section>
+    <section class="ui-target-group" aria-labelledby="target-accordion-title">
+      <h4 id="target-accordion-title">Accordion menu</h4>
+      <div class="ui-target-options"><button type="button" class="ui-target-button" data-target="accordion" data-i18n="targets.accordion">Menú acordeón</button></div>
+    </section>
+    <section class="ui-target-group" aria-labelledby="target-table-title">
+      <h4 id="target-table-title">Data table / Tag / selector</h4>
+      <div class="ui-target-options">
+        <button type="button" class="ui-target-button" data-target="tag" data-i18n="targets.tag">Tag</button>
+        <button type="button" class="ui-target-button" data-target="checkbox" data-i18n="targets.tableSelector">Selector de tabla</button>
+      </div>
+    </section>
+    <section class="ui-target-group" aria-labelledby="target-input-title">
+      <h4 id="target-input-title">Inputs</h4>
+      <div class="ui-target-options"><button type="button" class="ui-target-button" data-target="input" data-i18n="targets.inputFields">Campos de entrada</button></div>
+    </section>
+  </div>
+
+  <select id="target-select" class="ui-hidden-select" aria-hidden="true" tabindex="-1">
+    <option value="allButtons">Todos los botones</option>
+    <option value="primaryFilled">Botón plano</option><option value="gradientFilled">Botón gradiente</option>
+    <option value="glassFilled">Botón translúcido</option><option value="outline">Botón outline</option>
+    <option value="checkbox">Checklist</option><option value="accordion">Menú acordeón</option>
+    <option value="input">Input</option><option value="tag">Tag</option>
+  </select>
+
+  <div class="ui-color-format-control" aria-label="Formato del código de color">
+    <p class="ui-color-format-control__label">Formato del código de color</p>
+    <div class="ui-color-format-options" role="group" aria-label="Cambiar formato del código de color">
+      <button type="button" class="ui-color-format-button is-active" data-color-format="hex">HEX</button>
+      <button type="button" class="ui-color-format-button" data-color-format="rgb">RGB</button>
+      <button type="button" class="ui-color-format-button" data-color-format="hsl">HSL</button>
+    </div>
+  </div>
+
+  <div class="ui-grid-3 ui-override-colors">
+    <div class="ui-field"><label for="override-fill" data-i18n="fields.overrideFill">Relleno</label><input id="override-fill" type="color" value="#4b2ca3"></div>
+    <div class="ui-field"><label for="override-text" data-i18n="fields.overrideText">Texto</label><input id="override-text" type="color" value="#ffffff"></div>
+    <div class="ui-field"><label for="override-stroke" data-i18n="fields.overrideStroke">Borde</label><input id="override-stroke" type="color" value="#4b2ca3"></div>
+  </div>
+  <div class="ui-grid-2">
+    <div class="ui-field"><label for="override-radius" data-i18n="fields.overrideRadius">Radio individual</label><input id="override-radius" type="range" min="0" max="36" step="1" value="12"><div class="ui-range-value"><span id="override-radius-value">12 px</span></div></div>
+    <div class="ui-field"><label for="override-opacity" data-i18n="fields.overrideOpacity">Opacidad individual</label><input id="override-opacity" type="range" min="10" max="100" step="1" value="100"><div class="ui-range-value"><span id="override-opacity-value">100%</span></div></div>
+  </div>
+  <div class="ui-actions ui-actions--stacked">
+    <button id="apply-similar" type="button" class="button button--primary" data-i18n="actions.applySimilar">Aplicar estilos a todos los elementos similares</button>
+    <button id="remove-override" type="button" class="button button--ghost"><span data-i18n="actions.removeOverride">Quitar variación</span></button>
+  </div>
+  <div id="override-note" class="ui-target-note" aria-live="polite"></div>
+</section>
+      <section class="ui-control-section">
+              <h3 data-i18n="sections.export">Exportación</h3>
+              <p data-i18n="sections.exportHelp">Descarga el UI kit completo como un único archivo SVG listo para abrir en Figma o Adobe XD.</p>
+
+              <div class="ui-project-loader">
+                <div class="ui-project-loader__top">
+                  <div class="ui-project-loader__copy">
+                    <strong data-i18n="projectLoader.title">Cargar UI de Alfora (.svg)</strong>
+                    <p data-i18n="projectLoader.description">Abre un UI Kit SVG creado previamente con Alfora y recupera su configuración, variaciones y variables CSS.</p>
+                  </div>
+                  <label class="button button--ghost" for="load-alfora-ui">
+                    <span data-i18n="projectLoader.button">Seleccionar UI.svg</span>
+                  </label>
+                </div>
+                <span class="ui-project-loader__badge" data-i18n="projectLoader.badge">✓ Compatible con Alfora UI Kit</span>
+                <input id="load-alfora-ui" type="file" accept=".svg,image/svg+xml">
+                <div id="project-load-status" class="ui-project-status" aria-live="polite"></div>
+              </div>
+              <div class="ui-actions">
+                <button id="download-ui" type="button" class="button button--primary button--large">
+                  <span data-i18n="actions.download">Descargar UI</span>
+                </button>
+                <button id="reset-ui" type="button" class="button button--ghost button--large">
+                  <span data-i18n="actions.reset">Restablecer</span>
+                </button>
+              </div>
+              <p class="ui-help" data-i18n="sections.exportNote">El archivo mantiene vectores, textos y estilos para facilitar su importación y continuar editando.</p>
+            </section>
+      <section class="ui-control-section ui-css-section" aria-labelledby="root-css-title">
+            <div class="ui-css-toolbar">
+              <div>
+                <h3 id="root-css-title">CSS · Variables del sistema</h3>
+                <p>Los valores se actualizan automáticamente con el UI kit para conservar el sistema visual durante el desarrollo.</p>
+              </div>
+              <div class="ui-css-actions">
+                <button id="copy-root-css" type="button" class="button button--primary">Copiar CSS</button>
+                <button id="download-root-css" type="button" class="button button--ghost">Descargar root.css</button>
+              </div>
+            </div>
+            <pre class="ui-css-code" tabindex="0"><code id="root-css-output"></code></pre>
+            <div id="copy-css-status" class="ui-copy-status" aria-live="polite"></div>
+          </section>
+    </aside>
+
+    <main class="ui-workspace__center">
+      <section class="ui-preview-panel" aria-labelledby="preview-title">
+  <div class="ui-preview-toolbar"><div><h2 id="preview-title" data-i18n="preview.title">Vista previa del UI kit</h2><p class="ui-preview-note" data-i18n="preview.description">Haz clic en un elemento del visor para abrir automáticamente sus herramientas de personalización.</p></div></div>
+  <div class="ui-preview-shell" id="ui-preview-shell"><div id="ui-preview"></div><div class="ui-preview-magnifier" id="ui-preview-magnifier" aria-hidden="true"><div class="ui-preview-magnifier__content" id="ui-preview-magnifier-content"></div></div></div>
+</section>
+    </main>
+
+    <aside class="ui-sidebar ui-sidebar--right" aria-label="Configuración del sistema">
+      <div class="ui-system-tabs" role="tablist" aria-label="Configuración del UI Kit">
+        <button type="button" class="ui-tab-button is-active" data-tab="palette" role="tab" aria-selected="true" data-i18n="tabs.palette">Paleta</button>
+        <button type="button" class="ui-tab-button" data-tab="typography" role="tab" aria-selected="false" data-i18n="tabs.typography">Tipografía</button>
+        <button type="button" class="ui-tab-button" data-tab="components" role="tab" aria-selected="false" data-i18n="tabs.components">Componentes</button>
+      </div>
+      <div class="ui-tab-content"><section class="ui-control-section ui-tab-panel is-active" data-tab-panel="palette">
               <h3 data-i18n="sections.palette">Paleta del sistema</h3>
               <p data-i18n="sections.paletteHelp">Estos valores alimentan automáticamente la mayoría de los componentes del UI kit.</p>
+              <div class="ui-color-format-control" aria-label="Formato del código de color">
+                <p class="ui-color-format-control__label">Formato del código de color</p>
+                <div class="ui-color-format-options" role="group" aria-label="Cambiar formato del código de color">
+                  <button type="button" class="ui-color-format-button is-active" data-color-format="hex">HEX</button>
+                  <button type="button" class="ui-color-format-button" data-color-format="rgb">RGB</button>
+                  <button type="button" class="ui-color-format-button" data-color-format="hsl">HSL</button>
+                </div>
+              </div>
               <div class="ui-grid-2">
                 <div class="ui-field">
                   <label for="bg-color" data-i18n="fields.background">Fondo del lienzo</label>
@@ -678,9 +928,7 @@
                   <input id="gradient-color" type="color" value="#32c5ff">
                 </div>
               </div>
-            </section>
-
-            <section class="ui-control-section">
+            </section><section class="ui-control-section ui-tab-panel" data-tab-panel="typography">
               <h3 data-i18n="sections.typography">Tipografía</h3>
               <p data-i18n="sections.typographyHelp">Selecciona una familia rápida o carga tu propia fuente para verla en el kit y exportarla dentro del SVG.</p>
               <div class="ui-grid-2">
@@ -705,9 +953,7 @@
                 <input id="font-upload" type="file" accept=".ttf,.otf,.woff,.woff2,font/ttf,font/otf,font/woff,font/woff2">
                 <div id="font-upload-status" class="ui-upload-chip" hidden></div>
               </div>
-            </section>
-
-            <section class="ui-control-section">
+            </section><section class="ui-control-section ui-tab-panel" data-tab-panel="components">
               <h3 data-i18n="sections.components">Ajustes de componentes</h3>
               <p data-i18n="sections.componentsHelp">Personaliza forma, inclinación y efecto general. Los cambios se reflejan en botones, campos, tags y paneles.</p>
               <div class="ui-grid-2">
@@ -742,129 +988,13 @@
                   <div class="ui-range-value"><span id="blur-value">14 px</span></div>
                 </div>
               </div>
-            </section>
-
-          </div>
-
-        <section class="ui-preview-panel" aria-labelledby="preview-title">
-          <div class="ui-preview-toolbar">
-            <div>
-              <h2 id="preview-title" data-i18n="preview.title">Vista previa del UI kit</h2>
-              <p class="ui-preview-note" data-i18n="preview.description">La composición sigue el orden esquemático de referencia: branding, botones, paleta, checklist, acordeón, tipografía e inputs.</p>
-            </div>
-          </div>
-          <div class="ui-preview-shell" id="ui-preview-shell">
-            <div id="ui-preview"></div>
-            <div class="ui-preview-magnifier" id="ui-preview-magnifier" aria-hidden="true">
-              <div class="ui-preview-magnifier__content" id="ui-preview-magnifier-content"></div>
-            </div>
-          </div>
-          <p class="ui-preview-note" data-i18n="preview.tip">Haz scroll horizontal si estás en una pantalla pequeña. La descarga siempre se genera en SVG.</p>
-        </section>
-
-          <div class="ui-control-stack ui-control-stack--bottom">
-            <section class="ui-control-section">
-              <h3 data-i18n="sections.individual">Personalización individual</h3>
-              <p data-i18n="sections.individualHelp">Elige un componente específico para aplicar una variación propia sin modificar el resto del sistema.</p>
-              <div class="ui-field">
-                <label for="target-select" data-i18n="fields.target">Elemento a personalizar</label>
-                <select id="target-select">
-                  <option value="primaryFilled" data-i18n="targets.primaryFilled">Botón plano</option>
-                  <option value="gradientFilled" data-i18n="targets.gradientFilled">Botón gradiente</option>
-                  <option value="glassFilled" data-i18n="targets.glassFilled">Botón translúcido</option>
-                  <option value="outline" data-i18n="targets.outline">Botón outline</option>
-                  <option value="checkbox" data-i18n="targets.checkbox">Checklist</option>
-                  <option value="accordion" data-i18n="targets.accordion">Menú acordeón</option>
-                  <option value="input" data-i18n="targets.input">Input</option>
-                  <option value="tag" data-i18n="targets.tag">Tag</option>
-                </select>
-              </div>
-              <div class="ui-grid-3">
-                <div class="ui-field">
-                  <label for="override-fill" data-i18n="fields.overrideFill">Relleno</label>
-                  <input id="override-fill" type="color" value="#4b2ca3">
-                </div>
-                <div class="ui-field">
-                  <label for="override-text" data-i18n="fields.overrideText">Texto</label>
-                  <input id="override-text" type="color" value="#ffffff">
-                </div>
-                <div class="ui-field">
-                  <label for="override-stroke" data-i18n="fields.overrideStroke">Borde</label>
-                  <input id="override-stroke" type="color" value="#4b2ca3">
-                </div>
-              </div>
-              <div class="ui-grid-2">
-                <div class="ui-field">
-                  <label for="override-radius" data-i18n="fields.overrideRadius">Radio individual</label>
-                  <input id="override-radius" type="range" min="0" max="36" step="1" value="12">
-                  <div class="ui-range-value"><span id="override-radius-value">12 px</span></div>
-                </div>
-                <div class="ui-field">
-                  <label for="override-opacity" data-i18n="fields.overrideOpacity">Opacidad individual</label>
-                  <input id="override-opacity" type="range" min="10" max="100" step="1" value="100">
-                  <div class="ui-range-value"><span id="override-opacity-value">100%</span></div>
-                </div>
-              </div>
-              <div class="ui-actions">
-                <button id="apply-override" type="button" class="button button--primary">
-                  <span data-i18n="actions.applyOverride">Aplicar variación</span>
-                </button>
-                <button id="remove-override" type="button" class="button button--ghost">
-                  <span data-i18n="actions.removeOverride">Quitar variación</span>
-                </button>
-              </div>
-              <div id="override-note" class="ui-target-note" aria-live="polite"></div>
-            </section>
-
-            <section class="ui-control-section">
-              <h3 data-i18n="sections.export">Exportación</h3>
-              <p data-i18n="sections.exportHelp">Descarga el UI kit completo como un único archivo SVG listo para abrir en Figma o Adobe XD.</p>
-
-              <div class="ui-project-loader">
-                <div class="ui-project-loader__top">
-                  <div class="ui-project-loader__copy">
-                    <strong data-i18n="projectLoader.title">Cargar UI de Alfora (.svg)</strong>
-                    <p data-i18n="projectLoader.description">Abre un UI Kit SVG creado previamente con Alfora y recupera su configuración, variaciones y variables CSS.</p>
-                  </div>
-                  <label class="button button--ghost" for="load-alfora-ui">
-                    <span data-i18n="projectLoader.button">Seleccionar UI.svg</span>
-                  </label>
-                </div>
-                <span class="ui-project-loader__badge" data-i18n="projectLoader.badge">✓ Compatible con Alfora UI Kit</span>
-                <input id="load-alfora-ui" type="file" accept=".svg,image/svg+xml">
-                <div id="project-load-status" class="ui-project-status" aria-live="polite"></div>
-              </div>
-              <div class="ui-actions">
-                <button id="download-ui" type="button" class="button button--primary button--large">
-                  <span data-i18n="actions.download">Descargar UI</span>
-                </button>
-                <button id="reset-ui" type="button" class="button button--ghost button--large">
-                  <span data-i18n="actions.reset">Restablecer</span>
-                </button>
-              </div>
-              <p class="ui-help" data-i18n="sections.exportNote">El archivo mantiene vectores, textos y estilos para facilitar su importación y continuar editando.</p>
-            </section>
-          </div>
-
-          <section class="ui-control-section ui-css-section" aria-labelledby="root-css-title">
-            <div class="ui-css-toolbar">
-              <div>
-                <h3 id="root-css-title">CSS · Variables del sistema</h3>
-                <p>Los valores se actualizan automáticamente con el UI kit para conservar el sistema visual durante el desarrollo.</p>
-              </div>
-              <div class="ui-css-actions">
-                <button id="copy-root-css" type="button" class="button button--primary">Copiar CSS</button>
-                <button id="download-root-css" type="button" class="button button--ghost">Descargar root.css</button>
-              </div>
-            </div>
-            <pre class="ui-css-code" tabindex="0"><code id="root-css-output"></code></pre>
-            <div id="copy-css-status" class="ui-copy-status" aria-live="polite"></div>
-          </section>
-        </aside>
-
-
-      </div>
-    </section>
+            </section></div>
+    </aside>
+  </div>
+</section>
+            <p class="product-header__description" data-i18n="product.description">
+            Crea una hoja visual organizada con botones, estilos, inputs, checklists, acordeones y tipografía. Personaliza el sistema completo o modifica elementos individuales y descarga el resultado final en formato SVG.
+          </p>
   </main>
   </div>
 
@@ -889,6 +1019,7 @@
         shadow: 22,
         glassOpacity: 18,
         blur: 14,
+        colorFormat: 'hex',
         overrides: {},
         uploadedFontName: '',
         uploadedFontDataUrl: ''
@@ -966,6 +1097,165 @@
         setReadout('overrideOpacity', fields.overrideOpacity.value + '%');
       }
 
+      function clamp(value, min, max) {
+        return Math.min(max, Math.max(min, value));
+      }
+
+      function hexToRgbObject(hex) {
+        const normalized = String(hex).trim().replace('#', '');
+        const value = normalized.length === 3
+          ? normalized.split('').map((char) => char + char).join('')
+          : normalized;
+        if (!/^[0-9a-f]{6}$/i.test(value)) return null;
+        return {
+          r: parseInt(value.slice(0, 2), 16),
+          g: parseInt(value.slice(2, 4), 16),
+          b: parseInt(value.slice(4, 6), 16)
+        };
+      }
+
+      function rgbObjectToHex({ r, g, b }) {
+        return '#' + [r, g, b]
+          .map((value) => clamp(Math.round(value), 0, 255).toString(16).padStart(2, '0'))
+          .join('');
+      }
+
+      function rgbToHslObject({ r, g, b }) {
+        r /= 255; g /= 255; b /= 255;
+        const max = Math.max(r, g, b);
+        const min = Math.min(r, g, b);
+        let h = 0;
+        let s = 0;
+        const l = (max + min) / 2;
+        const delta = max - min;
+        if (delta !== 0) {
+          s = l > 0.5 ? delta / (2 - max - min) : delta / (max + min);
+          switch (max) {
+            case r: h = ((g - b) / delta + (g < b ? 6 : 0)); break;
+            case g: h = ((b - r) / delta + 2); break;
+            default: h = ((r - g) / delta + 4); break;
+          }
+          h *= 60;
+        }
+        return { h: Math.round(h), s: Math.round(s * 100), l: Math.round(l * 100) };
+      }
+
+      function hslToRgbObject({ h, s, l }) {
+        h = ((Number(h) % 360) + 360) % 360;
+        s = clamp(Number(s), 0, 100) / 100;
+        l = clamp(Number(l), 0, 100) / 100;
+        const chroma = (1 - Math.abs(2 * l - 1)) * s;
+        const x = chroma * (1 - Math.abs((h / 60) % 2 - 1));
+        const m = l - chroma / 2;
+        let rp = 0, gp = 0, bp = 0;
+        if (h < 60) [rp, gp, bp] = [chroma, x, 0];
+        else if (h < 120) [rp, gp, bp] = [x, chroma, 0];
+        else if (h < 180) [rp, gp, bp] = [0, chroma, x];
+        else if (h < 240) [rp, gp, bp] = [0, x, chroma];
+        else if (h < 300) [rp, gp, bp] = [x, 0, chroma];
+        else [rp, gp, bp] = [chroma, 0, x];
+        return { r: (rp + m) * 255, g: (gp + m) * 255, b: (bp + m) * 255 };
+      }
+
+      function formatColorCode(hex, format = state.colorFormat) {
+        const rgb = hexToRgbObject(hex);
+        if (!rgb) return String(hex);
+        if (format === 'rgb') return `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+        if (format === 'hsl') {
+          const hsl = rgbToHslObject(rgb);
+          return `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`;
+        }
+        return rgbObjectToHex(rgb).toUpperCase();
+      }
+
+      function parseColorCode(value) {
+        const input = String(value).trim();
+        const hexMatch = input.match(/^#?([0-9a-f]{3}|[0-9a-f]{6})$/i);
+        if (hexMatch) return rgbObjectToHex(hexToRgbObject(hexMatch[1]));
+
+        const rgbMatch = input.match(/^rgba?\(\s*([\d.]+)\s*[, ]\s*([\d.]+)\s*[, ]\s*([\d.]+)(?:\s*[,/]\s*[\d.]+%?)?\s*\)$/i);
+        if (rgbMatch) {
+          return rgbObjectToHex({ r: Number(rgbMatch[1]), g: Number(rgbMatch[2]), b: Number(rgbMatch[3]) });
+        }
+
+        const hslMatch = input.match(/^hsla?\(\s*([\d.-]+)(?:deg)?\s*[, ]\s*([\d.]+)%\s*[, ]\s*([\d.]+)%(?:\s*[,/]\s*[\d.]+%?)?\s*\)$/i);
+        if (hslMatch) {
+          return rgbObjectToHex(hslToRgbObject({ h: Number(hslMatch[1]), s: Number(hslMatch[2]), l: Number(hslMatch[3]) }));
+        }
+        return null;
+      }
+
+      function updateColorFormatButtons() {
+        document.querySelectorAll('[data-color-format]').forEach((button) => {
+          const active = button.dataset.colorFormat === state.colorFormat;
+          button.classList.toggle('is-active', active);
+          button.setAttribute('aria-pressed', active ? 'true' : 'false');
+        });
+      }
+
+      function updateColorCodeFields() {
+        document.querySelectorAll('input[type="color"][data-color-code-id]').forEach((colorInput) => {
+          const codeInput = document.getElementById(colorInput.dataset.colorCodeId);
+          if (codeInput && document.activeElement !== codeInput) {
+            codeInput.value = formatColorCode(colorInput.value);
+            codeInput.classList.remove('is-invalid');
+          }
+        });
+      }
+
+      function initializeColorCodeFields() {
+        document.querySelectorAll('.ui-field input[type="color"]').forEach((colorInput, index) => {
+          if (colorInput.dataset.colorCodeId) return;
+          const codeInput = document.createElement('input');
+          const id = `${colorInput.id || 'ui-color'}-code-${index}`;
+          codeInput.id = id;
+          codeInput.type = 'text';
+          codeInput.className = 'ui-color-code';
+          codeInput.spellcheck = false;
+          codeInput.autocomplete = 'off';
+          codeInput.setAttribute('aria-label', `Código de color para ${colorInput.id || 'color'}`);
+          colorInput.dataset.colorCodeId = id;
+          colorInput.insertAdjacentElement('afterend', codeInput);
+
+          colorInput.addEventListener('input', () => {
+            codeInput.value = formatColorCode(colorInput.value);
+            codeInput.classList.remove('is-invalid');
+          });
+
+          const commitCode = () => {
+            const parsed = parseColorCode(codeInput.value);
+            if (!parsed) {
+              codeInput.classList.add('is-invalid');
+              return;
+            }
+            codeInput.classList.remove('is-invalid');
+            colorInput.value = parsed;
+            colorInput.dispatchEvent(new Event('input', { bubbles: true }));
+            codeInput.value = formatColorCode(parsed);
+          };
+          codeInput.addEventListener('change', commitCode);
+          codeInput.addEventListener('blur', commitCode);
+          codeInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+              event.preventDefault();
+              commitCode();
+              codeInput.blur();
+            }
+          });
+        });
+        updateColorFormatButtons();
+        updateColorCodeFields();
+      }
+
+      document.querySelectorAll('[data-color-format]').forEach((button) => {
+        button.addEventListener('click', () => {
+          state.colorFormat = button.dataset.colorFormat;
+          updateColorFormatButtons();
+          updateColorCodeFields();
+          render();
+        });
+      });
+
       function bindField(key, parser = (value) => value) {
         const field = fields[key];
         if (!field) return;
@@ -993,12 +1283,112 @@
       bindField('gradientColor');
       bindField('fontFamily');
       bindField('fontScale', (value) => Number(value));
-      bindField('radius', (value) => Number(value));
+      // El radio global debe gobernar todas las variantes de botón, incluso si ya tienen colores personalizados.
+      const radiusField = fields.radius;
+      radiusField.addEventListener('input', () => {
+        const nextRadius = Number(radiusField.value);
+        state.radius = nextRadius;
+        BUTTON_TARGETS.forEach((target) => {
+          if (state.overrides[target]) state.overrides[target].radius = nextRadius;
+        });
+        if (fields.targetSelect.value === 'allButtons' || BUTTON_TARGETS.includes(fields.targetSelect.value)) {
+          fields.overrideRadius.value = String(nextRadius);
+        }
+        updateReadouts();
+        render();
+      });
       bindField('slant', (value) => Number(value));
       bindField('borderWidth', (value) => Number(value));
       bindField('shadow', (value) => Number(value));
       bindField('glassOpacity', (value) => Number(value));
       bindField('blur', (value) => Number(value));
+
+      const BUTTON_TARGETS = ['primaryFilled', 'gradientFilled', 'glassFilled', 'outline'];
+
+      const SIMILAR_TARGETS = {
+        allButtons: BUTTON_TARGETS,
+        primaryFilled: BUTTON_TARGETS,
+        gradientFilled: BUTTON_TARGETS,
+        glassFilled: BUTTON_TARGETS,
+        outline: BUTTON_TARGETS,
+        checkbox: ['checkbox'], accordion: ['accordion'], input: ['input'], tag: ['tag']
+      };
+
+      function baseStyleForTarget(target) {
+        const common = { fill: state.primaryColor, text: '#ffffff', stroke: state.primaryColor, radius: state.radius, opacity: 1 };
+        if (target === 'allButtons') {
+          const firstOverride = BUTTON_TARGETS.map((item) => state.overrides[item]).find(Boolean) || {};
+          return { ...common, ...firstOverride, radius: firstOverride.radius != null ? firstOverride.radius : state.radius };
+        }
+        if (target === 'checkbox') return { fill: state.primaryColor, text: '#42424a', stroke: state.primaryColor, radius: state.radius, opacity:1 };
+        if (target === 'accordion') return { ...common, radius: state.radius };
+        if (target === 'input') return { fill: state.gray10, text:'#81818b', stroke:'#d7d7de', radius:state.radius, opacity:1 };
+        if (target === 'tag') return { fill: state.primaryColor, text:state.primaryColor, stroke:state.primaryColor, radius:state.radius, opacity:1 };
+        if (target === 'outline') return { fill: state.gray10, text:state.primaryColor, stroke:state.primaryColor, radius:state.radius, opacity:1 };
+        return common;
+      }
+
+      function syncOverrideControls(target) {
+        const style = { ...baseStyleForTarget(target), ...(state.overrides[target] || {}) };
+        fields.overrideFill.value = /^#[0-9a-f]{6}$/i.test(style.fill) ? style.fill : state.primaryColor;
+        fields.overrideText.value = /^#[0-9a-f]{6}$/i.test(style.text) ? style.text : '#ffffff';
+        fields.overrideStroke.value = /^#[0-9a-f]{6}$/i.test(style.stroke) ? style.stroke : state.primaryColor;
+        fields.overrideRadius.value = String(Math.max(0,Math.min(36,Number(style.radius) || 0)));
+        fields.overrideOpacity.value = String(Math.round((style.opacity == null ? 1 : style.opacity) * 100));
+        updateReadouts();
+      }
+
+      function selectTarget(target, shouldScroll = false) {
+        if (!fields.targetSelect.querySelector(`option[value="${target}"]`)) return;
+        fields.targetSelect.value = target;
+        document.querySelectorAll('.ui-target-button').forEach((button) => button.classList.toggle('is-active', button.dataset.target === target));
+        syncOverrideControls(target);
+        overrideNote.textContent = `Editando: ${fields.targetSelect.options[fields.targetSelect.selectedIndex].text}. Los cambios se aplican automáticamente.`;
+        if (shouldScroll) document.getElementById('individual-tools')?.scrollIntoView({ behavior:'smooth', block:'start' });
+      }
+
+      function applyCurrentOverride() {
+        const target = fields.targetSelect.value;
+        const nextStyle = {
+          fill: fields.overrideFill.value,
+          text: fields.overrideText.value,
+          stroke: fields.overrideStroke.value,
+          radius: Number(fields.overrideRadius.value),
+          opacity: Number(fields.overrideOpacity.value) / 100
+        };
+
+        if (target === 'allButtons') {
+          BUTTON_TARGETS.forEach((buttonTarget) => {
+            state.overrides[buttonTarget] = { ...nextStyle };
+          });
+        } else {
+          state.overrides[target] = nextStyle;
+        }
+        updateReadouts();
+        render();
+      }
+
+      document.querySelectorAll('.ui-target-button').forEach((button) => button.addEventListener('click', () => selectTarget(button.dataset.target)));
+      [fields.overrideFill, fields.overrideText, fields.overrideStroke, fields.overrideRadius, fields.overrideOpacity]
+        .forEach((field) => field.addEventListener('input', applyCurrentOverride));
+
+      document.getElementById('apply-similar')?.addEventListener('click', () => {
+        const target = fields.targetSelect.value;
+        const current = {
+          fill: fields.overrideFill.value, text: fields.overrideText.value, stroke: fields.overrideStroke.value,
+          radius: Number(fields.overrideRadius.value), opacity: Number(fields.overrideOpacity.value) / 100
+        };
+        (SIMILAR_TARGETS[target] || [target]).forEach((item) => { state.overrides[item] = { ...current }; });
+        overrideNote.textContent = 'El estilo se aplicó a todos los elementos similares.';
+        render();
+      });
+
+      document.querySelectorAll('.ui-tab-button').forEach((button) => button.addEventListener('click', () => {
+        const tab = button.dataset.tab;
+        document.querySelectorAll('.ui-tab-button').forEach((item) => { item.classList.toggle('is-active', item === button); item.setAttribute('aria-selected', item === button ? 'true':'false'); });
+        document.querySelectorAll('.ui-tab-panel').forEach((panel) => panel.classList.toggle('is-active', panel.dataset.tabPanel === tab));
+      }));
+
 
       fields.fontUpload.addEventListener('change', async (event) => {
         const file = event.target.files && event.target.files[0];
@@ -1034,23 +1424,15 @@
         reader.readAsDataURL(file);
       });
 
-      document.getElementById('apply-override').addEventListener('click', () => {
-        const target = fields.targetSelect.value;
-        state.overrides[target] = {
-          fill: fields.overrideFill.value,
-          text: fields.overrideText.value,
-          stroke: fields.overrideStroke.value,
-          radius: Number(fields.overrideRadius.value),
-          opacity: Number(fields.overrideOpacity.value) / 100
-        };
-        overrideNote.textContent = `Variación aplicada a ${fields.targetSelect.options[fields.targetSelect.selectedIndex].text}.`;
-        render();
-      });
-
       document.getElementById('remove-override').addEventListener('click', () => {
         const target = fields.targetSelect.value;
-        delete state.overrides[target];
+        if (target === 'allButtons') {
+          BUTTON_TARGETS.forEach((buttonTarget) => delete state.overrides[buttonTarget]);
+        } else {
+          delete state.overrides[target];
+        }
         overrideNote.textContent = `Se eliminó la variación de ${fields.targetSelect.options[fields.targetSelect.selectedIndex].text}.`;
+        syncOverrideControls(target);
         render();
       });
 
@@ -1128,6 +1510,8 @@
 
         fields.fontUpload.value = '';
         updateReadouts();
+        updateColorFormatButtons();
+        updateColorCodeFields();
         render();
       }
 
@@ -1329,7 +1713,7 @@
           : `<text x="${labelX}" y="${yText}" font-size="16" font-weight="700" fill="${text}" text-anchor="${textAnchor}">${label}</text>${arrow ? `<text x="${w - 22}" y="${yText}" font-size="18" font-weight="700" fill="${text}" text-anchor="middle">&#8594;</text>` : ''}`;
 
         return `
-          <g transform="translate(${x} ${y}) skewX(${state.slant})" opacity="${opacity}">
+          <g data-ui-target="${target}" transform="translate(${x} ${y}) skewX(${state.slant})" opacity="${opacity}">
             <rect x="0" y="0" width="${w}" height="${h}" rx="${style.radius}" fill="${fill}" fill-opacity="${bgOpacity}" stroke="${stroke}" stroke-width="${state.borderWidth}"${filter}></rect>
             ${textNode}
           </g>
@@ -1341,27 +1725,27 @@
           fill: checked ? state.primaryColor : state.gray10,
           text: muted ? '#b9b9c0' : '#42424a',
           stroke: checked ? state.primaryColor : '#c7c7cf',
-          radius: radio ? 999 : Math.max(4, state.radius - 4),
+          radius: radio ? 999 : state.radius,
           opacity: 1
         };
         const style = getStyle(target, base);
         const shape = radio
           ? `<circle cx="12" cy="12" r="8" fill="${checked ? style.fill : state.gray10}" stroke="${style.stroke}" stroke-width="1.8"></circle>${checked ? `<circle cx="12" cy="12" r="4" fill="${style.text === '#ffffff' ? '#ffffff' : style.fill}"></circle>` : ''}`
           : `<rect x="4" y="4" width="16" height="16" rx="${style.radius}" fill="${checked ? style.fill : state.gray10}" stroke="${style.stroke}" stroke-width="1.8"></rect>${checked ? `<path d="M8 12.5l3 3 6-7" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>` : ''}`;
-        return `<g transform="translate(${x} ${y})">${shape}<text x="34" y="17" font-size="14" fill="${style.text}" font-weight="500">${label}</text></g>`;
+        return `<g data-ui-target="${target}" transform="translate(${x} ${y})">${shape}<text x="34" y="17" font-size="14" fill="${style.text}" font-weight="500">${label}</text></g>`;
       }
 
       function smallCheckboxList() {
         return `
-          <g>
+          <g data-ui-target="checkbox">
             <text x="1110" y="590" font-size="18" font-weight="700" fill="#555560">Checklist</text>
-            <rect x="1090" y="610" width="190" height="190" rx="18" fill="${state.gray10}" stroke="${state.gray30}" stroke-width="1.3"></rect>
+            <rect x="1090" y="610" width="190" height="190" rx="${state.radius}" fill="${state.gray10}" stroke="${state.gray30}" stroke-width="1.3"></rect>
             ${checkboxMarkup(1112, 630, false, false, 'checkbox', 'Select')}
             ${checkboxMarkup(1112, 664, false, false, 'checkbox', 'Select')}
-            <rect x="1102" y="690" width="166" height="26" rx="8" fill="${colorWithAlpha(state.primaryColor, 0.10)}"></rect>
+            <rect x="1102" y="690" width="166" height="26" rx="${state.radius}" fill="${colorWithAlpha(state.primaryColor, 0.10)}"></rect>
             ${checkboxMarkup(1112, 693, true, false, 'checkbox', 'Selected')}
             ${checkboxMarkup(1112, 730, false, false, 'checkbox', 'Select')}
-            <rect x="1102" y="756" width="166" height="26" rx="8" fill="${colorWithAlpha(state.primaryColor, 0.10)}"></rect>
+            <rect x="1102" y="756" width="166" height="26" rx="${state.radius}" fill="${colorWithAlpha(state.primaryColor, 0.10)}"></rect>
             ${checkboxMarkup(1112, 759, true, false, 'checkbox', 'Selected')}
           </g>
         `;
@@ -1372,11 +1756,11 @@
           fill: state.gray10,
           text: '#81818b',
           stroke: error ? '#ff6b6b' : '#d7d7de',
-          radius: Math.max(10, state.radius),
+          radius: state.radius,
           opacity: 1
         });
         return `
-          <g transform="translate(${x} ${y})">
+          <g data-ui-target="input" transform="translate(${x} ${y})">
             <text x="0" y="0" font-size="16" font-weight="700" fill="#555560">${label}</text>
             <rect x="0" y="12" width="250" height="42" rx="${style.radius}" fill="${style.fill}" stroke="${style.stroke}" stroke-width="${state.borderWidth}"></rect>
             <text x="14" y="39" font-size="14" fill="${style.text}">${placeholder}</text>
@@ -1390,15 +1774,15 @@
           fill: state.primaryColor,
           text: '#ffffff',
           stroke: state.primaryColor,
-          radius: Math.max(14, state.radius + 4),
+          radius: state.radius,
           opacity: 1
         });
         const softFill = colorWithAlpha(style.fill, 0.10);
         const disabledFill = colorWithAlpha('#d9d9de', 0.55);
         return `
-          <g>
+          <g data-ui-target="accordion">
             <text x="735" y="430" font-size="18" font-weight="700" fill="#555560">Accordion menu</text>
-            <rect x="720" y="450" width="330" height="470" rx="20" fill="${state.gray10}" stroke="${state.gray30}" stroke-width="1.4"></rect>
+            <rect x="720" y="450" width="330" height="470" rx="${style.radius}" fill="${state.gray10}" stroke="${state.gray30}" stroke-width="1.4"></rect>
             <g transform="translate(745 480)">
               <text x="0" y="0" font-size="16" fill="#565662">&#9992;</text><text x="24" y="0" font-size="16" fill="#42424a">Airplan</text><text x="190" y="0" font-size="16" fill="#787884">&#709;</text>
               <text x="0" y="42" font-size="16" fill="#565662">&#9201;</text><text x="24" y="42" font-size="16" fill="#42424a">Clock</text>
@@ -1413,12 +1797,12 @@
               <text x="0" y="0" font-size="16" fill="#4d4d56">Menu item</text>
               <text x="0" y="40" font-size="16" fill="#4d4d56">Menu item</text>
               <text x="0" y="80" font-size="16" fill="#4d4d56">Menu item</text>
-              <rect x="-26" y="106" width="220" height="32" rx="10" fill="${disabledFill}"></rect>
+              <rect x="-26" y="106" width="220" height="32" rx="${state.radius}" fill="${disabledFill}"></rect>
               <text x="0" y="127" font-size="16" fill="#a2a2aa">Menu item</text>
               <text x="-26" y="170" font-size="16" fill="#4d4d56">&#9963;  Bank</text>
             </g>
             <g transform="translate(740 846)">
-              <rect x="0" y="0" width="242" height="40" rx="${Math.max(10, state.radius)}" fill="${softFill}" stroke="${colorWithAlpha(style.stroke, 0.25)}" stroke-width="${state.borderWidth}"></rect>
+              <rect x="0" y="0" width="242" height="40" rx="${style.radius}" fill="${softFill}" stroke="${colorWithAlpha(style.stroke, 0.25)}" stroke-width="${state.borderWidth}"></rect>
               <text x="18" y="25" font-size="15" fill="#8d8d95">&#9998;  Note</text>
               <text x="218" y="25" font-size="16" fill="#8d8d95">&#709;</text>
             </g>
@@ -1491,7 +1875,7 @@
       function swatch(x, y, color, label, code) {
         return `
           <g transform="translate(${x} ${y})">
-            <rect x="0" y="0" width="44" height="44" rx="8" fill="${color}" stroke="${color === state.gray10 ? '#e5e5ea' : 'transparent'}"></rect>
+            <rect x="0" y="0" width="44" height="44" rx="${state.radius}" fill="${color}" stroke="${color === state.gray10 ? '#e5e5ea' : 'transparent'}"></rect>
             <text x="0" y="63" font-size="11" fill="#5c5c66">${label}</text>
             <text x="0" y="78" font-size="10" fill="#8a8a94">${code.toUpperCase()}</text>
           </g>
@@ -1500,7 +1884,7 @@
 
       function togglesBlock() {
         return `
-          <g>
+          <g data-ui-target="checkbox">
             <text x="1090" y="432" font-size="18" font-weight="700" fill="#555560">Selections</text>
             ${checkboxMarkup(1090, 455, false, true, 'checkbox', 'Label')}
             ${checkboxMarkup(1180, 455, true, true, 'checkbox', 'Label')}
@@ -1518,8 +1902,8 @@
           <g transform="translate(1370 565)">
             <text x="0" y="0" font-size="32" font-weight="700" fill="#3f3f46">Styles</text>
             <text x="0" y="52" font-size="18" font-weight="700" fill="#4f4f56">Body Large</text>
-            <rect x="0" y="68" width="330" height="126" rx="12" fill="${state.gray20}" stroke="#e5e5ea"></rect>
-            <rect x="0" y="68" width="330" height="32" rx="12" fill="${state.gray30}"></rect>
+            <rect x="0" y="68" width="330" height="126" rx="${state.radius}" fill="${state.gray20}" stroke="#e5e5ea"></rect>
+            <rect x="0" y="68" width="330" height="32" rx="${state.radius}" fill="${state.gray30}"></rect>
             <text x="12" y="90" font-size="13" fill="#5c5c66">Style Name</text>
             <text x="252" y="90" font-size="13" fill="#5c5c66">Font Size</text>
             <text x="12" y="134" font-size="16" fill="#555560">Body Regular</text>
@@ -1530,7 +1914,7 @@
           </g>
 
           <g transform="translate(1450 825)">
-            <rect x="0" y="0" width="390" height="220" rx="18" fill="${state.gray10}" stroke="${state.gray30}" filter="url(#softShadow)"></rect>
+            <rect x="0" y="0" width="390" height="220" rx="${state.radius}" fill="${state.gray10}" stroke="${state.gray30}" filter="url(#softShadow)"></rect>
             <path d="M28 28L36 42H20Z" fill="#f5b423"></path>
             <text x="52" y="39" font-size="17" font-weight="700" fill="#222228">Modal Window</text>
             <text x="24" y="82" font-size="13" fill="#60606a">When you do something noble and beautiful and nobody</text>
@@ -1547,14 +1931,14 @@
           fill: colorWithAlpha(state.primaryColor, 0.08),
           text: state.primaryColor,
           stroke: colorWithAlpha(state.primaryColor, 0.35),
-          radius: 999,
+          radius: state.radius,
           opacity: 1
         });
         return `
           <g transform="translate(80 555)">
             <text x="0" y="0" font-size="18" font-weight="700" fill="#555560">Data table</text>
-            <rect x="0" y="22" width="610" height="244" rx="18" fill="transparent"></rect>
-            <rect x="0" y="22" width="610" height="50" rx="14" fill="${state.gray10}" stroke="${state.gray30}"></rect>
+            <rect x="0" y="22" width="610" height="244" rx="${state.radius}" fill="transparent"></rect>
+            <rect x="0" y="22" width="610" height="50" rx="${state.radius}" fill="${state.gray10}" stroke="${state.gray30}"></rect>
             <text x="20" y="53" font-size="16" fill="#4d4d56">&#9723;</text>
             <text x="58" y="53" font-size="14" font-weight="700" fill="#4d4d56">Name</text>
             <text x="433" y="53" font-size="14" font-weight="700" fill="#4d4d56">y/n</text>
@@ -1562,7 +1946,7 @@
             ${tableRow(0, 78, 'Wade Warren', 'fb', false, tagStyle)}
             ${tableRow(0, 125, 'Darrell Steward', 'in', false, { ...tagStyle, fill: colorWithAlpha('#ff6b6b', 0.08), stroke: colorWithAlpha('#ff6b6b', 0.35), text: '#ff4d4d' })}
             ${tableRow(0, 172, 'Devon Lane', 'fb', false, tagStyle)}
-            <rect x="0" y="219" width="610" height="47" rx="14" fill="${colorWithAlpha(state.primaryColor, 0.12)}"></rect>
+            <rect x="0" y="219" width="610" height="47" rx="${state.radius}" fill="${colorWithAlpha(state.primaryColor, 0.12)}"></rect>
             ${tableRow(0, 219, 'Dianne Russell', 'fb', true, tagStyle)}
           </g>
         `;
@@ -1573,8 +1957,8 @@
           <g transform="translate(${x} ${y})">
             ${checkboxMarkup(14, 6, checked, false, 'checkbox', '')}
             <text x="58" y="24" font-size="14" fill="#5a5a64">${name}</text>
-            <rect x="423" y="7" width="42" height="22" rx="${Math.max(10, tagStyle.radius)}" fill="${tagStyle.fill}" stroke="${tagStyle.stroke}"></rect>
-            <text x="444" y="22" text-anchor="middle" font-size="12" fill="${tagStyle.text}">Tag</text>
+            <g data-ui-target="tag"><rect x="423" y="7" width="42" height="22" rx="${tagStyle.radius}" fill="${tagStyle.fill}" stroke="${tagStyle.stroke}"></rect>
+            <text x="444" y="22" text-anchor="middle" font-size="12" fill="${tagStyle.text}">Tag</text></g>
             <text x="532" y="24" font-size="16" fill="${state.primaryColor}">${social}</text>
           </g>
         `;
@@ -1613,16 +1997,16 @@
           '',
           ':root {',
           '  /* Colors */',
-          `  --ui-background: ${state.bgColor};`,
-          `  --ui-text: ${state.textColor};`,
-          `  --ui-gray-10: ${state.gray10};`,
-          `  --ui-gray-20: ${state.gray20};`,
-          `  --ui-gray-30: ${state.gray30};`,
-          `  --ui-primary: ${state.primaryColor};`,
-          `  --ui-primary-hover: ${state.hoverColor};`,
-          `  --ui-primary-pressed: ${state.pressedColor};`,
-          `  --ui-accent: ${state.accentColor};`,
-          `  --ui-gradient-secondary: ${state.gradientColor};`,
+          `  --ui-background: ${formatColorCode(state.bgColor)};`,
+          `  --ui-text: ${formatColorCode(state.textColor)};`,
+          `  --ui-gray-10: ${formatColorCode(state.gray10)};`,
+          `  --ui-gray-20: ${formatColorCode(state.gray20)};`,
+          `  --ui-gray-30: ${formatColorCode(state.gray30)};`,
+          `  --ui-primary: ${formatColorCode(state.primaryColor)};`,
+          `  --ui-primary-hover: ${formatColorCode(state.hoverColor)};`,
+          `  --ui-primary-pressed: ${formatColorCode(state.pressedColor)};`,
+          `  --ui-accent: ${formatColorCode(state.accentColor)};`,
+          `  --ui-gradient-secondary: ${formatColorCode(state.gradientColor)};`,
           '',
           '  /* Typography */',
           `  --ui-font-family: ${fontFamily};`,
@@ -1646,9 +2030,9 @@
           lines.push('', '  /* Individual component overrides */');
           entries.forEach(([target, override]) => {
             const name = cssVariableName(target);
-            if (override.fill) lines.push(`  --ui-${name}-fill: ${override.fill};`);
-            if (override.text) lines.push(`  --ui-${name}-text: ${override.text};`);
-            if (override.stroke) lines.push(`  --ui-${name}-border: ${override.stroke};`);
+            if (override.fill) lines.push(`  --ui-${name}-fill: ${formatColorCode(override.fill)};`);
+            if (override.text) lines.push(`  --ui-${name}-text: ${formatColorCode(override.text)};`);
+            if (override.stroke) lines.push(`  --ui-${name}-border: ${formatColorCode(override.stroke)};`);
             if (override.radius != null) lines.push(`  --ui-${name}-radius: ${override.radius}px;`);
             if (override.opacity != null) lines.push(`  --ui-${name}-opacity: ${Number(override.opacity).toFixed(2)};`);
           });
@@ -1760,6 +2144,14 @@
         magnifier.classList.add('is-visible');
       }
 
+
+      preview?.addEventListener('click', (event) => {
+        const targetNode = event.target.closest('[data-ui-target]');
+        if (!targetNode) return;
+        const target = targetNode.getAttribute('data-ui-target');
+        selectTarget(target, true);
+      });
+
       previewShell?.addEventListener('pointermove', updateMagnifier);
       previewShell?.addEventListener('pointerleave', hideMagnifier);
       previewShell?.addEventListener('scroll', hideMagnifier, { passive: true });
@@ -1771,9 +2163,13 @@
           rootCssOutput.textContent = generateRootCss();
         }
         syncMagnifier();
+        updateColorFormatButtons();
+        updateColorCodeFields();
         hideMagnifier();
       }
 
+      initializeColorCodeFields();
+      selectTarget(fields.targetSelect.value);
       updateReadouts();
       render();
     })();

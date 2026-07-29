@@ -16,7 +16,7 @@
     "components": "Ajustes de componentes",
     "componentsHelp": "Personaliza forma, inclinación y efecto general. Los cambios se reflejan en botones, campos, tags y paneles.",
     "individual": "Personalización individual",
-    "individualHelp": "Elige un componente específico para aplicar una variación propia sin modificar el resto del sistema.",
+    "individualHelp": "Selecciona un elemento desde estas secciones o haz clic directamente sobre el visor. Cada cambio se aplica automáticamente.",
     "export": "Exportación",
     "exportHelp": "Descarga el UI kit completo como un único archivo SVG listo para abrir en Figma o Adobe XD.",
     "exportNote": "El archivo mantiene vectores, textos y estilos para facilitar su importación y continuar editando."
@@ -56,23 +56,32 @@
     "checkbox": "Checklist",
     "accordion": "Menú acordeón",
     "input": "Input",
-    "tag": "Tag"
+    "tag": "Tag",
+    "checkboxCombined": "Selector y checklist",
+    "tableSelector": "Selector de tabla",
+    "inputFields": "Campos de entrada"
   },
   "actions": {
     "applyOverride": "Aplicar variación",
     "removeOverride": "Quitar variación",
     "download": "Descargar UI",
-    "reset": "Restablecer"
+    "reset": "Restablecer",
+    "applySimilar": "Aplicar estilos a todos los elementos similares"
   },
   "preview": {
     "title": "Vista previa del UI kit",
-    "description": "La composición sigue el orden esquemático de referencia: branding, botones, paleta, checklist, acordeón, tipografía e inputs.",
-    "tip": "Haz scroll horizontal si estás en una pantalla pequeña. La descarga siempre se genera en SVG."
+    "description": "Haz clic en un elemento del visor para abrir automáticamente sus herramientas de personalización.",
+    "tip": "El visor es responsivo. En pantallas pequeñas puedes desplazarte dentro del lienzo."
   },
   "projectLoader": {
     "title": "Cargar UI de Alfora (.svg)",
     "description": "Abre un UI Kit SVG creado previamente con Alfora y recupera su configuración, variaciones y variables CSS.",
     "button": "Seleccionar UI.svg",
     "badge": "✓ Compatible con Alfora UI Kit"
+  },
+  "tabs": {
+    "palette": "Paleta",
+    "typography": "Tipografía",
+    "components": "Componentes"
   }
 }
