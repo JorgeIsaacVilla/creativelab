@@ -1,0 +1,77 @@
+{
+  "product": {
+    "eyebrow": "Comparte en un escaneo",
+    "title": "Generador de códigos QR",
+    "description": "Crea códigos QR para enlaces, texto, correo, teléfono, WhatsApp, Discord o redes Wi-Fi, personaliza su apariencia y descarga el resultado como PNG."
+  },
+  "generator": {
+    "title": "Crea tu código QR",
+    "intro": "Selecciona el tipo de contenido e introduce la información que deseas codificar."
+  },
+  "types": {
+    "url": "Enlace",
+    "text": "Texto",
+    "email": "Correo",
+    "phone": "Teléfono",
+    "whatsapp": "WhatsApp",
+    "discord": "Discord",
+    "wifi": "Wi-Fi"
+  },
+  "fields": {
+    "url": "Dirección web",
+    "urlPlaceholder": "https://ejemplo.com",
+    "text": "Texto",
+    "textPlaceholder": "Escribe el contenido que deseas compartir",
+    "email": "Correo electrónico",
+    "emailPlaceholder": "nombre@correo.com",
+    "subject": "Asunto",
+    "subjectPlaceholder": "Asunto del correo",
+    "message": "Mensaje",
+    "messagePlaceholder": "Mensaje opcional",
+    "phone": "Número de teléfono",
+    "phonePlaceholder": "+34 600 000 000",
+    "whatsappPhone": "Número de WhatsApp",
+    "whatsappPhonePlaceholder": "+34 600 000 000",
+    "whatsappMessage": "Mensaje predefinido",
+    "whatsappMessagePlaceholder": "Hola, me gustaría más información",
+    "discordUrl": "Enlace de invitación o enlace de Discord",
+    "discordUrlPlaceholder": "https://discord.gg/ejemplo",
+    "discordName": "Nombre de referencia",
+    "discordNamePlaceholder": "Servidor creativo",
+    "wifiName": "Nombre de la red",
+    "wifiNamePlaceholder": "Mi Wi-Fi",
+    "security": "Seguridad",
+    "securityWpa": "WPA / WPA2",
+    "securityWep": "WEP",
+    "securityNone": "Sin contraseña",
+    "password": "Contraseña",
+    "passwordPlaceholder": "Contraseña de la red"
+  },
+  "options": {
+    "size": "Tamaño",
+    "level": "Corrección de errores",
+    "levelLow": "Baja",
+    "levelMedium": "Media",
+    "levelQuartile": "Alta",
+    "levelHigh": "Máxima",
+    "foreground": "Color del código",
+    "background": "Color de fondo"
+  },
+  "actions": {
+    "generate": "Generar QR",
+    "reset": "Restablecer",
+    "download": "Descargar PNG"
+  },
+  "preview": {
+    "title": "Vista previa",
+    "description": "Comprueba el resultado antes de descargarlo."
+  },
+  "info": {
+    "localTitle": "Generación local",
+    "localText": "El QR se genera directamente en tu navegador.",
+    "scanTitle": "Comprueba antes de publicar",
+    "scanText": "Escanea siempre el código final con otro dispositivo antes de imprimirlo o compartirlo.",
+    "contrastTitle": "Prioriza el contraste",
+    "contrastText": "Los colores muy similares entre código y fondo pueden dificultar la lectura."
+  }
+}

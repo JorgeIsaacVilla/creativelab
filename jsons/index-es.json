@@ -55,6 +55,10 @@
       "title": "Imagen a GLB",
       "description": "Convierte una imagen en un recurso tridimensional GLB."
     },
+    "qrGenerator": {
+      "title": "Generador de códigos QR",
+      "description": "Crea códigos QR para enlaces, texto, correo, teléfono y redes Wi-Fi."
+    },
     "imageConverter": {
       "title": "Convertidor de imágenes",
       "description": "Convierte entre JPG, PNG y WebP."
