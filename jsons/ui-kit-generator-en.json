@@ -1,0 +1,78 @@
+{
+  "product": {
+    "eyebrow": "Interface design",
+    "title": "UI Kit Generator",
+    "description": "Create an organized visual sheet with buttons, styles, inputs, checklists, accordion menus and typography. Customize the whole system or tweak individual elements, then download the final result as an SVG."
+  },
+  "controls": {
+    "title": "Control panel",
+    "description": "Define the overall visual system and, if needed, customize a specific element without changing the entire kit."
+  },
+  "sections": {
+    "palette": "System palette",
+    "paletteHelp": "These values automatically feed most UI kit components.",
+    "typography": "Typography",
+    "typographyHelp": "Select a quick family or upload your own font to preview it in the kit and export it inside the SVG.",
+    "components": "Component settings",
+    "componentsHelp": "Customize shape, slant and overall effect. Changes are reflected in buttons, fields, tags and panels.",
+    "individual": "Individual customization",
+    "individualHelp": "Choose a specific component to apply a custom variation without modifying the rest of the system.",
+    "export": "Export",
+    "exportHelp": "Download the complete UI kit as a single SVG file ready for Figma or Adobe XD.",
+    "exportNote": "The file keeps vectors, text and styles to make importing easier and allow continued editing."
+  },
+  "fields": {
+    "background": "Canvas background",
+    "textColor": "Main text",
+    "gray10": "Gray 10",
+    "gray20": "Gray 20",
+    "gray30": "Gray 30",
+    "accent": "Accent color",
+    "primary": "Primary",
+    "hover": "Hover",
+    "pressed": "Pressed",
+    "gradientSecondary": "Secondary gradient",
+    "fontFamily": "Font family",
+    "fontScale": "Type scale",
+    "uploadFont": "Upload font (.ttf, .otf, .woff, .woff2)",
+    "radius": "Border radius",
+    "slant": "Side angle",
+    "borderWidth": "Border width",
+    "shadow": "Shadow intensity",
+    "glassOpacity": "Translucent opacity",
+    "blur": "Blur effect",
+    "target": "Element to customize",
+    "overrideFill": "Fill",
+    "overrideText": "Text",
+    "overrideStroke": "Border",
+    "overrideRadius": "Custom radius",
+    "overrideOpacity": "Custom opacity"
+  },
+  "targets": {
+    "primaryFilled": "Flat button",
+    "gradientFilled": "Gradient button",
+    "glassFilled": "Translucent button",
+    "outline": "Outline button",
+    "checkbox": "Checklist",
+    "accordion": "Accordion menu",
+    "input": "Input",
+    "tag": "Tag"
+  },
+  "actions": {
+    "applyOverride": "Apply variation",
+    "removeOverride": "Remove variation",
+    "download": "Download UI",
+    "reset": "Reset"
+  },
+  "preview": {
+    "title": "UI kit preview",
+    "description": "The composition follows the reference schematic order: branding, buttons, palette, checklist, accordion, typography and inputs.",
+    "tip": "Scroll horizontally if you are on a small screen. The download is always generated as SVG."
+  },
+  "projectLoader": {
+    "title": "Load Alfora UI (.svg)",
+    "description": "Open a UI Kit SVG previously created with Alfora and restore its settings, variations and CSS variables.",
+    "button": "Select UI.svg",
+    "badge": "✓ Compatible with Alfora UI Kit"
+  }
+}

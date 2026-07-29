@@ -55,6 +55,10 @@
       "title": "Image to GLB",
       "description": "Convert an image into a three-dimensional GLB resource."
     },
+    "uiKitGenerator": {
+      "title": "UI Kit Generator",
+      "description": "Design buttons, styles, typography and interface components and export them as SVG."
+    },
     "qrGenerator": {
       "title": "QR code generator",
       "description": "Create QR codes for links, text, email, phone numbers and Wi-Fi networks."
