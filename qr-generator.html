@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Generador de códigos QR | Alfora</title>
+  <meta
+    name="description"
+    content="Genera códigos QR personalizados para enlaces, texto, correo, teléfono, WhatsApp, Discord y redes Wi-Fi. Ajusta colores, tamaño y nivel de corrección y descarga el resultado como PNG."
+  >
+  <meta
+    name="robots"
+    content="index, follow, max-image-preview:large, max-snippet:-1"
+  >
+  <meta name="author" content="Alfora">
+  <meta name="theme-color" content="#08140d">
+
+  <link rel="canonical" href="https://alfora.art/qr-generator.html">
+  <link rel="alternate" hreflang="es" href="https://alfora.art/qr-generator.html">
+  <link rel="alternate" hreflang="en" href="https://alfora.art/qr-generator.html">
+  <link rel="alternate" hreflang="x-default" href="https://alfora.art/qr-generator.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Alfora">
+  <meta property="og:title" content="Generador de códigos QR">
+  <meta
+    property="og:description"
+    content="Crea códigos QR personalizados y descárgalos como PNG directamente desde tu navegador."
+  >
+  <meta property="og:url" content="https://alfora.art/qr-generator.html">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Generador de códigos QR | Alfora">
+  <meta
+    name="twitter:description"
+    content="Genera QR para enlaces, texto, correo, teléfono, WhatsApp, Discord y Wi-Fi."
+  >
+
+  <link rel="icon" href="./src/favicon.png" type="image/png">
+  <link rel="stylesheet" href="./styles/main.css">
+
+  <script src="./scripts/language.js" defer></script>
+  <script src="./scripts/shared.js" defer></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+    defer
+  ></script>
+
+  <style>
+    .qr-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+      gap: var(--space-8);
+      align-items: start;
+    }
+
+    .qr-panel {
+      min-width: 0;
+      padding: var(--space-6);
+      background: rgba(102, 255, 143, 0.025);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+    }
+
+    .qr-panel__heading {
+      margin-bottom: var(--space-6);
+    }
+
+    .qr-panel__heading h2,
+    .qr-panel__heading h3 {
+      margin-bottom: var(--space-2);
+    }
+
+    .qr-panel__heading p {
+      margin-bottom: 0;
+      color: var(--color-text-soft);
+    }
+
+    .qr-type-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: var(--space-6);
+      gap: var(--space-3);
+    }
+
+    .qr-type-button {
+      min-height: 42px;
+      padding: 0 var(--space-4);
+      color: var(--color-text-soft);
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      font-weight: 800;
+      transition:
+        color var(--transition-fast),
+        background var(--transition-fast),
+        border-color var(--transition-fast),
+        transform var(--transition-fast);
+    }
+
+    .qr-type-button:hover,
+    .qr-type-button.is-active {
+      color: var(--color-text-dark);
+      background: var(--gradient-primary);
+      border-color: transparent;
+      transform: translateY(-2px);
+    }
+
+    .qr-fields {
+      display: grid;
+      gap: var(--space-5);
+    }
+
+    .qr-field-group[hidden] {
+      display: none !important;
+    }
+
+    .qr-field-group {
+      display: grid;
+      gap: var(--space-5);
+    }
+
+    .qr-inline-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-4);
+    }
+
+    .qr-color-control {
+      display: grid;
+      grid-template-columns: 58px minmax(0, 1fr);
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .qr-color-control input[type="color"] {
+      width: 58px;
+      min-width: 58px;
+      height: 48px;
+      padding: 4px;
+      cursor: pointer;
+    }
+
+    .qr-options {
+      display: grid;
+      margin-top: var(--space-6);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-5);
+    }
+
+    .qr-actions {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: var(--space-6);
+      gap: var(--space-3);
+    }
+
+    .qr-preview-panel {
+      position: sticky;
+      top: calc(var(--header-height) + var(--space-6));
+    }
+
+    .qr-preview-shell {
+      display: grid;
+      min-height: 430px;
+      place-items: center;
+      padding: var(--space-8);
+      background:
+        radial-gradient(circle at 50% 18%, rgba(102, 255, 143, 0.11), transparent 36%),
+        rgba(0, 0, 0, 0.16);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+    }
+
+    .qr-preview-card {
+      width: min(100%, 380px);
+      padding: clamp(1rem, 4vw, 1.8rem);
+      background: #ffffff;
+      border-radius: 28px;
+      box-shadow:
+        var(--shadow-large),
+        0 0 42px rgba(102, 255, 143, 0.08);
+    }
+
+    #qr-output {
+      display: grid;
+      place-items: center;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    #qr-output img,
+    #qr-output canvas {
+      display: block;
+      width: min(100%, 320px) !important;
+      height: auto !important;
+      aspect-ratio: 1;
+      object-fit: contain;
+    }
+
+    .qr-status {
+      min-height: 1.5rem;
+      margin: var(--space-4) 0 0;
+      color: var(--color-text-muted);
+      font-size: var(--font-size-sm);
+      text-align: center;
+    }
+
+    .qr-status.is-error {
+      color: var(--color-error);
+    }
+
+    .qr-status.is-success {
+      color: var(--color-success);
+    }
+
+    .qr-info-grid {
+      display: grid;
+      margin-top: var(--space-8);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-4);
+    }
+
+    .qr-info-card {
+      padding: var(--space-5);
+      background: rgba(102, 255, 143, 0.03);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+    }
+
+    .qr-info-card strong {
+      display: block;
+      margin-bottom: var(--space-2);
+      color: var(--color-primary);
+    }
+
+    .qr-info-card p {
+      margin: 0;
+      color: var(--color-text-soft);
+      font-size: var(--font-size-sm);
+    }
+
+    @media (max-width: 980px) {
+      .qr-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .qr-preview-panel {
+        position: static;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .qr-inline-grid,
+      .qr-options,
+      .qr-info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .qr-actions {
+        flex-direction: column;
+      }
+
+      .qr-actions .button {
+        width: 100%;
+      }
+
+      .qr-preview-shell {
+        min-height: 360px;
+        padding: var(--space-5);
+      }
+    }
+  </style>
+</head>
+
+<body data-page="qr-generator">
+  <a class="skip-link" href="#main-content" data-i18n="common.skipToContent">
+    Saltar al contenido
+  </a>
+
+  <div class="site-shell">
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="site-brand" href="./index.html" aria-label="Ir al inicio">
+          <img
+            class="site-brand__logo"
+            src="./src/logo.svg"
+            alt="Logo de Alfora"
+            width="48"
+            height="48"
+            data-i18n-alt="brand.logoAlt"
+          >
+          <span class="site-brand__name" data-i18n="brand.name">Alfora</span>
+        </a>
+
+        <div class="site-header__actions">
+          <a
+            class="back-to-portfolio"
+            href="./index.html"
+            data-i18n="common.backToPortfolio"
+          >
+            Regresar al portafolio de servicios
+          </a>
+
+          <label class="language-control" for="language-selector">
+            <span class="sr-only" data-i18n="common.language">Idioma</span>
+            <select id="language-selector" name="language" aria-label="Seleccionar idioma">
+              <option value="es">ES</option>
+              <option value="en">EN</option>
+            </select>
+          </label>
+        </div>
+      </div>
+    </header>
+
+    <main class="product-page" id="main-content">
+      <section class="product-header" aria-labelledby="product-title">
+        <div class="product-header__content">
+          <p class="section-heading__eyebrow" data-i18n="product.eyebrow">
+            Comparte en un escaneo
+          </p>
+          <h1 id="product-title" data-i18n="product.title">Generador de códigos QR</h1>
+          <p class="product-header__description" data-i18n="product.description">
+            Crea códigos QR para enlaces, texto, correo, teléfono, WhatsApp, Discord o redes Wi-Fi, personaliza su apariencia y descarga el resultado como PNG.
+          </p>
+        </div>
+      </section>
+
+      <section class="tool-interface" aria-labelledby="generator-title">
+        <div class="qr-layout">
+          <div class="qr-panel">
+            <div class="qr-panel__heading">
+              <h2 id="generator-title" data-i18n="generator.title">Crea tu código QR</h2>
+              <p data-i18n="generator.intro">
+                Selecciona el tipo de contenido e introduce la información que deseas codificar.
+              </p>
+            </div>
+
+            <div class="qr-type-tabs" role="tablist" aria-label="Tipo de contenido">
+              <button class="qr-type-button is-active" type="button" data-qr-type="url" data-i18n="types.url">Enlace</button>
+              <button class="qr-type-button" type="button" data-qr-type="text" data-i18n="types.text">Texto</button>
+              <button class="qr-type-button" type="button" data-qr-type="email" data-i18n="types.email">Correo</button>
+              <button class="qr-type-button" type="button" data-qr-type="phone" data-i18n="types.phone">Teléfono</button>
+              <button class="qr-type-button" type="button" data-qr-type="whatsapp" data-i18n="types.whatsapp">WhatsApp</button>
+              <button class="qr-type-button" type="button" data-qr-type="discord" data-i18n="types.discord">Discord</button>
+              <button class="qr-type-button" type="button" data-qr-type="wifi" data-i18n="types.wifi">Wi-Fi</button>
+            </div>
+
+            <div class="qr-fields">
+              <div class="qr-field-group" data-qr-fields="url">
+                <div class="form-field">
+                  <label for="qr-url" data-i18n="fields.url">Dirección web</label>
+                  <input id="qr-url" type="url" value="https://alfora.art" placeholder="https://ejemplo.com" data-i18n-placeholder="fields.urlPlaceholder">
+                </div>
+              </div>
+
+              <div class="qr-field-group" data-qr-fields="text" hidden>
+                <div class="form-field">
+                  <label for="qr-text" data-i18n="fields.text">Texto</label>
+                  <textarea id="qr-text" rows="5" placeholder="Escribe el contenido que deseas compartir" data-i18n-placeholder="fields.textPlaceholder"></textarea>
+                </div>
+              </div>
+
+              <div class="qr-field-group" data-qr-fields="email" hidden>
+                <div class="form-field">
+                  <label for="qr-email" data-i18n="fields.email">Correo electrónico</label>
+                  <input id="qr-email" type="email" placeholder="nombre@correo.com" data-i18n-placeholder="fields.emailPlaceholder">
+                </div>
+                <div class="form-field">
+                  <label for="qr-email-subject" data-i18n="fields.subject">Asunto</label>
+                  <input id="qr-email-subject" type="text" placeholder="Asunto del correo" data-i18n-placeholder="fields.subjectPlaceholder">
+                </div>
+                <div class="form-field">
+                  <label for="qr-email-body" data-i18n="fields.message">Mensaje</label>
+                  <textarea id="qr-email-body" rows="4" placeholder="Mensaje opcional" data-i18n-placeholder="fields.messagePlaceholder"></textarea>
+                </div>
+              </div>
+
+              <div class="qr-field-group" data-qr-fields="phone" hidden>
+                <div class="form-field">
+                  <label for="qr-phone" data-i18n="fields.phone">Número de teléfono</label>
+                  <input id="qr-phone" type="tel" placeholder="+34 600 000 000" data-i18n-placeholder="fields.phonePlaceholder">
+                </div>
+              </div>
+
+              <div class="qr-field-group" data-qr-fields="whatsapp" hidden>
+                <div class="form-field">
+                  <label for="qr-whatsapp-phone" data-i18n="fields.whatsappPhone">Número de WhatsApp</label>
+                  <input id="qr-whatsapp-phone" type="tel" placeholder="+34 600 000 000" data-i18n-placeholder="fields.whatsappPhonePlaceholder">
+                </div>
+                <div class="form-field">
+                  <label for="qr-whatsapp-message" data-i18n="fields.whatsappMessage">Mensaje predefinido</label>
+                  <textarea id="qr-whatsapp-message" rows="4" placeholder="Hola, me gustaría más información" data-i18n-placeholder="fields.whatsappMessagePlaceholder"></textarea>
+                </div>
+              </div>
+
+              <div class="qr-field-group" data-qr-fields="discord" hidden>
+                <div class="form-field">
+                  <label for="qr-discord-url" data-i18n="fields.discordUrl">Enlace de invitación o enlace de Discord</label>
+                  <input id="qr-discord-url" type="url" placeholder="https://discord.gg/ejemplo" data-i18n-placeholder="fields.discordUrlPlaceholder">
+                </div>
+                <div class="form-field">
+                  <label for="qr-discord-name" data-i18n="fields.discordName">Nombre de referencia</label>
+                  <input id="qr-discord-name" type="text" placeholder="Servidor creativo" data-i18n-placeholder="fields.discordNamePlaceholder">
+                </div>
+              </div>
+
+              <div class="qr-field-group" data-qr-fields="wifi" hidden>
+                <div class="form-field">
+                  <label for="qr-wifi-name" data-i18n="fields.wifiName">Nombre de la red</label>
+                  <input id="qr-wifi-name" type="text" autocomplete="off" placeholder="Mi Wi-Fi" data-i18n-placeholder="fields.wifiNamePlaceholder">
+                </div>
+
+                <div class="qr-inline-grid">
+                  <div class="form-field">
+                    <label for="qr-wifi-security" data-i18n="fields.security">Seguridad</label>
+                    <select id="qr-wifi-security">
+                      <option value="WPA" data-i18n="fields.securityWpa">WPA / WPA2</option>
+                      <option value="WEP" data-i18n="fields.securityWep">WEP</option>
+                      <option value="nopass" data-i18n="fields.securityNone">Sin contraseña</option>
+                    </select>
+                  </div>
+
+                  <div class="form-field">
+                    <label for="qr-wifi-password" data-i18n="fields.password">Contraseña</label>
+                    <input id="qr-wifi-password" type="password" autocomplete="new-password" placeholder="Contraseña de la red" data-i18n-placeholder="fields.passwordPlaceholder">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="qr-options">
+              <div class="form-field">
+                <label for="qr-size">
+                  <span data-i18n="options.size">Tamaño</span>
+                  <span id="qr-size-value">320 px</span>
+                </label>
+                <input id="qr-size" type="range" min="180" max="640" step="20" value="320">
+              </div>
+
+              <div class="form-field">
+                <label for="qr-level" data-i18n="options.level">Corrección de errores</label>
+                <select id="qr-level">
+                  <option value="L" data-i18n="options.levelLow">Baja</option>
+                  <option value="M" selected data-i18n="options.levelMedium">Media</option>
+                  <option value="Q" data-i18n="options.levelQuartile">Alta</option>
+                  <option value="H" data-i18n="options.levelHigh">Máxima</option>
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label for="qr-foreground" data-i18n="options.foreground">Color del código</label>
+                <div class="qr-color-control">
+                  <input id="qr-foreground" type="color" value="#07140c">
+                  <input id="qr-foreground-text" type="text" value="#07140C" maxlength="7" aria-label="Color del código en hexadecimal">
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label for="qr-background" data-i18n="options.background">Color de fondo</label>
+                <div class="qr-color-control">
+                  <input id="qr-background" type="color" value="#ffffff">
+                  <input id="qr-background-text" type="text" value="#FFFFFF" maxlength="7" aria-label="Color de fondo en hexadecimal">
+                </div>
+              </div>
+            </div>
+
+            <div class="qr-actions">
+              <button class="button button--primary" id="generate-qr" type="button">
+                <span data-i18n="actions.generate">Generar QR</span>
+              </button>
+              <button class="button button--secondary" id="reset-qr" type="button">
+                <span data-i18n="actions.reset">Restablecer</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="qr-panel qr-preview-panel">
+            <div class="qr-panel__heading">
+              <h3 data-i18n="preview.title">Vista previa</h3>
+              <p data-i18n="preview.description">Comprueba el resultado antes de descargarlo.</p>
+            </div>
+
+            <div class="qr-preview-shell">
+              <div class="qr-preview-card" id="qr-preview-card">
+                <div id="qr-output"></div>
+              </div>
+            </div>
+
+            <p class="qr-status" id="qr-status" aria-live="polite"></p>
+
+            <button class="button button--primary" id="download-qr" type="button" disabled>
+              <span data-i18n="actions.download">Descargar PNG</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="qr-info-grid">
+          <article class="qr-info-card">
+            <strong data-i18n="info.localTitle">Generación local</strong>
+            <p data-i18n="info.localText">El QR se genera directamente en tu navegador.</p>
+          </article>
+
+          <article class="qr-info-card">
+            <strong data-i18n="info.scanTitle">Comprueba antes de publicar</strong>
+            <p data-i18n="info.scanText">Escanea siempre el código final con otro dispositivo antes de imprimirlo o compartirlo.</p>
+          </article>
+
+          <article class="qr-info-card">
+            <strong data-i18n="info.contrastTitle">Prioriza el contraste</strong>
+            <p data-i18n="info.contrastText">Los colores muy similares entre código y fondo pueden dificultar la lectura.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      "use strict";
+
+      const typeButtons = [...document.querySelectorAll("[data-qr-type]")];
+      const fieldGroups = [...document.querySelectorAll("[data-qr-fields]")];
+
+      const urlInput = document.getElementById("qr-url");
+      const textInput = document.getElementById("qr-text");
+      const emailInput = document.getElementById("qr-email");
+      const emailSubjectInput = document.getElementById("qr-email-subject");
+      const emailBodyInput = document.getElementById("qr-email-body");
+      const phoneInput = document.getElementById("qr-phone");
+      const whatsappPhoneInput = document.getElementById("qr-whatsapp-phone");
+      const whatsappMessageInput = document.getElementById("qr-whatsapp-message");
+      const discordUrlInput = document.getElementById("qr-discord-url");
+      const discordNameInput = document.getElementById("qr-discord-name");
+      const wifiNameInput = document.getElementById("qr-wifi-name");
+      const wifiSecurityInput = document.getElementById("qr-wifi-security");
+      const wifiPasswordInput = document.getElementById("qr-wifi-password");
+
+      const sizeInput = document.getElementById("qr-size");
+      const sizeValue = document.getElementById("qr-size-value");
+      const levelInput = document.getElementById("qr-level");
+      const foregroundInput = document.getElementById("qr-foreground");
+      const foregroundText = document.getElementById("qr-foreground-text");
+      const backgroundInput = document.getElementById("qr-background");
+      const backgroundText = document.getElementById("qr-background-text");
+
+      const output = document.getElementById("qr-output");
+      const previewCard = document.getElementById("qr-preview-card");
+      const status = document.getElementById("qr-status");
+      const generateButton = document.getElementById("generate-qr");
+      const resetButton = document.getElementById("reset-qr");
+      const downloadButton = document.getElementById("download-qr");
+
+      let currentType = "url";
+
+      const t = (key, fallback) => {
+        const language = document.documentElement.lang === "en" ? "en" : "es";
+        const texts = {
+          es: {
+            "status.ready": "Código QR generado correctamente.",
+            "status.missing": "Completa la información necesaria para generar el código.",
+            "status.library": "No fue posible cargar el generador de QR. Revisa tu conexión e inténtalo de nuevo.",
+            "status.download": "PNG descargado.",
+            "status.color": "Introduce un color hexadecimal válido."
+          },
+          en: {
+            "status.ready": "QR code generated successfully.",
+            "status.missing": "Complete the required information to generate the code.",
+            "status.library": "The QR generator could not be loaded. Check your connection and try again.",
+            "status.download": "PNG downloaded.",
+            "status.color": "Enter a valid hexadecimal color."
+          }
+        };
+        return texts[language]?.[key] || fallback;
+      };
+
+      function setStatus(message, type = "") {
+        status.textContent = message;
+        status.classList.remove("is-error", "is-success");
+        if (type) status.classList.add(`is-${type}`);
+      }
+
+      function escapeWifi(value) {
+        return String(value).replace(/([\\;,":])/g, "\\$1");
+      }
+
+      function normalizePhone(value) {
+        return String(value).replace(/[^\d+]/g, "");
+      }
+
+      function getQrContent() {
+        if (currentType === "url") {
+          return urlInput.value.trim();
+        }
+
+        if (currentType === "text") {
+          return textInput.value.trim();
+        }
+
+        if (currentType === "email") {
+          const email = emailInput.value.trim();
+          if (!email) return "";
+
+          const params = new URLSearchParams();
+          if (emailSubjectInput.value.trim()) params.set("subject", emailSubjectInput.value.trim());
+          if (emailBodyInput.value.trim()) params.set("body", emailBodyInput.value.trim());
+
+          const query = params.toString();
+          return `mailto:${email}${query ? `?${query}` : ""}`;
+        }
+
+        if (currentType === "phone") {
+          const phone = phoneInput.value.trim();
+          return phone ? `tel:${phone}` : "";
+        }
+
+        if (currentType === "whatsapp") {
+          const phone = normalizePhone(whatsappPhoneInput.value.trim());
+          if (!phone) return "";
+
+          const message = whatsappMessageInput.value.trim();
+          const params = new URLSearchParams();
+          params.set("phone", phone.replace(/^\+/, ""));
+          if (message) params.set("text", message);
+          return `https://wa.me/?${params.toString()}`;
+        }
+
+        if (currentType === "discord") {
+          const url = discordUrlInput.value.trim();
+          return url;
+        }
+
+        if (currentType === "wifi") {
+          const ssid = wifiNameInput.value.trim();
+          if (!ssid) return "";
+
+          const security = wifiSecurityInput.value;
+          const password = wifiPasswordInput.value;
+
+          if (security !== "nopass" && !password) return "";
+
+          return `WIFI:T:${security};S:${escapeWifi(ssid)};P:${escapeWifi(password)};;`;
+        }
+
+        return "";
+      }
+
+      function getCorrectionLevel() {
+        const levels = QRCode.CorrectLevel;
+        return levels[levelInput.value] ?? levels.M;
+      }
+
+      function normalizeHex(value) {
+        const match = String(value).trim().match(/^#?([0-9a-fA-F]{6})$/);
+        return match ? `#${match[1].toUpperCase()}` : null;
+      }
+
+      function syncColor(source, target) {
+        target.value = source.value.toUpperCase();
+        generateQr();
+      }
+
+      function syncTextColor(source, target) {
+        const color = normalizeHex(source.value);
+        if (!color) {
+          setStatus(t("status.color", "Introduce un color hexadecimal válido."), "error");
+          return;
+        }
+        source.value = color;
+        target.value = color;
+        generateQr();
+      }
+
+      function generateQr() {
+        const content = getQrContent();
+
+        if (!content) {
+          output.innerHTML = "";
+          downloadButton.disabled = true;
+          setStatus(t("status.missing", "Completa la información necesaria para generar el código."), "error");
+          return;
+        }
+
+        if (typeof QRCode === "undefined") {
+          output.innerHTML = "";
+          downloadButton.disabled = true;
+          setStatus(t("status.library", "No fue posible cargar el generador de QR."), "error");
+          return;
+        }
+
+        const size = Number(sizeInput.value);
+        output.innerHTML = "";
+        previewCard.style.background = backgroundInput.value;
+
+        new QRCode(output, {
+          text: content,
+          width: size,
+          height: size,
+          colorDark: foregroundInput.value,
+          colorLight: backgroundInput.value,
+          correctLevel: getCorrectionLevel()
+        });
+
+        downloadButton.disabled = false;
+        setStatus(t("status.ready", "Código QR generado correctamente."), "success");
+      }
+
+      function setType(type) {
+        currentType = type;
+
+        typeButtons.forEach((button) => {
+          button.classList.toggle("is-active", button.dataset.qrType === type);
+        });
+
+        fieldGroups.forEach((group) => {
+          group.hidden = group.dataset.qrFields !== type;
+        });
+
+        generateQr();
+      }
+
+      function resetQr() {
+        currentType = "url";
+        urlInput.value = "https://alfora.art";
+        textInput.value = "";
+        emailInput.value = "";
+        emailSubjectInput.value = "";
+        emailBodyInput.value = "";
+        phoneInput.value = "";
+        whatsappPhoneInput.value = "";
+        whatsappMessageInput.value = "";
+        discordUrlInput.value = "";
+        discordNameInput.value = "";
+        wifiNameInput.value = "";
+        wifiSecurityInput.value = "WPA";
+        wifiPasswordInput.value = "";
+
+        sizeInput.value = "320";
+        sizeValue.textContent = "320 px";
+        levelInput.value = "M";
+
+        foregroundInput.value = "#07140c";
+        foregroundText.value = "#07140C";
+        backgroundInput.value = "#ffffff";
+        backgroundText.value = "#FFFFFF";
+
+        setType("url");
+      }
+
+      function downloadQr() {
+        const canvas = output.querySelector("canvas");
+        const image = output.querySelector("img");
+        let dataUrl = "";
+
+        if (canvas) {
+          dataUrl = canvas.toDataURL("image/png");
+        } else if (image?.src) {
+          dataUrl = image.src;
+        }
+
+        if (!dataUrl) return;
+
+        const link = document.createElement("a");
+        link.href = dataUrl;
+        link.download = "alfora-qr.png";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+
+        setStatus(t("status.download", "PNG descargado."), "success");
+      }
+
+      typeButtons.forEach((button) => {
+        button.addEventListener("click", () => setType(button.dataset.qrType));
+      });
+
+      [
+        urlInput,
+        textInput,
+        emailInput,
+        emailSubjectInput,
+        emailBodyInput,
+        phoneInput,
+        whatsappPhoneInput,
+        whatsappMessageInput,
+        discordUrlInput,
+        discordNameInput,
+        wifiNameInput,
+        wifiPasswordInput
+      ].forEach((input) => {
+        input.addEventListener("input", generateQr);
+      });
+
+      wifiSecurityInput.addEventListener("change", () => {
+        const openNetwork = wifiSecurityInput.value === "nopass";
+        wifiPasswordInput.disabled = openNetwork;
+        if (openNetwork) wifiPasswordInput.value = "";
+        generateQr();
+      });
+
+      sizeInput.addEventListener("input", () => {
+        sizeValue.textContent = `${sizeInput.value} px`;
+        generateQr();
+      });
+
+      levelInput.addEventListener("change", generateQr);
+
+      foregroundInput.addEventListener("input", () => syncColor(foregroundInput, foregroundText));
+      backgroundInput.addEventListener("input", () => syncColor(backgroundInput, backgroundText));
+
+      foregroundText.addEventListener("change", () => syncTextColor(foregroundText, foregroundInput));
+      backgroundText.addEventListener("change", () => syncTextColor(backgroundText, backgroundInput));
+
+      generateButton.addEventListener("click", generateQr);
+      resetButton.addEventListener("click", resetQr);
+      downloadButton.addEventListener("click", downloadQr);
+
+      setTimeout(generateQr, 120);
+    });
+  </script>
+</body>
+</html>
