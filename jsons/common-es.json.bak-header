@@ -1,9 +1,15 @@
 {
+  "brand": {
+    "name": "Alfora",
+    "logoAlt": "Logo de Alfora"
+  },
   "common": {
     "skipToContent": "Saltar al contenido",
+    "language": "Idioma",
     "advertisement": "Publicidad",
     "featured": "Destacado",
     "openTool": "Abrir herramienta",
+    "backToPortfolio": "Regresar al portafolio de servicios",
     "uploadFile": "Cargar archivo",
     "download": "Descargar",
     "process": "Procesar",
@@ -14,6 +20,13 @@
     "selectFile": "Seleccionar archivo",
     "dragAndDrop": "Arrastra tu archivo aquí o haz clic para seleccionarlo",
     "privacyNotice": "Tus archivos se procesan localmente en tu navegador siempre que sea posible."
+  },
+  "nav": {
+    "tools": "Herramientas",
+    "categories": "Categorías",
+    "about": "Acerca de",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú"
   },
   "footer": {
     "description": "Herramientas creativas para transformar ideas en resultados visuales.",

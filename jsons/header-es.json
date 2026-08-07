@@ -1,0 +1,46 @@
+{
+  "brand": {
+    "name": "Alfora",
+    "logoAlt": "Logo de Alfora",
+    "homeAriaLabel": "Ir al inicio"
+  },
+  "language": {
+    "label": "Idioma",
+    "selectAriaLabel": "Seleccionar idioma"
+  },
+  "menu": {
+    "open": "Abrir menú",
+    "close": "Cerrar menú",
+    "navigationAriaLabel": "Navegación del sitio"
+  },
+  "headers": {
+    "index": {
+      "buttons": [
+        {
+          "id": "tools",
+          "label": "Herramientas",
+          "href": "#tools"
+        },
+        {
+          "id": "categories",
+          "label": "Categorías",
+          "href": "#categories"
+        },
+        {
+          "id": "about",
+          "label": "Acerca de",
+          "href": "#about"
+        }
+      ]
+    },
+    "tools": {
+      "buttons": [
+        {
+          "id": "services",
+          "label": "Servicios",
+          "href": "./index.html#tools"
+        }
+      ]
+    }
+  }
+}

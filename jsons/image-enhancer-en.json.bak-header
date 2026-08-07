@@ -4,13 +4,15 @@
   },
   "common": {
     "skipLink": "Skip to content",
+    "language": "Language",
+    "backToPortfolio": "Back to services portfolio",
     "adSpace": "Advertising space"
   },
   "hero": {
     "eyebrow": "NEW · AUTOMATIC ENHANCEMENT",
     "title": "Improve image quality and compare the result",
     "description": "Upload an image, improve its visual quality automatically and compare it in real time with an interactive slider. Adjust sharpness, contrast, saturation, clarity, noise reduction and upscaling.",
-    "feature1": "Automatic enhancement directly in your browser",
+    "feature1": "Automatic enhancement with OpenCV.js",
     "feature2": "Interactive before/after comparison",
     "feature3": "Download the enhanced image or the comparison"
   },
@@ -50,11 +52,12 @@
     "placeholder": "The before/after comparison will appear here."
   },
   "messages": {
+    "opencvLoading": "OpenCV.js: loading…",
+    "opencvReady": "OpenCV.js: ready",
     "imageLoaded": "Image loaded. You can now enhance it automatically or adjust the controls.",
     "ready": "Image enhanced. You can keep refining the controls.",
     "uploadError": "The image could not be loaded.",
     "processError": "The image could not be processed.",
-    "processing": "Processing image…",
-    "reset": "Settings reset."
+    "processing": "Processing image…"
   }
 }

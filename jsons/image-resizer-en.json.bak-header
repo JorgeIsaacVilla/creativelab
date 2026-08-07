@@ -4,6 +4,8 @@
   },
   "common": {
     "skipLink": "Skip to content",
+    "language": "Language",
+    "backToPortfolio": "Back to services portfolio",
     "adSpace": "Advertising space"
   },
   "hero": {
