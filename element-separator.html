@@ -17,11 +17,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Separador de elementos de imagen | Alfora</title>
-  <meta
-    name="description"
-    content="Selecciona manualmente un elemento de una imagen, aíslalo con fondo transparente y descárgalo como PNG desde Alfora."
-  >
+  <title>Separar elementos de una imagen online gratis | Alfora</title>
+<meta
+  name="description"
+  content="Separa y recorta elementos de una imagen online gratis. Selecciona por puntos o dibuja el contorno, ajusta la selección y descarga el objeto aislado o la imagen con el área transparente."
+>
   <meta
     name="robots"
     content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
@@ -29,19 +29,46 @@
   <meta name="author" content="Alfora">
   <meta name="theme-color" content="#07150d">
 
-  <link rel="canonical" href="https://alfora.art/element-separator.html">
-  <link rel="alternate" hreflang="es" href="https://alfora.art/element-separator.html">
-  <link rel="alternate" hreflang="en" href="https://alfora.art/en/element-separator.html">
-  <link rel="alternate" hreflang="x-default" href="https://alfora.art/element-separator.html">
+  <link rel="canonical" href="https://alfora.art/element-separator">
 
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Alfora">
-  <meta property="og:title" content="Separador de elementos de imagen">
-  <meta property="og:description" content="Marca un objeto, aíslalo y descárgalo como PNG transparente.">
-  <meta property="og:url" content="https://alfora.art/element-separator.html">
-  <meta property="og:image" content="https://alfora.art/src/element-separator-cover.webp">
-  <meta property="og:locale" content="es_ES">
-  <meta property="og:locale:alternate" content="en_US">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Alfora">
+
+<meta
+  property="og:title"
+  content="Separar elementos de una imagen online gratis | Alfora"
+>
+
+<meta
+  property="og:description"
+  content="Selecciona por puntos o dibuja el contorno de un objeto, aísla el elemento y descarga el recorte o la imagen completa con el área transparente."
+>
+
+<meta
+  property="og:url"
+  content="https://alfora.art/element-separator"
+>
+
+<meta
+  property="og:image"
+  content="https://alfora.art/src/social-cover.webp"
+>
+
+<meta
+  property="og:image:secure_url"
+  content="https://alfora.art/src/social-cover.webp"
+>
+
+<meta property="og:image:type" content="image/webp">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<meta
+  property="og:image:alt"
+  content="Alfora - Separador de elementos de imagen online"
+>
+
+<meta property="og:locale" content="es_ES">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Separador de elementos | Alfora">
@@ -51,30 +78,114 @@
   <link rel="icon" href="./src/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="./styles/main.css">
 
+  <style>
+    /* ======================================================================
+       HERRAMIENTA: SEPARADOR DE ELEMENTOS
+       Estilos propios de la herramienta
+       ====================================================================== */
+
+    .element-separator-page{display:grid;gap:var(--space-8)}
+    .separator-layout{display:grid;grid-template-columns:minmax(290px,360px) minmax(0,1fr);align-items:start;gap:var(--space-6)}
+    .separator-panel,.separator-workspace{display:grid;min-width:0;gap:var(--space-4)}
+    .separator-card{min-width:0;padding:var(--space-6);background:var(--gradient-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl);box-shadow:var(--shadow-small)}
+    .separator-card h2{margin-bottom:var(--space-5);font-size:clamp(1.3rem,2vw,1.8rem)}
+    .separator-upload{min-height:180px}
+    .button-stack{display:grid;gap:var(--space-3)}
+    .button--block{width:100%}
+    .separator-reset{margin-top:var(--space-3)}
+    .separator-help{color:var(--color-text-soft);font-size:var(--font-size-sm)}
+    .separator-heading{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:var(--space-4);gap:var(--space-4)}
+    .separator-heading strong{font-size:var(--font-size-md)}
+    .separator-heading p{margin:var(--space-2) 0 0;color:var(--color-text-muted);font-size:var(--font-size-sm)}
+    .separator-counter{display:inline-flex;min-width:74px;min-height:36px;align-items:center;justify-content:center;padding:0 var(--space-3);color:var(--color-primary);background:rgba(102,255,143,.08);border:1px solid var(--color-border);border-radius:var(--radius-pill);font-size:var(--font-size-xs);font-weight:900;white-space:nowrap}
+    .separator-stage{position:relative;display:grid;min-height:420px;place-items:center;overflow:hidden;background:linear-gradient(45deg,rgba(255,255,255,.035) 25%,transparent 25%,transparent 75%,rgba(255,255,255,.035) 75%),linear-gradient(45deg,rgba(255,255,255,.035) 25%,transparent 25%,transparent 75%,rgba(255,255,255,.035) 75%);background-position:0 0,14px 14px;background-size:28px 28px;border:1px solid var(--color-border);border-radius:var(--radius-lg)}
+    .separator-stage canvas{display:block;width:100%;height:auto;max-height:72vh;object-fit:contain}
+    #selection-canvas{cursor:crosshair;touch-action:none}
+    .separator-placeholder{position:absolute;inset:0;display:grid;place-items:center;padding:var(--space-8);color:var(--color-text-muted);text-align:center;pointer-events:none}
+    .separator-placeholder[hidden]{display:none!important}
+    .separator-stage--result canvas{max-width:100%;max-height:520px}
+    .element-separator-page .tool-note{margin:var(--space-4) 0 0;color:var(--color-text-muted);font-size:var(--font-size-sm)}
+    .element-separator-page .button:disabled{cursor:not-allowed;opacity:.45}
+    .element-separator-page .button:disabled:hover{box-shadow:none;transform:none}
+    .separator-download-options{display:grid;gap:var(--space-3)}
+    .separator-download-options__note{margin:0;color:var(--color-text-muted);font-size:var(--font-size-xs);line-height:1.5}
+    #remainder-canvas{display:none}
+
+    .separator-mode-switch{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0 0 var(--space-4)}
+    .separator-mode-button{min-height:42px;padding:0 12px;color:var(--color-text-soft);background:rgba(255,255,255,.025);border:1px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer;font-weight:800}
+    .separator-mode-button.is-active{color:var(--color-text-dark);background:var(--gradient-primary);border-color:transparent}
+    .separator-mobile-tools{display:none}
+    .separator-mobile-toast{display:none}
+
+    @media(max-width:980px){.separator-layout{grid-template-columns:1fr}}
+
+    @media(max-width:700px){
+      .element-separator-page{width:min(calc(100% - .75rem),var(--content-width));gap:var(--space-5)}
+      .separator-panel{display:none}
+      .separator-layout{display:block}
+      .separator-workspace{display:grid;grid-template-rows:minmax(0,1.15fr) minmax(0,.85fr);height:min(76svh,760px);min-height:560px;gap:8px}
+      .separator-workspace>.separator-card{display:grid;min-height:0;padding:10px;grid-template-rows:auto minmax(0,1fr);border-radius:var(--radius-lg)}
+      .separator-heading{align-items:center;margin-bottom:8px;gap:8px}
+      .separator-heading p{display:none}
+      .separator-heading strong{font-size:.92rem}
+      .separator-counter{min-width:auto;min-height:30px;padding-inline:9px;font-size:.68rem}
+      .separator-stage{min-height:0;height:100%;border-radius:var(--radius-md)}
+      .separator-stage canvas,.separator-stage--result canvas{width:100%;height:100%;max-height:none;object-fit:contain}
+      .separator-placeholder{padding:var(--space-4);font-size:var(--font-size-sm)}
+
+      .separator-mobile-tools{position:fixed;top:max(92px,calc(env(safe-area-inset-top) + 78px));left:10px;z-index:calc(var(--z-dropdown) + 5);display:block;width:52px;height:52px;overflow:visible;background:transparent;border:0;box-shadow:none;transition:none}
+      .separator-mobile-tools__toggle{position:relative;z-index:2;display:grid;width:52px;height:52px;place-items:center;padding:0;color:var(--color-text-dark);background:var(--gradient-primary);border:1px solid rgba(102,255,143,.45);border-radius:16px;box-shadow:0 12px 30px rgba(0,0,0,.42);cursor:pointer;font-size:1.8rem;font-weight:900;line-height:1}
+      .separator-mobile-tools__toggle-label{display:none}
+      .separator-mobile-tools__actions{position:absolute;top:0;left:0;display:none;width:min(300px,calc(100vw - 28px));max-height:calc(100svh - 110px);overflow-y:auto;overscroll-behavior:contain;padding:62px 8px 8px;background:rgba(5,18,10,.97);border:1px solid var(--color-border-strong);border-radius:18px;box-shadow:18px 22px 56px rgba(0,0,0,.55);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+      .separator-mobile-tools.is-open .separator-mobile-tools__actions{display:grid;gap:4px}
+      .separator-mobile-tools.is-open .separator-mobile-tools__toggle{border-radius:14px}
+      .separator-mobile-action{display:grid;width:100%;min-height:50px;grid-template-columns:42px minmax(0,1fr);align-items:center;padding:0 10px 0 4px;overflow:hidden;color:var(--color-text);background:transparent;border:1px solid transparent;border-radius:12px;cursor:pointer;text-align:left}
+      .separator-mobile-action:hover,.separator-mobile-action:focus-visible{background:rgba(102,255,143,.08);border-color:var(--color-border)}
+      .separator-mobile-action:disabled{cursor:not-allowed;opacity:.38}
+      .separator-mobile-action__icon{display:grid;width:42px;place-items:center;color:var(--color-primary);font-size:1.08rem;font-weight:900}
+      .separator-mobile-action__copy{display:block;min-width:0}
+      .separator-mobile-action__copy strong,.separator-mobile-action__copy small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+      .separator-mobile-action__copy strong{font-size:.79rem}
+      .separator-mobile-action__copy small{margin-top:2px;color:var(--color-text-muted);font-size:.67rem}
+      .separator-mobile-action--primary{background:rgba(102,255,143,.08)}
+      .separator-mobile-action--mode.is-active{background:rgba(102,255,143,.14);border-color:rgba(102,255,143,.28)}
+
+      .separator-mobile-toast{position:fixed;left:50%;bottom:max(22px,calc(env(safe-area-inset-bottom) + 14px));z-index:calc(var(--z-modal) + 10);display:flex;width:min(340px,calc(100vw - 28px));align-items:flex-start;gap:10px;padding:14px 16px;color:var(--color-text);background:rgba(7,28,15,.97);border:1px solid rgba(102,255,143,.38);border-radius:16px;box-shadow:0 18px 48px rgba(0,0,0,.5);opacity:0;pointer-events:none;transform:translate(-50%,18px);transition:opacity 180ms ease,transform 180ms ease;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+      .separator-mobile-toast.is-visible{opacity:1;transform:translate(-50%,0)}
+      .separator-mobile-toast__icon{display:grid;flex:0 0 28px;width:28px;height:28px;place-items:center;color:var(--color-text-dark);background:var(--gradient-primary);border-radius:999px;font-size:.9rem;font-weight:1000}
+      .separator-mobile-toast__copy{min-width:0}
+      .separator-mobile-toast__copy strong{display:block;font-size:.86rem}
+      .separator-mobile-toast__copy span{display:block;margin-top:2px;color:var(--color-text-soft);font-size:.75rem;line-height:1.4}
+    }
+
+    @media(max-width:420px){.separator-workspace{height:72svh;min-height:520px}}
+  </style>
+
+
   <script src="./scripts/language.js" defer></script>
   <script src="./scripts/shared.js" defer></script>
 
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Alfora - Separador de elementos",
-    "applicationCategory": "DesignApplication",
-    "operatingSystem": "Web",
-    "url": "https://alfora.art/element-separator.html",
-    "description": "Herramienta para seleccionar manualmente un elemento, aislarlo con transparencia y descargarlo como PNG.",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Alfora",
-      "url": "https://alfora.art/"
-    }
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Separador de elementos de imagen online",
+  "applicationCategory": "DesignApplication",
+  "operatingSystem": "Web",
+  "url": "https://alfora.art/element-separator",
+  "description": "Herramienta online gratuita para seleccionar, trazar y separar elementos de una imagen, exportar el objeto aislado como PNG transparente o descargar la imagen completa con el área seleccionada eliminada.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Alfora",
+    "url": "https://alfora.art/"
   }
-  </script>
+}
+</script>
 </head>
 
 <body data-page="element-separator">
@@ -180,8 +291,17 @@
           <article class="separator-card">
             <h2 data-i18n="steps.selectTitle">2. Marca el elemento</h2>
             <p class="separator-help" data-i18n="steps.selectHelp">
-              Haz clic alrededor del contorno. Usa varios puntos para obtener una selección más precisa.
+              Haz clic alrededor del contorno o dibuja el borde con trazo libre. Los puntos pueden corregirse después.
             </p>
+
+            <div class="separator-mode-switch" role="group" aria-label="Modo de selección">
+              <button class="separator-mode-button is-active" id="mode-points" type="button" aria-pressed="true">
+                Puntos
+              </button>
+              <button class="separator-mode-button" id="mode-draw" type="button" aria-pressed="false">
+                Trazo
+              </button>
+            </div>
 
             <div class="button-stack">
               <button
@@ -219,15 +339,31 @@
           <article class="separator-card">
             <h2 data-i18n="steps.downloadTitle">3. Descarga</h2>
 
-            <button
-              class="button button--primary button--block"
-              id="download-element"
-              type="button"
-              disabled
-              data-i18n="actions.download"
-            >
-              Descargar PNG
-            </button>
+            <div class="separator-download-options">
+              <button
+                class="button button--primary button--block"
+                id="download-element"
+                type="button"
+                disabled
+                data-i18n="actions.download"
+              >
+                Descargar elemento PNG
+              </button>
+
+              <button
+                class="button button--secondary button--block"
+                id="download-remainder"
+                type="button"
+                disabled
+                data-i18n="actions.downloadRemainder"
+              >
+                Descargar imagen con hueco
+              </button>
+
+              <p class="separator-download-options__note" data-i18n="actions.downloadNote">
+                Guarda el elemento aislado o la imagen completa con el área seleccionada transparente.
+              </p>
+            </div>
 
             <button
               class="button button--secondary button--block separator-reset"
@@ -299,6 +435,7 @@
                 data-i18n-aria-label="preview.resultCanvasLabel"
                 aria-label="Vista previa del elemento aislado"
               ></canvas>
+              <canvas id="remainder-canvas" aria-label="Imagen completa con el área seleccionada transparente"></canvas>
               <div
                 class="separator-placeholder"
                 id="result-placeholder"
@@ -309,6 +446,114 @@
             </div>
           </article>
         </section>
+
+        <nav
+          class="separator-mobile-tools"
+          id="separator-mobile-tools"
+          aria-label="Herramientas del separador"
+          data-i18n-aria-label="mobileTools.ariaLabel"
+        >
+          <button
+            class="separator-mobile-tools__toggle"
+            id="separator-mobile-tools-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="separator-mobile-tools-actions"
+            aria-label="Abrir herramientas"
+            data-i18n-aria-label="mobileTools.open"
+          >
+            <span aria-hidden="true" id="separator-mobile-tools-symbol">+</span>
+            <span class="separator-mobile-tools__toggle-label" data-i18n="mobileTools.title">Herramientas</span>
+          </button>
+
+          <div class="separator-mobile-tools__actions" id="separator-mobile-tools-actions">
+            <button class="separator-mobile-action" id="mobile-upload" type="button">
+              <span class="separator-mobile-action__icon" aria-hidden="true">↑</span>
+              <span class="separator-mobile-action__copy">
+                <strong data-i18n="mobileTools.uploadTitle">Cargar imagen</strong>
+                <small data-i18n="mobileTools.uploadDescription">PNG, JPG o WebP</small>
+              </span>
+            </button>
+
+            <button class="separator-mobile-action separator-mobile-action--mode is-active" id="mobile-mode-points" type="button">
+              <span class="separator-mobile-action__icon" aria-hidden="true">•</span>
+              <span class="separator-mobile-action__copy">
+                <strong data-i18n="mobileTools.pointsTitle">Modo puntos</strong>
+                <small data-i18n="mobileTools.pointsDescription">Toca para añadir o arrastra un punto para corregirlo</small>
+              </span>
+            </button>
+
+            <button class="separator-mobile-action separator-mobile-action--mode" id="mobile-mode-draw" type="button">
+              <span class="separator-mobile-action__icon" aria-hidden="true">〰</span>
+              <span class="separator-mobile-action__copy">
+                <strong data-i18n="mobileTools.drawTitle">Modo trazo</strong>
+                <small data-i18n="mobileTools.drawDescription">Dibuja el contorno deslizando el dedo o lápiz</small>
+              </span>
+            </button>
+
+            <button class="separator-mobile-action" id="mobile-undo" type="button" disabled>
+              <span class="separator-mobile-action__icon" aria-hidden="true">↶</span>
+              <span class="separator-mobile-action__copy">
+                <strong data-i18n="mobileTools.undoTitle">Deshacer punto</strong>
+                <small data-i18n="mobileTools.undoDescription">Elimina el último punto marcado</small>
+              </span>
+            </button>
+
+            <button class="separator-mobile-action" id="mobile-clear" type="button" disabled>
+              <span class="separator-mobile-action__icon" aria-hidden="true">×</span>
+              <span class="separator-mobile-action__copy">
+                <strong data-i18n="mobileTools.clearTitle">Limpiar selección</strong>
+                <small data-i18n="mobileTools.clearDescription">Elimina todos los puntos</small>
+              </span>
+            </button>
+
+            <button class="separator-mobile-action separator-mobile-action--primary" id="mobile-extract" type="button" disabled>
+              <span class="separator-mobile-action__icon" aria-hidden="true">✂</span>
+              <span class="separator-mobile-action__copy">
+                <strong data-i18n="mobileTools.extractTitle">Aislar elemento</strong>
+                <small data-i18n="mobileTools.extractDescription">Genera el recorte transparente</small>
+              </span>
+            </button>
+
+            <button class="separator-mobile-action" id="mobile-download-element" type="button" disabled>
+              <span class="separator-mobile-action__icon" aria-hidden="true">↓</span>
+              <span class="separator-mobile-action__copy">
+                <strong data-i18n="mobileTools.downloadElementTitle">Descargar elemento</strong>
+                <small data-i18n="mobileTools.downloadElementDescription">Guarda solo el recorte en PNG</small>
+              </span>
+            </button>
+
+            <button class="separator-mobile-action" id="mobile-download-remainder" type="button" disabled>
+              <span class="separator-mobile-action__icon" aria-hidden="true">▣</span>
+              <span class="separator-mobile-action__copy">
+                <strong data-i18n="mobileTools.downloadRemainderTitle">Descargar imagen con hueco</strong>
+                <small data-i18n="mobileTools.downloadRemainderDescription">Guarda la imagen completa sin el área marcada</small>
+              </span>
+            </button>
+
+            <button class="separator-mobile-action" id="mobile-reset" type="button">
+              <span class="separator-mobile-action__icon" aria-hidden="true">↺</span>
+              <span class="separator-mobile-action__copy">
+                <strong data-i18n="mobileTools.resetTitle">Comenzar de nuevo</strong>
+                <small data-i18n="mobileTools.resetDescription">Limpia la imagen y la selección</small>
+              </span>
+            </button>
+          </div>
+        </nav>
+
+        <div
+          class="separator-mobile-toast"
+          id="separator-mobile-toast"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          <span class="separator-mobile-toast__icon" aria-hidden="true">✓</span>
+          <span class="separator-mobile-toast__copy">
+            <strong id="separator-mobile-toast-title">Acción completada</strong>
+            <span id="separator-mobile-toast-message">La acción se realizó correctamente.</span>
+          </span>
+        </div>
       </section>
 
       <!--
@@ -332,7 +577,7 @@
           Cómo separar un elemento con Alfora
         </h2>
         <p data-i18n="info.description">
-          La herramienta utiliza una selección manual por puntos para conservar únicamente el área marcada y exportarla como PNG transparente.
+          La herramienta permite seleccionar por puntos o trazo libre, corregir el contorno y exportar tanto el elemento aislado como la imagen original con el área recortada transparente.
         </p>
 
         <div class="trust-grid">
@@ -346,14 +591,14 @@
           <article class="trust-card">
             <h3 data-i18n="info.stepTwoTitle">2. Delimita</h3>
             <p data-i18n="info.stepTwoText">
-              Marca puntos alrededor del elemento que deseas conservar.
+              Marca puntos o dibuja el contorno y corrige cualquier punto antes de aislar.
             </p>
           </article>
 
           <article class="trust-card">
             <h3 data-i18n="info.stepThreeTitle">3. Descarga</h3>
             <p data-i18n="info.stepThreeText">
-              Aísla el área y descárgala como PNG transparente.
+              Descarga el elemento aislado o la imagen completa con el hueco transparente.
             </p>
           </article>
         </div>
@@ -375,7 +620,14 @@
         image: null,
         points: [],
         resultReady: false,
-        filename: "elemento-separado.png"
+        remainderReady: false,
+        mode: "points",
+        selectedPointIndex: -1,
+        draggingPointIndex: -1,
+        isDrawing: false,
+        lastDrawPoint: null,
+        filename: "elemento-separado.png",
+        remainderFilename: "imagen-con-hueco.png"
       };
 
       const elements = {
@@ -385,17 +637,37 @@
         clearSelection: document.getElementById("clear-selection"),
         extractElement: document.getElementById("extract-element"),
         downloadElement: document.getElementById("download-element"),
+        downloadRemainder: document.getElementById("download-remainder"),
         resetTool: document.getElementById("reset-tool"),
         selectionCanvas: document.getElementById("selection-canvas"),
         resultCanvas: document.getElementById("result-canvas"),
+        remainderCanvas: document.getElementById("remainder-canvas"),
         selectionPlaceholder: document.getElementById("selection-placeholder"),
         resultPlaceholder: document.getElementById("result-placeholder"),
         pointCounter: document.getElementById("point-counter"),
-        status: document.getElementById("status-message")
+        status: document.getElementById("status-message"),
+        modePoints: document.getElementById("mode-points"),
+        modeDraw: document.getElementById("mode-draw"),
+        mobileTools: document.getElementById("separator-mobile-tools"),
+        mobileToolsToggle: document.getElementById("separator-mobile-tools-toggle"),
+        mobileToolsSymbol: document.getElementById("separator-mobile-tools-symbol"),
+        mobileUpload: document.getElementById("mobile-upload"),
+        mobileModePoints: document.getElementById("mobile-mode-points"),
+        mobileModeDraw: document.getElementById("mobile-mode-draw"),
+        mobileUndo: document.getElementById("mobile-undo"),
+        mobileClear: document.getElementById("mobile-clear"),
+        mobileExtract: document.getElementById("mobile-extract"),
+        mobileDownloadElement: document.getElementById("mobile-download-element"),
+        mobileDownloadRemainder: document.getElementById("mobile-download-remainder"),
+        mobileReset: document.getElementById("mobile-reset"),
+        mobileToast: document.getElementById("separator-mobile-toast"),
+        mobileToastTitle: document.getElementById("separator-mobile-toast-title"),
+        mobileToastMessage: document.getElementById("separator-mobile-toast-message")
       };
 
       const selectionContext = elements.selectionCanvas.getContext("2d");
       const resultContext = elements.resultCanvas.getContext("2d");
+      const remainderContext = elements.remainderCanvas.getContext("2d");
 
       function translate(key, fallback) {
         if (
@@ -408,8 +680,37 @@
         return fallback;
       }
 
+      let mobileToastTimer = null;
+
       function setStatus(key, fallback) {
         elements.status.textContent = translate(key, fallback);
+      }
+
+      function isMobileInterface() {
+        return window.matchMedia("(max-width: 700px)").matches;
+      }
+
+      function showMobileToast(messageKey, messageFallback) {
+        if (!isMobileInterface()) {
+          return;
+        }
+
+        window.clearTimeout(mobileToastTimer);
+
+        elements.mobileToastTitle.textContent = translate(
+          "mobileToast.successTitle",
+          "Acción completada"
+        );
+        elements.mobileToastMessage.textContent = translate(
+          messageKey,
+          messageFallback
+        );
+
+        elements.mobileToast.classList.add("is-visible");
+
+        mobileToastTimer = window.setTimeout(() => {
+          elements.mobileToast.classList.remove("is-visible");
+        }, 5000);
       }
 
       function updatePointCounter() {
@@ -421,21 +722,24 @@
 
       function updateControls() {
         const hasPoints = state.points.length > 0;
-
+        const canExtract = state.points.length >= 3;
         elements.undoPoint.disabled = !hasPoints;
         elements.clearSelection.disabled = !hasPoints;
-        elements.extractElement.disabled = state.points.length < 3;
+        elements.extractElement.disabled = !canExtract;
         elements.downloadElement.disabled = !state.resultReady;
+        elements.downloadRemainder.disabled = !state.remainderReady;
+        elements.mobileUndo.disabled = !hasPoints;
+        elements.mobileClear.disabled = !hasPoints;
+        elements.mobileExtract.disabled = !canExtract;
+        elements.mobileDownloadElement.disabled = !state.resultReady;
+        elements.mobileDownloadRemainder.disabled = !state.remainderReady;
       }
 
       function clearResult() {
         state.resultReady = false;
-        resultContext.clearRect(
-          0,
-          0,
-          elements.resultCanvas.width,
-          elements.resultCanvas.height
-        );
+        state.remainderReady = false;
+        resultContext.clearRect(0,0,elements.resultCanvas.width,elements.resultCanvas.height);
+        remainderContext.clearRect(0,0,elements.remainderCanvas.width,elements.remainderCanvas.height);
         elements.resultPlaceholder.hidden = false;
         updateControls();
       }
@@ -524,13 +828,17 @@
         selectionContext.restore();
 
         state.points.forEach((point, index) => {
+          const selected = index === state.selectedPointIndex;
           selectionContext.save();
           selectionContext.beginPath();
-          selectionContext.arc(point.x, point.y, 6, 0, Math.PI * 2);
-          selectionContext.fillStyle =
-            index === 0 ? "#b7ff38" : "#66ff8f";
-          selectionContext.strokeStyle = "#07140c";
-          selectionContext.lineWidth = 2;
+          selectionContext.arc(point.x, point.y, selected ? 9 : 6, 0, Math.PI * 2);
+          selectionContext.fillStyle = selected
+            ? "#ffffff"
+            : index === 0
+              ? "#b7ff38"
+              : "#66ff8f";
+          selectionContext.strokeStyle = selected ? "#66ff8f" : "#07140c";
+          selectionContext.lineWidth = selected ? 3 : 2;
           selectionContext.fill();
           selectionContext.stroke();
           selectionContext.restore();
@@ -550,100 +858,189 @@
         };
       }
 
-      function addPoint(event) {
-        if (!state.image) {
-          return;
-        }
+      function getHitRadius() {
+        const bounds = elements.selectionCanvas.getBoundingClientRect();
+        if (!bounds.width) return 14;
+        return 16 * (elements.selectionCanvas.width / bounds.width);
+      }
 
-        event.preventDefault();
-        state.points.push(pointerToCanvas(event));
+      function findNearestPointIndex(position) {
+        const radius = getHitRadius();
+        let bestIndex = -1;
+        let bestDistance = Infinity;
+
+        state.points.forEach((point, index) => {
+          const distance = Math.hypot(point.x - position.x, point.y - position.y);
+          if (distance <= radius && distance < bestDistance) {
+            bestDistance = distance;
+            bestIndex = index;
+          }
+        });
+
+        return bestIndex;
+      }
+
+      function syncModeButtons() {
+        const pointsActive = state.mode === "points";
+        elements.modePoints.classList.toggle("is-active", pointsActive);
+        elements.modeDraw.classList.toggle("is-active", !pointsActive);
+        elements.modePoints.setAttribute("aria-pressed", String(pointsActive));
+        elements.modeDraw.setAttribute("aria-pressed", String(!pointsActive));
+        elements.mobileModePoints.classList.toggle("is-active", pointsActive);
+        elements.mobileModeDraw.classList.toggle("is-active", !pointsActive);
+      }
+
+      function setSelectionMode(mode) {
+        state.mode = mode;
+        state.draggingPointIndex = -1;
+        state.isDrawing = false;
+        state.lastDrawPoint = null;
+        syncModeButtons();
+        setStatus(
+          "messages.modeChanged",
+          mode === "points"
+            ? "Modo puntos: toca para añadir y arrastra un punto existente para corregirlo."
+            : "Modo trazo: mantén pulsado y dibuja el contorno con el dedo, mouse o lápiz."
+        );
+
+        showMobileToast(
+          mode === "points" ? "mobileToast.pointsMode" : "mobileToast.drawMode",
+          mode === "points"
+            ? "Modo puntos activado."
+            : "Modo trazo activado."
+        );
+      }
+
+      function updateSelectionAfterEdit() {
         clearResult();
         drawSelection();
         updatePointCounter();
         updateControls();
-
-        setStatus(
-          "messages.selecting",
-          "Continúa marcando el contorno del elemento."
-        );
       }
 
-      function extractElement() {
-        if (!state.image || state.points.length < 3) {
+      function beginSelection(event) {
+        if (!state.image) return;
+        event.preventDefault();
+
+        const position = pointerToCanvas(event);
+        elements.selectionCanvas.setPointerCapture?.(event.pointerId);
+
+        if (state.mode === "points") {
+          const hitIndex = findNearestPointIndex(position);
+
+          if (hitIndex >= 0) {
+            state.selectedPointIndex = hitIndex;
+            state.draggingPointIndex = hitIndex;
+            drawSelection();
+            setStatus("messages.editingPoint", "Punto seleccionado. Arrástralo para corregir el contorno.");
+            return;
+          }
+
+          state.points.push(position);
+          state.selectedPointIndex = state.points.length - 1;
+          updateSelectionAfterEdit();
+          setStatus("messages.selecting", "Continúa marcando el contorno del elemento.");
           return;
         }
 
+        state.isDrawing = true;
+        state.selectedPointIndex = -1;
+        state.lastDrawPoint = position;
+        state.points.push(position);
+        updateSelectionAfterEdit();
+      }
+
+      function moveSelection(event) {
+        if (!state.image) return;
+        const position = pointerToCanvas(event);
+
+        if (state.mode === "points" && state.draggingPointIndex >= 0) {
+          event.preventDefault();
+          state.points[state.draggingPointIndex] = position;
+          state.selectedPointIndex = state.draggingPointIndex;
+          updateSelectionAfterEdit();
+          return;
+        }
+
+        if (state.mode === "draw" && state.isDrawing) {
+          event.preventDefault();
+          const minDistance = Math.max(4, getHitRadius() * 0.7);
+          if (!state.lastDrawPoint || Math.hypot(
+            position.x - state.lastDrawPoint.x,
+            position.y - state.lastDrawPoint.y
+          ) >= minDistance) {
+            state.points.push(position);
+            state.lastDrawPoint = position;
+            updateSelectionAfterEdit();
+          }
+        }
+      }
+
+      function endSelection(event) {
+        if (state.draggingPointIndex >= 0 || state.isDrawing) {
+          event.preventDefault();
+        }
+        state.draggingPointIndex = -1;
+        state.isDrawing = false;
+        state.lastDrawPoint = null;
+        try { elements.selectionCanvas.releasePointerCapture?.(event.pointerId); } catch {}
+      }
+
+      function getImageSelectionPoints() {
+        if (!state.image) return [];
         const sourceCanvas = elements.selectionCanvas;
         const scaleX = state.image.naturalWidth / sourceCanvas.width;
         const scaleY = state.image.naturalHeight / sourceCanvas.height;
+        return state.points.map((point) => ({x: point.x * scaleX, y: point.y * scaleY}));
+      }
 
-        const imagePoints = state.points.map((point) => ({
-          x: point.x * scaleX,
-          y: point.y * scaleY
-        }));
+      function createSelectionPath(context, points, offsetX = 0, offsetY = 0) {
+        context.beginPath();
+        context.moveTo(points[0].x - offsetX, points[0].y - offsetY);
+        for (let index = 1; index < points.length; index += 1) {
+          context.lineTo(points[index].x - offsetX, points[index].y - offsetY);
+        }
+        context.closePath();
+      }
 
-        const minX = Math.max(
-          0,
-          Math.floor(Math.min(...imagePoints.map((point) => point.x)))
-        );
-        const minY = Math.max(
-          0,
-          Math.floor(Math.min(...imagePoints.map((point) => point.y)))
-        );
-        const maxX = Math.min(
-          state.image.naturalWidth,
-          Math.ceil(Math.max(...imagePoints.map((point) => point.x)))
-        );
-        const maxY = Math.min(
-          state.image.naturalHeight,
-          Math.ceil(Math.max(...imagePoints.map((point) => point.y)))
-        );
-
+      function extractElement() {
+        if (!state.image || state.points.length < 3) return;
+        const imagePoints = getImageSelectionPoints();
+        const minX = Math.max(0, Math.floor(Math.min(...imagePoints.map((point) => point.x))));
+        const minY = Math.max(0, Math.floor(Math.min(...imagePoints.map((point) => point.y))));
+        const maxX = Math.min(state.image.naturalWidth, Math.ceil(Math.max(...imagePoints.map((point) => point.x))));
+        const maxY = Math.min(state.image.naturalHeight, Math.ceil(Math.max(...imagePoints.map((point) => point.y))));
         const width = Math.max(1, maxX - minX);
         const height = Math.max(1, maxY - minY);
 
         elements.resultCanvas.width = width;
         elements.resultCanvas.height = height;
         elements.resultCanvas.style.aspectRatio = `${width} / ${height}`;
-
-        resultContext.clearRect(0, 0, width, height);
+        resultContext.clearRect(0,0,width,height);
         resultContext.save();
-        resultContext.beginPath();
-        resultContext.moveTo(
-          imagePoints[0].x - minX,
-          imagePoints[0].y - minY
-        );
-
-        for (let index = 1; index < imagePoints.length; index += 1) {
-          resultContext.lineTo(
-            imagePoints[index].x - minX,
-            imagePoints[index].y - minY
-          );
-        }
-
-        resultContext.closePath();
+        createSelectionPath(resultContext,imagePoints,minX,minY);
         resultContext.clip();
-        resultContext.drawImage(
-          state.image,
-          minX,
-          minY,
-          width,
-          height,
-          0,
-          0,
-          width,
-          height
-        );
+        resultContext.drawImage(state.image,minX,minY,width,height,0,0,width,height);
         resultContext.restore();
 
+        elements.remainderCanvas.width = state.image.naturalWidth;
+        elements.remainderCanvas.height = state.image.naturalHeight;
+        remainderContext.clearRect(0,0,elements.remainderCanvas.width,elements.remainderCanvas.height);
+        remainderContext.globalCompositeOperation = "source-over";
+        remainderContext.drawImage(state.image,0,0);
+        remainderContext.save();
+        remainderContext.globalCompositeOperation = "destination-out";
+        createSelectionPath(remainderContext,imagePoints);
+        remainderContext.fillStyle = "#000";
+        remainderContext.fill();
+        remainderContext.restore();
+        remainderContext.globalCompositeOperation = "source-over";
+
         state.resultReady = true;
+        state.remainderReady = true;
         elements.resultPlaceholder.hidden = true;
         updateControls();
-
-        setStatus(
-          "messages.extracted",
-          "Elemento aislado correctamente."
-        );
+        setStatus("messages.extracted","Elemento aislado. Ya puedes descargar el recorte o la imagen con hueco.");
       }
 
       function downloadResult() {
@@ -662,10 +1059,30 @@
           "messages.downloaded",
           "Elemento descargado como PNG."
         );
+        showMobileToast(
+          "mobileToast.downloadedElement",
+          "El elemento aislado se descargó correctamente."
+        );
+      }
+
+      function downloadRemainder() {
+        if (!state.remainderReady) return;
+        const link = document.createElement("a");
+        link.download = state.remainderFilename;
+        link.href = elements.remainderCanvas.toDataURL("image/png");
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setStatus("messages.downloadedRemainder","Imagen completa con hueco descargada como PNG.");
+        showMobileToast(
+          "mobileToast.downloadedRemainder",
+          "La imagen completa con el área transparente se descargó correctamente."
+        );
       }
 
       function clearSelection() {
         state.points = [];
+        state.selectedPointIndex = -1;
         clearResult();
         drawSelection();
         updatePointCounter();
@@ -674,13 +1091,23 @@
           "messages.cleared",
           "Selección limpiada."
         );
+        showMobileToast(
+          "mobileToast.cleared",
+          "La selección se limpió correctamente."
+        );
       }
 
       function resetTool() {
         state.image = null;
         state.points = [];
+        state.selectedPointIndex = -1;
+        state.draggingPointIndex = -1;
+        state.isDrawing = false;
+        state.lastDrawPoint = null;
         state.resultReady = false;
+        state.remainderReady = false;
         state.filename = "elemento-separado.png";
+        state.remainderFilename = "imagen-con-hueco.png";
 
         elements.imageInput.value = "";
         selectionContext.clearRect(
@@ -695,6 +1122,7 @@
           elements.resultCanvas.width,
           elements.resultCanvas.height
         );
+        remainderContext.clearRect(0,0,elements.remainderCanvas.width,elements.remainderCanvas.height);
 
         elements.selectionPlaceholder.hidden = false;
         elements.resultPlaceholder.hidden = false;
@@ -702,6 +1130,10 @@
         updatePointCounter();
         updateControls();
         setStatus("messages.ready", "Carga una imagen para comenzar.");
+        showMobileToast(
+          "mobileToast.reset",
+          "La herramienta se restableció correctamente."
+        );
       }
 
       async function handleImage(file) {
@@ -714,9 +1146,14 @@
 
           state.image = image;
           state.points = [];
+          state.selectedPointIndex = -1;
+          state.draggingPointIndex = -1;
+          state.isDrawing = false;
+          state.lastDrawPoint = null;
           state.resultReady = false;
-          state.filename =
-            `${file.name.replace(/\.[^/.]+$/, "")}-elemento.png`;
+          const baseFilename = file.name.replace(/\.[^/.]+$/, "");
+          state.filename = `${baseFilename}-elemento.png`;
+          state.remainderFilename = `${baseFilename}-con-hueco.png`;
 
           fitCanvasToImage(image);
           drawSelection();
@@ -730,6 +1167,10 @@
           setStatus(
             "messages.loaded",
             "Imagen cargada. Marca el contorno del elemento."
+          );
+          showMobileToast(
+            "mobileToast.loaded",
+            "La imagen se cargó correctamente. Ya puedes comenzar a seleccionar."
           );
         } catch (error) {
           setStatus(
@@ -770,29 +1211,104 @@
         handleImage(getDroppedImage(event));
       });
 
-      elements.selectionCanvas.addEventListener("pointerdown", addPoint);
+      elements.selectionCanvas.addEventListener("pointerdown", beginSelection);
+      elements.selectionCanvas.addEventListener("pointermove", moveSelection);
+      elements.selectionCanvas.addEventListener("pointerup", endSelection);
+      elements.selectionCanvas.addEventListener("pointercancel", endSelection);
 
       elements.undoPoint.addEventListener("click", () => {
         state.points.pop();
+        state.selectedPointIndex = Math.min(state.selectedPointIndex, state.points.length - 1);
         clearResult();
         drawSelection();
         updatePointCounter();
         updateControls();
+        showMobileToast(
+          "mobileToast.undone",
+          "El último punto se eliminó correctamente."
+        );
+      });
+
+      elements.modePoints.addEventListener("click", () => setSelectionMode("points"));
+      elements.modeDraw.addEventListener("click", () => setSelectionMode("draw"));
+      elements.mobileModePoints.addEventListener("click", () => {
+        setSelectionMode("points");
+        setMobileToolsOpen(false);
+      });
+      elements.mobileModeDraw.addEventListener("click", () => {
+        setSelectionMode("draw");
+        setMobileToolsOpen(false);
       });
 
       elements.clearSelection.addEventListener("click", clearSelection);
       elements.extractElement.addEventListener("click", extractElement);
       elements.downloadElement.addEventListener("click", downloadResult);
+      elements.downloadRemainder.addEventListener("click", downloadRemainder);
       elements.resetTool.addEventListener("click", resetTool);
+
+      function setMobileToolsOpen(open) {
+        elements.mobileTools.classList.toggle("is-open", open);
+        elements.mobileToolsToggle.setAttribute("aria-expanded", String(open));
+        elements.mobileToolsToggle.setAttribute(
+          "aria-label",
+          translate(
+            open ? "mobileTools.close" : "mobileTools.open",
+            open ? "Cerrar herramientas" : "Abrir herramientas"
+          )
+        );
+        elements.mobileToolsSymbol.textContent = open ? "×" : "+";
+      }
+
+      elements.mobileToolsToggle.addEventListener("click", () => {
+        setMobileToolsOpen(!elements.mobileTools.classList.contains("is-open"));
+      });
+      elements.mobileUpload.addEventListener("click", () => {
+        setMobileToolsOpen(false);
+        elements.imageInput.click();
+      });
+      elements.mobileUndo.addEventListener("click", () => {
+        setMobileToolsOpen(false);
+        elements.undoPoint.click();
+      });
+      elements.mobileClear.addEventListener("click", () => {
+        setMobileToolsOpen(false);
+        clearSelection();
+      });
+      elements.mobileExtract.addEventListener("click", () => {
+        setMobileToolsOpen(false);
+        extractElement();
+      });
+      elements.mobileDownloadElement.addEventListener("click", () => {
+        setMobileToolsOpen(false);
+        downloadResult();
+      });
+      elements.mobileDownloadRemainder.addEventListener("click", () => {
+        setMobileToolsOpen(false);
+        downloadRemainder();
+      });
+      elements.mobileReset.addEventListener("click", () => {
+        setMobileToolsOpen(false);
+        resetTool();
+      });
 
       document.addEventListener("creativeLab:languageChanged", () => {
         updatePointCounter();
+        setMobileToolsOpen(elements.mobileTools.classList.contains("is-open"));
 
         if (!state.image) {
           setStatus("messages.ready", "Carga una imagen para comenzar.");
         }
+
+        if (elements.mobileToast.classList.contains("is-visible")) {
+          elements.mobileToastTitle.textContent = translate(
+            "mobileToast.successTitle",
+            "Acción completada"
+          );
+        }
       });
 
+      setMobileToolsOpen(false);
+      syncModeButtons();
       updatePointCounter();
       updateControls();
     })();

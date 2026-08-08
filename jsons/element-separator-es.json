@@ -1,57 +1,93 @@
 {
   "seo": {
-    "title": "Separador de elementos de imagen | Creative Lab",
-    "description": "Selecciona manualmente un elemento, aíslalo con transparencia y descárgalo como PNG."
+    "title": "Separar elementos de una imagen online gratis | Alfora",
+    "description": "Separa y recorta elementos de una imagen online gratis. Selecciona por puntos o dibuja el contorno, ajusta la selección y descarga el objeto aislado o la imagen con el área transparente."
   },
   "product": {
-    "eyebrow": "Extracción manual rápida",
+    "eyebrow": "Extracción manual precisa",
     "title": "Separador de elementos",
-    "description": "Marca el contorno de un elemento, aíslalo sobre fondo transparente y descárgalo como PNG."
+    "description": "Selecciona por puntos o dibuja el contorno de un elemento, corrige la selección y descarga el recorte o la imagen completa con el área transparente."
   },
   "steps": {
     "uploadTitle": "1. Carga una imagen",
     "uploadButton": "Seleccionar imagen",
     "uploadHelp": "PNG, JPG o WebP",
     "selectTitle": "2. Marca el elemento",
-    "selectHelp": "Haz clic alrededor del contorno. Usa varios puntos para obtener una selección más precisa.",
+    "selectHelp": "Selecciona puntos alrededor del contorno o utiliza el modo trazo para dibujarlo directamente.",
     "downloadTitle": "3. Descarga"
   },
   "actions": {
+    "upload": "Cargar imagen",
     "undoPoint": "Deshacer último punto",
     "clearSelection": "Limpiar selección",
     "extract": "Aislar elemento",
-    "download": "Descargar PNG",
-    "reset": "Comenzar de nuevo"
+    "download": "Descargar elemento PNG",
+    "downloadRemainder": "Descargar imagen con hueco",
+    "reset": "Comenzar de nuevo",
+    "pointMode": "Modo puntos",
+    "drawMode": "Modo trazo"
+  },
+  "mobileTools": {
+    "open": "Abrir herramientas",
+    "close": "Cerrar herramientas",
+    "title": "Herramientas",
+    "uploadDescription": "Selecciona una imagen PNG, JPG o WebP",
+    "pointModeDescription": "Marca el contorno colocando puntos",
+    "drawModeDescription": "Dibuja el contorno con el dedo, mouse o lápiz",
+    "undoDescription": "Elimina el último punto marcado",
+    "clearDescription": "Elimina toda la selección",
+    "extractDescription": "Genera el elemento aislado",
+    "downloadDescription": "Guarda únicamente el elemento recortado",
+    "downloadRemainderDescription": "Guarda la imagen completa sin el área seleccionada",
+    "resetDescription": "Limpia la imagen y comienza nuevamente"
   },
   "preview": {
     "originalTitle": "Imagen y selección",
-    "originalHint": "Haz clic sobre la imagen para crear el contorno.",
+    "originalHint": "Marca puntos o dibuja sobre la imagen para crear el contorno.",
     "originalEmpty": "La imagen aparecerá aquí.",
     "resultTitle": "Elemento aislado",
     "resultHint": "El resultado tendrá fondo transparente.",
     "resultEmpty": "El elemento aislado aparecerá aquí.",
     "points": "{count} puntos",
     "selectionCanvasLabel": "Área de selección del elemento",
-    "resultCanvasLabel": "Vista previa del elemento aislado"
+    "resultCanvasLabel": "Vista previa del elemento aislado",
+    "remainderCanvasLabel": "Imagen completa con el área seleccionada transparente"
   },
   "messages": {
     "ready": "Carga una imagen para comenzar.",
-    "loaded": "Imagen cargada. Marca el contorno del elemento.",
-    "selecting": "Continúa marcando el contorno del elemento.",
+    "loaded": "Imagen cargada. Marca o dibuja el contorno del elemento.",
+    "selecting": "Continúa delimitando el contorno del elemento.",
+    "pointMode": "Modo puntos activado.",
+    "drawMode": "Modo trazo activado.",
+    "pointMoved": "Punto ajustado correctamente.",
+    "undone": "Último punto eliminado.",
     "extracted": "Elemento aislado correctamente.",
     "downloaded": "Elemento descargado como PNG.",
+    "downloadedRemainder": "Imagen con hueco descargada como PNG.",
     "cleared": "Selección limpiada.",
+    "reset": "Herramienta restablecida.",
     "error": "No se pudo cargar la imagen."
   },
+  "toast": {
+    "loaded": "Imagen cargada correctamente.",
+    "pointMode": "Modo puntos activado.",
+    "drawMode": "Modo trazo activado.",
+    "undone": "Último punto eliminado.",
+    "cleared": "Selección limpiada.",
+    "extracted": "Elemento aislado correctamente.",
+    "downloaded": "Elemento descargado correctamente.",
+    "downloadedRemainder": "Imagen con hueco descargada correctamente.",
+    "reset": "Herramienta restablecida correctamente."
+  },
   "info": {
-    "eyebrow": "Selección simple y transparente",
-    "title": "Cómo separar un elemento con Creative Lab",
-    "description": "La herramienta utiliza una selección manual por puntos para conservar únicamente el área marcada y exportarla como PNG transparente.",
+    "eyebrow": "Selección flexible y transparente",
+    "title": "Cómo separar un elemento con Alfora",
+    "description": "Selecciona manualmente un elemento mediante puntos o trazos, ajusta el contorno y genera dos resultados: el elemento aislado con transparencia y la imagen completa con el área seleccionada eliminada.",
     "stepOneTitle": "1. Carga",
     "stepOneText": "Selecciona una imagen PNG, JPG o WebP.",
     "stepTwoTitle": "2. Delimita",
-    "stepTwoText": "Marca puntos alrededor del elemento que deseas conservar.",
+    "stepTwoText": "Marca puntos o dibuja el contorno del elemento y ajusta la selección cuando lo necesites.",
     "stepThreeTitle": "3. Descarga",
-    "stepThreeText": "Aísla el área y descárgala como PNG transparente."
+    "stepThreeText": "Descarga el elemento aislado o la imagen completa con el área seleccionada transparente."
   }
 }
