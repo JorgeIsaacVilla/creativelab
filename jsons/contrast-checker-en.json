@@ -1,6 +1,6 @@
 {
   "seo": {
-    "title": "Color Contrast Checker | Creative Lab",
+    "title": "Color Contrast Checker | Alfora",
     "description": "Check text and background contrast according to WCAG.",
     "htmlLang": "en"
   },
@@ -42,7 +42,7 @@
   },
   "info": {
     "eyebrow": "Readability for everyone",
-    "title": "How to check contrast with Creative Lab",
+    "title": "How to check contrast with Alfora",
     "description": "Choose the colors, review the contrast ratio and confirm whether the combination meets AA and AAA levels.",
     "stepOneTitle": "1. Select",
     "stepOneText": "Choose text and background colors.",

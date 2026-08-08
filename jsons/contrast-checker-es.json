@@ -1,6 +1,6 @@
 {
   "seo": {
-    "title": "Verificador de contraste de colores | Creative Lab",
+    "title": "Verificador de contraste de colores | Alfora",
     "description": "Comprueba el contraste entre texto y fondo según WCAG.",
     "htmlLang": "es"
   },
@@ -42,7 +42,7 @@
   },
   "info": {
     "eyebrow": "Legibilidad para todos",
-    "title": "Cómo comprobar el contraste con Creative Lab",
+    "title": "Cómo comprobar el contraste con Alfora",
     "description": "Elige los colores, revisa la relación de contraste y confirma si la combinación cumple los niveles AA y AAA.",
     "stepOneTitle": "1. Selecciona",
     "stepOneText": "Elige el color del texto y del fondo.",

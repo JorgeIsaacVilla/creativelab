@@ -18,35 +18,60 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Verificador de contraste de colores | Alfora</title>
+  <title>Verificador de contraste WCAG online gratis | Alfora</title>
 
-  <meta
-    name="description"
-    content="Comprueba el contraste entre texto y fondo según WCAG. Evalúa AA y AAA, previsualiza textos y encuentra combinaciones accesibles."
-  >
+<meta
+  name="description"
+  content="Verifica el contraste de colores online gratis según WCAG. Comprueba relaciones de contraste, niveles AA y AAA y encuentra combinaciones accesibles para texto y fondo."
+>
 
-  <meta
-    name="robots"
-    content="index, follow, max-image-preview:large, max-snippet:-1"
-  >
+<meta
+  name="robots"
+  content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+>
 
   <meta name="author" content="Alfora">
   <meta name="theme-color" content="#08140d">
 
-  <link rel="canonical" href="https://alfora.art/contrast-checker.html">
-  <link rel="alternate" hreflang="es" href="https://alfora.art/contrast-checker.html">
-  <link rel="alternate" hreflang="en" href="https://alfora.art/en/contrast-checker.html">
-  <link rel="alternate" hreflang="x-default" href="https://alfora.art/contrast-checker.html">
+  <link rel="canonical" href="https://alfora.art/contrast-checker">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Alfora">
-  <meta property="og:title" content="Verificador de contraste de colores">
-  <meta
-    property="og:description"
-    content="Evalúa el contraste entre texto y fondo según WCAG AA y AAA."
-  >
-  <meta property="og:url" content="https://alfora.art/contrast-checker.html">
-  <meta property="og:image" content="https://alfora.art/src/contrast-checker-cover.webp">
+<meta
+  property="og:title"
+  content="Verificador de contraste WCAG online gratis | Alfora"
+>
+
+<meta
+  property="og:description"
+  content="Comprueba el contraste entre texto y fondo, verifica WCAG AA y AAA y encuentra combinaciones de colores accesibles."
+>
+
+<meta
+  property="og:url"
+  content="https://alfora.art/contrast-checker"
+>
+
+<meta
+  property="og:image"
+  content="https://alfora.art/src/social-cover.webp"
+>
+
+<meta
+  property="og:image:secure_url"
+  content="https://alfora.art/src/social-cover.webp"
+>
+
+<meta property="og:image:type" content="image/webp">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<meta
+  property="og:image:alt"
+  content="Alfora - Verificador de contraste WCAG online"
+>
+
+<meta property="og:locale" content="es_ES">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Verificador de contraste | Alfora">
@@ -62,27 +87,27 @@
   <script src="./scripts/language.js" defer></script>
   <script src="./scripts/shared.js" defer></script>
 
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Alfora - Verificador de contraste",
-    "applicationCategory": "DesignApplication",
-    "operatingSystem": "Web",
-    "url": "https://alfora.art/contrast-checker.html",
-    "description": "Herramienta online para comprobar contraste de colores según WCAG.",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Alfora",
-      "url": "https://alfora.art/"
-    }
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Verificador de contraste WCAG online",
+  "applicationCategory": "DesignApplication",
+  "operatingSystem": "Web",
+  "url": "https://alfora.art/contrast-checker",
+  "description": "Herramienta online gratuita para comprobar relaciones de contraste de colores, verificar los niveles WCAG AA y AAA y encontrar combinaciones accesibles para texto y fondo.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Alfora",
+    "url": "https://alfora.art/"
   }
-  </script>
+}
+</script>
 </head>
 
 <body data-page="contrast-checker">
@@ -816,7 +841,7 @@
         const link = document.createElement("a");
 
         link.href = url;
-        link.download = "creative-lab-contrast-result.json";
+        link.download = "alfora-contrast-result.json";
         link.click();
 
         setTimeout(() => URL.revokeObjectURL(url), 1000);
