@@ -17,12 +17,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Calculadora de relación de aspecto | Alfora</title>
+  <title>Calculadora de relación de aspecto online gratis | Alfora</title>
 
-  <meta
-    name="description"
-    content="Calcula relaciones de aspecto, dimensiones proporcionales y escalas para imágenes, video, pantallas y diseño."
-  >
+<meta
+  name="description"
+  content="Calcula relaciones de aspecto online gratis. Obtén proporciones como 16:9, 4:3 o 9:16 y calcula dimensiones equivalentes para imágenes, video y pantallas."
+>
 
   <meta
     name="robots"
@@ -32,31 +32,447 @@
   <meta name="author" content="Alfora">
   <meta name="theme-color" content="#08140d">
 
-  <link rel="canonical" href="https://alfora.art/aspect-ratio-calculator.html">
-  <link rel="alternate" hreflang="es" href="https://alfora.art/aspect-ratio-calculator.html">
-  <link rel="alternate" hreflang="en" href="https://alfora.art/en/aspect-ratio-calculator.html">
-  <link rel="alternate" hreflang="x-default" href="https://alfora.art/aspect-ratio-calculator.html">
+  <link rel="canonical" href="https://alfora.art/aspect-ratio-calculator">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Alfora">
-  <meta property="og:title" content="Calculadora de relación de aspecto">
-  <meta
-    property="og:description"
-    content="Calcula proporciones y dimensiones equivalentes para imágenes, video y pantallas."
-  >
-  <meta property="og:url" content="https://alfora.art/aspect-ratio-calculator.html">
-  <meta property="og:image" content="https://alfora.art/src/aspect-ratio-cover.webp">
+<meta
+  property="og:title"
+  content="Calculadora de relación de aspecto online gratis | Alfora"
+>
 
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Relación de aspecto | Alfora">
-  <meta
-    name="twitter:description"
-    content="Calcula dimensiones proporcionales y relaciones de aspecto."
-  >
-  <meta name="twitter:image" content="https://alfora.art/src/aspect-ratio-cover.webp">
+<meta
+  property="og:description"
+  content="Calcula proporciones como 16:9, 4:3 o 9:16 y genera dimensiones equivalentes para imágenes, video y pantallas."
+>
+
+<meta
+  property="og:url"
+  content="https://alfora.art/aspect-ratio-calculator"
+>
+
+<meta
+  property="og:image"
+  content="https://alfora.art/src/social-cover.webp"
+>
+
+<meta
+  property="og:image:secure_url"
+  content="https://alfora.art/src/social-cover.webp"
+>
+
+<meta property="og:image:type" content="image/webp">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<meta
+  property="og:image:alt"
+  content="Alfora - Calculadora de relación de aspecto online"
+>
+
+<meta property="og:locale" content="es_ES">
+
+<meta name="twitter:card" content="summary_large_image">
+
+<meta
+  name="twitter:title"
+  content="Calculadora de relación de aspecto online gratis | Alfora"
+>
+
+<meta
+  name="twitter:description"
+  content="Calcula relaciones 16:9, 4:3, 9:16 y dimensiones proporcionales para imágenes, video y pantallas."
+>
+
+<meta
+  name="twitter:image"
+  content="https://alfora.art/src/social-cover.webp"
+>
+
+<meta
+  name="twitter:image:alt"
+  content="Alfora - Calculadora de relación de aspecto online"
+>
 
   <link rel="icon" href="./src/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="./styles/main.css">
+
+  <style>
+  /* ==========================================================
+     CALCULADORA DE RELACIÓN DE ASPECTO
+     ========================================================== */
+
+  .aspect-main-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
+    gap: var(--space-6);
+  }
+
+  .aspect-input-panel,
+  .aspect-result-card {
+    min-width: 0;
+    padding: var(--space-6);
+    background: rgba(102, 255, 143, 0.025);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+  }
+
+  .aspect-result-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .aspect-result-card p {
+    margin: 0 0 var(--space-3);
+    color: var(--color-text-muted);
+  }
+
+  .aspect-result-card strong {
+    color: var(--color-primary);
+    font-family: var(--font-family-mono, monospace);
+    font-size: clamp(3rem, 9vw, 6rem);
+    line-height: 1;
+    overflow-wrap: anywhere;
+  }
+
+  .aspect-result-card span {
+    margin-top: var(--space-4);
+    font-weight: 900;
+  }
+
+  .aspect-result-card small {
+    margin-top: var(--space-2);
+    color: var(--color-text-muted);
+    font-family: var(--font-family-mono, monospace);
+  }
+
+  .aspect-preview-section,
+  .aspect-presets-section,
+  .aspect-scale-section,
+  .aspect-scale-table-section,
+  .aspect-code-panel {
+    min-width: 0;
+    padding: var(--space-6);
+    background: rgba(102, 255, 143, 0.02);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+  }
+
+  .aspect-preview-section__heading,
+  .aspect-presets-section__heading,
+  .aspect-scale-section__heading,
+  .aspect-scale-table-section__heading,
+  .aspect-code-panel__heading {
+    margin-bottom: var(--space-5);
+  }
+
+  .aspect-preview-section__heading p,
+  .aspect-presets-section__heading p,
+  .aspect-scale-section__heading p,
+  .aspect-scale-table-section__heading p,
+  .aspect-code-panel__heading p {
+    margin: var(--space-2) 0 0;
+    color: var(--color-text-soft);
+  }
+
+  .aspect-preview-stage {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    min-width: 0;
+    min-height: 440px;
+    padding: var(--space-5);
+    overflow: hidden;
+    background:
+      radial-gradient(
+        circle at center,
+        rgba(102, 255, 143, 0.07),
+        transparent 60%
+      ),
+      rgba(255, 255, 255, 0.015);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+  }
+
+  .aspect-preview-frame {
+    display: grid;
+    place-items: center;
+    max-width: 100%;
+    max-height: 380px;
+    background:
+      linear-gradient(
+        135deg,
+        rgba(102, 255, 143, 0.18),
+        rgba(102, 255, 143, 0.04)
+      ),
+      rgba(7, 17, 10, 0.88);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-lg);
+    box-shadow:
+      0 0 0 1px rgba(102, 255, 143, 0.12),
+      0 18px 50px rgba(0, 0, 0, 0.35);
+    transition:
+      width var(--transition-normal),
+      height var(--transition-normal);
+  }
+
+  .aspect-preview-frame span {
+    color: var(--color-primary);
+    font-family: var(--font-family-mono, monospace);
+    font-size: clamp(1.4rem, 4vw, 2.8rem);
+    font-weight: 900;
+  }
+
+  .aspect-presets-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+
+  .aspect-presets-grid button {
+    min-width: 0;
+    min-height: 120px;
+    padding: var(--space-4);
+    color: var(--color-text);
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    text-align: left;
+    transition:
+      transform var(--transition-normal),
+      border-color var(--transition-normal),
+      background var(--transition-normal);
+  }
+
+  .aspect-presets-grid button:hover,
+  .aspect-presets-grid button.is-active {
+    background: rgba(102, 255, 143, 0.08);
+    border-color: rgba(102, 255, 143, 0.38);
+    transform: translateY(-3px);
+  }
+
+  .aspect-presets-grid strong,
+  .aspect-presets-grid span {
+    display: block;
+  }
+
+  .aspect-presets-grid strong {
+    color: var(--color-primary);
+    font-family: var(--font-family-mono, monospace);
+    font-size: var(--font-size-xl);
+  }
+
+  .aspect-presets-grid span {
+    margin-top: var(--space-2);
+    color: var(--color-text-muted);
+  }
+
+  .aspect-scale-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-5);
+  }
+
+  .aspect-scale-card {
+    min-width: 0;
+    padding: var(--space-5);
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .aspect-scale-result {
+    margin-top: var(--space-4);
+    padding: var(--space-4);
+    background: rgba(102, 255, 143, 0.055);
+    border: 1px solid rgba(102, 255, 143, 0.18);
+    border-radius: var(--radius-md);
+  }
+
+  .aspect-scale-result span,
+  .aspect-scale-result strong {
+    display: block;
+  }
+
+  .aspect-scale-result span {
+    color: var(--color-text-muted);
+  }
+
+  .aspect-scale-result strong {
+    margin-top: var(--space-1);
+    color: var(--color-primary);
+    font-family: var(--font-family-mono, monospace);
+    font-size: var(--font-size-xl);
+    overflow-wrap: anywhere;
+  }
+
+  .aspect-table-wrapper {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .aspect-scale-table {
+    width: 100%;
+    min-width: 620px;
+    border-collapse: collapse;
+  }
+
+  .aspect-scale-table th,
+  .aspect-scale-table td {
+    padding: var(--space-4);
+    border-bottom: 1px solid var(--color-border);
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  .aspect-scale-table th {
+    color: var(--color-primary);
+    font-size: var(--font-size-sm);
+  }
+
+  .aspect-scale-table td {
+    color: var(--color-text-soft);
+    font-family: var(--font-family-mono, monospace);
+  }
+
+  .aspect-code-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--space-4);
+    align-items: center;
+    min-width: 0;
+    padding: var(--space-5);
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .aspect-code-card code {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    color: var(--color-primary);
+    font-family: var(--font-family-mono, monospace);
+    line-height: 1.7;
+  }
+
+
+  /* ==========================================================
+     TABLET
+     ========================================================== */
+
+  @media (max-width: 920px) {
+    .aspect-main-grid,
+    .aspect-scale-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .aspect-presets-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .aspect-preview-stage {
+      min-height: 380px;
+    }
+  }
+
+
+  /* ==========================================================
+     MÓVIL
+     ========================================================== */
+
+  @media (max-width: 600px) {
+    .aspect-input-panel,
+    .aspect-result-card,
+    .aspect-preview-section,
+    .aspect-presets-section,
+    .aspect-scale-section,
+    .aspect-scale-table-section,
+    .aspect-code-panel {
+      padding: var(--space-4);
+      border-radius: var(--radius-lg);
+    }
+
+    .aspect-main-grid,
+    .aspect-scale-grid {
+      gap: var(--space-4);
+    }
+
+    .aspect-result-card strong {
+      font-size: clamp(2.8rem, 18vw, 4.5rem);
+    }
+
+    .aspect-presets-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-3);
+    }
+
+    .aspect-presets-grid button {
+      min-height: 96px;
+      padding: var(--space-3);
+    }
+
+    .aspect-presets-grid strong {
+      font-size: 1.35rem;
+    }
+
+  .aspect-preview-stage {
+    width: 100%;
+    min-width: 0;
+    min-height: 260px;
+    padding: 12px;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+.aspect-preview-frame {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+    .aspect-scale-card {
+      padding: var(--space-4);
+    }
+
+    .aspect-code-card {
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--space-2);
+      padding: var(--space-4);
+    }
+
+    .aspect-scale-table th,
+    .aspect-scale-table td {
+      padding: var(--space-3);
+    }
+  }
+
+
+  /* ==========================================================
+     MÓVIL PEQUEÑO
+     ========================================================== */
+
+  @media (max-width: 390px) {
+    .aspect-presets-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .aspect-presets-grid button {
+      min-height: 84px;
+    }
+
+    .aspect-code-card {
+      grid-template-columns: 1fr;
+    }
+
+    .aspect-code-card .color-copy-button {
+      width: 100%;
+    }
+  }
+</style>
 
   <script src="./scripts/language.js" defer></script>
   <script src="./scripts/shared.js" defer></script>
@@ -65,11 +481,11 @@
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Alfora - Calculadora de relación de aspecto",
+    "name": "Calculadora de relación de aspecto online",
     "applicationCategory": "DesignApplication",
     "operatingSystem": "Web",
-    "url": "https://alfora.art/aspect-ratio-calculator.html",
-    "description": "Calculadora online de relaciones de aspecto y dimensiones proporcionales.",
+    "url": "https://alfora.art/aspect-ratio-calculator",
+    "description": "Calculadora online gratuita para obtener relaciones de aspecto y dimensiones proporcionales para imágenes, video y pantallas.",
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -569,23 +985,36 @@
         }
       }
 
-      function updatePreview(width, height, ratio) {
-        const maximumWidth = 720;
-        const maximumHeight = 380;
-        const proportion = width / height;
+function updatePreview(width, height, ratio) {
+  const previewStage = aspectFrame.parentElement;
+  const proportion = width / height;
 
-        let previewWidth = maximumWidth;
-        let previewHeight = previewWidth / proportion;
+  const availableWidth = Math.max(
+    1,
+    previewStage.clientWidth - 24
+  );
 
-        if (previewHeight > maximumHeight) {
-          previewHeight = maximumHeight;
-          previewWidth = previewHeight * proportion;
-        }
+  const maximumWidth = Math.min(720, availableWidth);
+  const maximumHeight = window.innerWidth <= 600 ? 340 : 380;
 
-        aspectFrame.style.width = `${previewWidth}px`;
-        aspectFrame.style.height = `${previewHeight}px`;
-        frameLabel.textContent = `${ratio.width}:${ratio.height}`;
-      }
+  let previewWidth = maximumWidth;
+  let previewHeight = previewWidth / proportion;
+
+  if (previewHeight > maximumHeight) {
+    previewHeight = maximumHeight;
+    previewWidth = previewHeight * proportion;
+  }
+
+  if (previewWidth > availableWidth) {
+    previewWidth = availableWidth;
+    previewHeight = previewWidth / proportion;
+  }
+
+  aspectFrame.style.width = `${previewWidth}px`;
+  aspectFrame.style.height = `${previewHeight}px`;
+
+  frameLabel.textContent = `${ratio.width}:${ratio.height}`;
+}
 
       function updateScaleResults(width, height) {
         const newWidth = Math.max(1, Number(targetWidth.value) || 1);
@@ -734,7 +1163,7 @@
       );
 
       downloadButton.addEventListener("click", downloadResult);
-
+      window.addEventListener("resize", updateCalculator);
       updateCalculator();
     })();
   </script>
