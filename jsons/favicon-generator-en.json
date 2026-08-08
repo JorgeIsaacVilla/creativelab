@@ -1,11 +1,9 @@
 {
   "seo": {
-    "title": "Online Favicon Generator | Creative Lab",
-    "description": "Create PNG and ICO favicons from an image directly in your browser with Creative Lab. Generate web sizes and download the complete result.",
-    "ogTitle": "Online Favicon Generator",
-    "ogDescription": "Create favicons for your website directly in the browser.",
-    "twitterTitle": "Favicon Generator | Creative Lab",
-    "twitterDescription": "Generate PNG and ICO favicons from an image in your browser.",
+    "title": "Free Online Favicon Generator PNG & ICO | Alfora",
+    "description": "Create PNG and ICO favicons online for free from JPG, PNG, WebP or SVG images. Choose sizes, adjust the image and download ready-to-use favicons for your website.",
+    "ogTitle": "Free Online Favicon Generator PNG & ICO | Alfora",
+    "ogDescription": "Create PNG and ICO favicons from JPG, PNG, WebP or SVG and generate multiple sizes ready for your website.",
     "htmlLang": "en"
   },
   "product": {
@@ -33,6 +31,16 @@
     "downloadPng": "Download PNG",
     "downloadIco": "Download ICO"
   },
+  "mobileTools": {
+    "open": "Open tools",
+    "close": "Close tools",
+    "upload": "Upload image",
+    "uploadDescription": "PNG, JPG, WebP or SVG",
+    "generateDescription": "Create all selected favicon sizes",
+    "pngDescription": "Download the generated PNG sizes",
+    "icoDescription": "Create a compatible favicon.ico file",
+    "resetDescription": "Clear the tool and start again"
+  },
   "messages": {
     "invalidFormat": "Select a JPG, PNG, WebP or SVG image.",
     "fileTooLarge": "The image exceeds the 15 MB limit.",
@@ -48,9 +56,20 @@
     "icoCompleted": "ICO file created and downloaded.",
     "icoSizeError": "Select at least one size of 256 pixels or less."
   },
+  "toast": {
+    "title": "Action completed",
+    "loaded": "Image loaded successfully.",
+    "generated": "Favicons generated successfully.",
+    "pngDownloaded": "PNG download started successfully.",
+    "icoDownloaded": "ICO file downloaded successfully.",
+    "reset": "Tool reset successfully.",
+    "fitUpdated": "Image fit updated successfully.",
+    "backgroundUpdated": "Background settings updated successfully.",
+    "sizesUpdated": "Favicon sizes updated successfully."
+  },
   "info": {
     "eyebrow": "A small detail that identifies your site",
-    "title": "How to create a favicon with Creative Lab",
+    "title": "How to create a favicon with Alfora",
     "description": "Select an image, adjust the framing, generate multiple sizes and download the favicon as PNG or ICO.",
     "stepOneTitle": "1. Upload",
     "stepOneText": "Select a logo or image from your device.",

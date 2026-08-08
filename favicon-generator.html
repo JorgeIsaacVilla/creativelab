@@ -16,25 +16,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Generador de favicon online | Alfora</title>
+  <title>Generador de favicon online gratis PNG e ICO | Alfora</title>
 
-  <meta
-    name="description"
-    content="Crea favicons PNG e ICO desde una imagen directamente en tu navegador con Alfora. Genera tamaños para web y descarga un paquete completo."
-  >
+<meta
+  name="description"
+  content="Crea favicons online gratis en PNG e ICO desde imágenes JPG, PNG, WebP o SVG. Elige tamaños, ajusta el encuadre y descarga favicons listos para tu sitio web."
+>
 
-  <meta
-    name="robots"
-    content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
-  >
+<meta
+  name="robots"
+  content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+>
 
+<meta property="og:image:type" content="image/webp">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
   <meta name="author" content="Alfora">
   <meta name="theme-color" content="#08140d">
 
-  <link rel="canonical" href="https://alfora.art/favicon-generator.html">
-  <link rel="alternate" hreflang="es" href="https://alfora.art/favicon-generator.html">
-  <link rel="alternate" hreflang="en" href="https://alfora.art/en/favicon-generator.html">
-  <link rel="alternate" hreflang="x-default" href="https://alfora.art/favicon-generator.html">
+  <link rel="canonical" href="https://alfora.art/favicon-generator">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Alfora">
@@ -43,8 +43,19 @@
     property="og:description"
     content="Crea favicons para tu sitio web directamente desde el navegador."
   >
+  <meta
+  property="og:image:secure_url"
+  content="https://alfora.art/src/social-cover.webp"
+>
   <meta property="og:url" content="https://alfora.art/favicon-generator.html">
-  <meta property="og:image" content="https://alfora.art/src/favicon-generator-cover.webp">
+  <meta
+  property="og:image"
+  content="https://alfora.art/src/social-cover.webp"
+>
+<meta
+  property="og:image:alt"
+  content="Alfora - Generador de favicon online"
+>
   <meta property="og:locale" content="es_ES">
   <meta property="og:locale:alternate" content="en_US">
 
@@ -59,30 +70,681 @@
   <link rel="icon" href="./src/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="./styles/main.css">
 
+  <style>
+    /* ======================================================================
+       HERRAMIENTA: GENERADOR DE FAVICON
+       Estilos propios de la herramienta.
+       ====================================================================== */
+
+    .favicon-color-control {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    .favicon-color-control input[type="color"] {
+      width: 64px;
+      min-width: 64px;
+      height: 48px;
+      padding: 4px;
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+    }
+
+    .transparent-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      color: var(--color-text-soft);
+      cursor: pointer;
+      font-size: var(--font-size-sm);
+      font-weight: 800;
+    }
+
+    .favicon-preview-panel {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-6);
+    }
+
+    .favicon-preview-panel > div {
+      min-width: 0;
+    }
+
+    .favicon-preview-panel h3 {
+      margin-bottom: var(--space-3);
+      font-size: var(--font-size-lg);
+    }
+
+    .favicon-source-preview,
+    .browser-tab-preview {
+      min-height: 230px;
+      overflow: hidden;
+      background: rgba(102, 255, 143, 0.025);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+    }
+
+    .favicon-source-preview {
+      display: grid;
+      place-items: center;
+      padding: var(--space-5);
+      background:
+        linear-gradient(
+          45deg,
+          rgba(255,255,255,.035) 25%,
+          transparent 25%,
+          transparent 75%,
+          rgba(255,255,255,.035) 75%
+        ),
+        linear-gradient(
+          45deg,
+          rgba(255,255,255,.035) 25%,
+          transparent 25%,
+          transparent 75%,
+          rgba(255,255,255,.035) 75%
+        );
+      background-position: 0 0, 12px 12px;
+      background-size: 24px 24px;
+    }
+
+    .favicon-source-preview img {
+      max-width: 100%;
+      max-height: 280px;
+      object-fit: contain;
+    }
+
+    .browser-tab-preview {
+      display: grid;
+      align-content: start;
+      padding: var(--space-5);
+      background:
+        linear-gradient(
+          145deg,
+          rgba(16, 35, 23, 0.92),
+          rgba(7, 20, 12, 0.9)
+        );
+    }
+
+    .browser-tab-preview__top {
+      display: flex;
+      gap: 7px;
+      margin-bottom: var(--space-5);
+    }
+
+    .browser-tab-preview__top span {
+      width: 10px;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.18);
+      border-radius: 50%;
+    }
+
+    .browser-tab-preview__tab {
+      display: flex;
+      min-width: 0;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+    }
+
+    .browser-tab-preview__tab canvas {
+      width: 32px;
+      height: 32px;
+      flex: 0 0 auto;
+    }
+
+    .browser-tab-preview__tab div {
+      min-width: 0;
+    }
+
+    .browser-tab-preview__tab strong,
+    .browser-tab-preview__tab small {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .browser-tab-preview__tab small {
+      margin-top: 2px;
+      color: var(--color-text-muted);
+    }
+
+    .favicon-sizes {
+      display: grid;
+      padding: var(--space-5);
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: var(--space-3);
+      background: rgba(102, 255, 143, 0.02);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+    }
+
+    .favicon-sizes legend {
+      padding: 0 var(--space-2);
+      color: var(--color-text);
+      font-weight: 900;
+    }
+
+    .favicon-sizes label {
+      display: flex;
+      min-width: 0;
+      min-height: 54px;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      padding: var(--space-3);
+      color: var(--color-text-soft);
+      background: rgba(102, 255, 143, 0.035);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      font-size: var(--font-size-sm);
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .favicon-sizes label:has(input:checked) {
+      color: var(--color-primary);
+      background: rgba(102, 255, 143, 0.09);
+      border-color: var(--color-primary);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .favicon-results {
+      padding: var(--space-6);
+      background: rgba(102, 255, 143, 0.025);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+    }
+
+    .favicon-results__header {
+      margin-bottom: var(--space-5);
+    }
+
+    .favicon-results__header p {
+      margin: var(--space-2) 0 0;
+      color: var(--color-text-soft);
+    }
+
+    .favicon-results__grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: var(--space-4);
+    }
+
+    .favicon-result-card {
+      min-width: 0;
+      text-align: center;
+    }
+
+    .favicon-result-card__preview {
+      display: grid;
+      min-height: 110px;
+      place-items: center;
+      margin-bottom: var(--space-3);
+      background:
+        linear-gradient(
+          45deg,
+          rgba(255, 255, 255, 0.035) 25%,
+          transparent 25%,
+          transparent 75%,
+          rgba(255, 255, 255, 0.035) 75%
+        ),
+        linear-gradient(
+          45deg,
+          rgba(255, 255, 255, 0.035) 25%,
+          transparent 25%,
+          transparent 75%,
+          rgba(255, 255, 255, 0.035) 75%
+        );
+      background-position: 0 0, 10px 10px;
+      background-size: 20px 20px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+    }
+
+    .favicon-result-card__preview img {
+      max-width: 72px;
+      max-height: 72px;
+      image-rendering: auto;
+    }
+
+    .favicon-result-card strong {
+      color: var(--color-text-soft);
+      font-size: var(--font-size-sm);
+    }
+
+    /* Toolbar móvil igual al patrón del Separador de elementos:
+       cerrado = solo botón +; abierto = panel completo. */
+    .favicon-mobile-tools,
+    .favicon-mobile-toast {
+      display: none;
+    }
+
+    @media (max-width: 1080px) {
+      .favicon-sizes,
+      .favicon-results__grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .favicon-preview-panel {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .favicon-preview-panel > div {
+        display: grid;
+        grid-template-rows: auto minmax(0, 1fr);
+      }
+
+      .favicon-preview-panel h3 {
+        margin-bottom: 8px;
+        font-size: 0.9rem;
+      }
+
+      .favicon-source-preview,
+      .browser-tab-preview {
+        min-height: 180px;
+        border-radius: var(--radius-lg);
+      }
+
+      .favicon-source-preview {
+        padding: 10px;
+      }
+
+      .favicon-source-preview img {
+        max-height: 200px;
+      }
+
+      .browser-tab-preview {
+        padding: 10px;
+      }
+
+      .browser-tab-preview__top {
+        margin-bottom: 10px;
+      }
+
+      .browser-tab-preview__tab {
+        padding: 10px;
+        gap: 8px;
+      }
+
+      /* Los controles principales pasan al menú fijo móvil. */
+      .favicon-mobile-hidden {
+        display: none !important;
+      }
+
+      .favicon-sizes,
+      .favicon-results__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .favicon-results {
+        padding: var(--space-4);
+      }
+
+      .favicon-results__grid {
+        gap: 10px;
+      }
+
+      .favicon-result-card__preview {
+        min-height: 92px;
+      }
+
+      .favicon-mobile-tools {
+        position: fixed;
+        top: max(92px, calc(env(safe-area-inset-top) + 78px));
+        left: 8px;
+        z-index: calc(var(--z-dropdown) + 6);
+        display: block;
+      }
+
+      .favicon-mobile-tools__toggle {
+        display: grid;
+        width: 54px;
+        height: 54px;
+        place-items: center;
+        padding: 0;
+        color: var(--color-text-dark);
+        background: var(--gradient-primary);
+        border: 1px solid rgba(255,255,255,.14);
+        border-radius: 0 18px 18px 0;
+        box-shadow: 10px 14px 34px rgba(0, 0, 0, 0.38);
+        cursor: pointer;
+        font-size: 1.8rem;
+        font-weight: 900;
+      }
+
+      .favicon-mobile-tools__panel {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: min(300px, calc(100vw - 24px));
+        max-height: calc(100svh - 108px);
+        overflow-y: auto;
+        padding: 62px 8px 8px;
+        background: rgba(5, 18, 10, 0.96);
+        border: 1px solid var(--color-border-strong);
+        border-radius: 0 20px 20px 0;
+        box-shadow: 18px 22px 56px rgba(0, 0, 0, 0.55);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(-18px);
+        transition:
+          opacity 180ms ease,
+          visibility 180ms ease,
+          transform 220ms ease;
+      }
+
+      .favicon-mobile-tools.is-open .favicon-mobile-tools__panel {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+      }
+
+      .favicon-mobile-tools.is-open .favicon-mobile-tools__toggle {
+        position: relative;
+        z-index: 2;
+      }
+
+      .favicon-mobile-action {
+        display: grid;
+        width: 100%;
+        min-height: 52px;
+        grid-template-columns: 42px minmax(0, 1fr);
+        align-items: center;
+        padding: 6px 10px 6px 4px;
+        color: var(--color-text);
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: 12px;
+        cursor: pointer;
+        text-align: left;
+      }
+
+      .favicon-mobile-action + .favicon-mobile-action,
+      .favicon-mobile-field + .favicon-mobile-action,
+      .favicon-mobile-action + .favicon-mobile-field {
+        margin-top: 4px;
+      }
+
+      .favicon-mobile-action:hover,
+      .favicon-mobile-action:focus-visible {
+        background: rgba(102, 255, 143, 0.08);
+        border-color: var(--color-border);
+      }
+
+      .favicon-mobile-action:disabled {
+        cursor: not-allowed;
+        opacity: 0.38;
+      }
+
+      .favicon-mobile-action__icon {
+        display: grid;
+        width: 42px;
+        place-items: center;
+        color: var(--color-primary);
+        font-size: 1.05rem;
+        font-weight: 900;
+      }
+
+      .favicon-mobile-action__copy strong,
+      .favicon-mobile-action__copy small {
+        display: block;
+      }
+
+      .favicon-mobile-action__copy strong {
+        font-size: .78rem;
+      }
+
+      .favicon-mobile-action__copy small {
+        margin-top: 1px;
+        color: var(--color-text-muted);
+        font-size: .66rem;
+        line-height: 1.35;
+      }
+
+      .favicon-mobile-action--primary {
+        background: rgba(102, 255, 143, 0.08);
+      }
+
+      .favicon-mobile-field {
+        padding: 12px;
+        background: rgba(102, 255, 143, 0.025);
+        border: 1px solid var(--color-border);
+        border-radius: 14px;
+      }
+
+      .favicon-mobile-field label,
+      .favicon-mobile-field__label {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--color-text-soft);
+        font-size: .72rem;
+        font-weight: 900;
+      }
+
+      .favicon-mobile-field select {
+        width: 100%;
+        min-height: 44px;
+        padding: 0 40px 0 12px;
+        color: var(--color-text);
+        background:
+          linear-gradient(45deg, transparent 50%, var(--color-primary) 50%)
+            calc(100% - 17px) calc(50% - 2px) / 6px 6px no-repeat,
+          linear-gradient(135deg, var(--color-primary) 50%, transparent 50%)
+            calc(100% - 11px) calc(50% - 2px) / 6px 6px no-repeat,
+          rgba(255,255,255,.035);
+        border: 1px solid var(--color-border-strong);
+        border-radius: 12px;
+        outline: 0;
+        appearance: none;
+        -webkit-appearance: none;
+        font: inherit;
+        font-size: .8rem;
+        font-weight: 800;
+      }
+
+      .favicon-mobile-field select:focus {
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 3px rgba(102,255,143,.12);
+      }
+
+      .favicon-mobile-field .favicon-color-control {
+        display: grid;
+        grid-template-columns: 52px minmax(0,1fr);
+        align-items: center;
+        gap: 10px;
+      }
+
+      .favicon-mobile-field .favicon-color-control input[type="color"] {
+        width: 52px;
+        min-width: 52px;
+        height: 44px;
+        padding: 4px;
+        background: rgba(255,255,255,.025);
+        border: 1px solid var(--color-border-strong);
+        border-radius: 12px;
+      }
+
+      .favicon-mobile-field .transparent-toggle {
+        display: flex;
+        min-height: 44px;
+        align-items: center;
+        gap: 9px;
+        margin: 0;
+        padding: 0 10px;
+        color: var(--color-text);
+        background: rgba(255,255,255,.025);
+        border: 1px solid var(--color-border);
+        border-radius: 12px;
+        font-size: .76rem;
+        font-weight: 900;
+      }
+
+      .favicon-mobile-field .transparent-toggle input {
+        width: 18px;
+        height: 18px;
+        accent-color: var(--color-primary);
+      }
+
+      .favicon-mobile-size-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0,1fr));
+        gap: 7px;
+      }
+
+      .favicon-mobile-size-option {
+        position: relative;
+        display: block;
+        margin: 0 !important;
+        cursor: pointer;
+      }
+
+      .favicon-mobile-size-option input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .favicon-mobile-size-option span {
+        display: grid;
+        min-height: 42px;
+        place-items: center;
+        padding: 6px 8px;
+        color: var(--color-text-soft);
+        background: rgba(255,255,255,.025);
+        border: 1px solid var(--color-border);
+        border-radius: 11px;
+        font-size: .72rem;
+        font-weight: 900;
+        text-align: center;
+        transition:
+          background 160ms ease,
+          border-color 160ms ease,
+          color 160ms ease,
+          box-shadow 160ms ease;
+      }
+
+      .favicon-mobile-size-option input:checked + span {
+        color: var(--color-primary);
+        background: rgba(102,255,143,.09);
+        border-color: rgba(102,255,143,.48);
+        box-shadow: inset 0 0 0 1px rgba(102,255,143,.08);
+      }
+
+      /* Mismo popup que el Separador de elementos. */
+      .favicon-mobile-toast {
+        position: fixed;
+        left: 50%;
+        bottom: max(22px, calc(env(safe-area-inset-bottom) + 14px));
+        z-index: calc(var(--z-modal) + 10);
+        display: flex;
+        width: min(340px, calc(100vw - 28px));
+        align-items: flex-start;
+        gap: 10px;
+        padding: 14px 16px;
+        color: var(--color-text);
+        background: rgba(7,28,15,.97);
+        border: 1px solid rgba(102,255,143,.38);
+        border-radius: 16px;
+        box-shadow: 0 18px 48px rgba(0,0,0,.5);
+        opacity: 0;
+        pointer-events: none;
+        transform: translate(-50%,18px);
+        transition: opacity 180ms ease, transform 180ms ease;
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+      }
+
+      .favicon-mobile-toast.is-visible {
+        opacity: 1;
+        transform: translate(-50%,0);
+      }
+
+      .favicon-mobile-toast__icon {
+        display: grid;
+        flex: 0 0 28px;
+        width: 28px;
+        height: 28px;
+        place-items: center;
+        color: var(--color-text-dark);
+        background: var(--gradient-primary);
+        border-radius: 999px;
+        font-size: .9rem;
+        font-weight: 1000;
+      }
+
+      .favicon-mobile-toast__copy {
+        min-width: 0;
+      }
+
+      .favicon-mobile-toast__copy strong {
+        display: block;
+        font-size: .86rem;
+      }
+
+      .favicon-mobile-toast__copy span {
+        display: block;
+        margin-top: 2px;
+        color: var(--color-text-soft);
+        font-size: .75rem;
+        line-height: 1.4;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .favicon-preview-panel {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .favicon-source-preview,
+      .browser-tab-preview {
+        min-height: 150px;
+      }
+
+      .favicon-sizes,
+      .favicon-results__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+  </style>
+
+
   <script src="./scripts/language.js" defer></script>
   <script src="./scripts/shared.js" defer></script>
 
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Alfora - Generador de favicon",
-    "applicationCategory": "DesignApplication",
-    "operatingSystem": "Web",
-    "url": "https://alfora.art/favicon-generator.html",
-    "description": "Generador online de favicons PNG e ICO.",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Alfora",
-      "url": "https://alfora.art/"
-    }
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Generador de favicon online",
+  "applicationCategory": "DesignApplication",
+  "operatingSystem": "Web",
+  "url": "https://alfora.art/favicon-generator",
+  "description": "Herramienta online gratuita para crear favicons PNG e ICO desde imágenes JPG, PNG, WebP o SVG, generar múltiples tamaños y descargar archivos listos para sitios web.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Alfora",
+    "url": "https://alfora.art/"
   }
-  </script>
+}
+</script>
 </head>
 
 <body data-page="favicon-generator">
@@ -186,7 +848,7 @@
         >
 
         <button
-          class="upload-zone"
+          class="upload-zone favicon-mobile-hidden"
           id="upload-zone"
           type="button"
           aria-describedby="upload-help"
@@ -210,7 +872,7 @@
           hidden
         ></div>
 
-        <div class="control-grid">
+        <div class="control-grid favicon-mobile-hidden">
           <div class="form-field">
             <label for="fit-mode" data-i18n="generator.fitMode">
               Ajuste de imagen
@@ -283,7 +945,7 @@
           </div>
         </div>
 
-        <fieldset class="favicon-sizes">
+        <fieldset class="favicon-sizes favicon-mobile-hidden">
           <legend data-i18n="generator.sizesTitle">
             Tamaños que se generarán
           </legend>
@@ -337,7 +999,7 @@
           <div class="favicon-results__grid" id="results-grid"></div>
         </div>
 
-        <div class="hero__actions">
+        <div class="hero__actions favicon-mobile-hidden">
           <button
             class="button button--primary"
             id="generate-button"
@@ -380,6 +1042,108 @@
               Comenzar de nuevo
             </span>
           </button>
+        </div>
+
+
+        <nav
+          class="favicon-mobile-tools"
+          id="favicon-mobile-tools"
+          aria-label="Herramientas del generador de favicon"
+        >
+          <button
+            class="favicon-mobile-tools__toggle"
+            id="favicon-mobile-tools-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="favicon-mobile-tools-panel"
+            aria-label="Abrir herramientas"
+            data-i18n-aria-label="mobileTools.open"
+          >
+            <span id="favicon-mobile-tools-symbol" aria-hidden="true">+</span>
+          </button>
+
+          <div class="favicon-mobile-tools__panel" id="favicon-mobile-tools-panel">
+            <button class="favicon-mobile-action" id="mobile-upload" type="button">
+              <span class="favicon-mobile-action__icon" aria-hidden="true">↑</span>
+              <span class="favicon-mobile-action__copy">
+                <strong data-i18n="mobileTools.upload">Cargar imagen</strong>
+                <small data-i18n="mobileTools.uploadDescription">PNG, JPG, WebP o SVG</small>
+              </span>
+            </button>
+
+            <div class="favicon-mobile-field">
+              <label for="mobile-fit-mode" data-i18n="generator.fitMode">Ajuste de imagen</label>
+              <select id="mobile-fit-mode">
+                <option value="contain" data-i18n="generator.fitContain">Ajustar completa</option>
+                <option value="cover" data-i18n="generator.fitCover">Llenar y recortar</option>
+              </select>
+            </div>
+
+            <div class="favicon-mobile-field">
+              <span class="favicon-mobile-field__label" data-i18n="generator.background">Fondo</span>
+              <div class="favicon-color-control">
+                <input id="mobile-background-color" type="color" value="#000000">
+                <label class="transparent-toggle">
+                  <input id="mobile-transparent-background" type="checkbox" checked>
+                  <span data-i18n="generator.transparent">Transparente</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="favicon-mobile-field">
+              <span class="favicon-mobile-field__label" data-i18n="generator.sizesTitle">Tamaños que se generarán</span>
+              <div class="favicon-mobile-size-grid" id="mobile-size-options"></div>
+            </div>
+
+            <button class="favicon-mobile-action favicon-mobile-action--primary" id="mobile-generate" type="button" disabled>
+              <span class="favicon-mobile-action__icon" aria-hidden="true">✦</span>
+              <span class="favicon-mobile-action__copy">
+                <strong data-i18n="generator.generateButton">Generar favicons</strong>
+                <small data-i18n="mobileTools.generateDescription">Crea todos los tamaños seleccionados</small>
+              </span>
+            </button>
+
+            <button class="favicon-mobile-action" id="mobile-download-png" type="button" disabled>
+              <span class="favicon-mobile-action__icon" aria-hidden="true">↓</span>
+              <span class="favicon-mobile-action__copy">
+                <strong data-i18n="generator.downloadPng">Descargar PNG</strong>
+                <small data-i18n="mobileTools.pngDescription">Descarga los tamaños generados</small>
+              </span>
+            </button>
+
+            <button class="favicon-mobile-action" id="mobile-download-ico" type="button" disabled>
+              <span class="favicon-mobile-action__icon" aria-hidden="true">◫</span>
+              <span class="favicon-mobile-action__copy">
+                <strong data-i18n="generator.downloadIco">Descargar ICO</strong>
+                <small data-i18n="mobileTools.icoDescription">Crea un favicon.ico compatible</small>
+              </span>
+            </button>
+
+            <button class="favicon-mobile-action" id="mobile-reset" type="button">
+              <span class="favicon-mobile-action__icon" aria-hidden="true">↺</span>
+              <span class="favicon-mobile-action__copy">
+                <strong data-i18n="common.reset">Comenzar de nuevo</strong>
+                <small data-i18n="mobileTools.resetDescription">Limpia la herramienta</small>
+              </span>
+            </button>
+          </div>
+        </nav>
+
+        <div
+          class="favicon-mobile-toast"
+          id="favicon-mobile-toast"
+          role="status"
+          aria-live="polite"
+        >
+          <span class="favicon-mobile-toast__icon" aria-hidden="true">✓</span>
+          <span class="favicon-mobile-toast__copy">
+            <strong id="favicon-mobile-toast-title" data-i18n="toast.title">
+              Acción completada
+            </strong>
+            <span id="favicon-mobile-toast-message">
+              La acción se realizó correctamente.
+            </span>
+          </span>
         </div>
 
         <p class="privacy-note" data-i18n="common.privacyNotice">
@@ -470,10 +1234,134 @@
       const resultsGrid = document.getElementById("results-grid");
       const sizeInputs = document.querySelectorAll(".favicon-sizes input[type='checkbox']");
 
+      const mobileTools = document.getElementById("favicon-mobile-tools");
+      const mobileToolsToggle = document.getElementById("favicon-mobile-tools-toggle");
+      const mobileToolsSymbol = document.getElementById("favicon-mobile-tools-symbol");
+      const mobileUpload = document.getElementById("mobile-upload");
+      const mobileFitMode = document.getElementById("mobile-fit-mode");
+      const mobileBackgroundColor = document.getElementById("mobile-background-color");
+      const mobileTransparentBackground = document.getElementById("mobile-transparent-background");
+      const mobileSizeOptions = document.getElementById("mobile-size-options");
+      const mobileGenerate = document.getElementById("mobile-generate");
+      const mobileDownloadPng = document.getElementById("mobile-download-png");
+      const mobileDownloadIco = document.getElementById("mobile-download-ico");
+      const mobileReset = document.getElementById("mobile-reset");
+      const mobileToast = document.getElementById("favicon-mobile-toast");
+      const mobileToastTitle = document.getElementById("favicon-mobile-toast-title");
+      const mobileToastMessage = document.getElementById("favicon-mobile-toast-message");
+
+      let mobileToastTimer = 0;
+
       let selectedFile = null;
       let sourceImage = null;
       let sourceObjectUrl = "";
       let generatedItems = [];
+
+      function isMobileView() {
+        return window.matchMedia("(max-width: 760px)").matches;
+      }
+
+      function showMobileToast(key, fallback, titleKey = "toast.title", titleFallback = "Acción completada") {
+        if (!isMobileView()) {
+          return;
+        }
+
+        window.clearTimeout(mobileToastTimer);
+
+        mobileToastTitle.textContent = translate(
+          titleKey,
+          titleFallback
+        );
+
+        mobileToastMessage.textContent = translate(
+          key,
+          fallback
+        );
+
+        mobileToast.classList.add("is-visible");
+
+        mobileToastTimer = window.setTimeout(() => {
+          mobileToast.classList.remove("is-visible");
+        }, 5000);
+      }
+
+      function setMobileToolsOpen(open) {
+        mobileTools.classList.toggle("is-open", open);
+        mobileToolsToggle.setAttribute("aria-expanded", String(open));
+        mobileToolsToggle.setAttribute(
+          "aria-label",
+          translate(
+            open ? "mobileTools.close" : "mobileTools.open",
+            open ? "Cerrar herramientas" : "Abrir herramientas"
+          )
+        );
+        mobileToolsSymbol.textContent = open ? "−" : "+";
+      }
+
+      function closeMobileToolsAfterAction() {
+        if (isMobileView()) {
+          setMobileToolsOpen(false);
+        }
+      }
+
+      function buildMobileSizeOptions() {
+        mobileSizeOptions.innerHTML = "";
+
+        [...sizeInputs].forEach((desktopInput) => {
+          const label = document.createElement("label");
+          label.className = "favicon-mobile-size-option";
+
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.checked = desktopInput.checked;
+          checkbox.dataset.size = desktopInput.value;
+
+          const text = document.createElement("span");
+          text.textContent = `${desktopInput.value} × ${desktopInput.value}`;
+
+          checkbox.addEventListener("change", () => {
+            desktopInput.checked = checkbox.checked;
+            clearGeneratedItems();
+            syncMobileControls();
+
+            showMobileToast(
+              "toast.sizesUpdated",
+              "Tamaños actualizados correctamente."
+            );
+          });
+
+          label.appendChild(checkbox);
+          label.appendChild(text);
+          mobileSizeOptions.appendChild(label);
+        });
+      }
+
+      function syncMobileSizeOptions() {
+        mobileSizeOptions
+          .querySelectorAll("input[type='checkbox']")
+          .forEach((checkbox) => {
+            const desktopInput = [...sizeInputs].find(
+              (item) => item.value === checkbox.dataset.size
+            );
+
+            if (desktopInput) {
+              checkbox.checked = desktopInput.checked;
+            }
+          });
+      }
+
+      function syncMobileControls() {
+        mobileFitMode.value = fitMode.value;
+        mobileBackgroundColor.value = backgroundColor.value;
+        mobileTransparentBackground.checked = transparentBackground.checked;
+        mobileBackgroundColor.disabled = mobileTransparentBackground.checked;
+
+        mobileGenerate.disabled = generateButton.disabled;
+        mobileDownloadPng.disabled = downloadPngButton.disabled;
+        mobileDownloadIco.disabled = downloadIcoButton.disabled;
+
+        syncMobileSizeOptions();
+      }
 
       function translate(key, fallback) {
         if (
@@ -660,6 +1548,7 @@
         resultsPanel.hidden = true;
         downloadPngButton.disabled = true;
         downloadIcoButton.disabled = true;
+        syncMobileControls();
       }
 
       async function selectFile(file) {
@@ -684,6 +1573,7 @@
           sourcePreview.src = sourceObjectUrl;
           previewPanel.hidden = false;
           generateButton.disabled = false;
+          syncMobileControls();
 
           updateBrowserPreview();
 
@@ -693,6 +1583,11 @@
               "Imagen lista para generar favicons."
             ),
             "success"
+          );
+
+          showMobileToast(
+            "toast.loaded",
+            "Imagen cargada correctamente."
           );
         } catch (error) {
           resetTool();
@@ -766,6 +1661,7 @@
           resultsPanel.hidden = false;
           downloadPngButton.disabled = false;
           downloadIcoButton.disabled = false;
+          syncMobileControls();
 
           showStatus(
             translate(
@@ -773,6 +1669,11 @@
               "Favicons generados."
             ),
             "success"
+          );
+
+          showMobileToast(
+            "toast.generated",
+            "Favicons generados correctamente."
           );
         } catch (error) {
           clearGeneratedItems();
@@ -813,6 +1714,11 @@
             );
           }, index * 180);
         });
+
+        showMobileToast(
+          "toast.pngDownloaded",
+          "Descarga PNG iniciada correctamente."
+        );
       }
 
       function createIcoBlob(items) {
@@ -902,7 +1808,7 @@
 
           downloadBlob(
             icoBlob,
-            `${baseName}-creative-lab.ico`
+            `${baseName}-alfora.ico`
           );
 
           showStatus(
@@ -911,6 +1817,11 @@
               "Archivo ICO creado y descargado."
             ),
             "success"
+          );
+
+          showMobileToast(
+            "toast.icoDownloaded",
+            "Archivo ICO descargado correctamente."
           );
         } catch (error) {
           showStatus(error.message, "error");
@@ -951,6 +1862,12 @@
             browserFavicon.height
           );
         }
+
+        syncMobileControls();
+        showMobileToast(
+          "toast.reset",
+          "Herramienta restablecida correctamente."
+        );
       }
 
       uploadZone.addEventListener("click", () => {
@@ -1012,16 +1929,95 @@
       downloadIcoButton.addEventListener("click", downloadIco);
       resetButton.addEventListener("click", resetTool);
 
+      mobileToolsToggle.addEventListener("click", () => {
+        setMobileToolsOpen(!mobileTools.classList.contains("is-open"));
+      });
+
+      mobileUpload.addEventListener("click", () => {
+        input.click();
+        closeMobileToolsAfterAction();
+      });
+
+      mobileFitMode.addEventListener("change", () => {
+        fitMode.value = mobileFitMode.value;
+        clearGeneratedItems();
+        updateBrowserPreview();
+        syncMobileControls();
+        showMobileToast(
+          "toast.fitUpdated",
+          "Ajuste de imagen actualizado."
+        );
+        closeMobileToolsAfterAction();
+      });
+
+      mobileBackgroundColor.addEventListener("input", () => {
+        backgroundColor.value = mobileBackgroundColor.value;
+        clearGeneratedItems();
+        updateBrowserPreview();
+        syncMobileControls();
+      });
+
+      mobileBackgroundColor.addEventListener("change", () => {
+        showMobileToast(
+          "toast.backgroundUpdated",
+          "Color de fondo actualizado."
+        );
+        closeMobileToolsAfterAction();
+      });
+
+      mobileTransparentBackground.addEventListener("change", () => {
+        transparentBackground.checked = mobileTransparentBackground.checked;
+        backgroundColor.disabled = transparentBackground.checked;
+        clearGeneratedItems();
+        updateBrowserPreview();
+        syncMobileControls();
+        showMobileToast(
+          "toast.backgroundUpdated",
+          mobileTransparentBackground.checked
+            ? "Fondo transparente activado."
+            : "Fondo de color activado."
+        );
+        closeMobileToolsAfterAction();
+      });
+
+      mobileGenerate.addEventListener("click", async () => {
+        closeMobileToolsAfterAction();
+        await generateFavicons();
+      });
+
+      mobileDownloadPng.addEventListener("click", () => {
+        closeMobileToolsAfterAction();
+        downloadPngFiles();
+      });
+
+      mobileDownloadIco.addEventListener("click", async () => {
+        closeMobileToolsAfterAction();
+        await downloadIco();
+      });
+
+      mobileReset.addEventListener("click", () => {
+        closeMobileToolsAfterAction();
+        resetTool();
+      });
+
       document.addEventListener(
         "creativeLab:languageChanged",
         () => {
           if (!statusMessage.hidden) {
             hideStatus();
           }
+
+          setMobileToolsOpen(
+            mobileTools.classList.contains("is-open")
+          );
+          syncMobileControls();
         }
       );
 
+      buildMobileSizeOptions();
+      setMobileToolsOpen(false);
       backgroundColor.disabled = true;
+      syncMobileControls();
     })();
   </script>
 </body>
