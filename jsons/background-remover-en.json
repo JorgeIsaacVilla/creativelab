@@ -1,10 +1,10 @@
 {
   "seo": {
-    "title": "Online Image Background Remover | Creative Lab",
-    "description": "Remove backgrounds from JPG, PNG and WebP images directly in your browser with Creative Lab. Local processing, preview and transparent download.",
+    "title": "Online Image Background Remover | Alfora",
+    "description": "Remove backgrounds from JPG, PNG and WebP images directly in your browser with Alfora. Local processing, preview and transparent download.",
     "ogTitle": "Online Image Background Remover",
     "ogDescription": "Remove image backgrounds directly in your browser.",
-    "twitterTitle": "Background Remover | Creative Lab",
+    "twitterTitle": "Background Remover | Alfora",
     "twitterDescription": "Remove image backgrounds with local browser processing.",
     "htmlLang": "en"
   },
@@ -54,7 +54,7 @@
   },
   "info": {
     "eyebrow": "Transparency in a few steps",
-    "title": "How to remove a background with Creative Lab",
+    "title": "How to remove a background with Alfora",
     "description": "Select an image, wait for local processing, review the result and download it with transparency or a new background color.",
     "stepOneTitle": "1. Upload",
     "stepOneText": "Select a JPG, PNG or WebP image.",
