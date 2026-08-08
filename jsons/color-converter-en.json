@@ -1,6 +1,6 @@
 {
   "seo": {
-    "title": "Online Color Converter | Creative Lab",
+    "title": "Online Color Converter | Alfora",
     "description": "Convert colors between HEX, RGB, HSL, HSV and CMYK.",
     "htmlLang": "en"
   },
@@ -21,7 +21,7 @@
   },
   "info": {
     "eyebrow": "One color, multiple formats",
-    "title": "How to convert colors with Creative Lab",
+    "title": "How to convert colors with Alfora",
     "description": "Select a color, adjust its channels and copy the format you need.",
     "stepOneTitle": "1. Select",
     "stepOneText": "Choose a color or enter its hexadecimal value.",
