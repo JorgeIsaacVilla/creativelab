@@ -1,10 +1,10 @@
 {
   "seo": {
-    "title": "Alfora.art | Online tools for images, colors and design - Alfora.art",
+    "title": "Alfora | Online tools for images, colors and design - Alfora.art",
     "description": "Online creative tools to convert, compress and resize images, generate palettes, gradients and visual resources directly in your browser securely and locally.",
-    "ogTitle": "Alfora.art | Online creative tools",
+    "ogTitle": "Alfora | Online creative tools",
     "ogDescription": "Convert images, create palettes, gradients and visual resources from a fast and creative platform.",
-    "twitterTitle": "Alfora.art | Online creative tools",
+    "twitterTitle": "Alfora | Online creative tools",
     "twitterDescription": "Visual tools for images, colors, gradients and design.",
     "htmlLang": "en"
   },
@@ -24,7 +24,7 @@
     "toolsDescription": "The best of creative technology, right at your fingertips. Each tool is built with modern solutions to deliver fast, precise, and completely free results.",
     "aboutEyebrow": "Creativity without interruptions",
     "aboutTitle": "Simple, fast and accessible visual tools",
-    "aboutDescription": "Alfora.art brings together independent services for designers, creators, and anyone who needs to transform visual resources without installing complex software.",
+    "aboutDescription": "Alfora brings together independent services for designers, creators, and anyone who needs to transform visual resources without installing complex software.",
     "privacyTitle": "Privacy",
     "privacyDescription": "Whenever possible, your files are processed locally in your browser.",
     "speedTitle": "Speed",
@@ -33,18 +33,18 @@
     "visualDescription": "Use all tools with no subscriptions, payments, or hidden limits.",
     "seoContent": {
       "mainTitle": "Alfora.art: The Ultimate Web Utility Suite for Design and Frontend Workflows",
-      "mainParagraph": "In today's digital design ecosystem, execution speed and asset optimization are absolute game-changers. Alfora.art is engineered as an all-in-one solution that eliminates the need for heavy local software installation or expensive cloud subscriptions. Here, you can execute complex tasks such as media format conversion, file compression, and advanced color analysis through minimal, high-performance interfaces tailored for visual professionals.",
+      "mainParagraph": "In today's digital design ecosystem, execution speed and asset optimization are absolute game-changers. Alfora is engineered as an all-in-one solution that eliminates the need for heavy local software installation or expensive cloud subscriptions. Here, you can execute complex tasks such as media format conversion, file compression, and advanced color analysis through minimal, high-performance interfaces tailored for visual professionals.",
       "col1Title": "🚀 Secure 100% Client-Side Processing",
       "col1Paragraph": "Unlike traditional online converters that store your private images on remote servers, our platform operates entirely under a local client-side architecture. When you drag and drop a file into our Image Converter or Palette Extractor, your browser executes the logic locally. This translates to unmatched processing speeds and the absolute certainty that your intellectual property and private photographs never leave your machine.",
       "col2Title": "🎨 Tailored for High-Efficiency UI/UX Workflows",
-      "col2Paragraph": "Our technical utilities are calibrated to integrate seamlessly with modern production environments such as Figma, Adobe XD, VS Code, and Tailwind CSS. From exporting clean vector shapes in our UI Kit Generator to instantly copying Hex, RGB, and raw CSS styles from the Gradient Generator, Alfora.art cuts out production downtime so you can focus strictly on creative composition.",
+      "col2Paragraph": "Our technical utilities are calibrated to integrate seamlessly with modern production environments such as Figma, Adobe XD, VS Code, and Tailwind CSS. From exporting clean vector shapes in our UI Kit Generator to instantly copying Hex, RGB, and raw CSS styles from the Gradient Generator, Alfora cuts out production downtime so you can focus strictly on creative composition.",
       "faqTitle": "Frequently Asked Questions About Our Creative Suite",
       "q1": "Is it safe to process proprietary or corporate assets on Alfora.art?",
       "a1": "Absolutely. Because all processing is handled using client-side JavaScript, your data never reaches an external hosting server. It provides the exact same privacy standard as a local desktop software running offline on your operating system.",
       "q2": "What are the technical advantages of exporting web assets in WebP or SVG?",
       "a2": "The WebP format slashes image file sizes by up to 30% compared to traditional JPGs while preserving strict visual fidelity, directly boosting your website's Core Web Vitals. On the other hand, vector SVG files guarantee your user interface components scale infinitely without pixelation.",
       "q3": "Are there any caps on daily conversions or file downloads?",
-      "a3": "No. Alfora.art is a completely open community project with no usage limits. You can batch-process, compress, crop, and generate visual palettes as many times as you need throughout the day without creating an account or sharing an email address."
+      "a3": "No. Alfora is a completely open community project with no usage limits. You can batch-process, compress, crop, and generate visual palettes as many times as you need throughout the day without creating an account or sharing an email address."
     }
   },
   "categories": {

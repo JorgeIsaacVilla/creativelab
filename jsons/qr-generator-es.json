@@ -57,6 +57,16 @@
     "foreground": "Color del código",
     "background": "Color de fondo"
   },
+  "personalization": {
+    "title": "Personalizar QR",
+    "image": "Logo o imagen",
+    "position": "Posición de imagen",
+    "none": "Sin imagen",
+    "center": "Centro del QR",
+    "below": "Debajo del QR",
+    "text": "Texto debajo del QR",
+    "textPlaceholder": "Texto opcional"
+  },
   "actions": {
     "generate": "Generar QR",
     "reset": "Restablecer",

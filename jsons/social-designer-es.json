@@ -1,10 +1,10 @@
 {
   "seo": {
-    "title": "Editor visual para redes sociales | Creative Lab",
+    "title": "Editor visual para redes sociales | Alfora",
     "description": "Crea imágenes publicitarias para redes sociales con textos, imágenes, plantillas, formas, fondos, gradientes y exportación desde el navegador.",
     "ogTitle": "Editor visual para redes sociales",
     "ogDescription": "Diseña posts, historias, anuncios y banners desde el navegador.",
-    "twitterTitle": "Social Designer | Creative Lab",
+    "twitterTitle": "Social Designer | Alfora",
     "twitterDescription": "Crea piezas visuales para redes sociales directamente en tu navegador."
   },
   "panels": {
@@ -126,7 +126,7 @@
     "duplicate": "Duplicar",
     "delete": "Eliminar",
     "campaign": "Campaña",
-    "creativeLabPresents": "CREATIVE LAB PRESENTA",
+    "creativeLabPresents": "Alfora PRESENTA",
     "selectTemplate": "Selecciona una plantilla",
     "selectTemplateHelp": "Haz clic en cualquier tarjeta para verla antes de personalizarla.",
     "discover": "DESCUBRIR",
@@ -145,7 +145,9 @@
     "zoomOut": "Alejar",
     "zoomIn": "Acercar",
     "centerSelection": "Centrar selección",
-    "closePanel": "Cerrar panel"
+    "closePanel": "Cerrar panel",
+    "translateAllContent": "Traducir todo el contenido",
+    "roundCorners": "Redondear bordes"
   },
   "presets": {
     "mobile": [
@@ -191,7 +193,12 @@
     "invalidProject": "El archivo de proyecto no es válido.",
     "addBackgroundFirst": "Primero añade una imagen de fondo.",
     "templateApplied": "Plantilla aplicada",
-    "templateReady": "Plantilla lista"
+    "templateReady": "Plantilla lista",
+    "imageEnhanced": "Calidad de imagen mejorada.",
+    "imageEnhanceError": "No se pudo mejorar la imagen.",
+    "noTextToTranslate": "No hay textos para traducir.",
+    "translationComplete": "Contenido traducido.",
+    "translationError": "No fue posible traducir el contenido."
   },
   "templates": {
     "summer-editorial": {
@@ -284,5 +291,22 @@
       "cta": "CONOCER MÁS",
       "description": "Diseño cercano con fotografía humana, recortes, sellos y mensaje emocional."
     }
+  },
+  "shortcuts": {
+    "deleteElement": "Borrar elemento",
+    "editElement": "Editar elemento",
+    "copyFormat": "Copiar formato",
+    "copyElement": "Copiar",
+    "pasteElement": "Pegar elemento",
+    "deleteText": "Eliminar texto",
+    "edit": "Editar",
+    "font": "Cambiar fuente",
+    "size": "Cambiar tamaño",
+    "color": "Cambiar color",
+    "layerOrder": "Cambiar orden de capa",
+    "solidBackground": "Poner color sólido como fondo",
+    "removeBackground": "Quitar fondo",
+    "enhanceImage": "Mejorar calidad de imagen",
+    "roundCorners": "Redondear bordes"
   }
 }

@@ -1,6 +1,6 @@
 {
   "seo": {
-    "title": "Extractor de paletas desde imágenes | Creative Lab",
+    "title": "Extractor de paletas desde imágenes | Alfora",
     "description": "Extrae colores dominantes de una imagen directamente en tu navegador.",
     "htmlLang": "es"
   },
@@ -32,12 +32,12 @@
   },
   "info": {
     "eyebrow": "Colores nacidos de una imagen",
-    "title": "Cómo extraer una paleta con Creative Lab",
+    "title": "Cómo extraer una paleta con Alfora",
     "description": "Selecciona una imagen, define cuántos colores necesitas y exporta la paleta.",
     "stepOneTitle": "1. Carga",
     "stepOneText": "Selecciona una imagen compatible.",
     "stepTwoTitle": "2. Analiza",
-    "stepTwoText": "Creative Lab detecta los colores dominantes.",
+    "stepTwoText": "Alfora detecta los colores dominantes.",
     "stepThreeTitle": "3. Exporta",
     "stepThreeText": "Copia o descarga la paleta."
   },

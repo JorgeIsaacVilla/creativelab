@@ -1,10 +1,10 @@
 {
   "seo": {
-    "title": "Alfora.art | Herramientas Creativas Online Gratis para Diseño",
+    "title": "Alfora | Herramientas Creativas Online Gratis para Diseño",
     "description": "Suite de herramientas web gratuitas para diseñadores y desarrolladores frontend. Convierte imágenes a WebP, extrae paletas de colores, genera gradientes CSS y componentes de UI Kit de forma 100% local y segura.",
-    "ogTitle": "Alfora.art | Herramientas Creativas Online y Locales",
+    "ogTitle": "Alfora | Herramientas Creativas Online y Locales",
     "ogDescription": "Optimiza tus imágenes, genera paletas cromáticas y exporta recursos vectoriales CSS/SVG de forma rápida, gratuita y local directamente en tu navegador.",
-    "twitterTitle": "Alfora.art | Herramientas Creativas Online Gratis",
+    "twitterTitle": "Alfora | Herramientas Creativas Online Gratis",
     "twitterDescription": "Herramientas web libres para procesamiento de imágenes, teoría del color, gradientes y utilidades UI/UX sin instalaciones.",
     "htmlLang": "es"
   },
@@ -24,7 +24,7 @@
     "toolsDescription": "Lo mejor de la tecnología creativa al alcance de tu mano. Cada herramienta está desarrollada con soluciones modernas (Client-Side) para ofrecer resultados rápidos, precisos, privados y completamente gratuitos.",
     "aboutEyebrow": "Creatividad sin interrupciones",
     "aboutTitle": "Herramientas visuales simples, rápidas y accesibles",
-    "aboutDescription": "Alfora.art reúne utilidades técnicas independientes para diseñadores gráficos, desarrolladores web frontend y creadores de contenido que necesitan transformar recursos visuales sin instalar programas complejos.",
+    "aboutDescription": "Alfora reúne utilidades técnicas independientes para diseñadores gráficos, desarrolladores web frontend y creadores de contenido que necesitan transformar recursos visuales sin instalar programas complejos.",
     "privacyTitle": "Privacidad Garantizada",
     "privacyDescription": "Tus archivos se procesan localmente en el navegador mediante JavaScript. Tus imágenes nunca se suben a servidores externos.",
     "speedTitle": "Velocidad de Carga",
@@ -32,19 +32,19 @@
     "visualTitle": "100% Gratuito y Libre",
     "visualDescription": "Usa todas las utilidades de diseño sin suscripciones, registros, pagos obligatorios ni límites ocultos.",
     "seoContent": {
-      "mainTitle": "Alfora.art: La Suite de Utilidades Web para Diseño y Desarrollo Frontend",
-      "mainParagraph": "En el ecosistema del diseño digital moderno, la velocidad y la optimización de recursos son indispensables. Alfora.art nace como una solución integral que elimina la necesidad de softwares pesados o suscripciones costosas. Aquí puedes ejecutar tareas complejas como la conversión de formatos, la compresión de archivos multimedia y el análisis cromático a través de interfaces minimalistas pensadas para profesionales de la industria visual.",
+      "mainTitle": "Alfora: La Suite de Utilidades Web para Diseño y Desarrollo Frontend",
+      "mainParagraph": "En el ecosistema del diseño digital moderno, la velocidad y la optimización de recursos son indispensables. Alfora nace como una solución integral que elimina la necesidad de softwares pesados o suscripciones costosas. Aquí puedes ejecutar tareas complejas como la conversión de formatos, la compresión de archivos multimedia y el análisis cromático a través de interfaces minimalistas pensadas para profesionales de la industria visual.",
       "col1Title": "🚀 Procesamiento Seguro Client-Side",
       "col1Paragraph": "A diferencia de los convertidores tradicionales en línea que almacenan tus imágenes en servidores remotos, nuestra plataforma opera bajo arquitectura local. Al arrastrar un archivo a nuestro Convertidor de Imágenes o al Extractor de Paletas, el navegador ejecuta la lógica del código de manera interna. Esto se traduce en una velocidad de procesamiento insuperable y en la seguridad absoluta de que tu propiedad intelectual y tus fotografías nunca saldrán de tu computadora.",
       "col2Title": "🎨 Optimización para Flujos de Trabajo UI/UX",
-      "col2Paragraph": "Nuestras utilidades están calibradas para integrarse perfectamente con entornos de desarrollo como Figma, Adobe XD, VS Code y Tailwind CSS. Desde la exportación de vectores limpios en nuestro Generador de UI Kit hasta la copia instantánea de códigos hexadecimales, RGB y hojas de estilo CSS en el Generador de Gradientes, Alfora.art reduce los tiempos muertos de producción para que te concentres exclusivamente en la composición creativa.",
+      "col2Paragraph": "Nuestras utilidades están calibradas para integrarse perfectamente con entornos de desarrollo como Figma, Adobe XD, VS Code y Tailwind CSS. Desde la exportación de vectores limpios en nuestro Generador de UI Kit hasta la copia instantánea de códigos hexadecimales, RGB y hojas de estilo CSS en el Generador de Gradientes, Alfora reduce los tiempos muertos de producción para que te concentres exclusivamente en la composición creativa.",
       "faqTitle": "Preguntas Frecuentes sobre nuestra Plataforma Creativa",
-      "q1": "¿Es seguro procesar imágenes de proyectos corporativos en Alfora.art?",
+      "q1": "¿Es seguro procesar imágenes de proyectos corporativos en Alfora?",
       "a1": "Totalmente seguro. Gracias a que el procesamiento se ejecuta del lado del cliente (Client-Side JavaScript), tus archivos no tocan ningún servidor de hosting externo. Es equivalente a usar un programa instalado localmente en tu sistema operativo.",
       "q2": "¿Qué ventajas técnicas ofrece exportar elementos en formato WebP o SVG?",
       "a2": "El formato WebP reduce el peso de las imágenes hasta en un 30% en comparación con JPG conservando una excelente fidelidad visual, lo que acelera los Core Web Vitals de cualquier web. Por otro lado, los archivos vectoriales SVG garantizan que tus componentes de interfaz escalen de forma infinita sin pixelarse.",
       "q3": "¿Existen restricciones en el número de descargas o conversiones diarias?",
-      "a3": "No. Alfora.art es un proyecto de acceso libre y sin límites. Puedes procesar, comprimir, recortar y generar paletas cromáticas de forma ilimitada durante todo el día, sin necesidad de crear una cuenta o registrar correos electrónicos."
+      "a3": "No. Alfora es un proyecto de acceso libre y sin límites. Puedes procesar, comprimir, recortar y generar paletas cromáticas de forma ilimitada durante todo el día, sin necesidad de crear una cuenta o registrar correos electrónicos."
     }
   },
   "categories": {

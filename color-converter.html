@@ -86,6 +86,627 @@
   }
 }
 </script>
+
+<style>
+  /* ======================================================================
+     ALFORA · CONVERTIDOR DE COLORES
+     CSS específico de esta herramienta
+     ====================================================================== */
+
+  .product-header--tool-first {
+    margin-bottom: var(--space-5);
+  }
+
+  .product-header--tool-first .product-header__content {
+    max-width: none;
+  }
+
+  .product-header--tool-first h1 {
+    margin-bottom: 0;
+  }
+
+  .color-converter-tool {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .color-converter-tool .color-input-panel {
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr);
+    gap: var(--space-4);
+    align-items: end;
+    padding: var(--space-4);
+    background: rgba(102, 255, 143, 0.02);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+  }
+
+  .color-converter-tool .color-input-panel__picker {
+    display: grid;
+    min-height: 112px;
+    place-items: center;
+    padding: 10px;
+    background: rgba(255, 255, 255, .03);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .color-converter-tool .color-input-panel__picker input[type="color"] {
+    width: 84px;
+    height: 84px;
+    padding: 5px;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+
+  .color-converter-tool .color-text-input {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    overflow: hidden;
+    background: var(--color-surface-strong);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+  }
+
+  .color-converter-tool .color-text-input:focus-within {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(102,255,143,.11);
+  }
+
+  .color-converter-tool .color-text-input input {
+    min-width: 0;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    font-family: monospace;
+    font-weight: 800;
+  }
+
+  .color-converter-tool .color-copy-button {
+    display: inline-grid;
+    min-width: 46px;
+    min-height: 42px;
+    place-items: center;
+    padding: 0 var(--space-3);
+    color: var(--color-primary);
+    background: rgba(102,255,143,.06);
+    border: 0;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 900;
+  }
+
+  .color-converter-tool .color-copy-button:hover {
+    color: var(--color-background);
+    background: var(--color-primary);
+  }
+
+  .color-converter-tool .color-preview-layout {
+    display: grid;
+    grid-template-columns: minmax(260px, .8fr) minmax(0, 1.2fr);
+    gap: var(--space-4);
+  }
+
+  .color-converter-tool .color-preview-card,
+  .color-converter-tool .color-channel-controls,
+  .color-converter-tool .color-value-card,
+  .color-converter-tool .color-variants-section {
+    min-width: 0;
+    background: rgba(102,255,143,.02);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-small);
+  }
+
+  .color-converter-tool .color-preview-card {
+    overflow: hidden;
+  }
+
+  .color-converter-tool .color-preview-card__swatch {
+    min-height: 220px;
+    background: #66ff8f;
+  }
+
+  .color-converter-tool .color-preview-card__content {
+    padding: var(--space-4);
+  }
+
+  .color-converter-tool .color-preview-card__content p {
+    margin: 0 0 4px;
+    color: var(--color-text-muted);
+  }
+
+  .color-converter-tool .color-preview-card__content > strong {
+    display: block;
+    overflow-wrap: anywhere;
+    font-family: monospace;
+    font-size: var(--font-size-xl);
+  }
+
+  .color-converter-tool .color-contrast-samples {
+    display: flex;
+    gap: 8px;
+    margin-top: var(--space-4);
+  }
+
+  .color-converter-tool .color-contrast-sample {
+    display: grid;
+    width: 52px;
+    height: 40px;
+    place-items: center;
+    border-radius: 11px;
+    font-weight: 900;
+  }
+
+  .color-converter-tool .color-contrast-sample--dark {
+    color: #fff;
+    background: #07110a;
+  }
+
+  .color-converter-tool .color-contrast-sample--light {
+    color: #07110a;
+    background: #fff;
+  }
+
+  .color-converter-tool .color-channel-controls {
+    display: grid;
+    gap: 12px;
+    padding: var(--space-4);
+    align-content: center;
+  }
+
+  .color-converter-tool .color-channel-row {
+    display: grid;
+    grid-template-columns: 28px minmax(0,1fr) 60px;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .color-converter-tool .color-channel-row label {
+    font-weight: 900;
+  }
+
+  .color-converter-tool .color-channel-row input[type="range"] {
+    width: 100%;
+    accent-color: var(--color-primary);
+  }
+
+  .color-converter-tool .color-channel-row output {
+    padding: 6px 8px;
+    color: var(--color-primary);
+    background: rgba(102,255,143,.055);
+    border: 1px solid var(--color-border);
+    border-radius: 9px;
+    text-align: center;
+    font-family: monospace;
+    font-size: .78rem;
+  }
+
+  .color-converter-tool .color-values-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0,1fr));
+    gap: 10px;
+  }
+
+  .color-converter-tool .color-value-card {
+    padding: var(--space-4);
+  }
+
+  .color-converter-tool .color-value-card__heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .color-converter-tool .color-value-card__heading h3 {
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  .color-converter-tool .color-value-card code {
+    display: block;
+    overflow-wrap: anywhere;
+    color: var(--color-primary);
+    font-family: monospace;
+    font-size: .8rem;
+    line-height: 1.5;
+  }
+
+  .color-converter-tool .color-variants-section {
+    padding: var(--space-4);
+  }
+
+  .color-converter-tool .color-variants-section__heading {
+    margin-bottom: var(--space-4);
+  }
+
+  .color-converter-tool .color-variants-section__heading p {
+    margin: 4px 0 0;
+    color: var(--color-text-soft);
+  }
+
+  .color-converter-tool .color-variants-grid {
+    display: grid;
+    grid-template-columns: repeat(9, minmax(0,1fr));
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .color-converter-tool .color-variant {
+    min-height: 96px;
+    padding: 10px;
+    border: 0;
+    cursor: pointer;
+    text-align: left;
+    transition: transform var(--transition-normal);
+  }
+
+  .color-converter-tool .color-variant span,
+  .color-converter-tool .color-variant strong {
+    display: block;
+  }
+
+  .color-converter-tool .color-variant span {
+    margin-bottom: 3px;
+    font-size: .66rem;
+    opacity: .78;
+  }
+
+  .color-converter-tool .color-variant strong {
+    font-family: monospace;
+    font-size: .67rem;
+  }
+
+  .color-converter-tool .color-variant:hover {
+    transform: translateY(-3px);
+  }
+
+  .color-converter-tool > .hero__actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin: 0;
+  }
+
+  .color-converter-tool > .hero__actions .button {
+    width: 100%;
+  }
+
+  .tool-description {
+    margin-top: var(--space-8);
+    padding: clamp(1.25rem, 4vw, 2.5rem);
+    background: rgba(102, 255, 143, 0.018);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+  }
+
+  .tool-description h2 {
+    max-width: 850px;
+    margin-bottom: var(--space-4);
+  }
+
+  .tool-description__lead {
+    max-width: 820px;
+    margin-bottom: var(--space-3);
+    color: var(--color-text-soft);
+    font-size: var(--font-size-md);
+  }
+
+  .tool-description > p:last-child {
+    max-width: 820px;
+    margin-bottom: 0;
+    color: var(--color-text-muted);
+  }
+
+  .color-mobile-toast {
+    display: none;
+  }
+
+  @media (max-width: 1080px) {
+    .color-converter-tool .color-values-grid {
+      grid-template-columns: repeat(2, minmax(0,1fr));
+    }
+
+    .color-converter-tool .color-variants-grid {
+      grid-template-columns: repeat(3, minmax(0,1fr));
+    }
+  }
+
+  /* ------------------------------------------------------
+     ANDROID / MÓVIL
+     Interfaz simple: todos los controles visibles
+     ------------------------------------------------------ */
+
+  @media (max-width: 620px) {
+    .product-header--tool-first {
+      margin-bottom: 12px;
+    }
+
+    .product-header--tool-first h1 {
+      margin-bottom: 0;
+      font-size: clamp(2rem, 11vw, 3rem);
+    }
+
+    .color-converter-tool {
+      gap: 10px;
+    }
+
+    .color-converter-tool > div:first-child {
+      margin-bottom: 2px;
+    }
+
+    .color-converter-tool > div:first-child h2 {
+      margin-bottom: 5px;
+      font-size: 1.2rem;
+    }
+
+    .color-converter-tool > div:first-child p {
+      margin-bottom: 0;
+      font-size: .78rem;
+    }
+
+    .color-converter-tool .color-input-panel {
+      grid-template-columns: 92px minmax(0, 1fr);
+      gap: 8px;
+      padding: 9px;
+      border-radius: 14px;
+    }
+
+    .color-converter-tool .color-input-panel__picker {
+      min-height: 92px;
+      padding: 6px;
+      border-radius: 12px;
+    }
+
+    .color-converter-tool .color-input-panel__picker input[type="color"] {
+      width: 72px;
+      height: 72px;
+      padding: 4px;
+      border-radius: 15px;
+    }
+
+    .color-converter-tool .form-field label {
+      font-size: .7rem;
+    }
+
+    .color-converter-tool .form-field small {
+      font-size: .64rem;
+    }
+
+    .color-converter-tool .color-text-input input {
+      min-height: 42px;
+      padding-inline: 10px;
+      font-size: .78rem;
+    }
+
+    .color-converter-tool .color-copy-button {
+      min-width: 40px;
+      min-height: 38px;
+      padding-inline: 8px;
+    }
+
+    .color-converter-tool .color-preview-layout {
+      grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr);
+      gap: 8px;
+    }
+
+    .color-converter-tool .color-preview-card,
+    .color-converter-tool .color-channel-controls {
+      border-radius: 14px;
+    }
+
+    .color-converter-tool .color-preview-card__swatch {
+      min-height: 138px;
+    }
+
+    .color-converter-tool .color-preview-card__content {
+      padding: 9px;
+    }
+
+    .color-converter-tool .color-preview-card__content p {
+      font-size: .68rem;
+    }
+
+    .color-converter-tool .color-preview-card__content > strong {
+      font-size: .9rem;
+    }
+
+    .color-converter-tool .color-contrast-samples {
+      gap: 5px;
+      margin-top: 8px;
+    }
+
+    .color-converter-tool .color-contrast-sample {
+      width: 40px;
+      height: 30px;
+      font-size: .68rem;
+      border-radius: 8px;
+    }
+
+    .color-converter-tool .color-channel-controls {
+      gap: 8px;
+      padding: 9px;
+    }
+
+    .color-converter-tool .color-channel-row {
+      grid-template-columns: 18px minmax(0,1fr) 44px;
+      gap: 6px;
+    }
+
+    .color-converter-tool .color-channel-row label {
+      font-size: .7rem;
+    }
+
+    .color-converter-tool .color-channel-row output {
+      padding: 4px;
+      font-size: .63rem;
+      border-radius: 7px;
+    }
+
+    .color-converter-tool .color-values-grid {
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 7px;
+    }
+
+    .color-converter-tool .color-value-card {
+      padding: 9px;
+      border-radius: 12px;
+    }
+
+    .color-converter-tool .color-value-card__heading {
+      margin-bottom: 7px;
+    }
+
+    .color-converter-tool .color-value-card__heading h3 {
+      font-size: .82rem;
+    }
+
+    .color-converter-tool .color-value-card code {
+      font-size: .67rem;
+      line-height: 1.35;
+    }
+
+    .color-converter-tool .color-variants-section {
+      padding: 9px;
+      border-radius: 14px;
+    }
+
+    .color-converter-tool .color-variants-section__heading {
+      margin-bottom: 8px;
+    }
+
+    .color-converter-tool .color-variants-section__heading h3 {
+      margin-bottom: 4px;
+      font-size: 1rem;
+    }
+
+    .color-converter-tool .color-variants-section__heading p {
+      font-size: .7rem;
+    }
+
+    .color-converter-tool .color-variants-grid {
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      border-radius: 11px;
+    }
+
+    .color-converter-tool .color-variant {
+      min-height: 62px;
+      padding: 6px;
+    }
+
+    .color-converter-tool .color-variant span {
+      font-size: .55rem;
+    }
+
+    .color-converter-tool .color-variant strong {
+      font-size: .58rem;
+    }
+
+    .color-converter-tool > .hero__actions {
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 7px;
+    }
+
+    .color-converter-tool > .hero__actions .button {
+      min-height: 44px;
+      padding: 6px 8px;
+      font-size: .72rem;
+      line-height: 1.15;
+    }
+
+    .tool-description {
+      margin-top: 16px;
+      padding: var(--space-4);
+      border-radius: var(--radius-lg);
+    }
+
+    .tool-description h2 {
+      font-size: clamp(1.55rem, 8vw, 2.2rem);
+    }
+
+    .tool-description__lead {
+      font-size: .95rem;
+    }
+
+    .color-mobile-toast {
+      position: fixed;
+      left: 50%;
+      bottom: max(22px, calc(env(safe-area-inset-bottom) + 14px));
+      z-index: calc(var(--z-modal) + 10);
+      display: flex;
+      width: min(340px, calc(100vw - 28px));
+      align-items: flex-start;
+      gap: 10px;
+      padding: 14px 16px;
+      color: var(--color-text);
+      background: rgba(7, 28, 15, .97);
+      border: 1px solid rgba(102, 255, 143, .38);
+      border-radius: 16px;
+      box-shadow: 0 18px 48px rgba(0,0,0,.5);
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%,18px);
+      transition:
+        opacity 180ms ease,
+        transform 180ms ease;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .color-mobile-toast.is-visible {
+      opacity: 1;
+      transform: translate(-50%,0);
+    }
+
+    .color-mobile-toast__icon {
+      display: grid;
+      flex: 0 0 28px;
+      width: 28px;
+      height: 28px;
+      place-items: center;
+      color: var(--color-text-dark);
+      background: var(--gradient-primary);
+      border-radius: 999px;
+      font-size: .9rem;
+      font-weight: 1000;
+    }
+
+    .color-mobile-toast__copy {
+      min-width: 0;
+    }
+
+    .color-mobile-toast__copy strong {
+      display: block;
+      font-size: .86rem;
+    }
+
+    .color-mobile-toast__copy span {
+      display: block;
+      margin-top: 2px;
+      color: var(--color-text-soft);
+      font-size: .75rem;
+      line-height: 1.4;
+    }
+  }
+
+  @media (max-width: 390px) {
+    .color-converter-tool .color-preview-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .color-converter-tool .color-preview-card__swatch {
+      min-height: 120px;
+    }
+
+    .color-converter-tool .color-variants-grid {
+      grid-template-columns: repeat(2, minmax(0,1fr));
+    }
+  }
+</style>
+
 </head>
 <body data-page="color-converter">
   <a class="skip-link" href="#main-content" data-i18n="common.skipToContent">Saltar al contenido</a>
@@ -115,15 +736,15 @@
     -->
 
     <main class="product-page" id="main-content">
-      <section class="product-header" aria-labelledby="product-title">
+      <section class="product-header product-header--tool-first" aria-labelledby="product-title">
         <div class="product-header__content">
-          <p class="section-heading__eyebrow" data-i18n="product.eyebrow">Conversión cromática</p>
-          <h1 id="product-title" data-i18n="product.title">Convertidor de colores</h1>
-          <p class="product-header__description" data-i18n="product.description">Convierte un color entre HEX, RGB, HSL, HSV y CMYK, explora variantes y copia los valores.</p>
+          <h1 id="product-title" data-i18n="product.title">
+            Convertidor de colores
+          </h1>
         </div>
       </section>
 
-      <section class="tool-interface" aria-labelledby="converter-title">
+      <section class="tool-interface color-converter-tool" aria-labelledby="converter-title">
         <div>
           <h2 id="converter-title" data-i18n="converter.title">Selecciona o escribe un color</h2>
           <p data-i18n="converter.intro">Usa el selector visual o introduce un valor hexadecimal.</p>
@@ -182,9 +803,51 @@
         </section>
 
         <div class="hero__actions">
-          <button class="button button--secondary" id="random-button" type="button"><span data-i18n="converter.randomButton">Color aleatorio</span></button>
-          <button class="button button--secondary" id="reset-button" type="button"><span data-i18n="common.reset">Restablecer</span></button>
+          <button class="button button--secondary" id="random-button" type="button">
+            <span data-i18n="converter.randomButton">Color aleatorio</span>
+          </button>
+
+          <button class="button button--secondary" id="reset-button" type="button">
+            <span data-i18n="common.reset">Restablecer</span>
+          </button>
         </div>
+
+        <div
+          class="color-mobile-toast"
+          id="color-mobile-toast"
+          role="status"
+          aria-live="polite"
+        >
+          <span class="color-mobile-toast__icon" aria-hidden="true">✓</span>
+
+          <span class="color-mobile-toast__copy">
+            <strong id="color-mobile-toast-title">
+              Acción completada
+            </strong>
+
+            <span id="color-mobile-toast-message">
+              La acción se realizó correctamente.
+            </span>
+          </span>
+        </div>
+      </section>
+
+      <section class="tool-description" aria-labelledby="tool-description-title">
+        <p class="section-heading__eyebrow" data-i18n="product.eyebrow">
+          Conversión cromática
+        </p>
+
+        <h2 id="tool-description-title" data-i18n="info.title">
+          Cómo convertir colores con Alfora
+        </h2>
+
+        <p class="tool-description__lead" data-i18n="product.description">
+          Convierte un color entre HEX, RGB, HSL, HSV y CMYK, explora variantes y copia los valores.
+        </p>
+
+        <p data-i18n="info.description">
+          Selecciona un color, ajusta sus canales y copia el formato que necesites.
+        </p>
       </section>
 
       <!--
@@ -194,9 +857,10 @@
       -->
       
       <section class="about-section__content product-information">
-        <p class="section-heading__eyebrow" data-i18n="info.eyebrow">Un color, múltiples formatos</p>
-        <h2 data-i18n="info.title">Cómo convertir colores con Alfora</h2>
-        <p data-i18n="info.description">Selecciona un color, ajusta sus canales y copia el formato que necesites.</p>
+        <p class="section-heading__eyebrow" data-i18n="info.eyebrow">
+          Un color, múltiples formatos
+        </p>
+
         <div class="trust-grid">
           <article class="trust-card"><h3 data-i18n="info.stepOneTitle">1. Selecciona</h3><p data-i18n="info.stepOneText">Escoge un color o escribe su valor hexadecimal.</p></article>
           <article class="trust-card"><h3 data-i18n="info.stepTwoTitle">2. Convierte</h3><p data-i18n="info.stepTwoText">Consulta HEX, RGB, HSL, HSV y CMYK.</p></article>
@@ -215,6 +879,8 @@
     const rr=$("red-range"),gr=$("green-range"),br=$("blue-range"),ar=$("alpha-range");
     const ro=$("red-output"),go=$("green-output"),bo=$("blue-output"),ao=$("alpha-output");
     const rgb=$("rgb-value"),hsl=$("hsl-value"),hsv=$("hsv-value"),cmyk=$("cmyk-value"),variants=$("variants-grid"),status=$("status-message");
+    const mobileToast=$("color-mobile-toast"),mobileToastTitle=$("color-mobile-toast-title"),mobileToastMessage=$("color-mobile-toast-message");
+    let mobileToastTimer=0;
     let color={...DEFAULT};
     const clamp=(v,min,max)=>Math.min(max,Math.max(min,v));
     const hx=v=>clamp(Math.round(v),0,255).toString(16).padStart(2,"0").toUpperCase();
@@ -242,7 +908,22 @@
     }
     const mix=(c,t,a)=>({r:Math.round(c.r+(t.r-c.r)*a),g:Math.round(c.g+(t.g-c.g)*a),b:Math.round(c.b+(t.b-c.b)*a),a:c.a});
     const textColor=c=>(.299*c.r+.587*c.g+.114*c.b)/255>.62?"#07110A":"#FFF";
-    function message(text,type="success"){status.hidden=false;status.textContent=text;status.className=`status-message status-message--${type}`;setTimeout(()=>status.hidden=true,1600);}
+    function showMobileToast(text){
+      if(!window.matchMedia("(max-width: 620px)").matches)return;
+      clearTimeout(mobileToastTimer);
+      mobileToastTitle.textContent="Acción completada";
+      mobileToastMessage.textContent=text;
+      mobileToast.classList.add("is-visible");
+      mobileToastTimer=setTimeout(()=>mobileToast.classList.remove("is-visible"),5000);
+    }
+
+    function message(text,type="success"){
+      status.hidden=false;
+      status.textContent=text;
+      status.className=`status-message status-message--${type}`;
+      setTimeout(()=>status.hidden=true,1600);
+      if(type==="success")showMobileToast(text);
+    }
     function renderVariants(){
       variants.innerHTML="";
       const defs=[["light",.8,"80%"],["light",.6,"60%"],["light",.4,"40%"],["light",.2,"20%"],["base",0,"Base"],["dark",.2,"20%"],["dark",.4,"40%"],["dark",.6,"60%"],["dark",.8,"80%"]];
@@ -268,8 +949,8 @@
     hex.oninput=()=>{const c=parseHex(hex.value);hex.setAttribute("aria-invalid",String(!c));if(c)setColor(c);};
     [rr,gr,br,ar].forEach(el=>el.oninput=()=>setColor({r:+rr.value,g:+gr.value,b:+br.value,a:+ar.value/100}));
     document.querySelectorAll("[data-copy-target]").forEach(btn=>btn.onclick=async()=>{const t=$(btn.dataset.copyTarget),value=("value"in t?t.value:t.textContent).trim();try{await navigator.clipboard.writeText(value);message("Valor copiado.");}catch{message("No fue posible copiar.","error");}});
-    $("random-button").onclick=()=>setColor({r:Math.random()*255,g:Math.random()*255,b:Math.random()*255,a:1});
-    $("reset-button").onclick=()=>setColor(DEFAULT);
+    $("random-button").onclick=()=>{setColor({r:Math.random()*255,g:Math.random()*255,b:Math.random()*255,a:1});message("Color aleatorio generado.");};
+    $("reset-button").onclick=()=>{setColor(DEFAULT);message("Convertidor restablecido.");};
     render();
   })();
   </script>

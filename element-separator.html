@@ -99,7 +99,7 @@
     .separator-heading p{margin:var(--space-2) 0 0;color:var(--color-text-muted);font-size:var(--font-size-sm)}
     .separator-counter{display:inline-flex;min-width:74px;min-height:36px;align-items:center;justify-content:center;padding:0 var(--space-3);color:var(--color-primary);background:rgba(102,255,143,.08);border:1px solid var(--color-border);border-radius:var(--radius-pill);font-size:var(--font-size-xs);font-weight:900;white-space:nowrap}
     .separator-stage{position:relative;display:grid;min-height:420px;place-items:center;overflow:hidden;background:linear-gradient(45deg,rgba(255,255,255,.035) 25%,transparent 25%,transparent 75%,rgba(255,255,255,.035) 75%),linear-gradient(45deg,rgba(255,255,255,.035) 25%,transparent 25%,transparent 75%,rgba(255,255,255,.035) 75%);background-position:0 0,14px 14px;background-size:28px 28px;border:1px solid var(--color-border);border-radius:var(--radius-lg)}
-    .separator-stage canvas{display:block;width:100%;height:auto;max-height:72vh;object-fit:contain}
+    .separator-stage canvas{display:block;width:auto;height:auto;max-width:100%;max-height:72vh;object-fit:initial}
     #selection-canvas{cursor:crosshair;touch-action:none}
     .separator-placeholder{position:absolute;inset:0;display:grid;place-items:center;padding:var(--space-8);color:var(--color-text-muted);text-align:center;pointer-events:none}
     .separator-placeholder[hidden]{display:none!important}
@@ -130,7 +130,7 @@
       .separator-heading strong{font-size:.92rem}
       .separator-counter{min-width:auto;min-height:30px;padding-inline:9px;font-size:.68rem}
       .separator-stage{min-height:0;height:100%;border-radius:var(--radius-md)}
-      .separator-stage canvas,.separator-stage--result canvas{width:100%;height:100%;max-height:none;object-fit:contain}
+      .separator-stage canvas,.separator-stage--result canvas{width:auto;height:auto;max-width:100%;max-height:100%;object-fit:initial}
       .separator-placeholder{padding:var(--space-4);font-size:var(--font-size-sm)}
 
       .separator-mobile-tools{position:fixed;top:max(92px,calc(env(safe-area-inset-top) + 78px));left:10px;z-index:calc(var(--z-dropdown) + 5);display:block;width:52px;height:52px;overflow:visible;background:transparent;border:0;box-shadow:none;transition:none}
@@ -845,23 +845,87 @@
         });
       }
 
-      function pointerToCanvas(event) {
-        const bounds = elements.selectionCanvas.getBoundingClientRect();
+      function getRenderedCanvasContentRect() {
+        const canvas = elements.selectionCanvas;
+        const bounds = canvas.getBoundingClientRect();
+
+        if (!bounds.width || !bounds.height || !canvas.width || !canvas.height) {
+          return {
+            left: bounds.left,
+            top: bounds.top,
+            width: Math.max(1, bounds.width),
+            height: Math.max(1, bounds.height)
+          };
+        }
+
+        const intrinsicRatio = canvas.width / canvas.height;
+        const boxRatio = bounds.width / bounds.height;
+
+        let renderedWidth = bounds.width;
+        let renderedHeight = bounds.height;
+        let offsetX = 0;
+        let offsetY = 0;
+
+        /*
+         * Si por cualquier regla responsive el canvas termina dentro de una
+         * caja con otra proporción, calculamos el rectángulo real donde se
+         * está mostrando su bitmap. Así el puntero nunca usa el espacio
+         * "vacío" de letterboxing como si fuera parte de la imagen.
+         */
+        if (Math.abs(boxRatio - intrinsicRatio) > 0.001) {
+          if (boxRatio > intrinsicRatio) {
+            renderedHeight = bounds.height;
+            renderedWidth = renderedHeight * intrinsicRatio;
+            offsetX = (bounds.width - renderedWidth) / 2;
+          } else {
+            renderedWidth = bounds.width;
+            renderedHeight = renderedWidth / intrinsicRatio;
+            offsetY = (bounds.height - renderedHeight) / 2;
+          }
+        }
 
         return {
-          x:
-            (event.clientX - bounds.left) *
-            (elements.selectionCanvas.width / bounds.width),
-          y:
-            (event.clientY - bounds.top) *
-            (elements.selectionCanvas.height / bounds.height)
+          left: bounds.left + offsetX,
+          top: bounds.top + offsetY,
+          width: Math.max(1, renderedWidth),
+          height: Math.max(1, renderedHeight)
+        };
+      }
+
+      function pointerToCanvas(event) {
+        const canvas = elements.selectionCanvas;
+        const rendered = getRenderedCanvasContentRect();
+
+        const localX = event.clientX - rendered.left;
+        const localY = event.clientY - rendered.top;
+
+        /*
+         * No permitimos crear/arrastrar puntos fuera del bitmap visible.
+         * Esto evita saltos cuando el dedo entra en un margen del stage.
+         */
+        if (
+          localX < 0 ||
+          localY < 0 ||
+          localX > rendered.width ||
+          localY > rendered.height
+        ) {
+          return null;
+        }
+
+        return {
+          x: localX * (canvas.width / rendered.width),
+          y: localY * (canvas.height / rendered.height)
         };
       }
 
       function getHitRadius() {
-        const bounds = elements.selectionCanvas.getBoundingClientRect();
-        if (!bounds.width) return 14;
-        return 16 * (elements.selectionCanvas.width / bounds.width);
+        const rendered = getRenderedCanvasContentRect();
+        if (!rendered.width) return 14;
+
+        return 16 * (
+          elements.selectionCanvas.width /
+          rendered.width
+        );
       }
 
       function findNearestPointIndex(position) {
@@ -923,6 +987,11 @@
         event.preventDefault();
 
         const position = pointerToCanvas(event);
+
+        if (!position) {
+          return;
+        }
+
         elements.selectionCanvas.setPointerCapture?.(event.pointerId);
 
         if (state.mode === "points") {
@@ -953,6 +1022,10 @@
       function moveSelection(event) {
         if (!state.image) return;
         const position = pointerToCanvas(event);
+
+        if (!position) {
+          return;
+        }
 
         if (state.mode === "points" && state.draggingPointIndex >= 0) {
           event.preventDefault();

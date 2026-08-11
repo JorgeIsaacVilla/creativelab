@@ -61,6 +61,694 @@
     "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}
   }
   </script>
+
+  <style>
+    /* ==========================================================================
+       ALFORA · GENERADOR DE PALETAS
+       ========================================================================== */
+
+    .product-header--tool-first {
+      margin-bottom: var(--space-5);
+    }
+
+    .product-header--tool-first .product-header__content {
+      max-width: none;
+    }
+
+    .product-header--tool-first h1 {
+      margin-bottom: 0;
+    }
+
+    .palette-generator-tool {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .palette-generator-controls {
+      display: grid;
+      grid-template-columns: minmax(260px, .9fr) minmax(0, 1.1fr);
+      align-items: end;
+      gap: var(--space-4);
+    }
+
+    .palette-generator-base {
+      display: grid;
+      grid-template-columns: 76px minmax(0, 1fr);
+      align-items: end;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .palette-generator-base__picker {
+      display: grid;
+      place-items: center;
+    }
+
+    .palette-generator-base__picker input[type="color"] {
+      width: 64px;
+      height: 48px;
+      padding: 0;
+      overflow: hidden;
+      background: transparent;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+    }
+
+    .palette-generator-controls > .control-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .palette-generator-controls > .control-grid:last-child {
+      grid-column: 1 / -1;
+    }
+
+    .palette-generator-actions {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin: 0;
+    }
+
+    .palette-generator-actions .button {
+      width: 100%;
+      min-width: 0;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+
+    .generated-palette-section {
+      min-width: 0;
+    }
+
+    .generated-palette-section__heading {
+      margin-bottom: 10px;
+    }
+
+    .generated-palette-section__heading p {
+      margin-bottom: 0;
+      color: var(--color-text-muted);
+      font-size: var(--font-size-sm);
+    }
+
+    .generated-palette-strip {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      min-height: 120px;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+    }
+
+    .generated-palette-strip__color {
+      min-width: 0;
+      min-height: 120px;
+      padding: 8px 5px;
+      border: 0;
+      cursor: pointer;
+    }
+
+    .generated-palette-strip__color span,
+    .generated-palette-strip__color strong {
+      display: block;
+    }
+
+    .generated-palette-strip__color strong {
+      font-size: .7rem;
+      overflow-wrap: anywhere;
+    }
+
+    .generated-palette-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .generated-color-card {
+      display: grid;
+      grid-template-columns: 48px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+      padding: 9px;
+      background: rgba(255,255,255,.02);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+    }
+
+    .generated-color-card__swatch {
+      width: 48px;
+      height: 48px;
+      border: 0;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .generated-color-card__values {
+      display: grid;
+      min-width: 0;
+      gap: 2px;
+    }
+
+    .generated-color-card__values span {
+      color: var(--color-text-muted);
+      font-size: .68rem;
+      overflow-wrap: anywhere;
+    }
+
+    .generated-color-card__actions {
+      display: grid;
+      gap: 5px;
+    }
+
+    .palette-code-panel {
+      padding: var(--space-4);
+      background: rgba(102,255,143,.018);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+    }
+
+    .palette-export-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .palette-export-card {
+      min-width: 0;
+      padding: 10px;
+      background: rgba(255,255,255,.02);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+    }
+
+    .palette-export-card__heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .palette-export-card code {
+      display: block;
+      max-height: 150px;
+      overflow: auto;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      font-size: .7rem;
+    }
+
+    .palette-generator-description {
+      margin-top: var(--space-8);
+      padding: clamp(1.25rem, 4vw, 2.5rem);
+      background: rgba(102,255,143,.018);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+    }
+
+    .palette-generator-description h2 {
+      max-width: 850px;
+      margin-bottom: var(--space-4);
+    }
+
+    .palette-generator-description .tool-description__lead {
+      max-width: 820px;
+      margin-bottom: var(--space-3);
+      color: var(--color-text-soft);
+      font-size: var(--font-size-md);
+    }
+
+    .palette-generator-description > p:last-child {
+      max-width: 820px;
+      margin-bottom: 0;
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 701px) {
+      .palette-generator-tool {
+        padding: var(--space-5);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .palette-generator-controls {
+        grid-template-columns: 1fr;
+      }
+
+      .palette-generator-controls > .control-grid:last-child {
+        grid-column: auto;
+      }
+
+      .palette-generator-actions {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .palette-export-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .product-header--tool-first {
+        margin-bottom: 12px;
+      }
+
+      .product-header--tool-first h1 {
+        font-size: clamp(2rem, 10vw, 3rem);
+      }
+
+      .palette-generator-tool {
+        display: grid;
+        gap: 10px;
+        min-width: 0;
+      }
+
+      .palette-generator-controls {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 9px;
+      }
+
+      .palette-generator-base {
+        grid-template-columns: 58px minmax(0, 1fr);
+        gap: 8px;
+      }
+
+      .palette-generator-base__picker input[type="color"] {
+        width: 54px;
+        height: 44px;
+      }
+
+      .palette-generator-controls > .control-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 7px;
+      }
+
+      .palette-generator-tool .form-field label {
+        font-size: .7rem;
+      }
+
+      .palette-generator-tool select,
+      .palette-generator-tool input[type="text"] {
+        min-height: 44px;
+        font-size: .76rem;
+      }
+
+      .palette-generator-actions {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px;
+      }
+
+      .palette-generator-actions .button {
+        min-height: 44px;
+        padding: 6px 7px;
+        font-size: .68rem;
+        line-height: 1.15;
+      }
+
+      .generated-palette-strip {
+        min-height: 88px;
+      }
+
+      .generated-palette-strip__color {
+        min-height: 88px;
+        padding: 5px 2px;
+      }
+
+      .generated-palette-strip__color strong {
+        font-size: .58rem;
+      }
+
+      .generated-palette-list {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+
+      .generated-color-card {
+        grid-template-columns: 42px minmax(0, 1fr) auto;
+        padding: 7px;
+      }
+
+      .generated-color-card__swatch {
+        width: 42px;
+        height: 42px;
+      }
+
+      .palette-code-panel {
+        padding: 10px;
+        border-radius: 14px;
+      }
+
+      .palette-export-grid {
+        gap: 7px;
+      }
+
+      .palette-export-card {
+        padding: 8px;
+      }
+
+      .palette-export-card code {
+        max-height: 110px;
+      }
+
+      .palette-generator-description {
+        margin-top: 16px;
+        padding: var(--space-4);
+        border-radius: var(--radius-lg);
+      }
+
+      .palette-generator-description h2 {
+        font-size: clamp(1.55rem, 8vw, 2.2rem);
+      }
+
+      .palette-generator-description .tool-description__lead {
+        font-size: .95rem;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .palette-generator-controls > .control-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+
+
+    /* ======================================================================
+   HERRAMIENTA: GENERADOR DE PALETAS · INICIO
+   ====================================================================== */
+/* ==========================================================================
+   PRODUCTO: GENERADOR DE PALETAS
+   ========================================================================== */
+
+.palette-generator-controls {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.palette-generator-base {
+  display: grid;
+  grid-template-columns: 130px minmax(0, 1fr);
+  gap: var(--space-5);
+  align-items: end;
+}
+
+.palette-generator-base__picker {
+  display: grid;
+  place-items: center;
+  min-height: 124px;
+  padding: var(--space-3);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+}
+
+.palette-generator-base__picker input[type="color"] {
+  width: 92px;
+  height: 92px;
+  padding: 6px;
+  border-radius: 24px;
+  cursor: pointer;
+}
+
+.generated-palette-section {
+  padding: var(--space-6);
+  background: rgba(102, 255, 143, 0.02);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+}
+
+.generated-palette-section__heading {
+  margin-bottom: var(--space-5);
+}
+
+.generated-palette-section__heading p {
+  margin: var(--space-2) 0 0;
+  color: var(--color-text-soft);
+}
+
+.generated-palette-strip {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  min-height: 220px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+}
+
+.generated-palette-strip__color {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-width: 0;
+  padding: var(--space-4);
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+  transition:
+    transform var(--transition-normal),
+    filter var(--transition-normal);
+}
+
+.generated-palette-strip__color:hover {
+  filter: saturate(1.08);
+  transform: translateY(-4px);
+}
+
+.generated-palette-strip__color span,
+.generated-palette-strip__color strong {
+  display: block;
+}
+
+.generated-palette-strip__color span {
+  margin-bottom: var(--space-1);
+  font-size: var(--font-size-xs);
+  opacity: 0.75;
+}
+
+.generated-palette-strip__color strong {
+  overflow: hidden;
+  font-family: var(--font-family-mono, monospace);
+  font-size: var(--font-size-sm);
+  text-overflow: ellipsis;
+}
+
+.generated-palette-list {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+.generated-color-card {
+  display: grid;
+  grid-template-columns: 62px minmax(0, 1fr) auto;
+  gap: var(--space-4);
+  align-items: center;
+  padding: var(--space-3);
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.generated-color-card__swatch {
+  display: grid;
+  place-items: center;
+  width: 62px;
+  height: 62px;
+  border: 0;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.generated-color-card__values {
+  min-width: 0;
+}
+
+.generated-color-card__values strong,
+.generated-color-card__values span {
+  display: block;
+}
+
+.generated-color-card__values strong {
+  margin-bottom: var(--space-1);
+  color: var(--color-primary);
+  font-family: var(--font-family-mono, monospace);
+}
+
+.generated-color-card__values span {
+  overflow: hidden;
+  color: var(--color-text-muted);
+  font-family: var(--font-family-mono, monospace);
+  font-size: var(--font-size-xs);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.generated-color-card__actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.palette-lock-button {
+  display: grid;
+  place-items: center;
+  min-width: 46px;
+  min-height: 42px;
+  color: var(--color-text-muted);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: 1rem;
+  transition:
+    color var(--transition-normal),
+    background var(--transition-normal),
+    border-color var(--transition-normal);
+}
+
+.palette-lock-button.is-locked {
+  color: var(--color-primary);
+  background: rgba(102, 255, 143, 0.08);
+  border-color: rgba(102, 255, 143, 0.35);
+}
+
+.color-text-input {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  overflow: hidden;
+  background: var(--color-surface-strong);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.color-text-input:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(102, 255, 143, 0.11);
+}
+
+.color-text-input input {
+  min-width: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  font-family: var(--font-family-mono, monospace);
+  font-weight: 800;
+}
+
+.color-copy-button {
+  display: inline-grid;
+  place-items: center;
+  min-width: 46px;
+  min-height: 42px;
+  padding: 0 var(--space-3);
+  color: var(--color-primary);
+  background: rgba(102, 255, 143, 0.06);
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 900;
+}
+
+.color-copy-button:hover {
+  color: var(--color-background);
+  background: var(--color-primary);
+}
+
+.palette-code-panel {
+  padding: var(--space-6);
+  background: rgba(102, 255, 143, 0.02);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+}
+
+.palette-code-panel__heading {
+  margin-bottom: var(--space-5);
+}
+
+.palette-code-panel__heading p {
+  margin: var(--space-2) 0 0;
+  color: var(--color-text-soft);
+}
+
+.palette-export-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.palette-export-card {
+  min-width: 0;
+  padding: var(--space-5);
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.palette-export-card__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.palette-export-card__heading h4 {
+  margin: 0;
+}
+
+.palette-export-card code {
+  display: block;
+  max-height: 220px;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  color: var(--color-primary);
+  font-family: var(--font-family-mono, monospace);
+  font-size: var(--font-size-sm);
+  line-height: 1.65;
+}
+
+@media (max-width: 980px) {
+  .palette-export-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .palette-generator-base {
+    grid-template-columns: 1fr;
+  }
+
+  .generated-palette-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .generated-palette-strip__color {
+    min-height: 130px;
+  }
+}
+
+@media (max-width: 560px) {
+  .generated-color-card {
+    grid-template-columns: 54px minmax(0, 1fr);
+  }
+
+  .generated-color-card__actions {
+    grid-column: 2;
+  }
+
+  .generated-palette-strip {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ======================================================================
+   HERRAMIENTA: GENERADOR DE PALETAS · FIN
+   ====================================================================== */
+  </style>
+
 </head>
 
 <body data-page="palette-generator">
@@ -110,34 +798,15 @@
     -->
 
     <main class="product-page" id="main-content">
-      <section class="product-header" aria-labelledby="product-title">
+      <section class="product-header product-header--tool-first" aria-labelledby="product-title">
         <div class="product-header__content">
-          <p class="section-heading__eyebrow" data-i18n="product.eyebrow">
-            Armonía cromática
-          </p>
-
           <h1 id="product-title" data-i18n="product.title">
             Generador de paletas
           </h1>
-
-          <p class="product-header__description" data-i18n="product.description">
-            Elige un color base y crea combinaciones armónicas para diseño,
-            branding, interfaces y proyectos creativos.
-          </p>
         </div>
       </section>
 
-      <section class="tool-interface" aria-labelledby="generator-title">
-        <div>
-          <h2 id="generator-title" data-i18n="generator.title">
-            Construye tu paleta
-          </h2>
-
-          <p data-i18n="generator.intro">
-            Selecciona un color base, elige una armonía y ajusta el resultado.
-          </p>
-        </div>
-
+      <section class="tool-interface palette-generator-tool" aria-labelledby="product-title">
         <div class="palette-generator-controls">
           <div class="palette-generator-base">
             <div class="palette-generator-base__picker">
@@ -249,6 +918,24 @@
           hidden
         ></div>
 
+        <div class="hero__actions palette-generator-actions">
+          <button class="button button--primary" id="generate-button" type="button">
+            <span data-i18n="generator.generateButton">Generar paleta</span>
+          </button>
+
+          <button class="button button--secondary" id="random-button" type="button">
+            <span data-i18n="generator.randomButton">Color aleatorio</span>
+          </button>
+
+          <button class="button button--secondary" id="download-button" type="button">
+            <span data-i18n="generator.downloadButton">Descargar paleta</span>
+          </button>
+
+          <button class="button button--secondary" id="reset-button" type="button">
+            <span data-i18n="common.reset">Restablecer</span>
+          </button>
+        </div>
+
         <section class="generated-palette-section" aria-labelledby="palette-title">
           <div class="generated-palette-section__heading">
             <div>
@@ -324,26 +1011,27 @@
           </div>
         </section>
 
-        <div class="hero__actions">
-          <button class="button button--primary" id="generate-button" type="button">
-            <span data-i18n="generator.generateButton">Generar paleta</span>
-          </button>
-
-          <button class="button button--secondary" id="random-button" type="button">
-            <span data-i18n="generator.randomButton">Color aleatorio</span>
-          </button>
-
-          <button class="button button--secondary" id="download-button" type="button">
-            <span data-i18n="generator.downloadButton">Descargar paleta</span>
-          </button>
-
-          <button class="button button--secondary" id="reset-button" type="button">
-            <span data-i18n="common.reset">Restablecer</span>
-          </button>
-        </div>
-
         <p class="privacy-note" data-i18n="common.privacyNotice">
           Tus datos se procesan localmente en tu navegador.
+        </p>
+      </section>
+
+      <section class="tool-description palette-generator-description" aria-labelledby="generator-title">
+        <p class="section-heading__eyebrow" data-i18n="product.eyebrow">
+          Armonía cromática
+        </p>
+
+        <h2 id="generator-title" data-i18n="generator.title">
+          Construye tu paleta
+        </h2>
+
+        <p class="tool-description__lead" data-i18n="product.description">
+          Elige un color base y crea combinaciones armónicas para diseño,
+          branding, interfaces y proyectos creativos.
+        </p>
+
+        <p data-i18n="generator.intro">
+          Selecciona un color base, elige una armonía y ajusta el resultado.
         </p>
       </section>
 

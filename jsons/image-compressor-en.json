@@ -1,10 +1,10 @@
 {
   "seo": {
-    "title": "JPG, PNG, WebP and SVG Image Compressor | Creative Lab",
-    "description": "Compress JPG, PNG, WebP and SVG images for free in your browser with Creative Lab. Reduce file size, compare results and download instantly.",
+    "title": "JPG, PNG, WebP and SVG Image Compressor | Alfora",
+    "description": "Compress JPG, PNG, WebP and SVG images for free in your browser with Alfora. Reduce file size, compare results and download instantly.",
     "ogTitle": "JPG, PNG, WebP and SVG Image Compressor",
     "ogDescription": "Reduce image file size directly in your browser.",
-    "twitterTitle": "Image Compressor | Creative Lab",
+    "twitterTitle": "Image Compressor | Alfora",
     "twitterDescription": "Compress JPG, PNG, WebP and SVG directly in your browser.",
     "htmlLang": "en"
   },
@@ -52,7 +52,7 @@
   },
   "info": {
     "eyebrow": "Less weight, same idea",
-    "title": "How to compress images with Creative Lab",
+    "title": "How to compress images with Alfora",
     "description": "Select an image, define the quality level and download an optimized version. Everything runs in your browser.",
     "stepOneTitle": "1. Upload",
     "stepOneText": "Select a JPG, PNG, WebP or SVG image.",

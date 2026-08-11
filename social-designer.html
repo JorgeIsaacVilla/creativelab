@@ -51,6 +51,1730 @@
   <script src="./scripts/language.js" defer></script>
   <script src="./scripts/shared.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/fabric@5.3.0/dist/fabric.min.js" defer></script>
+
+  <style>
+    /* ==========================================================================
+       ALFORA · SOCIAL DESIGNER · FORMATO
+       ========================================================================== */
+
+    .social-designer-intro--tool-first {
+      margin-bottom: var(--space-5);
+    }
+
+    .social-designer-intro--tool-first .product-header__content {
+      max-width: none;
+    }
+
+    .social-designer-intro--tool-first h1 {
+      margin-bottom: 0;
+    }
+
+    .social-designer-copy {
+      margin-top: var(--space-8);
+      padding: clamp(1.25rem, 4vw, 2.5rem);
+      background: rgba(102, 255, 143, 0.018);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+    }
+
+    .social-designer-copy .product-header__description {
+      max-width: 850px;
+      margin: var(--space-4) 0 0;
+    }
+
+    .designer-mobile-tools-toggle {
+      display: none;
+    }
+
+    @media (max-width: 720px) {
+      .social-designer-intro--tool-first {
+        margin-bottom: 12px;
+      }
+
+      .social-designer-intro--tool-first h1 {
+        font-size: clamp(2rem, 10vw, 3rem);
+      }
+
+      .social-designer-copy {
+        margin-top: 16px;
+        padding: var(--space-4);
+        border-radius: var(--radius-lg);
+      }
+
+      /* Modalidad Alfora +/- */
+      .designer-mobile-tools-toggle {
+        position: fixed;
+        top: max(92px, calc(env(safe-area-inset-top) + 78px));
+        left: 8px;
+        z-index: 1400;
+        display: grid;
+        width: 52px;
+        height: 52px;
+        place-items: center;
+        padding: 0;
+        color: var(--color-text-dark);
+        background: var(--gradient-primary);
+        border: 0;
+        border-radius: 0 17px 17px 0;
+        box-shadow: 10px 14px 34px rgba(0,0,0,.38);
+        cursor: pointer;
+        font-size: 1.75rem;
+        font-weight: 900;
+      }
+
+      .designer-mobile-toolbar {
+        position: fixed !important;
+        top: max(92px, calc(env(safe-area-inset-top) + 78px));
+        left: 8px;
+        bottom: auto !important;
+        z-index: 1390;
+        display: grid !important;
+        width: min(78vw, 300px);
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 6px;
+        padding: 60px 8px 8px;
+        background: rgba(7,24,13,.68);
+        border: 1px solid rgba(102,255,143,.22);
+        border-radius: 0 20px 20px 0;
+        box-shadow: 20px 24px 60px rgba(0,0,0,.46);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateX(-18px);
+        transition:
+          opacity .2s ease,
+          visibility .2s ease,
+          transform .25s ease;
+      }
+
+      .designer-mobile-toolbar.is-open {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateX(0);
+      }
+
+      .designer-mobile-toolbar button {
+        min-width: 0;
+        min-height: 46px;
+        border-radius: 11px;
+      }
+
+      /* Herramienta seleccionada sobre el área de trabajo. */
+      .designer-panel {
+        position: fixed !important;
+        top: max(150px, calc(env(safe-area-inset-top) + 132px)) !important;
+        left: 50% !important;
+        right: auto !important;
+        bottom: auto !important;
+        z-index: 1380 !important;
+        width: min(92vw, 390px) !important;
+        max-height: min(68svh, 620px) !important;
+        overflow: hidden !important;
+        transform: translateX(-50%) translateY(14px) scale(.98) !important;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        background: rgba(5,19,10,.72) !important;
+        border: 1px solid rgba(102,255,143,.28) !important;
+        border-radius: 22px !important;
+        box-shadow: 0 24px 70px rgba(0,0,0,.46) !important;
+        backdrop-filter: blur(20px) saturate(1.08);
+        -webkit-backdrop-filter: blur(20px) saturate(1.08);
+        transition:
+          opacity .22s ease,
+          visibility .22s ease,
+          transform .28s cubic-bezier(.2,.8,.2,1) !important;
+      }
+
+      .designer-panel.is-open {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateX(-50%) translateY(0) scale(1) !important;
+      }
+
+      .designer-panel__body {
+        max-height: calc(min(68svh, 620px) - 62px);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+      }
+
+      .designer-panel__header {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        background: rgba(5,19,10,.88);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+      }
+    }
+  
+
+    /* ==========================================================================
+       SOCIAL DESIGNER · ATAJOS CONTEXTUALES
+       ========================================================================== */
+
+    .designer-context-menu {
+      position: fixed;
+      z-index: 1700;
+      display: grid;
+      width: min(260px, calc(100vw - 24px));
+      gap: 5px;
+      padding: 8px;
+      background: rgba(5, 19, 10, .88);
+      border: 1px solid rgba(102, 255, 143, .28);
+      border-radius: 16px;
+      box-shadow: 0 20px 54px rgba(0,0,0,.46);
+      backdrop-filter: blur(18px) saturate(1.08);
+      -webkit-backdrop-filter: blur(18px) saturate(1.08);
+    }
+
+    .designer-context-menu[hidden] {
+      display: none !important;
+    }
+
+    .designer-context-menu__button {
+      display: flex;
+      width: 100%;
+      min-height: 42px;
+      align-items: center;
+      padding: 8px 11px;
+      color: var(--color-text);
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      cursor: pointer;
+      text-align: left;
+      font: inherit;
+      font-size: .78rem;
+      font-weight: 800;
+    }
+
+    .designer-context-menu__button:hover,
+    .designer-context-menu__button:focus-visible {
+      background: rgba(102,255,143,.08);
+      border-color: var(--color-border);
+      outline: none;
+    }
+
+    .designer-context-menu__button--danger {
+      color: var(--color-error);
+    }
+
+    @media (max-width: 720px) {
+      .designer-mobile-toolbar button {
+        display: grid;
+        grid-template-columns: 24px minmax(0, 1fr);
+        align-items: center;
+        gap: 6px;
+        padding: 7px 8px;
+        text-align: left;
+      }
+
+      .designer-mobile-toolbar button span {
+        display: grid;
+        place-items: center;
+        font-size: 1rem;
+      }
+
+      .designer-mobile-toolbar button small {
+        display: block;
+        min-width: 0;
+        overflow: hidden;
+        color: inherit;
+        font-size: .66rem;
+        font-weight: 800;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .designer-context-menu {
+        left: 50% !important;
+        top: auto !important;
+        bottom: max(18px, env(safe-area-inset-bottom)) !important;
+        width: min(92vw, 360px);
+        transform: translateX(-50%);
+        border-radius: 18px;
+      }
+
+      .designer-context-menu__button {
+        min-height: 46px;
+        font-size: .76rem;
+      }
+    }
+
+
+
+    /* ==========================================================================
+       SOCIAL DESIGNER · AJUSTES MÓVILES DE INTERACCIÓN
+       ========================================================================== */
+
+    @media (max-width: 720px) {
+      /* El +/- despliega las herramientas como lista, no como cuadrícula. */
+      .designer-mobile-toolbar {
+        width: min(78vw, 290px) !important;
+        grid-template-columns: 1fr !important;
+        gap: 5px !important;
+      }
+
+      .designer-mobile-toolbar button {
+        display: grid !important;
+        width: 100%;
+        min-height: 46px;
+        grid-template-columns: 30px minmax(0, 1fr);
+        align-items: center;
+        justify-content: stretch;
+        gap: 8px;
+        padding: 7px 10px;
+        text-align: left;
+      }
+
+      .designer-mobile-toolbar button span {
+        width: 30px;
+        height: 30px;
+        place-items: center;
+      }
+
+      .designer-mobile-toolbar button small {
+        overflow: visible;
+        font-size: .72rem;
+        text-overflow: clip;
+        white-space: normal;
+      }
+    }
+
+
+
+    /* ==========================================================================
+       SOCIAL DESIGNER · MENÚ CONTEXTUAL PRIORITARIO
+       ========================================================================== */
+
+    @media (max-width: 720px) {
+      .designer-context-menu {
+        position: fixed !important;
+        left: 50% !important;
+        top: 50% !important;
+        bottom: auto !important;
+        width: min(92vw, 360px);
+        max-height: min(72svh, 560px);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        transform: translate(-50%, -50%) !important;
+        border-radius: 18px;
+      }
+
+      .designer-context-menu__button {
+        min-height: 46px;
+      }
+    }
+
+
+
+    /* ==========================================================================
+       SOCIAL DESIGNER · CAPAS FLOTANTES Y MENÚ CONTEXTUAL ESTABLE
+       ========================================================================== */
+
+    .designer-context-menu,
+    .designer-panel,
+    .designer-mobile-toolbar {
+      box-shadow:
+        0 30px 76px rgba(0, 0, 0, .72),
+        0 0 0 1px rgba(102, 255, 143, .13),
+        0 12px 34px rgba(102, 255, 143, .08) !important;
+    }
+
+    @media (max-width: 720px) {
+      .designer-context-menu {
+        position: fixed !important;
+        inset: 50% auto auto 50% !important;
+        left: 50% !important;
+        top: 50% !important;
+        right: auto !important;
+        bottom: auto !important;
+
+        width: min(92vw, 360px) !important;
+        max-height: min(68svh, 520px) !important;
+
+        margin: 0 !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        overscroll-behavior: contain;
+
+        transform: translate(-50%, -50%) !important;
+        transform-origin: center !important;
+      }
+
+      .designer-context-menu[hidden] {
+        display: none !important;
+      }
+    }
+
+
+
+    /* ==========================================================================
+       SOCIAL DESIGNER · ESTABILIZACIÓN DE APERTURA DEL MENÚ CONTEXTUAL
+       ========================================================================== */
+
+    .designer-context-menu.is-preparing {
+      display: grid !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+
+    @media (max-width: 720px) {
+      .designer-context-menu {
+        box-sizing: border-box !important;
+        contain: layout paint;
+        width: min(92vw, 360px) !important;
+        max-width: calc(100vw - 24px) !important;
+        max-height: min(68dvh, 520px) !important;
+      }
+
+      .designer-context-menu__button {
+        box-sizing: border-box;
+        width: 100%;
+      }
+    }
+
+
+
+    /* ==========================================================================
+       SOCIAL DESIGNER · MENÚ LIMITADO AL VISOR + TRADUCCIÓN
+       ========================================================================== */
+
+    .designer-context-menu {
+      box-sizing: border-box;
+      overflow-x: hidden;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+    }
+
+    #translate-all-field {
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid var(--color-border);
+      border-radius: 14px;
+      background: rgba(102,255,143,.035);
+    }
+
+
+
+    /* Redondeo: respetar el estado visible según el tipo de elemento seleccionado. */
+    #corner-radius-field[hidden],
+    #image-corner-radius-field[hidden] {
+      display: none !important;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    /* ======================================================================
+   HERRAMIENTA: SOCIAL DESIGNER · INICIO
+   ====================================================================== */
+/* ==========================================================================
+   PRODUCTO: SOCIAL DESIGNER V2
+   ========================================================================== */
+
+.social-designer-page {
+  width: min(100% - 24px, 1800px);
+  margin-inline: auto;
+}
+
+.social-designer-intro {
+  padding-bottom: var(--space-5);
+}
+
+.designer-app {
+  overflow: hidden;
+  background: #07100a;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.32);
+}
+
+.designer-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  min-height: 72px;
+  padding: var(--space-3) var(--space-4);
+  background: rgba(255, 255, 255, 0.025);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.designer-topbar__group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.designer-topbar__status {
+  color: var(--color-text-muted);
+  font-family: var(--font-family-mono, monospace);
+  font-size: var(--font-size-sm);
+}
+
+.designer-icon-button,
+.designer-toggle {
+  display: inline-grid;
+  place-items: center;
+  min-width: 42px;
+  min-height: 42px;
+  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font: inherit;
+}
+
+.designer-icon-button:hover,
+.designer-toggle:hover,
+.designer-toggle[aria-pressed="true"] {
+  color: var(--color-primary);
+  background: rgba(102, 255, 143, 0.08);
+  border-color: rgba(102, 255, 143, 0.32);
+}
+
+.designer-file-label {
+  position: relative;
+  cursor: pointer;
+}
+
+.designer-file-label input,
+.designer-upload-zone input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.designer-workspace {
+  display: grid;
+  grid-template-columns: 86px 320px minmax(360px, 1fr) 320px;
+  height: min(860px, calc(100vh - 145px));
+  min-height: 660px;
+}
+
+.designer-tools {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: var(--space-2);
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.018);
+  border-right: 1px solid var(--color-border);
+}
+
+.designer-tool {
+  display: grid;
+  place-items: center;
+  gap: 2px;
+  min-height: 68px;
+  padding: 6px;
+  color: var(--color-text-muted);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.designer-tool span {
+  font-size: 1.45rem;
+  line-height: 1;
+}
+
+.designer-tool small {
+  font-size: 0.68rem;
+}
+
+.designer-tool:hover,
+.designer-tool.is-active {
+  color: var(--color-primary);
+  background: rgba(102, 255, 143, 0.07);
+  border-color: rgba(102, 255, 143, 0.22);
+}
+
+.designer-panel,
+.designer-properties {
+  min-width: 0;
+  overflow-y: auto;
+  background: #0a140d;
+}
+
+.designer-panel {
+  border-right: 1px solid var(--color-border);
+}
+
+.designer-properties {
+  border-left: 1px solid var(--color-border);
+}
+
+.designer-panel__header,
+.designer-properties__header {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 62px;
+  padding: var(--space-3) var(--space-4);
+  background: rgba(10, 20, 13, 0.95);
+  border-bottom: 1px solid var(--color-border);
+  backdrop-filter: blur(12px);
+}
+
+.designer-panel__header h2,
+.designer-properties__header h2 {
+  margin: 0;
+  font-size: var(--font-size-lg);
+}
+
+.designer-panel-close {
+  display: none;
+  width: 38px;
+  height: 38px;
+  color: var(--color-text);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font-size: 1.4rem;
+}
+
+.designer-panel__body,
+.designer-properties__body,
+.designer-properties__empty {
+  padding: var(--space-4);
+}
+
+.designer-panel-section,
+.background-tab {
+  display: none;
+}
+
+.designer-panel-section.is-active,
+.background-tab.is-active {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.designer-section-switcher,
+.designer-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-1);
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.025);
+  border-radius: var(--radius-md);
+}
+
+.designer-tabs {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.designer-section-switcher button,
+.designer-tabs button {
+  min-height: 38px;
+  color: var(--color-text-muted);
+  background: transparent;
+  border: 0;
+  border-radius: calc(var(--radius-md) - 3px);
+  cursor: pointer;
+}
+
+.designer-section-switcher button.is-active,
+.designer-tabs button.is-active {
+  color: var(--color-primary);
+  background: rgba(102, 255, 143, 0.09);
+}
+
+.designer-subsection {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: rgba(255,255,255,.02);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.designer-subsection__header h3 {
+  margin: 0 0 6px;
+  font-size: var(--font-size-base);
+}
+
+.designer-subsection__header p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+
+.button--block {
+  width: 100%;
+}
+
+.designer-help-card,
+.designer-upload-zone {
+  position: relative;
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-5);
+  color: var(--color-text-soft);
+  background: rgba(102, 255, 143, 0.025);
+  border: 1px dashed rgba(102, 255, 143, 0.32);
+  border-radius: var(--radius-lg);
+}
+
+.designer-upload-zone {
+  place-items: center;
+  min-height: 130px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.designer-upload-zone:hover {
+  color: var(--color-primary);
+  background: rgba(102, 255, 143, 0.06);
+}
+
+.designer-upload-zone small {
+  color: var(--color-text-muted);
+}
+
+.designer-help {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+}
+
+.template-grid {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.template-card {
+  overflow: hidden;
+  background: rgba(255,255,255,.022);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.template-card__preview {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: rgba(255,255,255,.03);
+}
+
+.template-card__preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.template-card__content {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-4);
+}
+
+.template-card__eyebrow {
+  color: var(--color-primary);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.template-card__content h3 {
+  margin: 0;
+  font-size: var(--font-size-lg);
+}
+
+.template-card__content p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.shape-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.shape-buttons button {
+  display: grid;
+  place-items: center;
+  min-height: 92px;
+  color: var(--color-text-soft);
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.shape-buttons button:hover {
+  color: var(--color-primary);
+  border-color: rgba(102, 255, 143, 0.34);
+}
+
+.shape-buttons span {
+  font-size: 1.8rem;
+}
+
+.designer-inline-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.font-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.font-preview {
+  min-height: 64px;
+  padding: var(--space-3);
+  color: var(--color-text);
+  background: rgba(255,255,255,.03);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  text-align: left;
+}
+
+.font-preview:hover {
+  color: var(--color-primary);
+  border-color: rgba(102,255,143,.32);
+}
+
+.font-preview--retro {
+  font-family: "Press Start 2P", cursive;
+  font-size: 0.66rem;
+}
+
+.font-preview--retro2 {
+  font-family: "VT323", monospace;
+  font-size: 1.45rem;
+}
+
+.font-preview--script1 {
+  font-family: "Pacifico", cursive;
+  font-size: 1.1rem;
+}
+
+.font-preview--script2 {
+  font-family: "Great Vibes", cursive;
+  font-size: 1.45rem;
+}
+
+.font-preview--script3 {
+  font-family: "Dancing Script", cursive;
+  font-size: 1.15rem;
+}
+
+.font-preview--impact {
+  font-family: "Anton", sans-serif;
+  letter-spacing: 0.04em;
+}
+
+.layers-list {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.layers-list__item {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: var(--space-2);
+  align-items: center;
+  min-height: 44px;
+  padding: var(--space-2) var(--space-3);
+  color: var(--color-text-soft);
+  background: rgba(255,255,255,.025);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  text-align: left;
+}
+
+.layers-list__item:hover {
+  color: var(--color-primary);
+  border-color: rgba(102, 255, 143, 0.3);
+}
+
+.layers-list__item strong {
+  overflow: hidden;
+  font-size: var(--font-size-sm);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.designer-stage-shell {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  background:
+    linear-gradient(45deg, rgba(255,255,255,.025) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(255,255,255,.025) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(255,255,255,.025) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(255,255,255,.025) 75%),
+    #050a07;
+  background-position: 0 0, 0 12px, 12px -12px, -12px 0;
+  background-size: 24px 24px;
+}
+
+.designer-stage-toolbar {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  padding: 4px;
+  background: rgba(7, 16, 10, 0.86);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(12px);
+}
+
+.designer-stage-pill {
+  min-height: 42px;
+  padding: 0 14px;
+  color: var(--color-text);
+  background: rgba(255,255,255,.035);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font: inherit;
+}
+
+.designer-stage-pill:hover {
+  color: var(--color-primary);
+  border-color: rgba(102,255,143,.32);
+}
+
+.designer-stage {
+  width: 100%;
+  height: 100%;
+  padding: 80px 36px 120px;
+  overflow: auto;
+}
+
+.designer-canvas-holder {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.designer-canvas-shell {
+  position: relative;
+  display: block;
+  flex: none;
+}
+
+.designer-canvas-wrap {
+  position: absolute;
+  inset: 0 auto auto 0;
+  background: transparent;
+  box-shadow: 0 24px 80px rgba(0,0,0,.5);
+}
+
+.designer-canvas-wrap canvas {
+  display: block;
+}
+
+.designer-properties__empty {
+  color: var(--color-text-muted);
+}
+
+.designer-check {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-soft);
+}
+
+.designer-property-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.designer-mobile-toolbar {
+  display: none;
+}
+
+.designer-export-dialog {
+  width: min(92vw, 600px);
+  padding: 0;
+  color: var(--color-text);
+  background: #0b160f;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+}
+
+.designer-export-dialog::backdrop {
+  background: rgba(0,0,0,.72);
+  backdrop-filter: blur(5px);
+}
+
+.designer-export-dialog form {
+  display: grid;
+  gap: var(--space-5);
+  padding: var(--space-6);
+}
+
+.designer-export-dialog__header {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.designer-export-dialog__header h2 {
+  margin: 0;
+}
+
+.designer-export-dialog__header button {
+  width: 38px;
+  height: 38px;
+  color: var(--color-text);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.designer-export-preview {
+  min-height: 240px;
+  background-color: rgba(255,255,255,.02);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.designer-toast {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 50;
+  max-width: min(380px, calc(100vw - 48px));
+}
+
+@media (max-width: 1360px) {
+  .designer-workspace {
+    grid-template-columns: 80px 300px minmax(320px, 1fr);
+  }
+
+  .designer-properties {
+    position: absolute;
+    right: 0;
+    width: min(330px, 90vw);
+    height: calc(100% - 72px);
+    z-index: 8;
+    box-shadow: -20px 0 60px rgba(0,0,0,.35);
+  }
+}
+
+@media (max-width: 920px) {
+  .designer-topbar {
+    flex-wrap: wrap;
+  }
+
+  .designer-topbar__status {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .designer-save-button {
+    display: none;
+  }
+
+  .designer-workspace {
+    position: relative;
+    grid-template-columns: 1fr;
+    height: calc(100vh - 220px);
+    min-height: 580px;
+  }
+
+  .designer-tools {
+    display: none;
+  }
+
+  .designer-panel {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 12;
+    width: 100%;
+    max-height: 70%;
+    border-top: 1px solid var(--color-border);
+    border-right: 0;
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    box-shadow: 0 -20px 60px rgba(0,0,0,.42);
+    transform: translateY(105%);
+    transition: transform var(--transition-normal);
+  }
+
+  .designer-panel.is-open {
+    transform: translateY(0);
+  }
+
+  .designer-panel-close {
+    display: block;
+  }
+
+  .designer-properties {
+    display: none;
+  }
+
+  .designer-stage {
+    padding: 80px 18px 120px;
+  }
+
+  .designer-mobile-toolbar {
+    position: fixed;
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
+    z-index: 20;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 4px;
+    padding: 6px;
+    background: rgba(8, 20, 13, 0.92);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    backdrop-filter: blur(16px);
+  }
+
+  .designer-mobile-toolbar button {
+    min-height: 48px;
+    color: var(--color-text);
+    background: rgba(255,255,255,.035);
+    border: 0;
+    border-radius: var(--radius-md);
+    font-size: 1.15rem;
+  }
+}
+
+@media (max-width: 620px) {
+  .social-designer-page {
+    width: min(100% - 12px, 1800px);
+  }
+
+  .font-preview-grid,
+  .shape-buttons {
+    grid-template-columns: 1fr;
+  }
+
+  .designer-topbar__group:last-child {
+    width: 100%;
+  }
+
+  .designer-topbar__group:last-child .button {
+    flex: 1;
+    padding-inline: 10px;
+    font-size: .78rem;
+  }
+
+  .designer-stage {
+    padding-inline: 12px;
+  }
+}
+
+
+/* V3: selects de formatos y fondo editable */
+.designer-background-actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+}
+
+.template-card {
+  border-color: color-mix(in srgb, var(--template-accent, #66ff8f) 35%, var(--color-border));
+  box-shadow: 0 16px 38px rgba(0,0,0,.18);
+}
+
+.template-card__preview {
+  position: relative;
+  aspect-ratio: 9 / 13;
+}
+
+.template-card__preview::after {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,.05), rgba(0,0,0,.12) 42%, rgba(0,0,0,.88));
+  content: "";
+}
+
+.template-card__preview-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--space-4);
+  color: #fff;
+}
+
+.template-card__preview-overlay span {
+  align-self: flex-start;
+  margin-bottom: auto;
+  padding: 5px 9px;
+  color: var(--template-accent, #66ff8f);
+  background: rgba(0,0,0,.56);
+  border: 1px solid color-mix(in srgb, var(--template-accent, #66ff8f) 65%, transparent);
+  border-radius: 999px;
+  font-size: .62rem;
+  font-weight: 900;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+.template-card__preview-overlay strong {
+  display: block;
+  font-size: clamp(1.45rem, 3vw, 2.1rem);
+  line-height: 1;
+  text-shadow: 0 5px 20px rgba(0,0,0,.42);
+}
+
+.template-card__preview-overlay small {
+  margin-top: 7px;
+  color: rgba(255,255,255,.82);
+  line-height: 1.3;
+}
+
+.template-card__preview-overlay b {
+  align-self: flex-start;
+  margin-top: 12px;
+  padding: 8px 12px;
+  color: #07110a;
+  background: var(--template-accent, #66ff8f);
+  border-radius: 999px;
+  font-family: "Anton", sans-serif;
+  font-size: .72rem;
+  letter-spacing: .05em;
+}
+
+@media (min-width: 620px) {
+  .designer-background-actions {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+
+/* ==========================================================================
+   SOCIAL DESIGNER V4 · NAVEGADOR DE PLANTILLAS Y ALINEACIÓN
+   ========================================================================== */
+
+.template-preview-stage {
+  display: none;
+  width: min(100%, 820px);
+  margin-inline: auto;
+  animation: designer-stage-in .28s ease;
+}
+
+.template-preview-stage.is-active {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.template-preview-stage__frame {
+  --preview-accent: #66ff8f;
+  --preview-background: #0b1710;
+  position: relative;
+  width: min(100%, 430px);
+  aspect-ratio: 9 / 16;
+  margin-inline: auto;
+  overflow: hidden;
+  background: var(--preview-background);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 24px;
+  box-shadow: 0 30px 100px rgba(0,0,0,.48);
+}
+
+.template-preview-stage__frame::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to bottom, transparent 20%, rgba(0,0,0,.08) 50%, rgba(0,0,0,.88));
+  content: "";
+  pointer-events: none;
+}
+
+.template-preview-stage__frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.template-preview-stage__design {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 8%;
+  color: #fff;
+  pointer-events: none;
+}
+
+.template-preview-stage__design > span {
+  padding: 6px 10px;
+  color: var(--preview-accent);
+  background: rgba(0,0,0,.54);
+  border: 1px solid color-mix(in srgb, var(--preview-accent) 70%, transparent);
+  border-radius: 999px;
+  font-size: .65rem;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.template-preview-stage__design small {
+  margin-top: auto;
+  color: var(--preview-accent);
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+
+.template-preview-stage__design h2 {
+  max-width: 95%;
+  margin: 12px 0 8px;
+  color: #fff;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  line-height: .98;
+  text-wrap: balance;
+  text-shadow: 0 7px 28px rgba(0,0,0,.5);
+}
+
+.template-preview-stage__design p {
+  max-width: 84%;
+  margin: 0;
+  color: rgba(255,255,255,.88);
+  font-size: .9rem;
+  line-height: 1.4;
+}
+
+.template-preview-stage__design b {
+  margin-top: 18px;
+  padding: 10px 16px;
+  color: #07110a;
+  background: var(--preview-accent);
+  border-radius: 999px;
+  font-family: "Anton", sans-serif;
+  letter-spacing: .05em;
+}
+
+.template-layout--poster {
+  background: #a998de;
+}
+
+.template-layout--poster::after {
+  background: linear-gradient(to bottom, rgba(42,22,76,.08), rgba(42,22,76,.22));
+}
+
+.template-layout--poster .template-preview-stage__design {
+  justify-content: flex-start;
+}
+
+.template-layout--poster .template-preview-stage__design > span {
+  margin-left: auto;
+}
+
+.template-layout--poster .template-preview-stage__design small {
+  order: -1;
+  margin: 0 0 8px;
+}
+
+.template-layout--poster .template-preview-stage__design h2 {
+  margin-top: 0;
+  font-size: clamp(2.8rem, 7vw, 4.8rem);
+  text-transform: uppercase;
+}
+
+.template-layout--poster .template-preview-stage__design p {
+  margin-top: auto;
+}
+
+.template-layout--minimal .template-preview-stage__frame,
+.template-layout--luxury .template-preview-stage__frame {
+  outline: 1px solid var(--preview-accent);
+  outline-offset: -18px;
+}
+
+.template-layout--playful .template-preview-stage__design::before,
+.template-layout--community .template-preview-stage__design::before {
+  position: absolute;
+  top: 14%;
+  right: 7%;
+  width: 82px;
+  height: 82px;
+  background: var(--preview-accent);
+  border-radius: 50%;
+  content: "";
+  opacity: .65;
+}
+
+.template-layout--digital .template-preview-stage__frame {
+  background-image:
+    linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.template-preview-stage__information {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-5);
+  padding: var(--space-5);
+  background: rgba(255,255,255,.025);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.template-preview-stage__information h2 {
+  margin: 4px 0 8px;
+}
+
+.template-preview-stage__information p {
+  max-width: 620px;
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.template-preview-stage__eyebrow {
+  color: var(--color-primary);
+  font-size: var(--font-size-xs);
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.template-card__open {
+  display: block;
+  width: 100%;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.template-card.is-selected {
+  border-color: var(--template-accent, var(--color-primary));
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--template-accent, var(--color-primary)) 38%, transparent),
+    0 18px 46px rgba(0,0,0,.28);
+}
+
+.template-card__preview-overlay strong {
+  max-width: 96%;
+  text-wrap: balance;
+}
+
+.designer-stage-pill.is-active {
+  color: #07110a;
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.designer-canvas-holder {
+  animation: designer-stage-in .28s ease;
+}
+
+.designer-alignment {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: rgba(255,255,255,.025);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.designer-alignment__heading {
+  display: grid;
+  gap: 3px;
+}
+
+.designer-alignment__heading small {
+  color: var(--color-text-muted);
+}
+
+.designer-alignment-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  max-width: 210px;
+}
+
+.designer-alignment-grid button {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  min-height: 44px;
+  color: var(--color-text-soft);
+  background: rgba(255,255,255,.035);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.designer-alignment-grid button:hover {
+  color: #07110a;
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+@keyframes designer-stage-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(.992);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .template-preview-stage__information {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .template-preview-stage__information .button {
+    width: 100%;
+  }
+
+  .template-preview-stage__frame {
+    width: min(100%, 340px);
+  }
+}
+
+
+/* ==========================================================================
+   SOCIAL DESIGNER V5 · INSPECTOR IZQUIERDO, ESCALA RESPONSIVA Y CAPAS
+   ========================================================================== */
+
+.designer-workspace {
+  grid-template-columns: 86px 340px minmax(360px, 1fr);
+}
+
+.designer-properties {
+  display: none !important;
+}
+
+.designer-selected-summary,
+.designer-color-system,
+.designer-shadow-editor {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: rgba(255,255,255,.025);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.designer-selected-summary span,
+.designer-color-system__heading small,
+.designer-shadow-editor__heading small {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+}
+
+.designer-selected-summary strong {
+  color: var(--color-primary);
+  font-size: var(--font-size-lg);
+}
+
+.designer-selected-summary small {
+  color: var(--color-text-muted);
+  line-height: 1.45;
+}
+
+.designer-element-controls {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.designer-color-system__heading,
+.designer-shadow-editor__heading {
+  display: grid;
+  gap: 3px;
+}
+
+.designer-number-suffix {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.designer-number-suffix input {
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+
+.designer-number-suffix span {
+  padding-inline: 10px;
+  color: var(--color-text-muted);
+}
+
+.designer-value-output {
+  justify-self: end;
+  color: var(--color-primary);
+  font-family: var(--font-family-mono, monospace);
+  font-size: var(--font-size-xs);
+}
+
+.layers-list__item {
+  position: relative;
+  display: block;
+  padding: 0;
+  touch-action: none;
+  user-select: none;
+}
+
+.layers-list__select {
+  display: grid;
+  grid-template-columns: 26px 22px minmax(0, 1fr);
+  gap: var(--space-2);
+  align-items: center;
+  width: 100%;
+  min-height: 50px;
+  padding: var(--space-2) var(--space-3);
+  color: var(--color-text-soft);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+.layers-list__drag-handle {
+  color: var(--color-text-muted);
+  cursor: grab;
+  font-size: 1rem;
+}
+
+.layers-list__item.is-dragging {
+  opacity: .58;
+  transform: scale(.985);
+}
+
+.layers-list__item.is-drop-target {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(102,255,143,.18);
+}
+
+.layers-list__item.is-drop-target::before {
+  position: absolute;
+  top: -3px;
+  right: 8px;
+  left: 8px;
+  height: 3px;
+  background: var(--color-primary);
+  border-radius: 999px;
+  content: "";
+}
+
+@media (max-width: 1360px) {
+  .designer-workspace {
+    grid-template-columns: 80px 320px minmax(320px, 1fr);
+  }
+}
+
+@media (max-width: 920px) {
+  .designer-workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .designer-mobile-toolbar {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+
+  .designer-panel {
+    max-height: 78%;
+  }
+
+  .designer-element-controls {
+    padding-bottom: 72px;
+  }
+
+  .layers-list__item {
+    min-height: 58px;
+  }
+
+  .layers-list__select {
+    min-height: 58px;
+  }
+}
+
+
+/* V5.1: ocultar de forma absoluta las dos vistas alternas */
+.designer-canvas-holder[hidden],
+.template-preview-stage[hidden] {
+  display: none !important;
+}
+
+
+.designer-border-editor {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: rgba(255,255,255,.025);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.designer-border-editor__heading {
+  display: grid;
+  gap: 3px;
+}
+
+.designer-border-editor__heading small {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+}
+
+/* ======================================================================
+   HERRAMIENTA: SOCIAL DESIGNER · FIN
+   ====================================================================== */
+
+</style>
+
 </head>
 
 <body data-page="social-designer">
@@ -87,13 +1811,9 @@
     -->
 
     <main class="social-designer-page" id="main-content">
-      <section class="product-header social-designer-intro" aria-labelledby="product-title">
+      <section class="product-header social-designer-intro social-designer-intro--tool-first" aria-labelledby="product-title">
         <div class="product-header__content">
-          <p class="section-heading__eyebrow">Estudio creativo en línea</p>
           <h1 id="product-title">Social Designer</h1>
-          <p class="product-header__description">
-            Crea imágenes publicitarias, posts, historias y banners con un editor visual más pensado para móvil, pero preparado también para escritorio.
-          </p>
         </div>
       </section>
 
@@ -369,11 +2089,32 @@
                 </button>
                 <button class="button button--secondary button--block" id="add-body-button" type="button">
                   Añadir texto
-                </button>
+                </button>                
 
                 <div class="form-field">
                   <label for="text-content">Contenido</label>
                   <textarea id="text-content" rows="4" placeholder="Selecciona un texto para editarlo"></textarea>
+                </div>
+
+                <div class="designer-help-card">
+                  <div class="form-field" id="translate-all-field" hidden>
+                    <label for="translate-all-language">Idioma</label>
+                    <select id="translate-all-language">
+                      <option value="">Seleccionar idioma</option>
+                      <option value="es">Español</option>
+                      <option value="en">English</option>
+                      <option value="fr">Français</option>
+                      <option value="de">Deutsch</option>
+                      <option value="it">Italiano</option>
+                      <option value="pt">Português</option>
+                      <option value="ja">日本語</option>
+                      <option value="ko">한국어</option>
+                      <option value="zh-CN">中文</option>
+                    </select>
+                  </div>
+                  <button class="button button--secondary button--block" style="font-size: 14px;" id="translate-all-button" type="button">
+                    Traducir todo el contenido
+                  </button>
                 </div>
 
                 <div class="form-field">
@@ -669,6 +2410,15 @@
                       </label>
                       <input id="object-corner-radius" type="range" min="0" max="240" value="0">
                     </div>
+
+                  </div>
+
+                  <div class="form-field" id="image-corner-radius-field" hidden>
+                    <label for="image-corner-radius">
+                      <span>Redondear bordes</span>
+                      <span id="image-corner-radius-value">0%</span>
+                    </label>
+                    <input id="image-corner-radius" type="range" min="0" max="100" value="0">
                   </div>
 
                   <div class="designer-shadow-editor">
@@ -814,15 +2564,32 @@
 
         </div>
 
-        <div class="designer-mobile-toolbar">
-          <button type="button" data-panel="templates-panel">✦</button>
-          <button type="button" data-panel="canvas-panel">▣</button>
-          <button type="button" data-panel="text-panel">T</button>
-          <button type="button" data-panel="images-panel">▧</button>
-          <button type="button" data-panel="shapes-panel">○</button>
-          <button type="button" data-panel="element-panel">◇</button>
-          <button type="button" data-panel="layers-panel">☷</button>
+        <button
+          class="designer-mobile-tools-toggle"
+          id="designer-mobile-tools-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="designer-mobile-toolbar"
+        >
+          <span id="designer-mobile-tools-symbol" aria-hidden="true">+</span>
+        </button>
+
+        <div class="designer-mobile-toolbar" id="designer-mobile-toolbar">
+          <button type="button" data-panel="templates-panel"><span aria-hidden="true">✦</span><small>Plantillas</small></button>
+          <button type="button" data-panel="canvas-panel"><span aria-hidden="true">▣</span><small>Lienzo</small></button>
+          <button type="button" data-panel="text-panel"><span aria-hidden="true">T</span><small>Texto</small></button>
+          <button type="button" data-panel="images-panel"><span aria-hidden="true">▧</span><small>Imágenes</small></button>
+          <button type="button" data-panel="shapes-panel"><span aria-hidden="true">○</span><small>Formas</small></button>
+          <button type="button" data-panel="element-panel"><span aria-hidden="true">◇</span><small>Elemento</small></button>
+          <button type="button" data-panel="layers-panel"><span aria-hidden="true">☷</span><small>Capas</small></button>
         </div>
+      </section>
+
+      <section class="social-designer-copy">
+        <p class="section-heading__eyebrow">Estudio creativo en línea</p>
+        <p class="product-header__description">
+          Crea imágenes publicitarias, posts, historias y banners con un editor visual más pensado para móvil, pero preparado también para escritorio.
+        </p>
       </section>
 
       <!--
@@ -833,6 +2600,8 @@
       
     </main>
   </div>
+
+  <div class="designer-context-menu" id="designer-context-menu" hidden></div>
 
   <dialog class="designer-export-dialog" id="export-dialog">
     <form method="dialog">
@@ -961,6 +2730,7 @@
           "#background-contain": "static.showComplete",
           "#add-heading-button": "static.addHeading",
           "#add-body-button": "static.addText",
+          "#translate-all-button": "static.translateAllContent",
           "#add-image-url": "static.addImage",
           "#toggle-drawing": drawingMode ? "static.disablePencil" : "static.enablePencil",
           "#clear-drawings": "static.clearDrawings",
@@ -997,8 +2767,11 @@
         const mobileKeys = ["templates", "canvas", "text", "images", "shapes", "element", "layers"];
         document.querySelectorAll(".designer-mobile-toolbar button").forEach((button, index) => {
           if (mobileKeys[index]) {
-            button.setAttribute("aria-label", getTranslation(`static.${mobileKeys[index]}`));
-            button.title = getTranslation(`static.${mobileKeys[index]}`);
+            const label = getTranslation(`static.${mobileKeys[index]}`);
+            button.setAttribute("aria-label", label);
+            button.title = label;
+            const small = button.querySelector("small");
+            if (small) small.textContent = label;
           }
         });
 
@@ -1031,6 +2804,8 @@
           'label[for="background-position-x"] span:first-child': "static.positionX",
           'label[for="background-position-y"] span:first-child': "static.positionY",
           '#background-image .designer-help': "static.backgroundMoveHelp",
+          'label[for="translate-all-language"]': "static.language",
+          'label[for="image-corner-radius"] span:first-child': "static.roundCorners",
           'label[for="text-content"]': "static.content",
           'label[for="font-family"]': "static.font",
           'label[for="font-size"]': "static.size",
@@ -1213,6 +2988,885 @@
       let editableBackground = null;
       let selectedTemplate = null;
       let keepLayersPanelActive = false;
+      const contextMenu = $("designer-context-menu");
+      let contextMenuObject = null;
+
+      let copiedElementData = null;
+      let copiedFormatData = null;
+      let formatPainterActive = false;
+
+      function closeContextMenu() {
+        contextMenu.classList.remove("is-preparing");
+        contextMenu.hidden = true;
+        contextMenu.innerHTML = "";
+        contextMenuObject = null;
+      }
+
+      function focusDesignerControl(panelId, controlId) {
+        if (window.innerWidth <= 720) {
+          mobileToolbar.classList.remove("is-open");
+          mobileToolsToggle.setAttribute("aria-expanded", "false");
+          mobileToolsSymbol.textContent = "+";
+        }
+
+        openPanel(panelId);
+        showCanvasEditor();
+
+        requestAnimationFrame(() => {
+          const control = $(controlId);
+          if (!control) return;
+          control.scrollIntoView({ behavior: "smooth", block: "center" });
+          control.focus({ preventScroll: true });
+          if (typeof control.select === "function" && control.tagName === "TEXTAREA") {
+            control.select();
+          }
+        });
+      }
+
+      function openLayersShortcut() {
+        if (window.innerWidth <= 720) {
+          mobileToolbar.classList.remove("is-open");
+          mobileToolsToggle.setAttribute("aria-expanded", "false");
+          mobileToolsSymbol.textContent = "+";
+        }
+
+        keepLayersPanelActive = true;
+        openPanel("layers-panel");
+        showCanvasEditor();
+        refreshLayers();
+
+        requestAnimationFrame(() => {
+          keepLayersPanelActive = false;
+        });
+      }
+
+      function activateSolidBackgroundShortcut() {
+        if (window.innerWidth <= 720) {
+          mobileToolbar.classList.remove("is-open");
+          mobileToolsToggle.setAttribute("aria-expanded", "false");
+          mobileToolsSymbol.textContent = "+";
+        }
+
+        openPanel("background-panel");
+        showCanvasEditor();
+
+        const solidButton = document.querySelector('[data-background-tab="solid"]');
+        if (solidButton) solidButton.click();
+
+        requestAnimationFrame(() => {
+          $("background-color")?.scrollIntoView({ behavior: "smooth", block: "center" });
+          $("background-color")?.focus({ preventScroll: true });
+        });
+      }
+
+      function isImageTransparent(imageObject) {
+        if (!imageObject || imageObject.type !== "image") return false;
+        if (imageObject.backgroundRemoved) return true;
+
+        try {
+          const element = imageObject.getElement();
+          const width = Math.min(240, element.naturalWidth || element.width || 1);
+          const height = Math.min(240, element.naturalHeight || element.height || 1);
+          const scale = Math.min(
+            width / Math.max(1, element.naturalWidth || element.width || width),
+            height / Math.max(1, element.naturalHeight || element.height || height)
+          );
+
+          const sample = document.createElement("canvas");
+          sample.width = Math.max(1, Math.round((element.naturalWidth || element.width || 1) * scale));
+          sample.height = Math.max(1, Math.round((element.naturalHeight || element.height || 1) * scale));
+
+          const ctx = sample.getContext("2d", { willReadFrequently: true });
+          ctx.drawImage(element, 0, 0, sample.width, sample.height);
+          const data = ctx.getImageData(0, 0, sample.width, sample.height).data;
+
+          for (let i = 3; i < data.length; i += 16) {
+            if (data[i] < 245) return true;
+          }
+        } catch {}
+
+        return false;
+      }
+
+      function removeSelectedImageBackground(imageObject) {
+        if (!imageObject || imageObject.type !== "image") return;
+
+        try {
+          const element = imageObject.getElement();
+          const sourceWidth = element.naturalWidth || element.width;
+          const sourceHeight = element.naturalHeight || element.height;
+
+          if (!sourceWidth || !sourceHeight) return;
+
+          const maxSide = 1800;
+          const scale = Math.min(1, maxSide / Math.max(sourceWidth, sourceHeight));
+          const width = Math.max(1, Math.round(sourceWidth * scale));
+          const height = Math.max(1, Math.round(sourceHeight * scale));
+
+          const work = document.createElement("canvas");
+          work.width = width;
+          work.height = height;
+
+          const ctx = work.getContext("2d", { willReadFrequently: true });
+          ctx.drawImage(element, 0, 0, width, height);
+
+          const imageData = ctx.getImageData(0, 0, width, height);
+          const data = imageData.data;
+
+          const corners = [
+            0,
+            (width - 1) * 4,
+            ((height - 1) * width) * 4,
+            ((height * width) - 1) * 4
+          ];
+
+          const background = corners.reduce((acc, index) => {
+            acc.r += data[index];
+            acc.g += data[index + 1];
+            acc.b += data[index + 2];
+            return acc;
+          }, { r: 0, g: 0, b: 0 });
+
+          background.r /= corners.length;
+          background.g /= corners.length;
+          background.b /= corners.length;
+
+          const threshold = 62;
+          const visited = new Uint8Array(width * height);
+          const queue = new Int32Array(width * height);
+          let head = 0;
+          let tail = 0;
+
+          const isBackgroundPixel = (pixelIndex) => {
+            const offset = pixelIndex * 4;
+            if (data[offset + 3] === 0) return true;
+
+            const dr = data[offset] - background.r;
+            const dg = data[offset + 1] - background.g;
+            const db = data[offset + 2] - background.b;
+
+            return Math.sqrt(dr * dr + dg * dg + db * db) <= threshold;
+          };
+
+          const enqueue = (pixelIndex) => {
+            if (pixelIndex < 0 || pixelIndex >= width * height || visited[pixelIndex]) return;
+            if (!isBackgroundPixel(pixelIndex)) return;
+
+            visited[pixelIndex] = 1;
+            queue[tail++] = pixelIndex;
+          };
+
+          for (let x = 0; x < width; x += 1) {
+            enqueue(x);
+            enqueue((height - 1) * width + x);
+          }
+
+          for (let y = 0; y < height; y += 1) {
+            enqueue(y * width);
+            enqueue(y * width + width - 1);
+          }
+
+          while (head < tail) {
+            const pixelIndex = queue[head++];
+            const x = pixelIndex % width;
+            const y = Math.floor(pixelIndex / width);
+
+            if (x > 0) enqueue(pixelIndex - 1);
+            if (x < width - 1) enqueue(pixelIndex + 1);
+            if (y > 0) enqueue(pixelIndex - width);
+            if (y < height - 1) enqueue(pixelIndex + width);
+          }
+
+          for (let pixelIndex = 0; pixelIndex < visited.length; pixelIndex += 1) {
+            if (visited[pixelIndex]) {
+              data[pixelIndex * 4 + 3] = 0;
+            }
+          }
+
+          ctx.putImageData(imageData, 0, 0);
+
+          const dataUrl = work.toDataURL("image/png");
+          fabric.Image.fromURL(dataUrl, (replacement) => {
+            if (!replacement) return;
+
+            const scaledWidth = imageObject.getScaledWidth();
+            const scaledHeight = imageObject.getScaledHeight();
+
+            replacement.set({
+              left: imageObject.left,
+              top: imageObject.top,
+              originX: imageObject.originX,
+              originY: imageObject.originY,
+              angle: imageObject.angle,
+              flipX: imageObject.flipX,
+              flipY: imageObject.flipY,
+              opacity: imageObject.opacity,
+              name: imageObject.name,
+              translationKey: imageObject.translationKey,
+              backgroundRemoved: true
+            });
+
+            replacement.scaleX = scaledWidth / Math.max(1, replacement.width);
+            replacement.scaleY = scaledHeight / Math.max(1, replacement.height);
+
+            const index = canvas.getObjects().indexOf(imageObject);
+            canvas.remove(imageObject);
+            canvas.insertAt(replacement, Math.max(0, index), false);
+            activateObject(replacement);
+            replacement.setCoords();
+            canvas.requestRenderAll();
+            refreshLayers();
+            saveHistory();
+            showContextMenu(replacement);
+          }, { crossOrigin: "anonymous" });
+        } catch {
+          showStatus(getTranslation("messages.imageLoadError", "No se pudo cargar la imagen."), "error");
+        }
+      }
+
+      function revealContextMenuStable(sourceEvent = null) {
+        contextMenu.classList.add("is-preparing");
+        contextMenu.hidden = false;
+
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            const stage = $("designer-stage");
+            const stageRect = stage.getBoundingClientRect();
+            const viewportWidth = document.documentElement.clientWidth;
+            const viewportHeight = document.documentElement.clientHeight;
+            const padding = 10;
+
+            const bounds = {
+              left: Math.max(padding, stageRect.left + padding),
+              top: Math.max(padding, stageRect.top + padding),
+              right: Math.min(viewportWidth - padding, stageRect.right - padding),
+              bottom: Math.min(viewportHeight - padding, stageRect.bottom - padding)
+            };
+
+            const availableWidth = Math.max(200, bounds.right - bounds.left);
+            const availableHeight = Math.max(160, bounds.bottom - bounds.top);
+
+            const maxWidth = Math.min(360, availableWidth);
+            const maxHeight = Math.max(160, availableHeight);
+
+            contextMenu.style.setProperty("position", "fixed", "important");
+            contextMenu.style.setProperty("width", `${maxWidth}px`, "important");
+            contextMenu.style.setProperty("max-width", `${maxWidth}px`, "important");
+            contextMenu.style.setProperty("max-height", `${maxHeight}px`, "important");
+            contextMenu.style.setProperty("right", "auto", "important");
+            contextMenu.style.setProperty("bottom", "auto", "important");
+            contextMenu.style.setProperty("margin", "0", "important");
+            contextMenu.style.setProperty("transform", "none", "important");
+            contextMenu.style.setProperty("overflow-y", "auto", "important");
+
+            const rect = contextMenu.getBoundingClientRect();
+            const menuWidth = Math.min(rect.width, availableWidth);
+            const menuHeight = Math.min(rect.height, availableHeight);
+
+            let left;
+            let top;
+
+            if (window.innerWidth <= 720) {
+              left = bounds.left + (availableWidth - menuWidth) / 2;
+              top = bounds.top + (availableHeight - menuHeight) / 2;
+            } else {
+              const clickX = sourceEvent?.clientX ?? (bounds.left + availableWidth * 0.58);
+              const clickY = sourceEvent?.clientY ?? (bounds.top + availableHeight * 0.35);
+
+              left = clickX + 12;
+              top = clickY + 12;
+            }
+
+            left = Math.max(bounds.left, Math.min(left, bounds.right - menuWidth));
+            top = Math.max(bounds.top, Math.min(top, bounds.bottom - menuHeight));
+
+            contextMenu.style.setProperty("left", `${Math.round(left)}px`, "important");
+            contextMenu.style.setProperty("top", `${Math.round(top)}px`, "important");
+
+            contextMenu.scrollTop = 0;
+            contextMenu.classList.remove("is-preparing");
+          });
+        });
+      }
+
+      function copyElement(object) {
+        if (!object) return;
+
+        object.clone((clone) => {
+          copiedElementData = clone;
+        }, [
+          "name",
+          "translationKey",
+          "glassStyle",
+          "isDrawingPath",
+          "isBackgroundLayer",
+          "backgroundBaseScale",
+          "backgroundRemoved",
+          "imageCornerRadius"
+        ]);
+      }
+
+      function pasteElement() {
+        if (!copiedElementData) return;
+
+        copiedElementData.clone((clone) => {
+          clone.set({
+            left: Number(clone.left || 0) + 24,
+            top: Number(clone.top || 0) + 24,
+            evented: true,
+            selectable: true
+          });
+
+          /* Una copia pegada nunca hereda el rol técnico de fondo editable. */
+          clone.isBackgroundLayer = false;
+
+          canvas.add(clone);
+          canvas.setActiveObject(clone);
+          clone.setCoords();
+          canvas.requestRenderAll();
+          updateProperties();
+          refreshLayers();
+          saveHistory();
+
+          copiedElementData = clone;
+
+          if (window.innerWidth <= 720) {
+            $("designer-panel").classList.remove("is-open");
+          }
+        }, [
+          "name",
+          "translationKey",
+          "glassStyle",
+          "isDrawingPath",
+          "isBackgroundLayer",
+          "backgroundBaseScale",
+          "backgroundRemoved",
+          "imageCornerRadius"
+        ]);
+      }
+
+      function captureElementFormat(object) {
+        if (!object) return;
+
+        copiedFormatData = {
+          sourceType: object.type,
+          fill: object.fill,
+          stroke: object.stroke,
+          strokeWidth: object.strokeWidth,
+          opacity: object.opacity,
+          shadow: object.shadow ? object.shadow.toObject() : null,
+          rx: object.rx,
+          ry: object.ry,
+          fontFamily: object.fontFamily,
+          fontSize: object.fontSize,
+          fontWeight: object.fontWeight,
+          fontStyle: object.fontStyle,
+          textAlign: object.textAlign,
+          charSpacing: object.charSpacing,
+          lineHeight: object.lineHeight
+        };
+
+        formatPainterActive = true;
+      }
+
+      function applyCopiedFormat(object) {
+        if (!object || !copiedFormatData) return false;
+
+        const format = copiedFormatData;
+        const textTarget = object.type === "textbox" || object.type === "i-text";
+        const shapeTarget = ["rect", "circle", "triangle", "polygon", "line"].includes(object.type);
+
+        const common = {};
+
+        if (format.opacity !== undefined) common.opacity = format.opacity;
+        if (format.shadow !== undefined) {
+          common.shadow = format.shadow
+            ? new fabric.Shadow(format.shadow)
+            : null;
+        }
+
+        if (textTarget) {
+          if (format.fill !== undefined) common.fill = format.fill;
+          if (format.stroke !== undefined) common.stroke = format.stroke;
+          if (format.strokeWidth !== undefined) common.strokeWidth = format.strokeWidth;
+          if (format.fontFamily !== undefined) common.fontFamily = format.fontFamily;
+          if (format.fontSize !== undefined) common.fontSize = format.fontSize;
+          if (format.fontWeight !== undefined) common.fontWeight = format.fontWeight;
+          if (format.fontStyle !== undefined) common.fontStyle = format.fontStyle;
+          if (format.textAlign !== undefined) common.textAlign = format.textAlign;
+          if (format.charSpacing !== undefined) common.charSpacing = format.charSpacing;
+          if (format.lineHeight !== undefined) common.lineHeight = format.lineHeight;
+        } else if (shapeTarget) {
+          if (format.fill !== undefined) common.fill = format.fill;
+          if (format.stroke !== undefined) common.stroke = format.stroke;
+          if (format.strokeWidth !== undefined) common.strokeWidth = format.strokeWidth;
+
+          if (object.type === "rect") {
+            if (format.rx !== undefined) common.rx = format.rx;
+            if (format.ry !== undefined) common.ry = format.ry;
+          }
+        } else if (object.type === "image") {
+          /* En imágenes el formato visual seguro es opacidad + sombra. */
+        } else {
+          if (format.fill !== undefined && "fill" in object) common.fill = format.fill;
+          if (format.stroke !== undefined && "stroke" in object) common.stroke = format.stroke;
+          if (format.strokeWidth !== undefined && "strokeWidth" in object) common.strokeWidth = format.strokeWidth;
+        }
+
+        object.set(common);
+        object.setCoords();
+        canvas.requestRenderAll();
+        updateProperties();
+        saveHistory();
+
+        return true;
+      }
+
+      function applyImageCornerRadius(value) {
+        const object = canvas.getActiveObject();
+        if (!object || object.type !== "image" || object.isBackgroundLayer) return;
+
+        const percent = Math.max(0, Math.min(100, Number(value)));
+        object.imageCornerRadius = percent;
+
+        if (percent <= 0) {
+          object.set("clipPath", null);
+        } else {
+          const radius = Math.min(object.width || 1, object.height || 1) * (percent / 200);
+          const clipPath = new fabric.Rect({
+            width: object.width,
+            height: object.height,
+            rx: radius,
+            ry: radius,
+            originX: "center",
+            originY: "center"
+          });
+
+          clipPath.setCoords();
+          object.set("clipPath", clipPath);
+        }
+
+        $("image-corner-radius").value = String(percent);
+        $("image-corner-radius-value").textContent = `${percent}%`;
+
+        object.dirty = true;
+        if (object.clipPath) object.clipPath.dirty = true;
+        object.setCoords();
+
+        /* Render inmediato para que el usuario vea el redondeo mientras mueve el slider. */
+        canvas.renderAll();
+      }
+
+      function enhanceImageObject(imageObject) {
+        if (!imageObject || imageObject.type !== "image") return;
+
+        try {
+          const element = imageObject.getElement();
+          const sourceWidth = element.naturalWidth || element.width;
+          const sourceHeight = element.naturalHeight || element.height;
+          if (!sourceWidth || !sourceHeight) return;
+
+          const maxSide = 2400;
+          const upscale = Math.min(2, maxSide / Math.max(sourceWidth, sourceHeight));
+          const width = Math.max(1, Math.round(sourceWidth * upscale));
+          const height = Math.max(1, Math.round(sourceHeight * upscale));
+
+          const work = document.createElement("canvas");
+          work.width = width;
+          work.height = height;
+
+          const ctx = work.getContext("2d", { willReadFrequently: true });
+          ctx.imageSmoothingEnabled = true;
+          ctx.imageSmoothingQuality = "high";
+          ctx.drawImage(element, 0, 0, width, height);
+
+          const imageData = ctx.getImageData(0, 0, width, height);
+          const source = imageData.data;
+          const result = new Uint8ClampedArray(source);
+          const kernel = [0, -1, 0, -1, 5, -1, 0, -1, 0];
+
+          for (let y = 1; y < height - 1; y += 1) {
+            for (let x = 1; x < width - 1; x += 1) {
+              const destination = (y * width + x) * 4;
+
+              for (let channel = 0; channel < 3; channel += 1) {
+                let value = 0;
+                let kernelIndex = 0;
+
+                for (let ky = -1; ky <= 1; ky += 1) {
+                  for (let kx = -1; kx <= 1; kx += 1) {
+                    const sourceIndex = ((y + ky) * width + (x + kx)) * 4 + channel;
+                    value += source[sourceIndex] * kernel[kernelIndex++];
+                  }
+                }
+
+                result[destination + channel] = Math.max(0, Math.min(255, value));
+              }
+            }
+          }
+
+          ctx.putImageData(new ImageData(result, width, height), 0, 0);
+
+          fabric.Image.fromURL(work.toDataURL("image/png"), (replacement) => {
+            if (!replacement) return;
+
+            const displayedWidth = imageObject.getScaledWidth();
+            const displayedHeight = imageObject.getScaledHeight();
+            const canvasIndex = canvas.getObjects().indexOf(imageObject);
+
+            replacement.set({
+              left: imageObject.left,
+              top: imageObject.top,
+              originX: imageObject.originX,
+              originY: imageObject.originY,
+              angle: imageObject.angle,
+              flipX: imageObject.flipX,
+              flipY: imageObject.flipY,
+              opacity: imageObject.opacity,
+              name: imageObject.name,
+              translationKey: imageObject.translationKey,
+              isBackgroundLayer: Boolean(imageObject.isBackgroundLayer),
+              backgroundBaseScale: imageObject.backgroundBaseScale,
+              backgroundRemoved: imageObject.backgroundRemoved,
+              imageCornerRadius: imageObject.imageCornerRadius || 0
+            });
+
+            replacement.scaleX = displayedWidth / Math.max(1, replacement.width);
+            replacement.scaleY = displayedHeight / Math.max(1, replacement.height);
+
+            if (replacement.imageCornerRadius && !replacement.isBackgroundLayer) {
+              const radius = Math.min(replacement.width, replacement.height) *
+                (replacement.imageCornerRadius / 200);
+
+              replacement.clipPath = new fabric.Rect({
+                width: replacement.width,
+                height: replacement.height,
+                rx: radius,
+                ry: radius,
+                originX: "center",
+                originY: "center"
+              });
+            }
+
+            canvas.remove(imageObject);
+            canvas.insertAt(replacement, Math.max(0, canvasIndex), false);
+
+            if (replacement.isBackgroundLayer) {
+              editableBackground = replacement;
+              replacement.sendToBack();
+            }
+
+            activateObject(replacement);
+            replacement.setCoords();
+            canvas.requestRenderAll();
+            refreshLayers();
+            saveHistory();
+
+            showStatus(
+              getTranslation("messages.imageEnhanced", "Calidad de imagen mejorada."),
+              "success"
+            );
+          }, { crossOrigin: "anonymous" });
+        } catch (error) {
+          console.error("Alfora image enhancement:", error);
+          showStatus(
+            getTranslation("messages.imageEnhanceError", "No se pudo mejorar la imagen."),
+            "error"
+          );
+        }
+      }
+
+      async function translateTextWithGoogle(text, targetLanguage) {
+        const value = String(text || "").trim();
+        if (!value) return text;
+
+        const endpoint =
+          `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${encodeURIComponent(targetLanguage)}&dt=t&q=${encodeURIComponent(value)}`;
+
+        const response = await fetch(endpoint);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+        const data = await response.json();
+        const translated = Array.isArray(data?.[0])
+          ? data[0].map((part) => part?.[0] || "").join("")
+          : "";
+
+        return translated || text;
+      }
+
+      async function translateAllCanvasText(targetLanguage) {
+        if (!targetLanguage) return;
+
+        const textObjects = canvas.getObjects().filter(
+          (object) => object.type === "textbox" || object.type === "i-text"
+        );
+
+        if (!textObjects.length) {
+          showStatus(
+            getTranslation("messages.noTextToTranslate", "No hay textos para traducir."),
+            "info"
+          );
+          return;
+        }
+
+        try {
+          for (const object of textObjects) {
+            object.set(
+              "text",
+              await translateTextWithGoogle(object.text, targetLanguage)
+            );
+            object.setCoords();
+          }
+
+          canvas.requestRenderAll();
+          updateProperties();
+          refreshLayers();
+          saveHistory();
+
+          showStatus(
+            getTranslation("messages.translationComplete", "Contenido traducido."),
+            "success"
+          );
+        } catch (error) {
+          console.error("Alfora translation:", error);
+          showStatus(
+            getTranslation("messages.translationError", "No fue posible traducir el contenido."),
+            "error"
+          );
+        }
+      }
+
+      function createContextButton(label, handler, danger = false) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `designer-context-menu__button${danger ? " designer-context-menu__button--danger" : ""}`;
+        button.textContent = label;
+        button.addEventListener("click", () => {
+          handler();
+          closeContextMenu();
+        });
+        return button;
+      }
+
+      function showContextMenu(object, sourceEvent = null) {
+        if (window.innerWidth <= 720) {
+          $("designer-panel").classList.remove("is-open");
+          mobileToolbar.classList.remove("is-open");
+          mobileToolsToggle.setAttribute("aria-expanded", "false");
+          mobileToolsSymbol.textContent = "+";
+        }
+
+        contextMenu.innerHTML = "";
+        contextMenuObject = object || null;
+
+        const appendDelete = () => {
+          if (!object) return;
+
+          contextMenu.append(
+            createContextButton(
+              getTranslation("shortcuts.deleteElement", "Borrar elemento"),
+              () => {
+                canvas.remove(object);
+                canvas.discardActiveObject();
+                canvas.requestRenderAll();
+                refreshLayers();
+                saveHistory();
+              },
+              true
+            )
+          );
+        };
+
+        const appendEditElement = () => {
+          contextMenu.append(
+            createContextButton(
+              getTranslation("shortcuts.editElement", "Editar elemento"),
+              () => {
+                if (object) {
+                  canvas.setActiveObject(object);
+                  canvas.requestRenderAll();
+                }
+                openPanel(object ? "element-panel" : "canvas-panel");
+                showCanvasEditor();
+              }
+            )
+          );
+        };
+
+        const appendClipboardActions = () => {
+          if (object) {
+            contextMenu.append(
+              createContextButton(
+                getTranslation("shortcuts.copyFormat", "Copiar formato"),
+                () => captureElementFormat(object)
+              ),
+              createContextButton(
+                getTranslation("shortcuts.copyElement", "Copiar"),
+                () => copyElement(object)
+              )
+            );
+          }
+
+          contextMenu.append(
+            createContextButton(
+              getTranslation("shortcuts.pasteElement", "Pegar elemento"),
+              pasteElement
+            )
+          );
+        };
+
+        const appendLayerOrder = () => {
+          if (!object) return;
+
+          contextMenu.append(
+            createContextButton(
+              getTranslation("shortcuts.layerOrder", "Cambiar orden de capa"),
+              openLayersShortcut
+            )
+          );
+        };
+
+        if (!object) {
+          contextMenu.append(
+            createContextButton(
+              getTranslation("shortcuts.editElement", "Editar elemento"),
+              () => {
+                openPanel("canvas-panel");
+                showCanvasEditor();
+              }
+            ),
+            createContextButton(
+              getTranslation("static.background", "Fondo"),
+              () => {
+                openPanel("background-panel");
+                showCanvasEditor();
+              }
+            )
+          );
+
+          appendClipboardActions();
+        } else if (object.type === "textbox" || object.type === "i-text") {
+          contextMenu.append(
+            createContextButton(
+              getTranslation("shortcuts.deleteText", "Eliminar texto"),
+              () => {
+                canvas.remove(object);
+                canvas.discardActiveObject();
+                canvas.requestRenderAll();
+                refreshLayers();
+                saveHistory();
+              },
+              true
+            )
+          );
+
+          contextMenu.append(
+            createContextButton(
+              getTranslation("shortcuts.edit", "Editar"),
+              () => focusDesignerControl("text-panel", "text-content")
+            ),
+            createContextButton(
+              getTranslation("shortcuts.font", "Cambiar fuente"),
+              () => focusDesignerControl("text-panel", "font-family")
+            ),
+            createContextButton(
+              getTranslation("shortcuts.size", "Cambiar tamaño"),
+              () => focusDesignerControl("text-panel", "font-size")
+            ),
+            createContextButton(
+              getTranslation("shortcuts.color", "Cambiar color"),
+              () => focusDesignerControl("text-panel", "text-color")
+            )
+          );
+
+          appendClipboardActions();
+          appendLayerOrder();
+        } else if (object.type === "image") {
+          appendDelete();
+
+          if (isImageTransparent(object)) {
+            contextMenu.append(
+              createContextButton(
+                getTranslation("shortcuts.solidBackground", "Poner color sólido como fondo"),
+                activateSolidBackgroundShortcut
+              )
+            );
+          } else {
+            contextMenu.append(
+              createContextButton(
+                getTranslation("shortcuts.removeBackground", "Quitar fondo"),
+                () => removeSelectedImageBackground(object)
+              )
+            );
+          }
+
+          contextMenu.append(
+            createContextButton(
+              getTranslation("shortcuts.enhanceImage", "Mejorar calidad de imagen"),
+              () => enhanceImageObject(object)
+            )
+          );
+
+          if (!object.isBackgroundLayer) {
+            contextMenu.append(
+              createContextButton(
+                getTranslation("shortcuts.roundCorners", "Redondear bordes"),
+                () => focusDesignerControl("element-panel", "image-corner-radius")
+              )
+            );
+          }
+
+          appendEditElement();
+          appendClipboardActions();
+          appendLayerOrder();
+        } else if (["rect", "circle", "triangle", "polygon", "line"].includes(object.type)) {
+          appendDelete();
+
+          contextMenu.append(
+            createContextButton(
+              getTranslation("shortcuts.color", "Cambiar color"),
+              () => focusDesignerControl("element-panel", "object-fill")
+            ),
+            createContextButton(
+              getTranslation("static.border", "Borde"),
+              () => focusDesignerControl("element-panel", "object-stroke")
+            )
+          );
+
+          appendEditElement();
+          appendClipboardActions();
+          appendLayerOrder();
+        } else {
+          appendDelete();
+          appendEditElement();
+          appendClipboardActions();
+          appendLayerOrder();
+        }
+
+        if (window.innerWidth <= 720) {
+          contextMenu.style.setProperty("position", "fixed", "important");
+          contextMenu.style.setProperty("left", "50%", "important");
+          contextMenu.style.setProperty("top", "50%", "important");
+          contextMenu.style.setProperty("right", "auto", "important");
+          contextMenu.style.setProperty("bottom", "auto", "important");
+          contextMenu.style.setProperty("margin", "0", "important");
+          contextMenu.style.setProperty("transform", "translate(-50%, -50%)", "important");
+        } else {
+          contextMenu.style.removeProperty("right");
+          contextMenu.style.removeProperty("bottom");
+          contextMenu.style.removeProperty("margin");
+          contextMenu.style.removeProperty("transform");
+
+          const x = sourceEvent?.clientX ?? Math.min(window.innerWidth - 280, window.innerWidth * 0.62);
+          const y = sourceEvent?.clientY ?? Math.min(window.innerHeight - 260, window.innerHeight * 0.35);
+
+          contextMenu.style.left = `${Math.max(12, Math.min(window.innerWidth - 272, x + 12))}px`;
+          contextMenu.style.top = `${Math.max(12, Math.min(window.innerHeight - 260, y + 12))}px`;
+        }
+
+        revealContextMenuStable(sourceEvent);
+      }
+
 
       const panelTitles = {
         "templates-panel": "templates",
@@ -1586,7 +4240,7 @@
       function saveHistory() {
         if (isRestoring) return;
         const state = JSON.stringify({
-          canvas: canvas.toJSON(["name", "translationKey", "isDrawingPath", "glassStyle", "isBackgroundLayer", "backgroundBaseScale"]),
+          canvas: canvas.toJSON(["name", "translationKey", "isDrawingPath", "glassStyle", "isBackgroundLayer", "backgroundBaseScale", "backgroundRemoved", "imageCornerRadius"]),
           width: logicalWidth,
           height: logicalHeight,
           backgroundMode
@@ -1938,7 +4592,7 @@
           activateObject(clone);
           saveHistory();
           refreshLayers();
-        }, ["name", "translationKey", "glassStyle", "isDrawingPath"]);
+        }, ["name", "translationKey", "glassStyle", "isDrawingPath", "backgroundRemoved", "imageCornerRadius"]);
       }
 
       function applyGlass(object, enabled) {
@@ -2074,6 +4728,15 @@
           $("object-corner-radius-value").textContent = `${radius} px`;
         }
 
+        const isInsertedImage = object.type === "image" && !object.isBackgroundLayer;
+        $("image-corner-radius-field").hidden = !isInsertedImage;
+
+        if (isInsertedImage) {
+          const imageRadius = Math.round(object.imageCornerRadius || 0);
+          $("image-corner-radius").value = String(imageRadius);
+          $("image-corner-radius-value").textContent = `${imageRadius}%`;
+        }
+
         const shadow = object.shadow;
         const shadowBlur = shadow ? Number(shadow.blur || 0) : 0;
         const shadowOffsetX = shadow ? Number(shadow.offsetX || 0) : 0;
@@ -2203,7 +4866,11 @@
 
         const radius = Math.max(0, Number(value));
         object.set({ rx: radius, ry: radius });
+        object.setCoords();
+
+        $("object-corner-radius").value = String(radius);
         $("object-corner-radius-value").textContent = `${radius} px`;
+
         canvas.requestRenderAll();
       }
 
@@ -2462,14 +5129,14 @@
           width: logicalWidth,
           height: logicalHeight,
           backgroundMode,
-          canvas: canvas.toJSON(["name", "translationKey", "isDrawingPath", "glassStyle", "isBackgroundLayer", "backgroundBaseScale"])
+          canvas: canvas.toJSON(["name", "translationKey", "isDrawingPath", "glassStyle", "isBackgroundLayer", "backgroundBaseScale", "backgroundRemoved", "imageCornerRadius"])
         };
 
         const blob = new Blob([JSON.stringify(project, null, 2)], { type: "application/json" });
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.href = url;
-        link.download = "creative-lab-social-design.json";
+        link.download = "Alfora-social-design.json";
         link.click();
         setTimeout(() => URL.revokeObjectURL(url), 1000);
       }
@@ -2495,6 +5162,10 @@
               updateStageScale(true);
               refreshLayers();
               saveHistory();
+
+              openPanel("canvas-panel");
+              showCanvasEditor();
+
               showStatus(getTranslation("messages.projectOpened", "Proyecto abierto."), "success");
             });
           } catch {
@@ -2520,7 +5191,7 @@
         const data = canvas.toDataURL({ format, quality, multiplier: 1 });
         const link = document.createElement("a");
         link.href = data;
-        link.download = `creative-lab-design.${format === "jpeg" ? "jpg" : format}`;
+        link.download = `Alfora-design.${format === "jpeg" ? "jpg" : format}`;
         link.click();
 
         $("export-dialog").close();
@@ -3061,9 +5732,29 @@
           : getTranslation("static.enablePencil", "Activar lápiz");
       }
 
+      const mobileToolsToggle = $("designer-mobile-tools-toggle");
+      const mobileToolsSymbol = $("designer-mobile-tools-symbol");
+      const mobileToolbar = $("designer-mobile-toolbar");
+
+      mobileToolsToggle.addEventListener("click", () => {
+        closeContextMenu();
+
+        const open = !mobileToolbar.classList.contains("is-open");
+        mobileToolbar.classList.toggle("is-open", open);
+        mobileToolsToggle.setAttribute("aria-expanded", String(open));
+        mobileToolsSymbol.textContent = open ? "−" : "+";
+      });
+
       document.querySelectorAll("[data-panel]").forEach((button) => {
         button.addEventListener("click", () => {
           openPanel(button.dataset.panel);
+
+          if (window.innerWidth <= 720) {
+            mobileToolbar.classList.remove("is-open");
+            mobileToolsToggle.setAttribute("aria-expanded", "false");
+            mobileToolsSymbol.textContent = "+";
+          }
+
           if (button.dataset.panel === "templates-panel") showTemplateBrowser();
           if (button.dataset.panel !== "templates-panel") showCanvasEditor();
         });
@@ -3364,6 +6055,13 @@
         updateProperties();
         showCanvasEditor();
 
+        /* En móvil cualquier selección espera al menú contextual.
+           Ningún editor grande se abre automáticamente. */
+        if (window.innerWidth <= 720) {
+          $("designer-panel").classList.remove("is-open");
+          return;
+        }
+
         if (!keepLayersPanelActive) {
           openPanel("element-panel");
         }
@@ -3371,7 +6069,87 @@
 
       canvas.on("selection:created", handleObjectSelection);
       canvas.on("selection:updated", handleObjectSelection);
-      canvas.on("selection:cleared", updateProperties);
+      canvas.on("selection:cleared", () => {
+        updateProperties();
+        closeContextMenu();
+      });
+
+      let objectPointerGesture = null;
+
+      canvas.on("mouse:down", ({ target, e }) => {
+        closeContextMenu();
+
+        const point = e?.touches?.[0] || e?.changedTouches?.[0] || e;
+
+        if (window.innerWidth <= 720) {
+          $("designer-panel").classList.remove("is-open");
+          mobileToolbar.classList.remove("is-open");
+          mobileToolsToggle.setAttribute("aria-expanded", "false");
+          mobileToolsSymbol.textContent = "+";
+        }
+
+        objectPointerGesture = {
+          target: target || null,
+          startX: Number(point?.clientX || 0),
+          startY: Number(point?.clientY || 0),
+          startedAt: performance.now(),
+          moved: false
+        };
+      });
+
+      canvas.on("mouse:move", ({ e }) => {
+        if (!objectPointerGesture) return;
+
+        const point = e?.touches?.[0] || e?.changedTouches?.[0] || e;
+        const x = Number(point?.clientX || 0);
+        const y = Number(point?.clientY || 0);
+        const distance = Math.hypot(
+          x - objectPointerGesture.startX,
+          y - objectPointerGesture.startY
+        );
+
+        /* En móvil damos un poco de tolerancia al dedo. */
+        const threshold = window.innerWidth <= 720 ? 12 : 6;
+
+        if (distance > threshold) {
+          objectPointerGesture.moved = true;
+
+          if (window.innerWidth <= 720) {
+            closeContextMenu();
+            $("designer-panel").classList.remove("is-open");
+          }
+        }
+      });
+
+      canvas.on("mouse:up", ({ target, e }) => {
+        const gesture = objectPointerGesture;
+        objectPointerGesture = null;
+
+        if (!gesture || gesture.moved) return;
+
+        const duration = performance.now() - gesture.startedAt;
+
+        /* Pulsación sostenida: no abre nada.
+           El usuario queda libre para mover el objeto. */
+        if (window.innerWidth <= 720 && duration > 280) {
+          closeContextMenu();
+          $("designer-panel").classList.remove("is-open");
+          return;
+        }
+
+        const point = e?.changedTouches?.[0] || e?.touches?.[0] || e;
+        const resolvedTarget = target || gesture.target || null;
+
+        if (formatPainterActive && resolvedTarget) {
+          applyCopiedFormat(resolvedTarget);
+          formatPainterActive = false;
+          closeContextMenu();
+          return;
+        }
+
+        /* Prioridad absoluta al menú de opciones. */
+        showContextMenu(resolvedTarget, point);
+      });
       canvas.on("object:modified", ({ target }) => {
         updateProperties();
         if (target && target.isBackgroundLayer) {
@@ -3437,6 +6215,27 @@
       });
       $("object-corner-radius").addEventListener("change", saveHistory);
 
+      $("image-corner-radius").addEventListener("input", () => {
+        applyImageCornerRadius($("image-corner-radius").value);
+      });
+      $("image-corner-radius").addEventListener("change", saveHistory);
+
+      $("translate-all-button").addEventListener("click", () => {
+        const field = $("translate-all-field");
+        field.hidden = !field.hidden;
+        if (!field.hidden) {
+          $("translate-all-language").focus();
+        }
+      });
+
+      $("translate-all-language").addEventListener("change", async () => {
+        const language = $("translate-all-language").value;
+        if (!language) return;
+        await translateAllCanvasText(language);
+        $("translate-all-language").value = "";
+        $("translate-all-field").hidden = true;
+      });
+
       $("shadow-preset").addEventListener("change", () => {
         applyShadowPreset($("shadow-preset").value);
       });
@@ -3492,18 +6291,72 @@
         saveHistory();
       });
 
-      $("language-selector").addEventListener("change", (event) => {
+      /* El header compartido puede reemplazar #language-selector después de cargar.
+         La delegación mantiene operativo el cambio de idioma aunque el nodo cambie. */
+      document.addEventListener("change", (event) => {
+        if (event.target?.id !== "language-selector") return;
         loadPageLanguage(event.target.value);
+      });
+
+      /* Compatibilidad con el sistema global de idioma de Alfora. */
+      window.addEventListener("creativeLab:languageChanged", (event) => {
+        const language =
+          event.detail?.language ||
+          event.detail?.lang ||
+          localStorage.getItem("creativeLabLanguage");
+
+        if (language === "es" || language === "en") {
+          loadPageLanguage(language);
+        }
       });
 
       $("undo-button").addEventListener("click", undo);
       $("redo-button").addEventListener("click", redo);
 
+      document.addEventListener("pointerdown", (event) => {
+        if (!contextMenu.hidden && !contextMenu.contains(event.target)) {
+          closeContextMenu();
+        }
+
+        const stage = event.target.closest?.("#designer-stage");
+        if (!stage) return;
+
+        const clickedCanvas = event.target.closest?.("#canvas-shell");
+        const clickedPreview = event.target.closest?.("#template-preview-stage");
+
+        if (!clickedCanvas && !clickedPreview) {
+          canvas.discardActiveObject();
+          canvas.requestRenderAll();
+          updateProperties();
+          closeContextMenu();
+        }
+      });
+
       document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeContextMenu();
+
         const tag = document.activeElement?.tagName;
         if (["INPUT", "TEXTAREA", "SELECT"].includes(tag)) return;
 
-        if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "z") {
+        const commandKey = event.ctrlKey || event.metaKey;
+        const key = event.key.toLowerCase();
+
+        if (commandKey && key === "c") {
+          const object = canvas.getActiveObject();
+          if (!object) return;
+          event.preventDefault();
+          copyElement(object);
+        } else if (commandKey && key === "x") {
+          const object = canvas.getActiveObject();
+          if (!object) return;
+          event.preventDefault();
+          copyElement(object);
+          deleteSelected();
+        } else if (commandKey && key === "v") {
+          if (!copiedElementData) return;
+          event.preventDefault();
+          pasteElement();
+        } else if (commandKey && key === "z") {
           event.preventDefault();
           event.shiftKey ? redo() : undo();
         } else if (event.key === "Delete" || event.key === "Backspace") {
@@ -3542,6 +6395,35 @@
 
       window.addEventListener("resize", () => {
         updateStageScale(true);
+
+        if (window.innerWidth > 720) {
+          mobileToolbar.classList.remove("is-open");
+          mobileToolsToggle.setAttribute("aria-expanded", "false");
+          mobileToolsSymbol.textContent = "+";
+        } else if (!contextMenu.hidden) {
+          const viewportHeight =
+            window.visualViewport?.height ||
+            document.documentElement.clientHeight ||
+            window.innerHeight;
+
+          const safeMaxHeight = Math.max(
+            220,
+            Math.min(520, Math.floor(viewportHeight * 0.68))
+          );
+
+          contextMenu.style.setProperty("max-height", `${safeMaxHeight}px`, "important");
+        }
+      });
+
+      window.visualViewport?.addEventListener("resize", () => {
+        if (window.innerWidth <= 720 && !contextMenu.hidden) {
+          const safeMaxHeight = Math.max(
+            220,
+            Math.min(520, Math.floor(window.visualViewport.height * 0.68))
+          );
+
+          contextMenu.style.setProperty("max-height", `${safeMaxHeight}px`, "important");
+        }
       });
     });
   </script>

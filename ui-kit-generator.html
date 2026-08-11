@@ -705,7 +705,219 @@
       box-shadow: 0 0 0 3px rgba(255, 90, 90, 0.08);
     }
 
-  </style>
+  
+
+    /* ==========================================================================
+       ALFORA · UI KIT · CAPA MÓVIL + / -
+       Solo afecta <= 760px. Desktop permanece intacto.
+       ========================================================================== */
+
+    .ui-mobile-tools-toggle,
+    .ui-mobile-toolbar {
+      display: none;
+    }
+
+    @media (max-width: 760px) {
+      .product-page {
+        max-width: none !important;
+        width: 100% !important;
+        padding: 14px 10px 24px !important;
+      }
+
+      .ui-kit-interface--full {
+        width: 100% !important;
+        max-width: none !important;
+        padding-inline: 0 !important;
+      }
+
+      .ui-workspace {
+        width: 100% !important;
+      }
+
+      /* En móvil los controles originales siguen en su mismo sitio en el DOM,
+         pero se muestran únicamente cuando el usuario los abre desde + / -. */
+      .ui-sidebar--left,
+      .ui-sidebar--right {
+        position: static !important;
+        max-height: none !important;
+        overflow: visible !important;
+        padding-right: 0 !important;
+      }
+
+      .ui-sidebar--left > .ui-control-section,
+      .ui-sidebar--right .ui-tab-panel,
+      .ui-system-tabs {
+        display: none !important;
+      }
+
+      .ui-sidebar--left > .ui-control-section.is-mobile-open,
+      .ui-sidebar--right .ui-tab-panel.is-mobile-open {
+        position: fixed !important;
+        z-index: 1380 !important;
+        display: block !important;
+        top: max(140px, calc(env(safe-area-inset-top) + 118px)) !important;
+        left: 50% !important;
+        width: min(92vw, 390px) !important;
+        max-width: 390px !important;
+        max-height: min(70svh, 620px) !important;
+        margin: 0 !important;
+        padding: 16px !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        overscroll-behavior: contain;
+        background: rgba(5, 19, 10, .86) !important;
+        border: 1px solid rgba(102,255,143,.28) !important;
+        border-radius: 22px !important;
+        box-shadow:
+          0 30px 76px rgba(0,0,0,.72),
+          0 0 0 1px rgba(102,255,143,.13),
+          0 12px 34px rgba(102,255,143,.08) !important;
+        backdrop-filter: blur(20px) saturate(1.08);
+        -webkit-backdrop-filter: blur(20px) saturate(1.08);
+        transform: translateX(-50%) !important;
+      }
+
+      .ui-sidebar--left > .ui-control-section.is-mobile-open .ui-grid-2,
+      .ui-sidebar--left > .ui-control-section.is-mobile-open .ui-grid-3,
+      .ui-sidebar--right .ui-tab-panel.is-mobile-open .ui-grid-2,
+      .ui-sidebar--right .ui-tab-panel.is-mobile-open .ui-grid-3 {
+        grid-template-columns: minmax(0, 1fr) !important;
+      }
+
+      .ui-sidebar--left > .ui-control-section.is-mobile-open .ui-actions {
+        flex-direction: column !important;
+      }
+
+      .ui-sidebar--left > .ui-control-section.is-mobile-open .button {
+        width: 100% !important;
+      }
+
+      .ui-preview-panel {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 12px !important;
+      }
+
+      .ui-preview-shell {
+        min-height: 58svh !important;
+        padding: 8px !important;
+        overflow: auto !important;
+        align-items: flex-start !important;
+        overscroll-behavior: contain;
+      }
+
+      #ui-preview {
+        min-height: 0 !important;
+      }
+
+      #ui-preview svg {
+        min-width: 820px !important;
+      }
+
+      .ui-mobile-tools-toggle {
+        position: fixed !important;
+        z-index: 1400 !important;
+        top: max(92px, calc(env(safe-area-inset-top) + 78px)) !important;
+        left: 0 !important;
+        display: grid !important;
+        width: 54px !important;
+        height: 54px !important;
+        place-items: center !important;
+        padding: 0 !important;
+        color: var(--color-text-dark) !important;
+        background: var(--gradient-primary) !important;
+        border: 0 !important;
+        border-radius: 0 18px 18px 0 !important;
+        box-shadow: 10px 14px 34px rgba(0,0,0,.38) !important;
+        cursor: pointer !important;
+        font-size: 1.85rem !important;
+        font-weight: 900 !important;
+      }
+
+      .ui-mobile-toolbar {
+        position: fixed !important;
+        z-index: 1390 !important;
+        top: max(92px, calc(env(safe-area-inset-top) + 78px)) !important;
+        left: 0 !important;
+        display: grid !important;
+        width: min(80vw, 300px) !important;
+        max-height: min(76svh, 590px) !important;
+        grid-template-columns: 1fr !important;
+        gap: 5px !important;
+        padding: 62px 8px 8px !important;
+        overflow-y: auto !important;
+        background: rgba(7,24,13,.78) !important;
+        border: 1px solid rgba(102,255,143,.22) !important;
+        border-left: 0 !important;
+        border-radius: 0 20px 20px 0 !important;
+        box-shadow:
+          0 30px 76px rgba(0,0,0,.72),
+          0 0 0 1px rgba(102,255,143,.13),
+          0 12px 34px rgba(102,255,143,.08) !important;
+        backdrop-filter: blur(20px) !important;
+        -webkit-backdrop-filter: blur(20px) !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+        transform: translateX(-18px) !important;
+        transition:
+          opacity .2s ease,
+          visibility .2s ease,
+          transform .25s ease !important;
+      }
+
+      .ui-mobile-toolbar.is-open {
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+        transform: translateX(0) !important;
+      }
+
+      .ui-mobile-toolbar button {
+        display: grid !important;
+        width: 100% !important;
+        min-height: 46px !important;
+        grid-template-columns: 30px minmax(0, 1fr) !important;
+        align-items: center !important;
+        gap: 8px !important;
+        padding: 7px 10px !important;
+        color: var(--color-text) !important;
+        background: transparent !important;
+        border: 1px solid transparent !important;
+        border-radius: 11px !important;
+        cursor: pointer !important;
+        text-align: left !important;
+        font: inherit !important;
+      }
+
+      .ui-mobile-toolbar button:hover,
+      .ui-mobile-toolbar button:focus-visible,
+      .ui-mobile-toolbar button.is-active {
+        background: rgba(102,255,143,.08) !important;
+        border-color: var(--color-border) !important;
+        outline: none !important;
+      }
+
+      .ui-mobile-toolbar button > span {
+        display: grid !important;
+        width: 30px !important;
+        height: 30px !important;
+        place-items: center !important;
+        color: var(--color-primary) !important;
+        font-weight: 900 !important;
+      }
+
+      .ui-mobile-toolbar button small {
+        min-width: 0 !important;
+        color: inherit !important;
+        font-size: .74rem !important;
+        font-weight: 800 !important;
+        line-height: 1.2 !important;
+        white-space: normal !important;
+      }
+    }
+
+</style>
 </head>
 <body data-page="ui-kit-generator">
   <a class="skip-link" href="#main-content" data-i18n="common.skipToContent">Saltar al contenido</a>
@@ -994,6 +1206,48 @@
               </div>
             </section></div>
     </aside>
+
+    <button
+      class="ui-mobile-tools-toggle"
+      id="ui-mobile-tools-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="ui-mobile-toolbar"
+    >
+      <span id="ui-mobile-tools-symbol" aria-hidden="true">+</span>
+    </button>
+
+    <div class="ui-mobile-toolbar" id="ui-mobile-toolbar">
+      <button type="button" data-mobile-target="#individual-tools">
+        <span aria-hidden="true">◇</span>
+        <small data-i18n="sections.individual">Personalización individual</small>
+      </button>
+
+      <button type="button" data-mobile-target=".ui-sidebar--left > .ui-control-section:nth-of-type(2)">
+        <span aria-hidden="true">⇩</span>
+        <small data-i18n="sections.export">Exportación</small>
+      </button>
+
+      <button type="button" data-mobile-target=".ui-css-section">
+        <span aria-hidden="true">{ }</span>
+        <small>CSS</small>
+      </button>
+
+      <button type="button" data-mobile-target='[data-tab-panel="palette"]'>
+        <span aria-hidden="true">◉</span>
+        <small data-i18n="tabs.palette">Paleta</small>
+      </button>
+
+      <button type="button" data-mobile-target='[data-tab-panel="typography"]'>
+        <span aria-hidden="true">T</span>
+        <small data-i18n="tabs.typography">Tipografía</small>
+      </button>
+
+      <button type="button" data-mobile-target='[data-tab-panel="components"]'>
+        <span aria-hidden="true">▣</span>
+        <small data-i18n="tabs.components">Componentes</small>
+      </button>
+    </div>
   </div>
 </section>
             <p class="product-header__description" data-i18n="product.description">
@@ -2171,6 +2425,86 @@
         updateColorCodeFields();
         hideMagnifier();
       }
+
+      const mobileToolsToggle = document.getElementById('ui-mobile-tools-toggle');
+      const mobileToolsSymbol = document.getElementById('ui-mobile-tools-symbol');
+      const mobileToolbar = document.getElementById('ui-mobile-toolbar');
+
+      function closeMobilePanels() {
+        document.querySelectorAll('.is-mobile-open').forEach((panel) => {
+          panel.classList.remove('is-mobile-open');
+        });
+
+        document.querySelectorAll('[data-mobile-target]').forEach((button) => {
+          button.classList.remove('is-active');
+        });
+      }
+
+      function closeMobileToolbar() {
+        if (!mobileToolbar || !mobileToolsToggle || !mobileToolsSymbol) return;
+        mobileToolbar.classList.remove('is-open');
+        mobileToolsToggle.setAttribute('aria-expanded', 'false');
+        mobileToolsSymbol.textContent = '+';
+      }
+
+      mobileToolsToggle?.addEventListener('click', () => {
+        if (window.innerWidth > 760) return;
+
+        const shouldOpen = !mobileToolbar.classList.contains('is-open');
+
+        if (shouldOpen) {
+          closeMobilePanels();
+          mobileToolbar.classList.add('is-open');
+          mobileToolsToggle.setAttribute('aria-expanded', 'true');
+          mobileToolsSymbol.textContent = '−';
+        } else {
+          closeMobileToolbar();
+        }
+      });
+
+      document.querySelectorAll('[data-mobile-target]').forEach((button) => {
+        button.addEventListener('click', () => {
+          if (window.innerWidth > 760) return;
+
+          const panel = document.querySelector(button.dataset.mobileTarget);
+          if (!panel) return;
+
+          const wasOpen = panel.classList.contains('is-mobile-open');
+
+          closeMobilePanels();
+          closeMobileToolbar();
+
+          if (!wasOpen) {
+            panel.classList.add('is-mobile-open');
+            button.classList.add('is-active');
+            panel.scrollTop = 0;
+          }
+        });
+      });
+
+      document.addEventListener('pointerdown', (event) => {
+        if (window.innerWidth > 760) return;
+
+        const openPanel = document.querySelector('.is-mobile-open');
+        if (!openPanel) return;
+
+        if (
+          openPanel.contains(event.target) ||
+          mobileToolbar?.contains(event.target) ||
+          mobileToolsToggle?.contains(event.target)
+        ) {
+          return;
+        }
+
+        closeMobilePanels();
+      });
+
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 760) {
+          closeMobilePanels();
+          closeMobileToolbar();
+        }
+      });
 
       initializeColorCodeFields();
       selectTarget(fields.targetSelect.value);

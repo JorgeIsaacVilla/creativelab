@@ -1,10 +1,10 @@
 {
   "seo": {
-    "title": "Social media visual editor | Creative Lab",
+    "title": "Social media visual editor | Alfora",
     "description": "Create social media ads with text, images, templates, shapes, backgrounds, gradients and browser-based export.",
     "ogTitle": "Social media visual editor",
     "ogDescription": "Design posts, stories, ads and banners directly in your browser.",
-    "twitterTitle": "Social Designer | Creative Lab",
+    "twitterTitle": "Social Designer | Alfora",
     "twitterDescription": "Create visual content for social media directly in your browser."
   },
   "panels": {
@@ -126,7 +126,7 @@
     "duplicate": "Duplicate",
     "delete": "Delete",
     "campaign": "Campaign",
-    "creativeLabPresents": "CREATIVE LAB PRESENTS",
+    "creativeLabPresents": "Alfora PRESENTS",
     "selectTemplate": "Select a template",
     "selectTemplateHelp": "Click any card to preview it before customizing.",
     "discover": "DISCOVER",
@@ -145,7 +145,9 @@
     "zoomOut": "Zoom out",
     "zoomIn": "Zoom in",
     "centerSelection": "Center selection",
-    "closePanel": "Close panel"
+    "closePanel": "Close panel",
+    "translateAllContent": "Translate all content",
+    "roundCorners": "Round corners"
   },
   "presets": {
     "mobile": [
@@ -191,7 +193,12 @@
     "invalidProject": "The project file is not valid.",
     "addBackgroundFirst": "Add a background image first.",
     "templateApplied": "Template applied",
-    "templateReady": "Template ready"
+    "templateReady": "Template ready",
+    "imageEnhanced": "Image quality enhanced.",
+    "imageEnhanceError": "The image could not be enhanced.",
+    "noTextToTranslate": "There is no text to translate.",
+    "translationComplete": "Content translated.",
+    "translationError": "The content could not be translated."
   },
   "templates": {
     "summer-editorial": {
@@ -284,5 +291,22 @@
       "cta": "LEARN MORE",
       "description": "Warm design with human photography, cutouts, stamps and an emotional message."
     }
+  },
+  "shortcuts": {
+    "deleteElement": "Delete element",
+    "editElement": "Edit element",
+    "copyFormat": "Copy format",
+    "copyElement": "Copy",
+    "pasteElement": "Paste element",
+    "deleteText": "Delete text",
+    "edit": "Edit",
+    "font": "Change font",
+    "size": "Change size",
+    "color": "Change color",
+    "layerOrder": "Change layer order",
+    "solidBackground": "Set solid color as background",
+    "removeBackground": "Remove background",
+    "enhanceImage": "Enhance image quality",
+    "roundCorners": "Round corners"
   }
 }

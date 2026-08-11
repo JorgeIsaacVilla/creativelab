@@ -276,7 +276,511 @@
         padding: var(--space-5);
       }
     }
-  </style>
+  
+
+    .product-header--tool-first {
+      margin-bottom: var(--space-5);
+    }
+
+    .product-header--tool-first .product-header__content {
+      max-width: none;
+    }
+
+    .product-header--tool-first h1 {
+      margin-bottom: 0;
+    }
+
+    .qr-personalization {
+      display: grid;
+      margin-top: var(--space-6);
+      gap: var(--space-4);
+    }
+
+    .qr-personalization__heading h3 {
+      margin: 0;
+    }
+
+    .qr-generator-description {
+      margin-top: var(--space-8);
+      padding: clamp(1.25rem, 4vw, 2.5rem);
+      background: rgba(102, 255, 143, 0.018);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+    }
+
+    .qr-generator-description .tool-description__lead {
+      max-width: 850px;
+      margin: var(--space-4) 0 0;
+      color: var(--color-text-soft);
+      font-size: var(--font-size-md);
+    }
+
+    .qr-mobile-tools {
+      display: none;
+    }
+
+    @media (max-width: 720px) {
+      .product-header--tool-first {
+        margin-bottom: 12px;
+      }
+
+      .product-header--tool-first h1 {
+        font-size: clamp(2rem, 10vw, 3rem);
+      }
+
+      .qr-layout {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .qr-preview-panel {
+        order: 1;
+      }
+
+      .qr-layout > .qr-panel:first-child {
+        order: 2;
+      }
+
+      .qr-panel {
+        padding: 10px;
+        border-radius: 14px;
+      }
+
+      .qr-preview-panel .qr-panel__heading {
+        margin-bottom: 8px;
+      }
+
+      .qr-preview-shell {
+        min-height: 300px;
+        padding: 12px;
+      }
+
+      .qr-preview-card {
+        width: min(100%, 330px);
+        padding: 16px;
+        border-radius: 20px;
+      }
+
+      .qr-preview-panel #download-qr {
+        width: 100%;
+        min-height: 44px;
+      }
+
+      .qr-layout > .qr-panel:first-child .qr-panel__heading {
+        margin-bottom: 10px;
+      }
+
+      .qr-type-tabs,
+      .qr-options,
+      .qr-personalization {
+        scroll-margin-top: 100px;
+      }
+
+      .qr-type-tabs {
+        gap: 6px;
+        margin-bottom: 10px;
+      }
+
+      .qr-type-button {
+        min-height: 38px;
+        padding: 0 10px;
+        font-size: .68rem;
+      }
+
+      .qr-fields {
+        gap: 10px;
+      }
+
+      .qr-inline-grid,
+      .qr-options {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .qr-personalization .qr-inline-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .qr-actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px;
+        margin-top: 10px;
+      }
+
+      .qr-actions .button {
+        width: 100%;
+        min-height: 44px;
+        padding: 6px 7px;
+        font-size: .7rem;
+      }
+
+      .qr-generator-description {
+        margin-top: 16px;
+        padding: var(--space-4);
+        border-radius: var(--radius-lg);
+      }
+
+      .qr-mobile-tools {
+        position: fixed;
+        top: max(92px, calc(env(safe-area-inset-top) + 78px));
+        left: 8px;
+        z-index: 1200;
+        display: block;
+      }
+
+      .qr-mobile-tools__toggle {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        width: 52px;
+        height: 52px;
+        place-items: center;
+        padding: 0;
+        color: var(--color-text-dark);
+        background: var(--gradient-primary);
+        border: 0;
+        border-radius: 0 17px 17px 0;
+        box-shadow: 10px 14px 34px rgba(0,0,0,.38);
+        cursor: pointer;
+        font-size: 1.75rem;
+        font-weight: 900;
+      }
+
+      .qr-mobile-tools__panel {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: min(76vw, 280px);
+        padding: 60px 8px 8px;
+        background: rgba(7,24,13,.68);
+        border: 1px solid rgba(102,255,143,.22);
+        border-radius: 0 20px 20px 0;
+        box-shadow: 20px 24px 60px rgba(0,0,0,.46);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(-18px);
+        transition: opacity .2s ease, visibility .2s ease, transform .25s ease;
+      }
+
+      .qr-mobile-tools.is-open .qr-mobile-tools__panel {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+      }
+
+      .qr-mobile-link {
+        display: block;
+        width: 100%;
+        min-height: 46px;
+        padding: 8px 10px;
+        color: var(--color-text);
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: 11px;
+        text-align: left;
+        font: inherit;
+        font-size: .74rem;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      .qr-mobile-link:hover,
+      .qr-mobile-link:focus-visible {
+        background: rgba(102,255,143,.08);
+        border-color: var(--color-border);
+      }
+    }
+
+    @media (max-width: 390px) {
+      .qr-inline-grid,
+      .qr-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+
+
+    /* ==========================================================================
+       QR · AJUSTES V3
+       ========================================================================== */
+
+    /* Evita que aparezcan dos QR cuando existe una previsualización decorada. */
+    .qr-preview-card #qr-output[hidden] {
+      display: none !important;
+    }
+
+    .qr-preview-card .qr-decorated-preview {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin: 0 auto;
+    }
+
+    /* Campo de logo integrado al lenguaje visual de Alfora. */
+    #qr-logo-image {
+      width: 100%;
+      min-height: 48px;
+      padding: 5px;
+      color: var(--color-text-soft);
+      background: var(--color-surface-strong);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font: inherit;
+      font-size: var(--font-size-sm);
+      cursor: pointer;
+    }
+
+    #qr-logo-image::file-selector-button {
+      min-height: 38px;
+      margin-right: 10px;
+      padding: 0 var(--space-4);
+      color: var(--color-text-dark);
+      background: var(--gradient-primary);
+      border: 0;
+      border-radius: calc(var(--radius-md) - 3px);
+      cursor: pointer;
+      font: inherit;
+      font-size: var(--font-size-xs);
+      font-weight: 900;
+    }
+
+    #qr-logo-image:hover,
+    #qr-logo-image:focus {
+      border-color: var(--color-primary);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(102, 255, 143, 0.08);
+    }
+
+    @media (max-width: 720px) {
+      #qr-logo-image {
+        min-height: 44px;
+        padding: 4px;
+        font-size: .7rem;
+      }
+
+      #qr-logo-image::file-selector-button {
+        min-height: 34px;
+        padding: 0 10px;
+        margin-right: 7px;
+        font-size: .66rem;
+      }
+    }
+
+
+
+    /* ==========================================================================
+       QR · OVERLAY MÓVIL DE HERRAMIENTAS
+       ========================================================================== */
+
+    .qr-mobile-overlay,
+    .qr-mobile-overlay__close {
+      display: none;
+    }
+
+    @media (max-width: 720px) {
+      .qr-preview-panel {
+        position: relative;
+      }
+
+      .qr-mobile-overlay {
+        position: fixed;
+        top: max(138px, calc(env(safe-area-inset-top) + 124px));
+        left: 50%;
+        z-index: 1300;
+        display: block;
+        width: min(92vw, 420px);
+        max-height: min(68svh, 620px);
+        overflow: hidden;
+        pointer-events: none;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(-50%) translateY(14px) scale(.98);
+        background: rgba(5, 19, 10, .72);
+        border: 1px solid rgba(102, 255, 143, .28);
+        border-radius: 22px;
+        box-shadow: 0 24px 70px rgba(0, 0, 0, .46);
+        backdrop-filter: blur(20px) saturate(1.08);
+        -webkit-backdrop-filter: blur(20px) saturate(1.08);
+        transition:
+          opacity .22s ease,
+          visibility .22s ease,
+          transform .28s cubic-bezier(.2,.8,.2,1);
+      }
+
+      .qr-mobile-overlay.is-open {
+        pointer-events: auto;
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0) scale(1);
+      }
+
+      .qr-mobile-overlay__close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 3;
+        display: grid;
+        width: 38px;
+        height: 38px;
+        place-items: center;
+        padding: 0;
+        color: var(--color-text);
+        background: rgba(7, 25, 13, .58);
+        border: 1px solid rgba(102, 255, 143, .34);
+        border-radius: 12px;
+        cursor: pointer;
+        font-size: 1.35rem;
+        font-weight: 900;
+        line-height: 1;
+      }
+
+      .qr-mobile-overlay__inner {
+        width: 100%;
+        max-height: min(68svh, 620px);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        padding: 58px 12px 14px;
+      }
+
+      .qr-mobile-overlay__inner .qr-type-tabs,
+      .qr-mobile-overlay__inner .qr-options,
+      .qr-mobile-overlay__inner .qr-personalization {
+        margin: 0;
+        padding: 10px;
+        background: rgba(255, 255, 255, .025);
+        border: 1px solid var(--color-border);
+        border-radius: 14px;
+      }
+
+      .qr-mobile-overlay__inner .qr-options {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .qr-mobile-overlay__inner .qr-personalization {
+        display: grid;
+        gap: 10px;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .qr-mobile-overlay__inner .qr-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+
+
+    /* ==========================================================================
+       QR · CORRECCIÓN DE SUPERPOSICIÓN EN MÓVIL
+       ========================================================================== */
+
+    @media (max-width: 720px) {
+      .qr-layout {
+        gap: 14px;
+      }
+
+      .qr-preview-panel {
+        display: grid;
+        gap: 10px;
+        position: static;
+      }
+
+      .qr-preview-panel .qr-panel__heading,
+      .qr-preview-panel .qr-preview-shell,
+      .qr-preview-panel .qr-status,
+      .qr-preview-panel #download-qr {
+        position: static !important;
+        inset: auto !important;
+        transform: none !important;
+      }
+
+      .qr-preview-panel .qr-preview-shell {
+        margin: 0;
+      }
+
+      .qr-preview-panel .qr-status {
+        min-height: 0;
+        margin: 0;
+        padding: 2px 4px;
+        line-height: 1.35;
+      }
+
+      .qr-preview-panel #download-qr {
+        display: inline-flex;
+        width: 100%;
+        min-height: 44px;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        z-index: auto;
+      }
+
+      .qr-layout > .qr-panel:first-child {
+        margin-top: 0;
+      }
+
+      .qr-layout > .qr-panel:first-child .qr-panel__heading {
+        margin-top: 2px;
+      }
+    }
+
+
+
+    /* ==========================================================================
+       QR · TIPOS Y CAMPOS DENTRO DEL OVERLAY MÓVIL
+       ========================================================================== */
+
+    .qr-content-tools {
+      display: contents;
+    }
+
+    @media (max-width: 720px) {
+      .qr-mobile-overlay__inner .qr-content-tools {
+        display: grid;
+        width: 100%;
+        gap: 10px;
+        margin: 0;
+        padding: 10px;
+        background: rgba(255, 255, 255, .025);
+        border: 1px solid var(--color-border);
+        border-radius: 14px;
+      }
+
+      .qr-mobile-overlay__inner .qr-content-tools .qr-type-tabs {
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        border: 0;
+        border-radius: 0;
+      }
+
+      .qr-mobile-overlay__inner .qr-content-tools .qr-fields {
+        display: grid;
+        gap: 10px;
+      }
+
+      .qr-mobile-overlay__inner .qr-content-tools .qr-field-group {
+        gap: 10px;
+      }
+
+      .qr-mobile-overlay__inner .qr-content-tools .form-field {
+        min-width: 0;
+      }
+
+      .qr-mobile-overlay__inner .qr-content-tools input,
+      .qr-mobile-overlay__inner .qr-content-tools textarea,
+      .qr-mobile-overlay__inner .qr-content-tools select {
+        width: 100%;
+      }
+    }
+
+</style>
 </head>
 
 <body data-page="qr-generator">
@@ -320,19 +824,49 @@
     </header>
 
     <main class="product-page" id="main-content">
-      <section class="product-header" aria-labelledby="product-title">
+      <section class="product-header product-header--tool-first" aria-labelledby="product-title">
         <div class="product-header__content">
-          <p class="section-heading__eyebrow" data-i18n="product.eyebrow">
-            Comparte en un escaneo
-          </p>
           <h1 id="product-title" data-i18n="product.title">Generador de códigos QR</h1>
-          <p class="product-header__description" data-i18n="product.description">
-            Crea códigos QR para enlaces, texto, correo, teléfono, WhatsApp, Discord o redes Wi-Fi, personaliza su apariencia y descarga el resultado como PNG.
-          </p>
         </div>
       </section>
 
       <section class="tool-interface" aria-labelledby="generator-title">
+        <nav class="qr-mobile-tools" id="qr-mobile-tools" aria-label="QR">
+          <button
+            class="qr-mobile-tools__toggle"
+            id="qr-mobile-tools-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="qr-mobile-tools-panel"
+          >
+            <span id="qr-mobile-tools-symbol" aria-hidden="true">+</span>
+          </button>
+
+          <div class="qr-mobile-tools__panel" id="qr-mobile-tools-panel">
+            <button class="qr-mobile-link" type="button" data-mobile-target=".qr-content-tools">
+              <span data-i18n="generator.title">Crea tu código QR</span>
+            </button>
+            <button class="qr-mobile-link" type="button" data-mobile-target=".qr-options">
+              <span data-i18n="options.level">Corrección de errores</span>
+            </button>
+            <button class="qr-mobile-link" type="button" data-mobile-target=".qr-personalization">
+              <span data-i18n="personalization.title">Personalizar QR</span>
+            </button>
+          </div>
+        </nav>
+
+        <div class="qr-mobile-overlay" id="qr-mobile-overlay" aria-hidden="true">
+          <button
+            class="qr-mobile-overlay__close"
+            id="qr-mobile-overlay-close"
+            type="button"
+            aria-label="Cerrar"
+          >
+            ×
+          </button>
+          <div class="qr-mobile-overlay__inner" id="qr-mobile-overlay-inner"></div>
+        </div>
+
         <div class="qr-layout">
           <div class="qr-panel">
             <div class="qr-panel__heading">
@@ -342,6 +876,7 @@
               </p>
             </div>
 
+            <div class="qr-content-tools">
             <div class="qr-type-tabs" role="tablist" aria-label="Tipo de contenido">
               <button class="qr-type-button is-active" type="button" data-qr-type="url" data-i18n="types.url">Enlace</button>
               <button class="qr-type-button" type="button" data-qr-type="text" data-i18n="types.text">Texto</button>
@@ -435,6 +970,8 @@
               </div>
             </div>
 
+            </div>
+
             <div class="qr-options">
               <div class="form-field">
                 <label for="qr-size">
@@ -471,6 +1008,39 @@
               </div>
             </div>
 
+            <div class="qr-personalization">
+              <div class="qr-personalization__heading">
+                <h3 data-i18n="personalization.title">Personalizar QR</h3>
+              </div>
+
+              <div class="qr-inline-grid">
+                <div class="form-field">
+                  <label for="qr-logo-image" data-i18n="personalization.image">Logo o imagen</label>
+                  <input id="qr-logo-image" type="file" accept="image/png,image/jpeg,image/webp">
+                </div>
+
+                <div class="form-field">
+                  <label for="qr-logo-position" data-i18n="personalization.position">Posición de imagen</label>
+                  <select id="qr-logo-position">
+                    <option value="none" data-i18n="personalization.none">Sin imagen</option>
+                    <option value="center" data-i18n="personalization.center">Centro del QR</option>
+                    <option value="below" data-i18n="personalization.below">Debajo del QR</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label for="qr-caption" data-i18n="personalization.text">Texto debajo del QR</label>
+                <input
+                  id="qr-caption"
+                  type="text"
+                  maxlength="22"
+                  data-i18n-placeholder="personalization.textPlaceholder"
+                  placeholder="Texto opcional"
+                >
+              </div>
+            </div>
+
             <div class="qr-actions">
               <button class="button button--primary" id="generate-qr" type="button">
                 <span data-i18n="actions.generate">Generar QR</span>
@@ -500,6 +1070,16 @@
             </button>
           </div>
         </div>
+
+      </section>
+
+      <section class="tool-description qr-generator-description">
+        <p class="section-heading__eyebrow" data-i18n="product.eyebrow">
+          Comparte en un escaneo
+        </p>
+        <p class="tool-description__lead" data-i18n="product.description">
+          Crea códigos QR para enlaces, texto, correo, teléfono, WhatsApp, Discord o redes Wi-Fi, personaliza su apariencia y descarga el resultado como PNG.
+        </p>
 
         <div class="qr-info-grid">
           <article class="qr-info-card">
@@ -549,6 +1129,16 @@
       const foregroundText = document.getElementById("qr-foreground-text");
       const backgroundInput = document.getElementById("qr-background");
       const backgroundText = document.getElementById("qr-background-text");
+      const logoInput = document.getElementById("qr-logo-image");
+      const logoPosition = document.getElementById("qr-logo-position");
+      const captionInput = document.getElementById("qr-caption");
+      const mobileTools = document.getElementById("qr-mobile-tools");
+      const mobileToolsToggle = document.getElementById("qr-mobile-tools-toggle");
+      const mobileToolsSymbol = document.getElementById("qr-mobile-tools-symbol");
+      const mobileOverlay = document.getElementById("qr-mobile-overlay");
+      const mobileOverlayInner = document.getElementById("qr-mobile-overlay-inner");
+      const mobileOverlayClose = document.getElementById("qr-mobile-overlay-close");
+      const firstQrPanel = document.querySelector(".qr-layout > .qr-panel:first-child");
 
       const output = document.getElementById("qr-output");
       const previewCard = document.getElementById("qr-preview-card");
@@ -558,6 +1148,18 @@
       const downloadButton = document.getElementById("download-qr");
 
       let currentType = "url";
+      let logoImage = null;
+      let logoObjectUrl = "";
+      const mobileSectionHomes = new Map();
+      [".qr-content-tools", ".qr-options", ".qr-personalization"].forEach((selector) => {
+        const node = document.querySelector(selector);
+        if (node) {
+          mobileSectionHomes.set(node, {
+            parent: node.parentElement,
+            nextSibling: node.nextSibling
+          });
+        }
+      });
 
       const t = (key, fallback) => {
         const language = document.documentElement.lang === "en" ? "en" : "es";
@@ -625,10 +1227,9 @@
           if (!phone) return "";
 
           const message = whatsappMessageInput.value.trim();
-          const params = new URLSearchParams();
-          params.set("phone", phone.replace(/^\+/, ""));
-          if (message) params.set("text", message);
-          return `https://wa.me/?${params.toString()}`;
+          const normalized = phone.replace(/^\+/, "");
+          const textQuery = message ? `?text=${encodeURIComponent(message)}` : "";
+          return `https://wa.me/${normalized}${textQuery}`;
         }
 
         if (currentType === "discord") {
@@ -677,6 +1278,181 @@
         generateQr();
       }
 
+      function restoreMobileSection() {
+        const current = mobileOverlayInner.firstElementChild;
+        if (!current) return;
+
+        const home = mobileSectionHomes.get(current);
+        if (!home) return;
+
+        if (home.nextSibling && home.nextSibling.parentNode === home.parent) {
+          home.parent.insertBefore(current, home.nextSibling);
+        } else {
+          home.parent.appendChild(current);
+        }
+      }
+
+      function closeMobileOverlay() {
+        mobileOverlay.classList.remove("is-open");
+        mobileOverlay.setAttribute("aria-hidden", "true");
+
+        window.setTimeout(() => {
+          restoreMobileSection();
+        }, 220);
+      }
+
+      function openMobileOverlay(selector) {
+        if (window.innerWidth > 720) return;
+
+        restoreMobileSection();
+
+        const target = document.querySelector(selector);
+        if (!target) return;
+
+        mobileOverlayInner.appendChild(target);
+        mobileOverlay.classList.add("is-open");
+        mobileOverlay.setAttribute("aria-hidden", "false");
+        mobileOverlayInner.scrollTop = 0;
+
+        mobileTools.classList.remove("is-open");
+        mobileToolsToggle.setAttribute("aria-expanded", "false");
+        mobileToolsSymbol.textContent = "+";
+      }
+
+      function clearLogoUrl() {
+        if (logoObjectUrl) {
+          URL.revokeObjectURL(logoObjectUrl);
+          logoObjectUrl = "";
+        }
+      }
+
+      function loadLogoFile(file) {
+        if (!file) {
+          logoImage = null;
+          clearLogoUrl();
+          refreshPreviewDecoration();
+          return;
+        }
+
+        clearLogoUrl();
+        logoObjectUrl = URL.createObjectURL(file);
+        const image = new Image();
+
+        image.onload = () => {
+          logoImage = image;
+          refreshPreviewDecoration();
+        };
+
+        image.onerror = () => {
+          logoImage = null;
+          clearLogoUrl();
+          refreshPreviewDecoration();
+        };
+
+        image.src = logoObjectUrl;
+      }
+
+      function getQrSourceCanvas() {
+        const sourceCanvas = output.querySelector("canvas");
+        if (sourceCanvas) return sourceCanvas;
+
+        const image = output.querySelector("img");
+        if (!image?.src) return null;
+
+        const canvas = document.createElement("canvas");
+        const size = Number(sizeInput.value);
+        canvas.width = size;
+        canvas.height = size;
+        const context = canvas.getContext("2d");
+        context.drawImage(image, 0, 0, size, size);
+        return canvas;
+      }
+
+      function buildDecoratedCanvas() {
+        const source = getQrSourceCanvas();
+        if (!source) return null;
+
+        const qrSize = source.width;
+        const quietZone = Math.max(18, Math.round(qrSize * 0.08));
+        const hasCaption = Boolean(captionInput.value.trim());
+        const hasBelowLogo = Boolean(logoImage && logoPosition.value === "below");
+        const footerHeight = (hasCaption || hasBelowLogo)
+          ? Math.max(72, Math.round(qrSize * 0.24))
+          : 0;
+
+        const canvas = document.createElement("canvas");
+        canvas.width = qrSize + quietZone * 2;
+        canvas.height = qrSize + quietZone * 2 + footerHeight;
+
+        const context = canvas.getContext("2d");
+        context.fillStyle = "#FFFFFF";
+        context.fillRect(0, 0, canvas.width, canvas.height);
+
+        context.drawImage(source, quietZone, quietZone, qrSize, qrSize);
+
+        if (logoImage && logoPosition.value === "center") {
+          const logoSize = Math.round(qrSize * 0.18);
+          const x = quietZone + Math.round((qrSize - logoSize) / 2);
+          const y = quietZone + Math.round((qrSize - logoSize) / 2);
+          const pad = Math.max(4, Math.round(logoSize * 0.12));
+
+          context.fillStyle = "#FFFFFF";
+          context.fillRect(x - pad, y - pad, logoSize + pad * 2, logoSize + pad * 2);
+          context.drawImage(logoImage, x, y, logoSize, logoSize);
+        }
+
+        if (footerHeight) {
+          const footerTop = quietZone * 2 + qrSize;
+
+          if (hasBelowLogo) {
+            const logoSize = Math.min(
+              Math.round(qrSize * 0.14),
+              Math.round(footerHeight * 0.52)
+            );
+            const x = Math.round((canvas.width - logoSize) / 2);
+            const y = footerTop + 8;
+            context.drawImage(logoImage, x, y, logoSize, logoSize);
+          }
+
+          if (hasCaption) {
+            const text = captionInput.value.trim().slice(0, 22);
+            const fontSize = Math.max(16, Math.round(qrSize * 0.055));
+            context.fillStyle = "#111111";
+            context.textAlign = "center";
+            context.textBaseline = "bottom";
+            context.font = `700 ${fontSize}px Arial, sans-serif`;
+            context.fillText(
+              text,
+              canvas.width / 2,
+              canvas.height - 12,
+              canvas.width - 28
+            );
+          }
+        }
+
+        return canvas;
+      }
+
+      function refreshPreviewDecoration() {
+        const existing = previewCard.querySelector(".qr-decorated-preview");
+        if (existing) existing.remove();
+
+        const base = output;
+        const decorated = buildDecoratedCanvas();
+
+        if (!decorated || (!logoImage && !captionInput.value.trim())) {
+          base.hidden = false;
+          return;
+        }
+
+        base.hidden = true;
+        decorated.className = "qr-decorated-preview";
+        decorated.style.display = "block";
+        decorated.style.width = "100%";
+        decorated.style.height = "auto";
+        previewCard.appendChild(decorated);
+      }
+
       function generateQr() {
         const content = getQrContent();
 
@@ -698,14 +1474,21 @@
         output.innerHTML = "";
         previewCard.style.background = backgroundInput.value;
 
+        const correctionLevel =
+          logoImage && logoPosition.value === "center"
+            ? QRCode.CorrectLevel.H
+            : getCorrectionLevel();
+
         new QRCode(output, {
           text: content,
           width: size,
           height: size,
           colorDark: foregroundInput.value,
           colorLight: backgroundInput.value,
-          correctLevel: getCorrectionLevel()
+          correctLevel: correctionLevel
         });
+
+        window.setTimeout(refreshPreviewDecoration, 20);
 
         downloadButton.disabled = false;
         setStatus(t("status.ready", "Código QR generado correctamente."), "success");
@@ -750,24 +1533,21 @@
         backgroundInput.value = "#ffffff";
         backgroundText.value = "#FFFFFF";
 
+        logoInput.value = "";
+        logoPosition.value = "none";
+        captionInput.value = "";
+        logoImage = null;
+        clearLogoUrl();
+
         setType("url");
       }
 
       function downloadQr() {
-        const canvas = output.querySelector("canvas");
-        const image = output.querySelector("img");
-        let dataUrl = "";
-
-        if (canvas) {
-          dataUrl = canvas.toDataURL("image/png");
-        } else if (image?.src) {
-          dataUrl = image.src;
-        }
-
-        if (!dataUrl) return;
+        const canvas = buildDecoratedCanvas();
+        if (!canvas) return;
 
         const link = document.createElement("a");
-        link.href = dataUrl;
+        link.href = canvas.toDataURL("image/png");
         link.download = "alfora-qr.png";
         document.body.appendChild(link);
         link.click();
@@ -816,6 +1596,46 @@
 
       foregroundText.addEventListener("change", () => syncTextColor(foregroundText, foregroundInput));
       backgroundText.addEventListener("change", () => syncTextColor(backgroundText, backgroundInput));
+
+      logoInput.addEventListener("change", () => {
+        const file = logoInput.files && logoInput.files[0];
+        loadLogoFile(file || null);
+      });
+
+      logoPosition.addEventListener("change", () => {
+        generateQr();
+      });
+
+      captionInput.addEventListener("input", () => {
+        if (captionInput.value.length > 22) {
+          captionInput.value = captionInput.value.slice(0, 22);
+        }
+        refreshPreviewDecoration();
+      });
+
+      mobileToolsToggle.addEventListener("click", () => {
+        const open = !mobileTools.classList.contains("is-open");
+        mobileTools.classList.toggle("is-open", open);
+        mobileToolsToggle.setAttribute("aria-expanded", String(open));
+        mobileToolsSymbol.textContent = open ? "−" : "+";
+      });
+
+      document.querySelectorAll(".qr-mobile-link").forEach((button) => {
+        button.addEventListener("click", () => {
+          openMobileOverlay(button.dataset.mobileTarget);
+        });
+      });
+
+      mobileOverlayClose.addEventListener("click", closeMobileOverlay);
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 720) {
+          closeMobileOverlay();
+          mobileTools.classList.remove("is-open");
+          mobileToolsToggle.setAttribute("aria-expanded", "false");
+          mobileToolsSymbol.textContent = "+";
+        }
+      });
 
       generateButton.addEventListener("click", generateQr);
       resetButton.addEventListener("click", resetQr);

@@ -1,6 +1,6 @@
 {
   "seo": {
-    "title": "Generador de gradientes CSS | Creative Lab",
+    "title": "Generador de gradientes CSS | Alfora",
     "description": "Crea gradientes CSS lineales, radiales y cónicos con múltiples colores.",
     "htmlLang": "es"
   },
@@ -24,7 +24,7 @@
     "addStop": "Añadir color",
     "previewTitle": "Vista previa",
     "previewDescription": "El resultado se actualiza en tiempo real.",
-    "previewLabel": "Creative Lab",
+    "previewLabel": "Alfora",
     "previewText": "Diseña fondos con profundidad y movimiento.",
     "codeTitle": "Código CSS",
     "codeDescription": "Copia el fondo generado y úsalo en tu proyecto.",
@@ -32,9 +32,19 @@
     "randomButton": "Gradiente aleatorio",
     "downloadButton": "Descargar gradiente"
   },
+  "mobileTools": {
+    "ariaLabel": "Herramientas del generador de gradientes",
+    "open": "Abrir herramientas",
+    "close": "Cerrar herramientas",
+    "basicTitle": "Tipo y dirección",
+    "basicDescription": "Gradiente, ángulo y posición",
+    "stopsDescription": "Colores y posiciones del gradiente",
+    "resetDescription": "Volver a los valores iniciales",
+    "closeControls": "Cerrar controles"
+  },
   "info": {
     "eyebrow": "Color con dirección",
-    "title": "Cómo crear un gradiente con Creative Lab",
+    "title": "Cómo crear un gradiente con Alfora",
     "description": "Selecciona el tipo de gradiente, ajusta sus colores y posiciones, revisa la vista previa y copia el código CSS.",
     "stepOneTitle": "1. Elige",
     "stepOneText": "Selecciona un gradiente lineal, radial o cónico.",

@@ -24,6 +24,726 @@
  <link rel="icon" href="./src/favicon.ico" type="image/x-icon">
 <script src="./scripts/language.js" defer></script>
 <script src="./scripts/shared.js" defer></script>
+
+<style>
+/* ==========================================================================
+   ALFORA · EXTRACTOR DE PALETAS
+   ========================================================================== */
+
+.product-header--tool-first {
+  margin-bottom: var(--space-5);
+}
+
+.product-header--tool-first .product-header__content {
+  max-width: none;
+}
+
+.product-header--tool-first h1 {
+  margin-bottom: 0;
+}
+
+.palette-extractor-tool {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.palette-extractor-tool > .control-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.palette-main-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+}
+
+.palette-main-actions .button {
+  width: 100%;
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.palette-extractor-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, .85fr);
+  align-items: start;
+  gap: var(--space-4);
+}
+
+.palette-extractor-layout > article {
+  min-width: 0;
+}
+
+.palette-image-preview {
+  min-width: 0;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+
+.palette-image-preview__canvas-wrap {
+  position: relative;
+  min-width: 0;
+}
+
+.palette-image-preview canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 520px;
+  object-fit: contain;
+}
+
+.pixel-picker-panel {
+  margin-top: var(--space-4);
+  padding: var(--space-4);
+  background: rgba(102,255,143,.02);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.pixel-picker-panel__heading p {
+  margin-bottom: var(--space-3);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.pixel-picker-preview {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  margin-bottom: var(--space-3);
+}
+
+.pixel-picker-preview__swatch {
+  width: 54px;
+  height: 54px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+}
+
+.pixel-picker-preview__details {
+  display: grid;
+  min-width: 0;
+  gap: 3px;
+}
+
+.pixel-picker-preview__details span {
+  color: var(--color-text-muted);
+  font-size: .72rem;
+}
+
+.pixel-values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.pixel-value-card {
+  min-width: 0;
+  padding: 10px;
+  background: rgba(255,255,255,.02);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+}
+
+.pixel-value-card__heading,
+.palette-export-card__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.pixel-value-card code {
+  display: block;
+  overflow-wrap: anywhere;
+  font-size: .72rem;
+}
+
+.palette-strip {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  min-height: 110px;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+
+.palette-strip__color {
+  min-width: 0;
+  min-height: 110px;
+  padding: 8px 5px;
+  border: 0;
+  cursor: pointer;
+}
+
+.palette-strip__color span,
+.palette-strip__color strong {
+  display: block;
+}
+
+.palette-strip__color strong {
+  font-size: .7rem;
+  overflow-wrap: anywhere;
+}
+
+.palette-color-list {
+  display: grid;
+  gap: 7px;
+  margin-top: 10px;
+}
+
+.palette-color-item {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 38px;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.palette-color-item__swatch {
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.palette-color-item__values {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+}
+
+.palette-color-item__values span {
+  color: var(--color-text-muted);
+  font-size: .7rem;
+}
+
+.palette-code-panel {
+  padding: var(--space-4);
+  background: rgba(102,255,143,.018);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+}
+
+.palette-export-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.palette-export-card {
+  min-width: 0;
+  padding: 12px;
+  background: rgba(255,255,255,.02);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+}
+
+.palette-export-card code {
+  display: block;
+  max-height: 160px;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: .7rem;
+}
+
+.palette-extractor-description {
+  margin-top: var(--space-8);
+  padding: clamp(1.25rem, 4vw, 2.5rem);
+  background: rgba(102,255,143,.018);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  margin-bottom: var(--space-8);
+}
+
+.palette-extractor-description h2 {
+  max-width: 850px;
+  margin-bottom: var(--space-4);
+}
+
+.palette-extractor-description .tool-description__lead {
+  max-width: 820px;
+  margin-bottom: var(--space-3);
+  color: var(--color-text-soft);
+  font-size: var(--font-size-md);
+}
+
+.palette-extractor-description > p:last-child {
+  max-width: 820px;
+  margin-bottom: 0;
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 701px) {
+  .palette-extractor-tool {
+    padding: var(--space-5);
+  }
+}
+
+@media (max-width: 900px) {
+  .palette-extractor-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .palette-export-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .product-header--tool-first {
+    margin-bottom: 12px;
+  }
+
+  .product-header--tool-first h1 {
+    font-size: clamp(2rem, 10vw, 3rem);
+  }
+
+  .palette-extractor-tool {
+    display: grid;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  /* Formato móvil Alfora:
+     carga -> controles -> acciones -> vista/paleta -> exportación -> privacidad */
+  .palette-extractor-tool > .upload-zone {
+    order: 1;
+    min-height: 112px;
+    padding: 15px 12px;
+  }
+
+  .palette-extractor-tool > .status-message {
+    order: 2;
+  }
+
+  .palette-extractor-tool > .control-grid {
+    order: 3;
+  }
+
+  .palette-extractor-tool > .palette-main-actions {
+    order: 4;
+  }
+
+  .palette-extractor-tool > .palette-extractor-layout {
+    order: 5;
+  }
+
+  .palette-extractor-tool > .palette-code-panel {
+    order: 6;
+  }
+
+  .palette-extractor-tool > .privacy-note {
+    order: 7;
+  }
+
+  .palette-extractor-tool > .control-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  .palette-extractor-tool .form-field label {
+    font-size: .7rem;
+  }
+
+  .palette-extractor-tool select {
+    min-height: 44px;
+    font-size: .76rem;
+  }
+
+  .palette-main-actions {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .palette-main-actions .button {
+    min-height: 44px;
+    padding: 6px 7px;
+    font-size: .68rem;
+    line-height: 1.15;
+  }
+
+  .palette-extractor-layout {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .palette-extractor-layout > article {
+    padding: 10px;
+    background: rgba(102,255,143,.012);
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+  }
+
+  .palette-image-preview canvas {
+    max-height: 360px;
+  }
+
+  .pixel-picker-panel {
+    padding: 10px;
+    margin-top: 10px;
+  }
+
+  .pixel-picker-panel__heading h3 {
+    font-size: .9rem;
+  }
+
+  .pixel-picker-panel__heading p {
+    font-size: .68rem;
+  }
+
+  .pixel-picker-preview {
+    grid-template-columns: 44px minmax(0, 1fr);
+  }
+
+  .pixel-picker-preview__swatch {
+    width: 44px;
+    height: 44px;
+  }
+
+  .pixel-values-grid {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .pixel-value-card {
+    padding: 8px 9px;
+  }
+
+  .palette-strip {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    min-height: 82px;
+  }
+
+  .palette-strip__color {
+    min-height: 82px;
+    padding: 5px 2px;
+  }
+
+  .palette-strip__color strong {
+    font-size: .58rem;
+  }
+
+  .palette-color-item {
+    grid-template-columns: 38px minmax(0, 1fr) 36px;
+  }
+
+  .palette-color-item__swatch {
+    width: 38px;
+    height: 38px;
+  }
+
+  .palette-code-panel {
+    padding: 10px;
+    border-radius: 14px;
+  }
+
+  .palette-export-grid {
+    gap: 7px;
+  }
+
+  .palette-export-card {
+    padding: 9px;
+  }
+
+  .palette-export-card code {
+    max-height: 120px;
+  }
+
+  .palette-extractor-description {
+    margin-top: 16px;
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+  }
+
+  .palette-extractor-description h2 {
+    font-size: clamp(1.55rem, 8vw, 2.2rem);
+  }
+
+  .palette-extractor-description .tool-description__lead {
+    font-size: .95rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .palette-main-actions {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .palette-main-actions #extract-button {
+    grid-column: 1 / -1;
+  }
+
+  .palette-extractor-tool > .control-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .palette-strip {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+
+/* ==========================================================================
+   AJUSTE ALFORA · EXTRACTOR DE PALETAS V2
+   ========================================================================== */
+
+.palette-extractor-tool > .upload-zone {
+  min-height: 150px;
+  padding: 18px 16px;
+}
+
+.palette-extractor-tool > .palette-main-actions {
+  grid-row: auto;
+}
+
+@media (min-width: 701px) {
+  .palette-extractor-tool > .upload-zone {
+    min-height: 150px;
+  }
+
+  .palette-extractor-tool > .palette-main-actions {
+    order: 4;
+    margin-top: -2px;
+  }
+
+  .palette-extractor-tool > .palette-extractor-layout {
+    order: 5;
+  }
+
+  .palette-extractor-tool > .palette-code-panel {
+    order: 6;
+  }
+
+  .palette-extractor-tool > .privacy-note {
+    order: 7;
+  }
+}
+
+@media (max-width: 700px) {
+  .palette-extractor-tool > .upload-zone {
+    min-height: 88px;
+    padding: 10px 10px;
+  }
+
+  .palette-main-actions {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+
+
+/* ==========================================================================
+   AJUSTE MÓVIL · CONTROLES EN DOS COLUMNAS
+   ========================================================================== */
+
+@media (max-width: 700px) {
+  .palette-extractor-tool > .control-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+}
+
+
+/* ======================================================================
+   HERRAMIENTA: EXTRACTOR DE PALETAS · INICIO
+   ====================================================================== */
+/* PRODUCTO: EXTRACTOR DE PALETAS */
+.palette-extractor-layout{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:var(--space-6)}
+.palette-image-preview{display:grid;place-items:center;min-height:390px;padding:var(--space-4);overflow:hidden;background:rgba(255,255,255,.03);border:1px solid var(--color-border);border-radius:var(--radius-xl)}
+.palette-image-preview img{display:block;max-width:100%;max-height:350px;object-fit:contain}
+.palette-strip{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));min-height:190px;overflow:hidden;border:1px solid var(--color-border);border-radius:var(--radius-xl)}
+.palette-strip__color{display:flex;flex-direction:column;justify-content:flex-end;min-width:0;padding:var(--space-4);border:0;cursor:pointer;text-align:left;transition:transform var(--transition-normal)}
+.palette-strip__color:hover{transform:translateY(-4px)}
+.palette-strip__color span,.palette-strip__color strong{display:block}.palette-strip__color span{font-size:var(--font-size-xs);opacity:.76}.palette-strip__color strong{font-family:monospace;font-size:var(--font-size-sm)}
+.palette-color-list{display:grid;gap:var(--space-3);margin-top:var(--space-5)}
+.palette-color-item{display:grid;grid-template-columns:58px minmax(0,1fr) auto;gap:var(--space-4);align-items:center;padding:var(--space-3);background:rgba(102,255,143,.025);border:1px solid var(--color-border);border-radius:var(--radius-lg)}
+.palette-color-item__swatch{display:grid;place-items:center;width:58px;height:58px;border:0;border-radius:var(--radius-md);cursor:pointer;font-weight:900}
+.palette-color-item__values strong,.palette-color-item__values span{display:block}.palette-color-item__values strong{color:var(--color-primary);font-family:monospace}.palette-color-item__values span{color:var(--color-text-muted);font-family:monospace;font-size:var(--font-size-xs)}
+.palette-code-panel{padding:var(--space-6);background:rgba(102,255,143,.02);border:1px solid var(--color-border);border-radius:var(--radius-xl)}
+.palette-export-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-4)}
+.palette-export-card{min-width:0;padding:var(--space-5);background:rgba(255,255,255,.025);border:1px solid var(--color-border);border-radius:var(--radius-lg)}
+.palette-export-card__heading{display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);margin-bottom:var(--space-4)}
+.palette-export-card__heading h4{margin:0}.palette-export-card code{display:block;max-height:220px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--color-primary);font-family:monospace;font-size:var(--font-size-sm);line-height:1.65}
+@media(max-width:980px){.palette-extractor-layout,.palette-export-grid{grid-template-columns:1fr}}
+@media(max-width:700px){.palette-strip{grid-template-columns:repeat(2,minmax(0,1fr))}.palette-color-item{grid-template-columns:50px minmax(0,1fr)}.palette-color-item>.color-copy-button{grid-column:2;width:100%}}
+@media(max-width:460px){.palette-strip{grid-template-columns:1fr}}
+
+
+/* CUENTAGOTAS INTERACTIVO */
+.palette-image-preview__canvas-wrap {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  line-height: 0;
+}
+
+.palette-image-preview canvas {
+  display: block;
+  max-width: 100%;
+  max-height: 350px;
+  cursor: crosshair;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+  touch-action: none;
+}
+
+.pixel-marker {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  pointer-events: none;
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 2px #07110a,
+    0 0 18px rgba(102, 255, 143, 0.7);
+  transform: translate(-50%, -50%);
+}
+
+.pixel-marker::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  background: #66ff8f;
+  border-radius: 50%;
+  content: "";
+  transform: translate(-50%, -50%);
+}
+
+.pixel-magnifier {
+  position: absolute;
+  z-index: 5;
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+  pointer-events: none;
+  background: #07110a;
+  border: 2px solid var(--color-primary);
+  border-radius: 50%;
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.45);
+}
+
+.pixel-magnifier canvas {
+  width: 120px;
+  height: 120px;
+  max-width: none;
+  max-height: none;
+  border-radius: 0;
+}
+
+.pixel-picker-panel {
+  margin-top: var(--space-5);
+  padding: var(--space-5);
+  background: rgba(102, 255, 143, 0.025);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+}
+
+.pixel-picker-panel__heading p {
+  margin: var(--space-2) 0 0;
+  color: var(--color-text-soft);
+}
+
+.pixel-picker-preview {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  gap: var(--space-4);
+  align-items: center;
+  margin-top: var(--space-5);
+}
+
+.pixel-picker-preview__swatch {
+  width: 76px;
+  height: 76px;
+  background:
+    linear-gradient(45deg, rgba(255,255,255,.08) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(255,255,255,.08) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(255,255,255,.08) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(255,255,255,.08) 75%);
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+  background-size: 16px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.pixel-picker-preview__details strong,
+.pixel-picker-preview__details span {
+  display: block;
+}
+
+.pixel-picker-preview__details strong {
+  color: var(--color-primary);
+  font-family: var(--font-family-mono, monospace);
+  font-size: var(--font-size-lg);
+}
+
+.pixel-picker-preview__details span {
+  margin-top: var(--space-1);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.pixel-values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+.pixel-value-card {
+  min-width: 0;
+  padding: var(--space-4);
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.pixel-value-card__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.pixel-value-card__heading h4 {
+  margin: 0;
+}
+
+.pixel-value-card code {
+  display: block;
+  overflow-wrap: anywhere;
+  color: var(--color-primary);
+  font-family: var(--font-family-mono, monospace);
+}
+
+@media (max-width: 720px) {
+  .pixel-values-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pixel-magnifier {
+    display: none;
+  }
+}
+
+
+/* ======================================================================
+   HERRAMIENTA: EXTRACTOR DE PALETAS · FIN
+   ====================================================================== */
+
+</style>
+
 </head>
 <body data-page="palette-extractor">
 <a class="skip-link" href="#main-content" data-i18n="common.skipToContent">Saltar al contenido</a>
@@ -49,20 +769,13 @@
 -->
 
 <main class="product-page" id="main-content">
-<section class="product-header" aria-labelledby="product-title">
+<section class="product-header product-header--tool-first" aria-labelledby="product-title">
   <div class="product-header__content">
-    <p class="section-heading__eyebrow" data-i18n="product.eyebrow">Análisis cromático</p>
     <h1 id="product-title" data-i18n="product.title">Extractor de paletas</h1>
-    <p class="product-header__description" data-i18n="product.description">Carga una imagen, detecta sus colores dominantes y exporta la paleta en HEX, CSS o JSON.</p>
   </div>
 </section>
 
-<section class="tool-interface" aria-labelledby="extractor-title">
-  <div>
-    <h2 id="extractor-title" data-i18n="extractor.title">Selecciona una imagen</h2>
-    <p data-i18n="extractor.intro">La imagen se analiza localmente en tu navegador.</p>
-  </div>
-
+<section class="tool-interface palette-extractor-tool" aria-labelledby="product-title">
   <input id="image-input" type="file" accept="image/jpeg,image/png,image/webp,image/svg+xml" hidden>
   <button class="upload-zone" id="upload-zone" type="button">
     <span>
@@ -82,6 +795,12 @@
       <label for="quality" data-i18n="extractor.quality">Precisión</label>
       <select id="quality"><option value="18" data-i18n="extractor.fast">Rápida</option><option value="10" selected data-i18n="extractor.balanced">Equilibrada</option><option value="5" data-i18n="extractor.precise">Precisa</option></select>
     </div>
+  </div>
+
+  <div class="hero__actions palette-main-actions">
+    <button class="button button--primary" id="extract-button" type="button" disabled><span data-i18n="extractor.extractButton">Extraer paleta</span></button>
+    <button class="button button--secondary" id="download-button" type="button" disabled><span data-i18n="extractor.downloadButton">Descargar paleta</span></button>
+    <button class="button button--secondary" id="reset-button" type="button"><span data-i18n="common.reset">Comenzar de nuevo</span></button>
   </div>
 
   <div class="palette-extractor-layout" id="preview-panel" hidden>
@@ -205,13 +924,14 @@
     </div>
   </section>
 
-  <div class="hero__actions">
-    <button class="button button--primary" id="extract-button" type="button" disabled><span data-i18n="extractor.extractButton">Extraer paleta</span></button>
-    <button class="button button--secondary" id="download-button" type="button" disabled><span data-i18n="extractor.downloadButton">Descargar paleta</span></button>
-    <button class="button button--secondary" id="reset-button" type="button"><span data-i18n="common.reset">Comenzar de nuevo</span></button>
-  </div>
-
   <p class="privacy-note" data-i18n="common.privacyNotice">Tus archivos se procesan localmente en tu navegador.</p>
+</section>
+
+<section class="tool-description palette-extractor-description" aria-labelledby="extractor-title">
+  <p class="section-heading__eyebrow" data-i18n="product.eyebrow">Análisis cromático</p>
+  <h2 id="extractor-title" data-i18n="extractor.title">Selecciona una imagen</h2>
+  <p class="tool-description__lead" data-i18n="product.description">Carga una imagen, detecta sus colores dominantes y exporta la paleta en HEX, CSS o JSON.</p>
+  <p data-i18n="extractor.intro">La imagen se analiza localmente en tu navegador.</p>
 </section>
 
 <!--
@@ -334,9 +1054,8 @@ function drawMagnifier(x,y,displayX,displayY){
   magnifier.style.left=`${displayX+18}px`;
   magnifier.style.top=`${displayY+18}px`;
 }
-function selectPixel(event){
+function selectPixelAt(x,y,displayX,displayY){
   if(!source||!canvasContext)return;
-  const {x,y,displayX,displayY}=getCanvasCoordinates(event);
   const data=canvasContext.getImageData(x,y,1,1).data;
   const colorValue={r:data[0],g:data[1],b:data[2],a:data[3]};
   const hexValue=hex(colorValue.r,colorValue.g,colorValue.b);
@@ -362,6 +1081,27 @@ function selectPixel(event){
   copyPickedHsl.disabled=false;
   drawMagnifier(x,y,displayX,displayY);
 }
+
+function selectPixel(event){
+  if(!source||!canvasContext)return;
+  const {x,y,displayX,displayY}=getCanvasCoordinates(event);
+  selectPixelAt(x,y,displayX,displayY);
+}
+
+function selectCenterPixel(){
+  if(!source||!canvasContext||!canvas.width||!canvas.height)return;
+
+  const x=Math.max(0,Math.floor(canvas.width/2));
+  const y=Math.max(0,Math.floor(canvas.height/2));
+  const rect=canvas.getBoundingClientRect();
+
+  const displayX=(x/canvas.width)*rect.width;
+  const displayY=(y/canvas.height)*rect.height;
+
+  selectPixelAt(x,y,displayX,displayY);
+  magnifier.hidden=true;
+}
+
 function previewPixel(event){
   if(!source)return;
   const {x,y,displayX,displayY}=getCanvasCoordinates(event);
@@ -403,13 +1143,26 @@ async function select(f){
   catch(e){resetTool();show(e.message,"error")}
 }
 async function run(){
-  if(!source)return;extract.disabled=true;show("Analizando colores...","info");
+  if(!source)return;
+  if(!pickedColor)selectCenterPixel();
+  extract.disabled=true;show("Analizando colores...","info");
   try{await new Promise(r=>setTimeout(r,25));const p=samples(source,+quality.value);if(p.length<20)throw Error("La imagen no contiene suficientes colores analizables.");palette=kmeans(p,+count.value);render();show("Paleta extraída correctamente.","success")}
   catch(e){code.hidden=true;download.disabled=true;show(e.message,"error")}
   finally{extract.disabled=false}
 }
 function save(){
-  if(!palette.length||!file)return;const data={source:file.name,palette:palette.map(c=>({hex:hex(c.r,c.g,c.b),rgb:{r:c.r,g:c.g,b:c.b}}))};const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"}),u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download=file.name.replace(/\.[^/.]+$/,"")+"-palette-creative-lab.json";a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)
+  if(!palette.length||!file)return;
+  const values=palette.map(c=>hex(c.r,c.g,c.b));
+  const cssContent=":root {\n"+values.map((v,i)=>`  --palette-${i+1}: ${v};`).join("\n")+"\n}";
+  const blob=new Blob([cssContent],{type:"text/css;charset=utf-8"});
+  const u=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=u;
+  a.download=file.name.replace(/\.[^/.]+$/,"")+"-palette-alfora.css";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(()=>URL.revokeObjectURL(u),1000);
 }
 function resetTool(){
   file=null;source=null;palette=[];input.value="";if(url)URL.revokeObjectURL(url);url="";canvas.width=0;canvas.height=0;resetPickedColor();preview.hidden=true;code.hidden=true;strip.innerHTML="";list.innerHTML="";nameEl.textContent=dims.textContent=sizeEl.textContent="—";count.value="5";quality.value="10";extract.disabled=true;download.disabled=true;hide()
@@ -421,12 +1174,47 @@ input.onchange=()=>{const f=input.files&&input.files[0];if(f)select(f)};
 zone.ondrop=e=>{const f=e.dataTransfer.files[0];if(f)select(f)};
 extract.onclick=run;download.onclick=save;reset.onclick=resetTool;
 document.querySelectorAll("[data-copy]").forEach(b=>b.onclick=()=>copy($(b.dataset.copy).textContent));
+let draggingPickedPoint=false;
+
 canvas.addEventListener("click",selectPixel);
-canvas.addEventListener("mousemove",previewPixel);
-canvas.addEventListener("mouseleave",hideMagnifier);
-canvas.addEventListener("touchstart",event=>{event.preventDefault();selectPixel(event)},{passive:false});
-canvas.addEventListener("touchmove",event=>{event.preventDefault();previewPixel(event)},{passive:false});
-canvas.addEventListener("touchend",hideMagnifier);
+
+canvas.addEventListener("pointerdown",event=>{
+  if(!source)return;
+  draggingPickedPoint=true;
+  canvas.setPointerCapture?.(event.pointerId);
+  selectPixel(event);
+});
+
+canvas.addEventListener("pointermove",event=>{
+  if(!source)return;
+
+  if(draggingPickedPoint){
+    selectPixel(event);
+    magnifier.hidden=false;
+  }else{
+    previewPixel(event);
+  }
+});
+
+canvas.addEventListener("pointerup",event=>{
+  draggingPickedPoint=false;
+  if(canvas.hasPointerCapture?.(event.pointerId)){
+    canvas.releasePointerCapture(event.pointerId);
+  }
+  hideMagnifier();
+});
+
+canvas.addEventListener("pointercancel",event=>{
+  draggingPickedPoint=false;
+  if(canvas.hasPointerCapture?.(event.pointerId)){
+    canvas.releasePointerCapture(event.pointerId);
+  }
+  hideMagnifier();
+});
+
+canvas.addEventListener("mouseleave",()=>{
+  if(!draggingPickedPoint)hideMagnifier();
+});
 copyPickedHex.onclick=()=>pickedColor&&copy(pickedColor.hex);
 copyPickedRgb.onclick=()=>pickedColor&&copy(pickedColor.rgb);
 copyPickedHsl.onclick=()=>pickedColor&&copy(pickedColor.hsl);

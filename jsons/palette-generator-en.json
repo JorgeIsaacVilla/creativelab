@@ -1,6 +1,6 @@
 {
   "seo": {
-    "title": "Color Palette Generator | Creative Lab",
+    "title": "Color Palette Generator | Alfora",
     "description": "Generate harmonious color palettes from a base color.",
     "htmlLang": "en"
   },
@@ -35,7 +35,7 @@
   },
   "info": {
     "eyebrow": "Intentional combinations",
-    "title": "How to generate a palette with Creative Lab",
+    "title": "How to generate a palette with Alfora",
     "description": "Start from a color, select a harmony rule and adjust the palette until it fits your project.",
     "stepOneTitle": "1. Choose",
     "stepOneText": "Select a base color.",

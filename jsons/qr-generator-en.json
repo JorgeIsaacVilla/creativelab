@@ -57,6 +57,16 @@
     "foreground": "QR color",
     "background": "Background color"
   },
+  "personalization": {
+    "title": "Customize QR",
+    "image": "Logo or image",
+    "position": "Image position",
+    "none": "No image",
+    "center": "Center of QR",
+    "below": "Below QR",
+    "text": "Text below QR",
+    "textPlaceholder": "Optional text"
+  },
   "actions": {
     "generate": "Generate QR",
     "reset": "Reset",

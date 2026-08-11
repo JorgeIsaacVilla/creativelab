@@ -30,6 +30,841 @@
   <link rel="canonical" href="./glass-generator.html">
    <link rel="icon" href="./src/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="./styles/main.css">
+
+<style>
+/* ==========================================================================
+   ALFORA · GENERADOR DE EFECTO TRANSLÚCIDO / GLASSMORPHISM
+   Estilos unificados de la herramienta
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Cabecera y estructura general
+   -------------------------------------------------------------------------- */
+
+.product-header--tool-first {
+  margin-bottom: var(--space-5);
+}
+
+.product-header--tool-first .product-header__content {
+  max-width: none;
+}
+
+.product-header--tool-first h1 {
+  margin-bottom: 0;
+}
+
+.glass-generator-page {
+  display: grid;
+  gap: var(--space-8);
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.glass-tool {
+  display: grid;
+  grid-template-columns: minmax(310px, 360px) minmax(0, 1fr);
+  gap: var(--space-5);
+  align-items: start;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.glass-panel,
+.glass-workspace {
+  display: grid;
+  min-width: 0;
+  gap: var(--space-4);
+}
+
+.glass-panel {
+  max-height: calc(100vh - 110px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 4px;
+  scrollbar-width: thin;
+}
+
+.glass-workspace {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* --------------------------------------------------------------------------
+   Tarjetas y formularios
+   -------------------------------------------------------------------------- */
+
+.glass-card {
+  min-width: 0;
+  padding: var(--space-4);
+  background: var(--gradient-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-small);
+}
+
+.glass-card h2 {
+  margin-bottom: var(--space-4);
+  font-size: 1.05rem;
+  line-height: 1.15;
+}
+
+.glass-panel .field,
+.glass-panel .check-field {
+  display: grid;
+  gap: 6px;
+}
+
+.glass-panel .field + .field,
+.glass-panel .field-row + .field,
+.glass-panel .field + .field-row,
+.glass-panel .field-row + .field-row,
+.glass-panel .button-stack,
+.glass-panel .check-field {
+  margin-top: 10px;
+}
+
+.glass-panel .field-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.glass-panel .field > span,
+.glass-panel .check-field span {
+  color: var(--color-text-soft);
+  font-size: .72rem;
+  font-weight: 800;
+}
+
+.glass-panel .field strong {
+  color: var(--color-primary);
+  font-size: .7rem;
+  font-weight: 900;
+}
+
+.glass-panel input[type="text"],
+.glass-panel input[type="url"],
+.glass-panel select,
+.glass-panel textarea {
+  width: 100%;
+  color: var(--color-text);
+  background: var(--color-surface-strong);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.glass-panel textarea {
+  resize: vertical;
+}
+
+.glass-panel input[type="range"] {
+  width: 100%;
+  accent-color: var(--color-primary);
+}
+
+.glass-panel input[type="color"] {
+  width: 100%;
+  min-height: 42px;
+  padding: 4px;
+  background: var(--color-surface-strong);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+}
+
+.glass-panel .check-field {
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+}
+
+.glass-panel .check-field input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-primary);
+}
+
+.button-stack {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.button--block {
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   Acciones principales
+   -------------------------------------------------------------------------- */
+
+.glass-main-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.glass-main-actions .button {
+  width: 100%;
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* --------------------------------------------------------------------------
+   Vista previa
+   -------------------------------------------------------------------------- */
+
+.glass-preview-card,
+.glass-code-card {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.glass-preview-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.glass-preview-hint {
+  color: var(--color-text-muted);
+  font-size: .72rem;
+}
+
+.glass-preview-tools {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  min-width: 0;
+}
+
+.glass-zoom-controls {
+  display: inline-grid;
+  grid-template-columns: repeat(2, 36px);
+  gap: 6px;
+  flex: 0 0 auto;
+}
+
+.glass-zoom-button {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  padding: 0;
+  color: var(--color-primary);
+  background: rgba(102, 255, 143, .06);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 1.15rem;
+  font-weight: 900;
+  line-height: 1;
+  transition:
+    background 160ms ease,
+    color 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.glass-zoom-button:hover,
+.glass-zoom-button:focus-visible {
+  color: var(--color-text-dark);
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  transform: translateY(-1px);
+}
+
+.glass-zoom-button:disabled {
+  cursor: not-allowed;
+  opacity: .38;
+  transform: none;
+}
+
+.glass-preview-stage {
+  position: relative;
+  min-width: 0;
+  max-width: 100%;
+  min-height: 500px;
+  overflow: auto;
+  padding: clamp(1rem, 3vw, 1.5rem);
+  background: rgba(255, 255, 255, .02);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-sizing: border-box;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.glass-scene {
+  position: relative;
+  display: grid;
+  min-width: max-content;
+  max-width: 100%;
+  min-height: 500px;
+  place-items: center;
+  overflow: visible;
+  padding: 28px;
+  background: linear-gradient(135deg, #152b6f, #7f2eff);
+  border-radius: calc(var(--radius-lg) - .35rem);
+  box-sizing: border-box;
+}
+
+.glass-scene::before,
+.glass-scene::after {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(.5px);
+  content: "";
+  pointer-events: none;
+}
+
+.glass-scene::before {
+  width: 260px;
+  height: 260px;
+  top: -60px;
+  left: -60px;
+  background: rgba(255, 255, 255, .16);
+}
+
+.glass-scene::after {
+  width: 200px;
+  height: 200px;
+  right: -50px;
+  bottom: -30px;
+  background: rgba(111, 255, 170, .18);
+}
+
+.glass-object {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  align-content: start;
+  gap: var(--space-3);
+  width: 360px;
+  min-height: 260px;
+  max-width: none;
+  max-height: none;
+  padding: 28px;
+  background: rgba(255, 255, 255, .22);
+  border: 1px solid rgba(255, 255, 255, .35);
+  border-radius: 28px;
+  box-shadow: 0 20px 35px rgba(0, 0, 0, .24);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  overflow: hidden;
+  box-sizing: border-box;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.glass-shine {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, .38),
+    rgba(255, 255, 255, .08) 28%,
+    transparent 45%
+  );
+}
+
+.glass-content {
+  position: relative;
+  z-index: 1;
+}
+
+.glass-content h3 {
+  margin-bottom: var(--space-3);
+  color: #fff;
+  font-size: 34px;
+  line-height: 1.05;
+  letter-spacing: -.03em;
+}
+
+.glass-content p {
+  color: #eaf8ff;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+/* --------------------------------------------------------------------------
+   CSS generado
+   -------------------------------------------------------------------------- */
+
+.glass-code-card .css-output,
+.css-output {
+  width: 100%;
+  min-height: 250px;
+  padding: 1rem;
+  color: #d7ffe4;
+  background: #08110b;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  resize: vertical;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: .78rem;
+  line-height: 1.55;
+}
+
+.mini-copy-button {
+  padding: .5rem .9rem;
+  color: var(--color-primary);
+  background: rgba(102, 255, 143, .08);
+  border: 1px solid rgba(102, 255, 143, .18);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  font-weight: 800;
+  transition:
+    transform var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.mini-copy-button:hover {
+  background: rgba(102, 255, 143, .16);
+  transform: translateY(-1px);
+}
+
+.tool-note {
+  margin: var(--space-4) 0 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+/* --------------------------------------------------------------------------
+   Descripción inferior
+   -------------------------------------------------------------------------- */
+
+.tool-description {
+  margin-top: var(--space-8);
+  padding: clamp(1.25rem, 4vw, 2.5rem);
+  background: rgba(102, 255, 143, .018);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+}
+
+.tool-description h2 {
+  max-width: 850px;
+  margin-bottom: var(--space-4);
+}
+
+.tool-description__lead {
+  max-width: 820px;
+  margin-bottom: var(--space-4);
+  color: var(--color-text-soft);
+  font-size: var(--font-size-md);
+}
+
+.tool-description__features {
+  margin-bottom: 0;
+}
+
+.feature-list {
+  display: grid;
+  margin: 0;
+  padding-left: 1.2rem;
+  color: var(--color-text-soft);
+  gap: var(--space-2);
+}
+
+/* --------------------------------------------------------------------------
+   Elementos exclusivos de móvil
+   -------------------------------------------------------------------------- */
+
+.glass-mobile-tools,
+.glass-mobile-control-overlay,
+.glass-mobile-control-overlay__close {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   Tablet
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 980px) {
+  .glass-tool {
+    grid-template-columns: minmax(280px, 320px) minmax(0, 1fr);
+  }
+
+  .glass-preview-stage,
+  .glass-scene {
+    min-height: 440px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Móvil
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 700px) {
+  .glass-generator-page {
+    width: 100%;
+    max-width: 100%;
+    padding-inline: 10px;
+    overflow-x: hidden;
+  }
+
+  .glass-generator-page > *,
+  .product-header--tool-first,
+  .glass-tool,
+  .tool-description,
+  .glass-preview-card,
+  .glass-code-card {
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .product-header--tool-first {
+    margin-bottom: 12px;
+  }
+
+  .product-header--tool-first h1 {
+    font-size: clamp(2rem, 10vw, 3rem);
+  }
+
+  .glass-tool {
+    display: block;
+  }
+
+  .glass-panel {
+    display: none;
+  }
+
+  .glass-workspace {
+    display: grid;
+    width: 100%;
+    min-width: 0;
+    gap: 9px;
+  }
+
+  .glass-main-actions {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+    margin-bottom: 0;
+  }
+
+  .glass-main-actions .button {
+    min-height: 44px;
+    padding: 6px 7px;
+    font-size: .68rem;
+    line-height: 1.15;
+  }
+
+  .glass-card {
+    padding: 9px;
+    border-radius: 14px;
+  }
+
+  .glass-preview-topbar {
+    margin-bottom: 7px;
+  }
+
+  .glass-preview-topbar strong {
+    font-size: .8rem;
+  }
+
+  .glass-preview-hint {
+    display: none;
+  }
+
+  .glass-preview-tools {
+    gap: 6px;
+  }
+
+  .glass-zoom-controls {
+    grid-template-columns: repeat(2, 34px);
+    gap: 5px;
+  }
+
+  .glass-zoom-button {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    font-size: 1.08rem;
+  }
+
+  .glass-preview-stage {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    min-height: 390px;
+    overflow: auto;
+    overscroll-behavior: contain;
+    touch-action: pan-x pan-y;
+  }
+
+  .glass-scene {
+    width: max-content;
+    max-width: none;
+    min-width: 100%;
+    min-height: 390px;
+    padding: 14px;
+    overflow: visible;
+  }
+
+  .glass-code-card .css-output {
+    min-height: 170px;
+    font-size: .66rem;
+  }
+
+  /* Overlay de controles sobre el visor */
+
+  .glass-mobile-control-overlay {
+    position: fixed;
+    top: max(150px, calc(env(safe-area-inset-top) + 132px));
+    left: 12px;
+    z-index: calc(var(--z-modal) + 12);
+    display: block;
+    width: min(80vw, 340px);
+    height: min(66svh, 620px);
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-24px) rotateY(8deg) scaleX(.96);
+    transform-origin: left center;
+    background: rgba(4, 18, 9, .34);
+    border: 1px solid rgba(102, 255, 143, .26);
+    border-radius: 0 22px 22px 0;
+    box-shadow: 24px 26px 70px rgba(0, 0, 0, .38);
+    backdrop-filter: blur(14px) saturate(1.08);
+    -webkit-backdrop-filter: blur(14px) saturate(1.08);
+    transition:
+      opacity 220ms ease,
+      visibility 220ms ease,
+      transform 320ms cubic-bezier(.2, .8, .2, 1);
+  }
+
+  .glass-mobile-control-overlay.is-open {
+    pointer-events: auto;
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0) rotateY(0) scaleX(1);
+  }
+
+  .glass-mobile-control-overlay__close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 3;
+    display: grid;
+    width: 38px;
+    height: 38px;
+    place-items: center;
+    padding: 0;
+    color: var(--color-text);
+    background: rgba(7, 25, 13, .44);
+    border: 1px solid rgba(102, 255, 143, .34);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .22);
+    cursor: pointer;
+    font-size: 1.35rem;
+    font-weight: 900;
+    line-height: 1;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .glass-mobile-control-overlay__close:hover,
+  .glass-mobile-control-overlay__close:focus-visible {
+    color: var(--color-text-dark);
+    background: var(--color-primary);
+  }
+
+  .glass-mobile-control-overlay__inner {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 58px 12px 14px;
+    background: linear-gradient(
+      180deg,
+      rgba(8, 28, 15, .34),
+      rgba(4, 16, 8, .22)
+    );
+    scrollbar-width: thin;
+  }
+
+  .glass-mobile-control-overlay__inner .glass-card {
+    display: block;
+    width: 100%;
+    margin: 0;
+    background: rgba(4, 18, 9, .28);
+    border-color: rgba(102, 255, 143, .20);
+    box-shadow: none;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* Menú +/- */
+
+  .glass-mobile-tools {
+    position: fixed;
+    top: max(92px, calc(env(safe-area-inset-top) + 78px));
+    left: 8px;
+    z-index: calc(var(--z-modal) + 8);
+    display: block;
+    perspective: 900px;
+  }
+
+  .glass-mobile-tools__toggle {
+    position: relative;
+    z-index: 4;
+    display: grid;
+    width: 54px;
+    height: 54px;
+    place-items: center;
+    padding: 0;
+    color: var(--color-text-dark);
+    background: var(--gradient-primary);
+    border: 1px solid rgba(255, 255, 255, .16);
+    border-radius: 0 18px 18px 0;
+    box-shadow: 10px 14px 34px rgba(0, 0, 0, .38);
+    cursor: pointer;
+    font-size: 1.8rem;
+    font-weight: 900;
+    transform-origin: left center;
+    transition:
+      transform 260ms cubic-bezier(.2, .8, .2, 1),
+      border-radius 260ms ease,
+      box-shadow 260ms ease;
+  }
+
+  .glass-mobile-tools.is-open .glass-mobile-tools__toggle {
+    transform: rotateY(-8deg) translateX(2px);
+    border-radius: 0 14px 14px 0;
+    box-shadow: 14px 16px 38px rgba(0, 0, 0, .44);
+  }
+
+  .glass-mobile-tools__panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: min(80vw, 320px);
+    max-height: min(68svh, 620px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 62px 8px 8px;
+    background: rgba(7, 24, 13, .62);
+    border: 1px solid rgba(102, 255, 143, .22);
+    border-radius: 0 20px 20px 0;
+    box-shadow: 20px 24px 60px rgba(0, 0, 0, .46);
+    backdrop-filter: blur(22px) saturate(1.15);
+    -webkit-backdrop-filter: blur(22px) saturate(1.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-22px) rotateY(12deg) scaleX(.94);
+    transform-origin: left center;
+    transition:
+      opacity 220ms ease,
+      visibility 220ms ease,
+      transform 300ms cubic-bezier(.2, .8, .2, 1);
+  }
+
+  .glass-mobile-tools.is-open .glass-mobile-tools__panel {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0) rotateY(0) scaleX(1);
+  }
+
+  .glass-mobile-action {
+    display: grid;
+    width: 100%;
+    min-height: 52px;
+    grid-template-columns: 42px minmax(0, 1fr);
+    align-items: center;
+    padding: 6px 10px 6px 4px;
+    color: var(--color-text);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .glass-mobile-action + .glass-mobile-action {
+    margin-top: 4px;
+  }
+
+  .glass-mobile-action:hover,
+  .glass-mobile-action:focus-visible {
+    background: rgba(102, 255, 143, .08);
+    border-color: var(--color-border);
+  }
+
+  .glass-mobile-action__icon {
+    display: grid;
+    width: 42px;
+    place-items: center;
+    color: var(--color-primary);
+    font-size: 1.05rem;
+    font-weight: 900;
+  }
+
+  .glass-mobile-action__copy strong,
+  .glass-mobile-action__copy small {
+    display: block;
+  }
+
+  .glass-mobile-action__copy strong {
+    font-size: .78rem;
+  }
+
+  .glass-mobile-action__copy small {
+    margin-top: 1px;
+    color: var(--color-text-muted);
+    font-size: .66rem;
+    line-height: 1.35;
+  }
+
+  .tool-description {
+    margin-top: 16px;
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+  }
+
+  .tool-description h2 {
+    font-size: clamp(1.55rem, 8vw, 2.2rem);
+  }
+
+  .tool-description__lead {
+    font-size: .95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .glass-mobile-control-overlay {
+    width: 78vw;
+    left: 8px;
+    height: min(64svh, 560px);
+  }
+}
+
+@media (max-width: 390px) {
+  .glass-main-actions {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .glass-main-actions #main-upload-image {
+    grid-column: 1 / -1;
+  }
+
+  .glass-preview-stage,
+  .glass-scene {
+    min-height: 360px;
+  }
+}
+</style>
+
 </head>
 <body class="creative-lab-page">
   <div class="site-shell">
@@ -59,32 +894,17 @@
     </header>
 
     <main id="main-content" class="product-page glass-generator-page">
-      <section class="product-hero glass-hero">
-        <div class="product-hero__copy">
-          <span class="product-hero__eyebrow" data-i18n="hero.eyebrow">NUEVO · GLASSMORPHISM</span>
-          <h1 data-i18n="hero.title">Generador de efecto translúcido</h1>
-          <p data-i18n="hero.description">
-            Diseña tarjetas glassmorphism con fondo personalizable, blur, opacidad, bordes, sombras y texto editable. Copia el CSS o descarga una vista previa en PNG.
-          </p>
-
-          <ul class="feature-list">
-            <li data-i18n="hero.feature1">Previsualización en tiempo real</li>
-            <li data-i18n="hero.feature2">Fondo sólido, degradado o imagen</li>
-            <li data-i18n="hero.feature3">Exportación visual + CSS listo para usar</li>
-          </ul>
+      <section class="product-header product-header--tool-first" aria-labelledby="product-title">
+        <div class="product-header__content">
+          <h1 id="product-title" data-i18n="hero.title">
+            Generador de efecto translúcido
+          </h1>
         </div>
-
-        <!--
-        <aside class="glass-ad" aria-label="Publicidad">
-          <span data-i18n="common.adSpace">Espacio para publicidad</span>
-        </aside>
-        -->
-        
       </section>
 
-      <section class="glass-layout">
+      <section class="glass-layout glass-tool">
         <aside class="glass-panel">
-          <article class="glass-card">
+          <article class="glass-card" id="glass-controls-background">
             <h2 data-i18n="controls.backgroundTitle">1. Fondo</h2>
 
             <label class="field">
@@ -130,7 +950,7 @@
             </div>
           </article>
 
-          <article class="glass-card">
+          <article class="glass-card" id="glass-controls-card">
             <h2 data-i18n="controls.glassTitle">2. Tarjeta glass</h2>
 
             <div class="field-row">
@@ -207,7 +1027,7 @@
             </label>
           </article>
 
-          <article class="glass-card">
+          <article class="glass-card" id="glass-controls-content">
             <h2 data-i18n="controls.contentTitle">3. Contenido</h2>
 
             <label class="field">
@@ -283,10 +1103,50 @@
           <article class="glass-card glass-preview-card">
             <div class="glass-preview-topbar">
               <strong data-i18n="preview.title">Vista previa</strong>
-              <span class="glass-preview-hint" data-i18n="preview.hint">Todo cambia en tiempo real</span>
+
+              <div class="glass-preview-tools">
+                <span class="glass-preview-hint" data-i18n="preview.hint">
+                  Todo cambia en tiempo real
+                </span>
+
+                <div class="glass-zoom-controls" role="group" aria-label="Zoom de la vista previa">
+                  <button
+                    class="glass-zoom-button"
+                    id="glass-zoom-out"
+                    type="button"
+                    aria-label="Alejar vista previa"
+                    title="Alejar"
+                  >
+                    −
+                  </button>
+
+                  <button
+                    class="glass-zoom-button"
+                    id="glass-zoom-in"
+                    type="button"
+                    aria-label="Acercar vista previa"
+                    title="Acercar"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
             </div>
 
             <div class="glass-preview-stage" id="glass-preview-stage">
+              <div class="glass-mobile-control-overlay" id="glass-mobile-control-overlay" aria-hidden="true">
+                <button
+                  class="glass-mobile-control-overlay__close"
+                  id="glass-mobile-control-overlay-close"
+                  type="button"
+                  aria-label="Cerrar controles"
+                >
+                  ×
+                </button>
+
+                <div class="glass-mobile-control-overlay__inner" id="glass-mobile-control-overlay-inner"></div>
+              </div>
+
               <div class="glass-scene" id="glass-scene">
                 <div class="glass-object" id="glass-object">
                   <div class="glass-shine" id="glass-shine"></div>
@@ -299,6 +1159,18 @@
             </div>
           </article>
 
+          <div class="glass-main-actions">
+            <button class="button button--secondary" id="main-upload-image" type="button" data-i18n="controls.uploadImage">
+              Subir imagen
+            </button>
+            <button class="button button--primary" id="main-copy-css" type="button" data-i18n="controls.copyCss">
+              Copiar CSS
+            </button>
+            <button class="button button--secondary" id="main-download-preview" type="button" data-i18n="controls.downloadPng">
+              Descargar PNG
+            </button>
+          </div>
+
           <article class="glass-card glass-code-card">
             <div class="glass-preview-topbar">
               <strong data-i18n="preview.cssTitle">CSS generado</strong>
@@ -310,6 +1182,74 @@
             <textarea id="css-output" class="css-output" rows="14" readonly></textarea>
           </article>
         </section>
+
+        <nav class="glass-mobile-tools" id="glass-mobile-tools" aria-label="Herramientas del generador glass">
+          <button
+            class="glass-mobile-tools__toggle"
+            id="glass-mobile-tools-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="glass-mobile-tools-panel"
+            aria-label="Abrir herramientas"
+          >
+            <span id="glass-mobile-tools-symbol" aria-hidden="true">+</span>
+          </button>
+
+          <div class="glass-mobile-tools__panel" id="glass-mobile-tools-panel">
+            <button class="glass-mobile-action" id="mobile-scroll-background" type="button">
+              <span class="glass-mobile-action__icon">◫</span>
+              <span class="glass-mobile-action__copy">
+                <strong data-i18n="controls.backgroundTitle">1. Fondo</strong>
+                <small>Tipo de fondo, colores e imagen</small>
+              </span>
+            </button>
+
+            <button class="glass-mobile-action" id="mobile-scroll-glass" type="button">
+              <span class="glass-mobile-action__icon">✦</span>
+              <span class="glass-mobile-action__copy">
+                <strong data-i18n="controls.glassTitle">2. Tarjeta glass</strong>
+                <small>Blur, opacidad, borde y sombra</small>
+              </span>
+            </button>
+
+            <button class="glass-mobile-action" id="mobile-scroll-content" type="button">
+              <span class="glass-mobile-action__icon">T</span>
+              <span class="glass-mobile-action__copy">
+                <strong data-i18n="controls.contentTitle">3. Contenido</strong>
+                <small>Texto, color, tamaño y alineación</small>
+              </span>
+            </button>
+
+            <button class="glass-mobile-action" id="mobile-reset" type="button">
+              <span class="glass-mobile-action__icon">↺</span>
+              <span class="glass-mobile-action__copy">
+                <strong data-i18n="controls.reset">Restablecer diseño</strong>
+                <small>Vuelve a los valores iniciales</small>
+              </span>
+            </button>
+          </div>
+        </nav>
+      </section>
+
+      <section class="tool-description" aria-labelledby="glass-description-title">
+        <p class="section-heading__eyebrow" data-i18n="hero.eyebrow">
+          NUEVO · GLASSMORPHISM
+        </p>
+
+        <h2 id="glass-description-title">
+          Genera glassmorphism y copia el CSS listo para usar
+        </h2>
+
+        <p class="tool-description__lead" data-i18n="hero.description">
+          Diseña tarjetas glassmorphism con fondo personalizable, blur, opacidad,
+          bordes, sombras y texto editable. Copia el CSS o descarga una vista previa en PNG.
+        </p>
+
+        <ul class="feature-list tool-description__features">
+          <li data-i18n="hero.feature1">Previsualización en tiempo real</li>
+          <li data-i18n="hero.feature2">Fondo sólido, degradado o imagen</li>
+          <li data-i18n="hero.feature3">Exportación visual + CSS listo para usar</li>
+        </ul>
       </section>
     </main>
   </div>
@@ -320,8 +1260,13 @@
       const state = {
         currentLanguage: 'es',
         translations: {},
-        uploadedBackground: ''
+        uploadedBackground: '',
+        previewZoom: 1
       };
+
+      const MIN_PREVIEW_ZOOM = 0.5;
+      const MAX_PREVIEW_ZOOM = 2;
+      const PREVIEW_ZOOM_STEP = 0.1;
 
       const elements = {
         languageSelector: document.getElementById('language-selector'),
@@ -378,8 +1323,84 @@
         copyCssSecondary: document.getElementById('copy-css-secondary'),
         downloadPreview: document.getElementById('download-preview'),
         resetGenerator: document.getElementById('reset-generator'),
-        actionStatus: document.getElementById('action-status')
+        actionStatus: document.getElementById('action-status'),
+        mainUploadImage: document.getElementById('main-upload-image'),
+        mainCopyCss: document.getElementById('main-copy-css'),
+        mainDownloadPreview: document.getElementById('main-download-preview'),
+        mobileTools: document.getElementById('glass-mobile-tools'),
+        mobileToolsToggle: document.getElementById('glass-mobile-tools-toggle'),
+        mobileToolsSymbol: document.getElementById('glass-mobile-tools-symbol'),
+        mobileScrollBackground: document.getElementById('mobile-scroll-background'),
+        mobileScrollGlass: document.getElementById('mobile-scroll-glass'),
+        mobileScrollContent: document.getElementById('mobile-scroll-content'),
+        mobileReset: document.getElementById('mobile-reset'),
+        controlsBackground: document.getElementById('glass-controls-background'),
+        controlsCard: document.getElementById('glass-controls-card'),
+        controlsContent: document.getElementById('glass-controls-content'),
+        mobileControlOverlay: document.getElementById('glass-mobile-control-overlay'),
+        mobileControlOverlayInner: document.getElementById('glass-mobile-control-overlay-inner'),
+        mobileControlOverlayClose: document.getElementById('glass-mobile-control-overlay-close'),
+        zoomOut: document.getElementById('glass-zoom-out'),
+        zoomIn: document.getElementById('glass-zoom-in')
       };
+
+      function setMobileToolsOpen(open) {
+        elements.mobileTools.classList.toggle('is-open', open);
+        elements.mobileToolsToggle.setAttribute('aria-expanded', String(open));
+        elements.mobileToolsSymbol.textContent = open ? '−' : '+';
+      }
+
+      const desktopControlCards = [
+        elements.controlsBackground,
+        elements.controlsCard,
+        elements.controlsContent
+      ];
+
+      const desktopPanel = document.querySelector('.glass-panel');
+
+      function closeMobileControlOverlay() {
+        elements.mobileControlOverlay.classList.remove('is-open');
+        elements.mobileControlOverlay.setAttribute('aria-hidden', 'true');
+
+        window.setTimeout(() => {
+          desktopControlCards.forEach((card) => {
+            if (card && card.parentElement !== desktopPanel) {
+              desktopPanel.appendChild(card);
+            }
+          });
+
+          elements.mobileControlOverlayInner.innerHTML = '';
+        }, 220);
+      }
+
+      function restoreDesktopControlCards() {
+        elements.mobileControlOverlay.classList.remove('is-open');
+        elements.mobileControlOverlay.setAttribute('aria-hidden', 'true');
+
+        desktopControlCards.forEach((card) => {
+          if (card && card.parentElement !== desktopPanel) {
+            desktopPanel.appendChild(card);
+          }
+        });
+
+        elements.mobileControlOverlayInner.innerHTML = '';
+      }
+
+      function openMobileControlSection(target) {
+        setMobileToolsOpen(false);
+
+        if (window.innerWidth > 700) {
+          restoreDesktopControlCards();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return;
+        }
+
+        elements.mobileControlOverlayInner.innerHTML = '';
+        elements.mobileControlOverlayInner.appendChild(target);
+        elements.mobileControlOverlay.classList.add('is-open');
+        elements.mobileControlOverlay.setAttribute('aria-hidden', 'false');
+        elements.mobileControlOverlayInner.scrollTop = 0;
+      }
 
       function rgbaFromHex(hex, alpha) {
         const normalized = hex.replace('#', '');
@@ -459,6 +1480,64 @@
         }
       }
 
+      function updateZoomButtons() {
+        elements.zoomOut.disabled =
+          state.previewZoom <= MIN_PREVIEW_ZOOM + 0.001;
+
+        elements.zoomIn.disabled =
+          state.previewZoom >= MAX_PREVIEW_ZOOM - 0.001;
+      }
+
+      function fitGlassObjectToStage() {
+        if (!elements.previewStage || !elements.object) return;
+
+        let baseScale = 1;
+
+        /*
+         * En escritorio mantenemos el ajuste automático para que la tarjeta
+         * inicial quepa en el visor. En móvil el visor tiene scroll X/Y, así
+         * que partimos de escala real.
+         */
+        if (window.innerWidth > 700) {
+          elements.object.style.transform = 'scale(1)';
+
+          const stageRect = elements.previewStage.getBoundingClientRect();
+          const objectRect = elements.object.getBoundingClientRect();
+
+          const availableWidth = Math.max(1, stageRect.width - 56);
+          const availableHeight = Math.max(1, stageRect.height - 56);
+
+          baseScale = Math.min(
+            1,
+            availableWidth / Math.max(1, objectRect.width),
+            availableHeight / Math.max(1, objectRect.height)
+          );
+        }
+
+        const effectiveScale = baseScale * state.previewZoom;
+
+        elements.object.style.transform = `scale(${effectiveScale})`;
+        elements.object.style.transformOrigin = 'center center';
+
+        updateZoomButtons();
+      }
+
+      function changePreviewZoom(direction) {
+        const nextZoom = Math.min(
+          MAX_PREVIEW_ZOOM,
+          Math.max(
+            MIN_PREVIEW_ZOOM,
+            state.previewZoom + direction * PREVIEW_ZOOM_STEP
+          )
+        );
+
+        state.previewZoom = Math.round(nextZoom * 10) / 10;
+
+        window.requestAnimationFrame(() => {
+          fitGlassObjectToStage();
+        });
+      }
+
       function generateCssCode() {
         const tint = rgbaFromHex(elements.glassColor.value, Number(elements.glassOpacity.value) / 100);
         const borderColor = rgbaFromHex(elements.glassBorderColor.value, 0.45);
@@ -529,6 +1608,10 @@
         elements.previewBody.style.opacity = '0.92';
 
         elements.cssOutput.value = generateCssCode();
+
+        window.requestAnimationFrame(() => {
+          fitGlassObjectToStage();
+        });
       }
 
       async function copyCss() {
@@ -549,7 +1632,7 @@
           });
 
           const link = document.createElement('a');
-          link.download = 'creative-lab-glass-effect.png';
+          link.download = 'alfora-glass-effect.png';
           link.href = canvas.toDataURL('image/png');
           link.click();
           setStatus('messages.downloadReady', 'Descarga generada correctamente.');
@@ -619,6 +1702,8 @@
         elements.bodySize.value = '16';
         elements.textAlign.value = 'left';
 
+        state.previewZoom = 1;
+
         updatePreview();
         setStatus('messages.resetDone', 'Diseño restablecido.');
       }
@@ -661,6 +1746,71 @@
       elements.uploadImageButton.addEventListener('click', () => elements.backgroundImageFile.click());
       elements.backgroundImageFile.addEventListener('change', (event) => handleImageUpload(event.target.files[0]));
       elements.languageSelector.addEventListener('change', (event) => loadTranslations(event.target.value));
+
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 700) {
+          restoreDesktopControlCards();
+        }
+
+        window.requestAnimationFrame(fitGlassObjectToStage);
+      });
+
+      elements.mainUploadImage.addEventListener('click', () => {
+        elements.backgroundImageFile.click();
+      });
+
+      elements.mainCopyCss.addEventListener('click', copyCss);
+      elements.mainDownloadPreview.addEventListener('click', downloadPreview);
+
+      elements.zoomOut.addEventListener('click', () => {
+        changePreviewZoom(-1);
+      });
+
+      elements.zoomIn.addEventListener('click', () => {
+        changePreviewZoom(1);
+      });
+
+      elements.mobileToolsToggle.addEventListener('click', () => {
+        setMobileToolsOpen(!elements.mobileTools.classList.contains('is-open'));
+      });
+
+      elements.mobileScrollBackground.addEventListener('click', () => {
+        openMobileControlSection(elements.controlsBackground);
+      });
+
+      elements.mobileScrollGlass.addEventListener('click', () => {
+        openMobileControlSection(elements.controlsCard);
+      });
+
+      elements.mobileScrollContent.addEventListener('click', () => {
+        openMobileControlSection(elements.controlsContent);
+      });
+
+      elements.mobileControlOverlayClose.addEventListener('click', () => {
+        closeMobileControlOverlay();
+      });
+
+      elements.previewStage.addEventListener('pointerdown', (event) => {
+        if (
+          window.innerWidth <= 700 &&
+          elements.mobileControlOverlay.classList.contains('is-open') &&
+          !event.target.closest('.glass-mobile-control-overlay__inner')
+        ) {
+          closeMobileControlOverlay();
+        }
+      });
+
+      elements.mobileReset.addEventListener('click', () => {
+        setMobileToolsOpen(false);
+        closeMobileControlOverlay();
+        resetGenerator();
+      });
+
+      setMobileToolsOpen(false);
+
+      if (window.innerWidth > 700) {
+        restoreDesktopControlCards();
+      }
 
       const savedLanguage = localStorage.getItem('creativeLabLanguage');
       const browserLanguage = (navigator.language || 'es').toLowerCase().startsWith('en') ? 'en' : 'es';

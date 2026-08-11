@@ -28,6 +28,693 @@
   <link rel="canonical" href="./image-enhancer.html">
    <link rel="icon" href="./src/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="./styles/main.css">
+
+  <style>
+/* ======================================================================
+   HERRAMIENTA: MEJORADOR DE IMAGEN · INICIO
+   ====================================================================== */
+
+.image-enhancer-page {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.product-header--tool-first {
+  margin-bottom: var(--space-5);
+}
+
+.product-header--tool-first .product-header__content {
+  max-width: none;
+}
+
+.product-header--tool-first h1 {
+  margin-bottom: 0;
+}
+
+.image-enhancer-header__actions {
+  flex: 0 0 auto;
+}
+
+.feature-list {
+  display: grid;
+  margin: 0;
+  padding-left: 1.2rem;
+  color: var(--color-text-soft);
+  gap: var(--space-2);
+}
+
+.tool-layout {
+  display: grid;
+  grid-template-columns: minmax(290px, 350px) minmax(0, 1fr);
+  align-items: start;
+  gap: var(--space-5);
+}
+
+.tool-panel,
+.tool-workspace {
+  display: grid;
+  min-width: 0;
+  gap: var(--space-4);
+}
+
+.tool-panel {
+  max-height: calc(100vh - 110px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 4px;
+  scrollbar-width: thin;
+}
+
+.image-enhancer-card {
+  min-width: 0;
+  padding: var(--space-5);
+  background: var(--gradient-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-small);
+}
+
+.image-enhancer-card h2 {
+  margin-bottom: var(--space-4);
+  font-size: 1.08rem;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+
+.image-enhancer-upload {
+  display: grid;
+  min-height: 150px;
+  align-content: center;
+  padding: var(--space-4);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(102, 255, 143, 0.055),
+      rgba(102, 255, 143, 0.015)
+    );
+  border: 2px dashed var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  gap: var(--space-3);
+}
+
+.image-enhancer-upload p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.button--block {
+  width: 100%;
+}
+
+.button:disabled,
+select:disabled,
+input:disabled {
+  cursor: not-allowed;
+  opacity: 0.46;
+}
+
+.button:disabled:hover {
+  box-shadow: none;
+  transform: none;
+}
+
+.button-stack {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.field,
+.range-field,
+.check-field,
+.comparison-field {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.field {
+  margin-top: var(--space-4);
+}
+
+.field > span,
+.range-field label,
+.comparison-field > span {
+  color: var(--color-text-soft);
+  font-size: var(--font-size-sm);
+  font-weight: 800;
+}
+
+.field select {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 var(--space-4);
+  color: var(--color-text);
+  background: var(--color-surface-strong);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.field select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(102, 255, 143, 0.08);
+  outline: none;
+}
+
+.check-field {
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  margin-top: var(--space-4);
+  color: var(--color-text-soft);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+}
+
+.check-field input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-primary);
+}
+
+.range-field + .range-field {
+  margin-top: var(--space-4);
+}
+
+.range-field label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.range-field strong {
+  min-width: 2.4rem;
+  color: var(--color-primary);
+  text-align: right;
+}
+
+.range-field input[type="range"],
+.comparison-field input[type="range"] {
+  width: 100%;
+  accent-color: var(--color-primary);
+}
+
+.tool-note {
+  margin: var(--space-4) 0 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.status-card {
+  min-height: auto;
+}
+
+.status-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.status-card > p {
+  margin: var(--space-2) 0 0;
+  color: var(--color-text-soft);
+}
+
+.comparison-card {
+  overflow: hidden;
+}
+
+.comparison-toolbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+  gap: var(--space-6);
+}
+
+.comparison-labels {
+  display: flex;
+  align-items: center;
+  color: var(--color-text);
+  font-weight: 900;
+  gap: var(--space-5);
+}
+
+.comparison-labels span:first-child {
+  color: var(--color-primary);
+}
+
+.comparison-field {
+  width: min(280px, 100%);
+}
+
+.comparison-stage {
+  position: relative;
+  display: grid;
+  min-height: 500px;
+  cursor: ew-resize;
+  touch-action: none;
+  user-select: none;
+  place-items: center;
+  overflow: hidden;
+  background:
+    linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.035) 25%,
+      transparent 25%,
+      transparent 75%,
+      rgba(255, 255, 255, 0.035) 75%
+    ),
+    linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.035) 25%,
+      transparent 25%,
+      transparent 75%,
+      rgba(255, 255, 255, 0.035) 75%
+    );
+  background-position: 0 0, 14px 14px;
+  background-size: 28px 28px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.comparison-before,
+.comparison-after {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+}
+
+.comparison-before canvas,
+.comparison-after canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-fit: contain;
+}
+
+.comparison-after {
+  overflow: hidden;
+  border-right: 0;
+  clip-path: inset(0 50% 0 0);
+  will-change: clip-path;
+}
+
+.comparison-placeholder[hidden] {
+  display: none !important;
+}
+
+.comparison-divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  z-index: 3;
+  width: 2px;
+  background: var(--color-primary);
+  box-shadow: var(--shadow-glow);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.comparison-divider::before {
+  position: absolute;
+  top: var(--space-4);
+  left: 50%;
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  content: "↔";
+  color: var(--color-text-dark);
+  background: var(--gradient-primary);
+  border: 3px solid var(--color-background);
+  border-radius: 50%;
+  box-shadow: var(--shadow-glow);
+  font-weight: 900;
+  transform: translateX(-50%);
+}
+
+.comparison-placeholder {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  padding: var(--space-8);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.comparison-stage.is-dragging {
+  cursor: grabbing;
+}
+
+.comparison-stage:not(.is-dragging) .comparison-divider::before {
+  transition: transform var(--transition-fast);
+}
+
+.comparison-stage:hover .comparison-divider::before {
+  transform: translateX(-50%) scale(1.08);
+}
+
+.image-enhancer-description {
+  margin-top: 0;
+  padding: clamp(1.25rem, 4vw, 2.5rem);
+  background: rgba(102, 255, 143, 0.018);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+}
+
+.image-enhancer-description .tool-description__lead {
+  max-width: 850px;
+  margin: var(--space-4) 0;
+  color: var(--color-text-soft);
+  font-size: var(--font-size-md);
+}
+
+.enhancer-mobile-tools,
+.enhancer-mobile-overlay,
+.enhancer-mobile-overlay__close {
+  display: none;
+}
+
+@media (max-width: 980px) {
+  .tool-layout {
+    grid-template-columns: minmax(270px, 320px) minmax(0, 1fr);
+  }
+
+  .comparison-stage {
+    min-height: 430px;
+  }
+}
+
+@media (max-width: 700px) {
+  .product-header--tool-first {
+    margin-bottom: 12px;
+  }
+
+  .product-header--tool-first h1 {
+    font-size: clamp(2rem, 10vw, 3rem);
+  }
+
+  .image-enhancer-page {
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .tool-layout {
+    display: block;
+    min-width: 0;
+  }
+
+  .tool-panel {
+    display: none;
+  }
+
+  .tool-workspace {
+    display: grid;
+    width: 100%;
+    gap: 9px;
+  }
+
+  .image-enhancer-card {
+    padding: 9px;
+    border-radius: 14px;
+  }
+
+  .status-card {
+    padding: 9px;
+  }
+
+  .status-line strong {
+    font-size: .8rem;
+  }
+
+  .status-card > p {
+    font-size: .68rem;
+  }
+
+  .comparison-toolbar {
+    display: grid;
+    gap: 7px;
+    margin-bottom: 7px;
+  }
+
+  .comparison-labels {
+    gap: 12px;
+    font-size: .75rem;
+  }
+
+  .comparison-field {
+    width: 100%;
+  }
+
+  .comparison-field > span {
+    font-size: .65rem;
+  }
+
+  .comparison-stage {
+    min-height: 390px;
+    border-radius: 11px;
+  }
+
+  .image-enhancer-description {
+    margin-top: 6px;
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+  }
+
+  .image-enhancer-description .tool-description__lead {
+    font-size: .95rem;
+  }
+
+  .enhancer-mobile-tools {
+    position: fixed;
+    top: max(92px, calc(env(safe-area-inset-top) + 78px));
+    left: 8px;
+    z-index: calc(var(--z-modal) + 8);
+    display: block;
+    perspective: 900px;
+  }
+
+  .enhancer-mobile-tools__toggle {
+    position: relative;
+    z-index: 4;
+    display: grid;
+    width: 54px;
+    height: 54px;
+    place-items: center;
+    padding: 0;
+    color: var(--color-text-dark);
+    background: var(--gradient-primary);
+    border: 1px solid rgba(255,255,255,.16);
+    border-radius: 0 18px 18px 0;
+    box-shadow: 10px 14px 34px rgba(0,0,0,.38);
+    cursor: pointer;
+    font-size: 1.8rem;
+    font-weight: 900;
+    transition:
+      transform 260ms cubic-bezier(.2,.8,.2,1),
+      border-radius 260ms ease;
+  }
+
+  .enhancer-mobile-tools.is-open .enhancer-mobile-tools__toggle {
+    transform: rotateY(-8deg) translateX(2px);
+    border-radius: 0 14px 14px 0;
+  }
+
+  .enhancer-mobile-tools__panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: min(80vw, 320px);
+    padding: 62px 8px 8px;
+    background: rgba(7,24,13,.62);
+    border: 1px solid rgba(102,255,143,.22);
+    border-radius: 0 20px 20px 0;
+    box-shadow: 20px 24px 60px rgba(0,0,0,.46);
+    backdrop-filter: blur(22px) saturate(1.15);
+    -webkit-backdrop-filter: blur(22px) saturate(1.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-22px) rotateY(12deg) scaleX(.94);
+    transform-origin: left center;
+    transition:
+      opacity 220ms ease,
+      visibility 220ms ease,
+      transform 300ms cubic-bezier(.2,.8,.2,1);
+  }
+
+  .enhancer-mobile-tools.is-open .enhancer-mobile-tools__panel {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0) rotateY(0) scaleX(1);
+  }
+
+  .enhancer-mobile-action {
+    display: grid;
+    width: 100%;
+    min-height: 50px;
+    grid-template-columns: 42px minmax(0,1fr);
+    align-items: center;
+    padding: 5px 9px 5px 4px;
+    color: var(--color-text);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .enhancer-mobile-action + .enhancer-mobile-action {
+    margin-top: 4px;
+  }
+
+  .enhancer-mobile-action:hover,
+  .enhancer-mobile-action:focus-visible {
+    background: rgba(102,255,143,.08);
+    border-color: var(--color-border);
+  }
+
+  .enhancer-mobile-action__icon {
+    display: grid;
+    width: 42px;
+    place-items: center;
+    color: var(--color-primary);
+    font-size: 1.05rem;
+    font-weight: 900;
+  }
+
+  .enhancer-mobile-action strong {
+    font-size: .76rem;
+  }
+
+  .enhancer-mobile-overlay {
+    position: fixed;
+    top: max(145px, calc(env(safe-area-inset-top) + 126px));
+    left: 10px;
+    z-index: calc(var(--z-modal) + 12);
+    display: block;
+    width: min(82vw, 350px);
+    height: min(68svh, 620px);
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-24px) rotateY(8deg) scaleX(.96);
+    transform-origin: left center;
+    background: rgba(4,18,9,.32);
+    border: 1px solid rgba(102,255,143,.26);
+    border-radius: 0 22px 22px 0;
+    box-shadow: 24px 26px 70px rgba(0,0,0,.38);
+    backdrop-filter: blur(14px) saturate(1.08);
+    -webkit-backdrop-filter: blur(14px) saturate(1.08);
+    transition:
+      opacity 220ms ease,
+      visibility 220ms ease,
+      transform 320ms cubic-bezier(.2,.8,.2,1);
+  }
+
+  .enhancer-mobile-overlay.is-open {
+    pointer-events: auto;
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0) rotateY(0) scaleX(1);
+  }
+
+  .enhancer-mobile-overlay__close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 3;
+    display: grid;
+    width: 38px;
+    height: 38px;
+    place-items: center;
+    padding: 0;
+    color: var(--color-text);
+    background: rgba(7,25,13,.42);
+    border: 1px solid rgba(102,255,143,.34);
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1.35rem;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .enhancer-mobile-overlay__inner {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 58px 12px 14px;
+  }
+
+  .enhancer-mobile-overlay__inner .image-enhancer-card {
+    display: block;
+    width: 100%;
+    margin: 0;
+    background: rgba(4,18,9,.26);
+    box-shadow: none;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+}
+
+@media (max-width: 390px) {
+  .comparison-stage {
+    min-height: 350px;
+  }
+}
+
+/* ======================================================================
+   HERRAMIENTA: MEJORADOR DE IMAGEN · FIN
+   ====================================================================== */
+  
+
+/* ==========================================================================
+   AJUSTE ESCRITORIO · PANEL LATERAL / SCROLL
+   ========================================================================== */
+
+@media (min-width: 701px) {
+  .tool-panel {
+    height: min(690px, calc(100vh - 150px));
+    max-height: none;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-right: 8px;
+    scrollbar-width: thin;
+    scrollbar-gutter: stable;
+  }
+
+  .tool-panel::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .tool-panel::-webkit-scrollbar-track {
+    background: rgba(255,255,255,.035);
+    border-radius: 999px;
+  }
+
+  .tool-panel::-webkit-scrollbar-thumb {
+    background: rgba(102,255,143,.32);
+    border-radius: 999px;
+  }
+
+  .tool-panel::-webkit-scrollbar-thumb:hover {
+    background: rgba(102,255,143,.48);
+  }
+}
+
+</style>
+
 </head>
 <body class="creative-lab-page">
   <div class="site-shell">
@@ -57,31 +744,15 @@
   </header>
 
   <main id="main-content" class="product-page image-enhancer-page">
-    <section class="product-hero">
-      <div class="product-hero__copy">
-        <span class="product-hero__eyebrow" data-i18n="hero.eyebrow">NUEVO · MEJORA AUTOMÁTICA</span>
-        <h1 data-i18n="hero.title">Mejora la calidad de una imagen y compara el resultado</h1>
-        <p data-i18n="hero.description">
-          Sube una imagen, mejora automáticamente su calidad visual y compárala en tiempo real con un deslizador interactivo. Ajusta nitidez, contraste, saturación, claridad, reducción de ruido y reescalado.
-        </p>
-
-        <ul class="feature-list">
-          <li data-i18n="hero.feature1">Mejora automática directamente en tu navegador</li>
-          <li data-i18n="hero.feature2">Comparador interactivo antes/después</li>
-          <li data-i18n="hero.feature3">Descarga de imagen mejorada o comparativa</li>
-        </ul>
+    <section class="product-header product-header--tool-first" aria-labelledby="product-title">
+      <div class="product-header__content">
+        <h1 id="product-title" data-i18n="hero.title">Mejora la calidad de una imagen y compara el resultado</h1>
       </div>
-
-      <!--
-      <aside class="product-hero__ad image-enhancer-ad" aria-label="Publicidad">
-        <span data-i18n="common.adSpace">Espacio para publicidad</span>
-      </aside>
-      -->
     </section>
 
-    <section class="tool-layout">
+    <section class="tool-layout image-enhancer-tool" aria-labelledby="product-title">
       <aside class="tool-panel">
-        <article class="image-enhancer-card">
+        <article class="image-enhancer-card" id="enhancer-upload-card">
           <h2 data-i18n="upload.title">1. Cargar imagen</h2>
           <div class="image-enhancer-upload" id="upload-zone">
             <input id="image-input" type="file" accept="image/png,image/jpeg,image/webp,image/jpg" hidden>
@@ -92,7 +763,7 @@
           </div>
         </article>
 
-        <article class="image-enhancer-card">
+        <article class="image-enhancer-card" id="enhancer-presets-card">
           <h2 data-i18n="presets.title">2. Mejora rápida</h2>
 
           <div class="button-stack">
@@ -120,7 +791,7 @@
           </label>
         </article>
 
-        <article class="image-enhancer-card">
+        <article class="image-enhancer-card" id="enhancer-controls-card">
           <h2 data-i18n="controls.title">3. Ajustes avanzados</h2>
 
           <div class="range-field">
@@ -172,7 +843,7 @@
           </div>
         </article>
 
-        <article class="image-enhancer-card">
+        <article class="image-enhancer-card" id="enhancer-actions-card">
           <h2 data-i18n="actions.title">4. Exportar</h2>
 
           <div class="button-stack">
@@ -231,6 +902,58 @@
         </article>
       </section>
     </section>
+
+    <nav class="enhancer-mobile-tools" id="enhancer-mobile-tools" aria-label="Herramientas">
+      <button
+        class="enhancer-mobile-tools__toggle"
+        id="enhancer-mobile-tools-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="enhancer-mobile-tools-panel"
+      >
+        <span id="enhancer-mobile-tools-symbol" aria-hidden="true">+</span>
+      </button>
+
+      <div class="enhancer-mobile-tools__panel" id="enhancer-mobile-tools-panel">
+        <button class="enhancer-mobile-action" id="mobile-open-upload" type="button">
+          <span class="enhancer-mobile-action__icon">↑</span>
+          <strong data-i18n="upload.title">1. Cargar imagen</strong>
+        </button>
+
+        <button class="enhancer-mobile-action" id="mobile-open-presets" type="button">
+          <span class="enhancer-mobile-action__icon">✦</span>
+          <strong data-i18n="presets.title">2. Mejora rápida</strong>
+        </button>
+
+        <button class="enhancer-mobile-action" id="mobile-open-controls" type="button">
+          <span class="enhancer-mobile-action__icon">≡</span>
+          <strong data-i18n="controls.title">3. Ajustes avanzados</strong>
+        </button>
+
+        <button class="enhancer-mobile-action" id="mobile-open-actions" type="button">
+          <span class="enhancer-mobile-action__icon">↓</span>
+          <strong data-i18n="actions.title">4. Exportar</strong>
+        </button>
+      </div>
+    </nav>
+
+    <div class="enhancer-mobile-overlay" id="enhancer-mobile-overlay" aria-hidden="true">
+      <button class="enhancer-mobile-overlay__close" id="enhancer-mobile-overlay-close" type="button" aria-label="Cerrar">×</button>
+      <div class="enhancer-mobile-overlay__inner" id="enhancer-mobile-overlay-inner"></div>
+    </div>
+
+    <section class="tool-description image-enhancer-description">
+      <span class="section-heading__eyebrow" data-i18n="hero.eyebrow">NUEVO · MEJORA AUTOMÁTICA</span>
+      <p class="tool-description__lead" data-i18n="hero.description">
+        Sube una imagen, mejora automáticamente su calidad visual y compárala en tiempo real con un deslizador interactivo. Ajusta nitidez, contraste, saturación, claridad, reducción de ruido y reescalado.
+      </p>
+
+      <ul class="feature-list">
+        <li data-i18n="hero.feature1">Mejora automática directamente en tu navegador</li>
+        <li data-i18n="hero.feature2">Comparador interactivo antes/después</li>
+        <li data-i18n="hero.feature3">Descarga de imagen mejorada o comparativa</li>
+      </ul>
+    </section>
   </main>
 
   </div>
@@ -287,7 +1010,22 @@
         sharpenValue: $("sharpen-value"),
         denoiseValue: $("denoise-value"),
         clarityValue: $("clarity-value"),
-        comparisonStage: $("comparison-stage")
+        comparisonStage: $("comparison-stage"),
+        mobileTools: $("enhancer-mobile-tools"),
+        mobileToolsToggle: $("enhancer-mobile-tools-toggle"),
+        mobileToolsSymbol: $("enhancer-mobile-tools-symbol"),
+        mobileOverlay: $("enhancer-mobile-overlay"),
+        mobileOverlayInner: $("enhancer-mobile-overlay-inner"),
+        mobileOverlayClose: $("enhancer-mobile-overlay-close"),
+        mobileOpenUpload: $("mobile-open-upload"),
+        mobileOpenPresets: $("mobile-open-presets"),
+        mobileOpenControls: $("mobile-open-controls"),
+        mobileOpenActions: $("mobile-open-actions"),
+        uploadCard: $("enhancer-upload-card"),
+        presetsCard: $("enhancer-presets-card"),
+        controlsCard: $("enhancer-controls-card"),
+        actionsCard: $("enhancer-actions-card"),
+        toolPanel: document.querySelector(".tool-panel")
       };
 
       const ranges = [
@@ -298,6 +1036,48 @@
         "denoise",
         "clarity"
       ];
+
+      function setMobileToolsOpen(open) {
+        elements.mobileTools.classList.toggle("is-open", open);
+        elements.mobileToolsToggle.setAttribute("aria-expanded", String(open));
+        elements.mobileToolsSymbol.textContent = open ? "−" : "+";
+      }
+
+      function restoreMobileCards() {
+        [
+          elements.uploadCard,
+          elements.presetsCard,
+          elements.controlsCard,
+          elements.actionsCard
+        ].forEach((card) => {
+          if (card.parentElement !== elements.toolPanel) {
+            elements.toolPanel.appendChild(card);
+          }
+        });
+      }
+
+      function closeMobileOverlay() {
+        elements.mobileOverlay.classList.remove("is-open");
+        elements.mobileOverlay.setAttribute("aria-hidden", "true");
+
+        window.setTimeout(() => {
+          restoreMobileCards();
+          elements.mobileOverlayInner.innerHTML = "";
+        }, 220);
+      }
+
+      function openMobileCard(card) {
+        if (window.innerWidth > 700) return;
+
+        setMobileToolsOpen(false);
+        restoreMobileCards();
+        elements.mobileOverlayInner.innerHTML = "";
+        elements.mobileOverlayInner.appendChild(card);
+        elements.mobileOverlay.classList.add("is-open");
+        elements.mobileOverlay.setAttribute("aria-hidden", "false");
+        elements.mobileOverlayInner.scrollTop = 0;
+      }
+
 
       function t(path, fallback = "") {
         return path.split(".").reduce((current, key) => {
@@ -498,33 +1278,245 @@
       function applyStableDenoise(sourceCanvas, amount) {
         if (amount <= 0) return sourceCanvas;
 
-        const scale = Math.max(0.45, 1 - amount / 55);
-        const smallWidth = Math.max(1, Math.round(sourceCanvas.width * scale));
-        const smallHeight = Math.max(1, Math.round(sourceCanvas.height * scale));
-        const reduced = createWorkingCanvas(smallWidth, smallHeight);
-        const reducedContext = reduced.getContext("2d");
+        const result = createWorkingCanvas(
+          sourceCanvas.width,
+          sourceCanvas.height
+        );
+        const context = result.getContext("2d");
 
-        reducedContext.imageSmoothingEnabled = true;
-        reducedContext.imageSmoothingQuality = "high";
-        reducedContext.drawImage(sourceCanvas, 0, 0, smallWidth, smallHeight);
+        const blurRadius = Math.min(2.4, amount / 12);
+        const blend = Math.min(0.42, amount / 70);
 
-        const result = createWorkingCanvas(sourceCanvas.width, sourceCanvas.height);
-        const resultContext = result.getContext("2d");
+        context.drawImage(sourceCanvas, 0, 0);
+        context.save();
+        context.globalAlpha = blend;
+        context.filter = `blur(${blurRadius}px)`;
+        context.drawImage(sourceCanvas, 0, 0);
+        context.restore();
+        context.filter = "none";
 
-        resultContext.imageSmoothingEnabled = true;
-        resultContext.imageSmoothingQuality = "high";
-        resultContext.drawImage(
-          reduced,
+        return result;
+      }
+
+      function analyzeLuminance(sourceCanvas) {
+        const maxSampleSide = 320;
+        const scale = Math.min(
+          1,
+          maxSampleSide / Math.max(sourceCanvas.width, sourceCanvas.height)
+        );
+
+        const sample = createWorkingCanvas(
+          Math.max(1, Math.round(sourceCanvas.width * scale)),
+          Math.max(1, Math.round(sourceCanvas.height * scale))
+        );
+
+        const context = sample.getContext("2d", {
+          willReadFrequently: true
+        });
+
+        context.drawImage(sourceCanvas, 0, 0, sample.width, sample.height);
+
+        const data = context.getImageData(
           0,
           0,
-          smallWidth,
-          smallHeight,
+          sample.width,
+          sample.height
+        ).data;
+
+        const histogram = new Uint32Array(256);
+        let sum = 0;
+        let count = 0;
+
+        for (let i = 0; i < data.length; i += 4) {
+          if (data[i + 3] === 0) continue;
+
+          const luminance = Math.max(
+            0,
+            Math.min(
+              255,
+              Math.round(
+                data[i] * 0.2126 +
+                data[i + 1] * 0.7152 +
+                data[i + 2] * 0.0722
+              )
+            )
+          );
+
+          histogram[luminance] += 1;
+          sum += luminance;
+          count += 1;
+        }
+
+        if (!count) {
+          return { low: 0, high: 255, mean: 128 };
+        }
+
+        const lowTarget = count * 0.01;
+        const highTarget = count * 0.99;
+
+        let cumulative = 0;
+        let low = 0;
+        let high = 255;
+
+        for (let i = 0; i < 256; i += 1) {
+          cumulative += histogram[i];
+          if (cumulative >= lowTarget) {
+            low = i;
+            break;
+          }
+        }
+
+        cumulative = 0;
+
+        for (let i = 0; i < 256; i += 1) {
+          cumulative += histogram[i];
+          if (cumulative >= highTarget) {
+            high = i;
+            break;
+          }
+        }
+
+        return {
+          low,
+          high: Math.max(low + 1, high),
+          mean: sum / count
+        };
+      }
+
+      function applyAutoTone(sourceCanvas, strength = 1) {
+        if (strength <= 0) return sourceCanvas;
+
+        const stats = analyzeLuminance(sourceCanvas);
+
+        if (stats.high - stats.low < 24) {
+          return sourceCanvas;
+        }
+
+        const result = createWorkingCanvas(
+          sourceCanvas.width,
+          sourceCanvas.height
+        );
+
+        const context = result.getContext("2d", {
+          willReadFrequently: true
+        });
+
+        context.drawImage(sourceCanvas, 0, 0);
+
+        const imageData = context.getImageData(
           0,
           0,
           result.width,
           result.height
         );
 
+        const data = imageData.data;
+        const range = Math.max(1, stats.high - stats.low);
+        const targetMean = 132;
+        const gamma = Math.max(
+          0.82,
+          Math.min(
+            1.18,
+            Math.log(targetMean / 255) /
+              Math.log(Math.max(0.08, Math.min(0.92, stats.mean / 255)))
+          )
+        );
+
+        const amount = Math.max(0, Math.min(1, strength));
+
+        for (let i = 0; i < data.length; i += 4) {
+          if (data[i + 3] === 0) continue;
+
+          for (let channel = 0; channel < 3; channel += 1) {
+            const original = data[i + channel];
+            const normalized = Math.max(
+              0,
+              Math.min(1, (original - stats.low) / range)
+            );
+
+            const corrected =
+              Math.pow(normalized, gamma) * 255;
+
+            data[i + channel] = clamp(
+              original * (1 - amount) + corrected * amount
+            );
+          }
+        }
+
+        context.putImageData(imageData, 0, 0);
+        return result;
+      }
+
+      function createBlurredCanvas(sourceCanvas, radius) {
+        const result = createWorkingCanvas(
+          sourceCanvas.width,
+          sourceCanvas.height
+        );
+
+        const context = result.getContext("2d");
+        context.filter = `blur(${Math.max(0.6, radius)}px)`;
+        context.drawImage(sourceCanvas, 0, 0);
+        context.filter = "none";
+
+        return result;
+      }
+
+      function applyUnsharpMask(sourceCanvas, amount, radius = 1.2, threshold = 3) {
+        if (amount <= 0) return sourceCanvas;
+
+        const blurred = createBlurredCanvas(sourceCanvas, radius);
+
+        const sourceContext = sourceCanvas.getContext("2d", {
+          willReadFrequently: true
+        });
+        const blurredContext = blurred.getContext("2d", {
+          willReadFrequently: true
+        });
+
+        const originalData = sourceContext.getImageData(
+          0,
+          0,
+          sourceCanvas.width,
+          sourceCanvas.height
+        );
+        const blurData = blurredContext.getImageData(
+          0,
+          0,
+          blurred.width,
+          blurred.height
+        );
+
+        const output = new ImageData(
+          sourceCanvas.width,
+          sourceCanvas.height
+        );
+
+        const source = originalData.data;
+        const soft = blurData.data;
+        const destination = output.data;
+        const strength = Math.max(0, amount);
+
+        for (let i = 0; i < source.length; i += 4) {
+          for (let channel = 0; channel < 3; channel += 1) {
+            const difference = source[i + channel] - soft[i + channel];
+
+            destination[i + channel] =
+              Math.abs(difference) < threshold
+                ? source[i + channel]
+                : clamp(
+                    source[i + channel] +
+                    difference * strength
+                  );
+          }
+
+          destination[i + 3] = source[i + 3];
+        }
+
+        const result = createWorkingCanvas(
+          sourceCanvas.width,
+          sourceCanvas.height
+        );
+        result.getContext("2d").putImageData(output, 0, 0);
         return result;
       }
 
@@ -548,49 +1540,26 @@
       }
 
       function applyClarityAndSharpen(sourceCanvas, clarity, sharpen, enabled) {
-        if ((!enabled || clarity <= 0) && sharpen <= 0) {
-          return sourceCanvas;
-        }
-
-        const context = sourceCanvas.getContext("2d", {
-          willReadFrequently: true
-        });
-
-        const imageData = context.getImageData(
-          0,
-          0,
-          sourceCanvas.width,
-          sourceCanvas.height
-        );
-
-        let working = imageData;
+        let result = sourceCanvas;
 
         if (enabled && clarity > 0) {
-          const strength = Math.min(1.25, clarity / 40);
-          working = convolveImageData(
-            working,
-            [
-              0, -strength, 0,
-              -strength, 1 + 4 * strength, -strength,
-              0, -strength, 0
-            ]
+          result = applyUnsharpMask(
+            result,
+            Math.min(1.05, clarity / 48),
+            2.2,
+            5
           );
         }
 
         if (sharpen > 0) {
-          const strength = Math.min(1.8, sharpen / 55);
-          working = convolveImageData(
-            working,
-            [
-              0, -strength, 0,
-              -strength, 1 + 4 * strength, -strength,
-              0, -strength, 0
-            ]
+          result = applyUnsharpMask(
+            result,
+            Math.min(1.4, sharpen / 70),
+            1.0,
+            3
           );
         }
 
-        const result = createWorkingCanvas(sourceCanvas.width, sourceCanvas.height);
-        result.getContext("2d").putImageData(working, 0, 0);
         return result;
       }
 
@@ -599,17 +1568,31 @@
           return sourceCanvas;
         }
 
-        const result = createWorkingCanvas(
-          Math.round(sourceCanvas.width * factor),
-          Math.round(sourceCanvas.height * factor)
-        );
+        let current = sourceCanvas;
+        let currentFactor = 1;
 
-        const context = result.getContext("2d");
-        context.imageSmoothingEnabled = true;
-        context.imageSmoothingQuality = "high";
-        context.drawImage(sourceCanvas, 0, 0, result.width, result.height);
+        while (currentFactor < factor - 0.001) {
+          const nextFactor = Math.min(factor, currentFactor * 1.35);
+          const width = Math.max(
+            1,
+            Math.round(sourceCanvas.width * nextFactor)
+          );
+          const height = Math.max(
+            1,
+            Math.round(sourceCanvas.height * nextFactor)
+          );
 
-        return result;
+          const result = createWorkingCanvas(width, height);
+          const context = result.getContext("2d");
+          context.imageSmoothingEnabled = true;
+          context.imageSmoothingQuality = "high";
+          context.drawImage(current, 0, 0, width, height);
+
+          current = result;
+          currentFactor = nextFactor;
+        }
+
+        return current;
       }
 
       function copyCanvas(source, destination) {
@@ -624,12 +1607,12 @@
           (state.originalImage.naturalWidth * state.originalImage.naturalHeight) /
           1000000;
 
-        elements.denoise.value = megapixels < 1 ? "6" : "9";
-        elements.sharpen.value = megapixels < 1 ? "34" : "26";
-        elements.clarity.value = "18";
-        elements.contrast.value = "12";
-        elements.brightness.value = "3";
-        elements.saturation.value = "8";
+        elements.denoise.value = megapixels < 1 ? "5" : "7";
+        elements.sharpen.value = megapixels < 1 ? "46" : "38";
+        elements.clarity.value = megapixels < 1 ? "28" : "24";
+        elements.contrast.value = "10";
+        elements.brightness.value = "2";
+        elements.saturation.value = "7";
         elements.upscale.value = megapixels < 1 ? "2" : "1.5";
         elements.localClarity.checked = true;
         updateRangeLabels();
@@ -668,8 +1651,15 @@
               state.settings.denoise
             );
 
+            const toned = state.settings.localClarity
+              ? applyAutoTone(
+                  denoised,
+                  autoPreset ? 0.72 : Math.min(0.6, state.settings.clarity / 70)
+                )
+              : denoised;
+
             const adjusted = applyColorAdjustments(
-              denoised,
+              toned,
               state.settings
             );
 
@@ -680,10 +1670,20 @@
               state.settings.localClarity
             );
 
-            const output = upscaleCanvas(
+            const upscaled = upscaleCanvas(
               detailed,
               state.settings.upscale
             );
+
+            const output =
+              state.settings.upscale > 1
+                ? applyUnsharpMask(
+                    upscaled,
+                    Math.min(0.55, state.settings.sharpen / 130 + 0.18),
+                    0.9,
+                    4
+                  )
+                : upscaled;
 
             copyCanvas(output, elements.afterCanvas);
             drawImageToCanvas(state.originalImage, elements.beforeCanvas);
@@ -840,6 +1840,35 @@
         }
       }
 
+      elements.mobileToolsToggle.addEventListener("click", () => {
+        setMobileToolsOpen(!elements.mobileTools.classList.contains("is-open"));
+      });
+
+      elements.mobileOpenUpload.addEventListener("click", () => {
+        openMobileCard(elements.uploadCard);
+      });
+
+      elements.mobileOpenPresets.addEventListener("click", () => {
+        openMobileCard(elements.presetsCard);
+      });
+
+      elements.mobileOpenControls.addEventListener("click", () => {
+        openMobileCard(elements.controlsCard);
+      });
+
+      elements.mobileOpenActions.addEventListener("click", () => {
+        openMobileCard(elements.actionsCard);
+      });
+
+      elements.mobileOverlayClose.addEventListener("click", closeMobileOverlay);
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 700) {
+          closeMobileOverlay();
+          setMobileToolsOpen(false);
+        }
+      });
+
       elements.uploadButton.addEventListener(
         "click",
         () => elements.imageInput.click()
@@ -915,7 +1944,7 @@
         if (!state.originalImage) return;
 
         downloadDataURL(
-          "creative-lab-enhanced.png",
+          "alfora-enhanced.png",
           getCanvasImageURL(elements.afterCanvas)
         );
       });
@@ -924,7 +1953,7 @@
         if (!state.originalImage) return;
 
         downloadDataURL(
-          "creative-lab-before-after.png",
+          "alfora-before-after.png",
           buildComparisonExport()
         );
       });
@@ -942,6 +1971,7 @@
       loadTranslations(savedLanguage || browserLanguage);
       resetSettingsValues();
       setControlsEnabled(false);
+      setMobileToolsOpen(false);
       updateComparisonMask();
     })();
   </script>

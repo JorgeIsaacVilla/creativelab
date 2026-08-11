@@ -1,10 +1,10 @@
 {
   "seo": {
-    "title": "Online Image Cropper | Creative Lab",
-    "description": "Crop JPG, PNG, WebP and SVG images for free in your browser with Creative Lab. Choose an aspect ratio, adjust the area and download the result.",
+    "title": "Online Image Cropper | Alfora",
+    "description": "Crop JPG, PNG, WebP and SVG images for free in your browser with Alfora. Choose an aspect ratio, adjust the area and download the result.",
     "ogTitle": "Online Image Cropper",
     "ogDescription": "Crop images directly in your browser with custom aspect ratios.",
-    "twitterTitle": "Image Cropper | Creative Lab",
+    "twitterTitle": "Image Cropper | Alfora",
     "twitterDescription": "Crop JPG, PNG, WebP and SVG images in your browser.",
     "htmlLang": "en"
   },
@@ -51,7 +51,7 @@
   },
   "info": {
     "eyebrow": "Keep only what matters",
-    "title": "How to crop images with Creative Lab",
+    "title": "How to crop images with Alfora",
     "description": "Select an image, adjust the visible area and download the crop in your preferred format.",
     "stepOneTitle": "1. Upload",
     "stepOneText": "Select a JPG, PNG, WebP or SVG image.",

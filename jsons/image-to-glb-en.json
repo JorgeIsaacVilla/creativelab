@@ -1,10 +1,10 @@
 {
   "seo": {
-    "title": "Online Image to GLB Converter | Creative Lab",
-    "description": "Convert PNG, JPG, WebP, GIF and SVG images into GLB files directly in your browser with Creative Lab.",
+    "title": "Online Image to GLB Converter | Alfora",
+    "description": "Convert PNG, JPG, WebP, GIF and SVG images into GLB files directly in your browser with Alfora.",
     "ogTitle": "Image to GLB Converter",
     "ogDescription": "Convert an image into a GLB file directly in your browser.",
-    "twitterTitle": "Image to GLB Converter | Creative Lab",
+    "twitterTitle": "Image to GLB Converter | Alfora",
     "twitterDescription": "Convert PNG, JPG, WebP, GIF and SVG into GLB in your browser.",
     "htmlLang": "en"
   },
@@ -48,7 +48,7 @@
   },
   "info": {
     "eyebrow": "From image to 3D resource",
-    "title": "How to create a GLB file with Creative Lab",
+    "title": "How to create a GLB file with Alfora",
     "description": "The tool prepares the image, creates a textured 3D plane and exports everything as a GLB file.",
     "stepOneTitle": "1. Upload",
     "stepOneText": "Select a compatible image from your device.",
