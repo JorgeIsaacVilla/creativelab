@@ -1,16 +1,16 @@
 {
   "seo": {
-    "title": "Alfora | Herramientas Creativas Online Gratis para Diseño",
-    "description": "Suite de herramientas web gratuitas para diseñadores y desarrolladores frontend. Convierte imágenes a WebP, extrae paletas de colores, genera gradientes CSS y componentes de UI Kit de forma 100% local y segura.",
-    "ogTitle": "Alfora | Herramientas Creativas Online y Locales",
-    "ogDescription": "Optimiza tus imágenes, genera paletas cromáticas y exporta recursos vectoriales CSS/SVG de forma rápida, gratuita y local directamente en tu navegador.",
-    "twitterTitle": "Alfora | Herramientas Creativas Online Gratis",
-    "twitterDescription": "Herramientas web libres para procesamiento de imágenes, teoría del color, gradientes y utilidades UI/UX sin instalaciones.",
+    "title": "Alfora.art | Herramientas creativas online gratis",
+    "description": "Herramientas creativas online gratis para imágenes, color, UI y diseño web. Convierte, comprime, crea paletas y recursos visuales desde tu navegador.",
+    "ogTitle": "Alfora.art | Herramientas creativas online gratis",
+    "ogDescription": "Herramientas gratuitas para imágenes, color, UI y diseño web. Crea, transforma y exporta recursos visuales directamente desde tu navegador.",
+    "twitterTitle": "Alfora.art | Herramientas creativas online gratis",
+    "twitterDescription": "Herramientas gratuitas para imágenes, color, UI y diseño web. Crea y transforma recursos visuales directamente desde tu navegador.",
     "htmlLang": "es"
   },
   "home": {
     "eyebrow": "Herramientas para imaginar, crear y transformar",
-    "title": "Tu laboratorio creativo en línea",
+    "title": "Herramientas creativas online gratis para diseño",
     "description": "Convierte imágenes, explora colores, diseña gradientes y crea recursos visuales directamente desde tu navegador de forma local y segura.",
     "exploreTools": "Explorar herramientas",
     "learnMore": "Conocer la plataforma",
