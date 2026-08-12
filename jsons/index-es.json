@@ -74,6 +74,10 @@
       "title": "Generador UI Kit",
       "description": "Diseña botones, estilos, tipografías y componentes de interfaz y expórtalos como SVG."
     },
+    "carouselGenerator": {
+      "title": "Generador de carruseles",
+      "description": "Crea carruseles de hasta 24 imágenes con layouts automáticos, paleta de marca y edición visual."
+    },
     "qrGenerator": {
       "title": "Generador de códigos QR",
       "description": "Crea códigos QR para enlaces, texto, correo, teléfono y redes Wi-Fi."

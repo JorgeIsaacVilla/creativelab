@@ -74,6 +74,10 @@
       "title": "UI Kit Generator",
       "description": "Design buttons, styles, typography and interface components and export them as SVG."
     },
+    "carouselGenerator": {
+      "title": "Carousel Generator",
+      "description": "Create carousels of up to 24 images with automatic layouts, brand palettes and visual editing."
+    },
     "qrGenerator": {
       "title": "QR code generator",
       "description": "Create QR codes for links, text, email, phone numbers and Wi-Fi networks."
