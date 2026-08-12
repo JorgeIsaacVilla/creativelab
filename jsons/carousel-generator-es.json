@@ -1,7 +1,12 @@
 {
   "seo": {
     "title": "Generador de carruseles | Alfora",
-    "description": "Crea carruseles visuales de hasta 24 imágenes con composiciones automáticas, paletas derivadas de tu logo y formatos para redes sociales."
+    "description": "Crea carruseles visuales de hasta 24 imágenes con composiciones automáticas, paletas derivadas de tu logo y formatos para redes sociales.",
+    "ogTitle": "Generador de carruseles gratis para redes sociales",
+    "ogDescription": "Crea carruseles para Instagram, LinkedIn, TikTok y otras redes. Diseña hasta 24 piezas con imágenes, logo, colores y composiciones automáticas.",
+    "twitterTitle": "Generador de carruseles gratis | Alfora",
+    "twitterDescription": "Crea carruseles visuales para Instagram, LinkedIn, TikTok y más con hasta 24 piezas y formatos optimizados para redes sociales.",
+    "htmlLang": "es"
   },
   "tool": {
     "pageTitle": "Generador de carruseles",
@@ -103,7 +108,19 @@
     "promptCopiedMessage": "Se copió un prompt automático para solicitar a una IA la generación de contenido en formato Alfora.",
     "promptCopiedHelp": "Ve a tu IA favorita, pega el prompt en el chat y completa los datos de tu empresa o proyecto antes de enviarlo.",
     "promptPopupOk": "Entendido",
-    "closePromptPopup": "Cerrar mensaje"
+    "closePromptPopup": "Cerrar mensaje",
+    "slideProposal": "Nueva propuesta",
+    "changeBackground": "Cambiar imagen de fondo",
+    "applyAutoGradient": "Aplicar gradiente automático",
+    "removeGradient": "Quitar gradiente",
+    "removeImageBackground": "Quitar fondo",
+    "gradientPickerTitle": "Gradientes automáticos",
+    "gradientBrandDiagonal": "Marca diagonal",
+    "gradientBottom": "Oscuro inferior",
+    "gradientTop": "Oscuro superior",
+    "gradientLeft": "Lateral izquierdo",
+    "gradientRight": "Lateral derecho",
+    "gradientAccent": "Acento de marca"
   },
   "formats": {
     "instagramPortrait": "Instagram vertical · 1080×1350",
@@ -151,7 +168,16 @@
     "formatCopied": "Formato copiado.",
     "formatPasted": "Formato aplicado.",
     "promptCopied": "Prompt automático copiado.",
-    "selectTranslationLanguage": "Selecciona un idioma para traducir."
+    "selectTranslationLanguage": "Selecciona un idioma para traducir.",
+    "slideProposalGenerated": "Nueva propuesta generada para esta diapositiva.",
+    "backgroundChanged": "Imagen de fondo actualizada.",
+    "gradientApplied": "Gradiente aplicado.",
+    "gradientRemoved": "Gradiente eliminado.",
+    "backgroundRemovalProcessing": "Quitando fondo de la imagen...",
+    "backgroundRemovalComplete": "Fondo eliminado. Se creó una copia transparente.",
+    "backgroundRemovalError": "No fue posible quitar el fondo de esta imagen.",
+    "noImagesLoaded": "Carga imágenes primero.",
+    "assetLimitReached": "No se puede crear otra copia porque alcanzaste el límite de imágenes cargadas."
   },
   "info": {
     "heading": "Crea un carrusel completo en pocos pasos",

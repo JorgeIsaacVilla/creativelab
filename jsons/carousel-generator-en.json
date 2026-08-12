@@ -1,7 +1,12 @@
 {
   "seo": {
     "title": "Carousel Generator | Alfora",
-    "description": "Create visual carousels with up to 24 images using automatic compositions, logo-based color palettes, and social media formats."
+    "description": "Create visual carousels with up to 24 images using automatic compositions, logo-based color palettes, and social media formats.",
+    "ogTitle": "Free Carousel Generator for Social Media",
+    "ogDescription": "Create carousels for Instagram, LinkedIn, TikTok and other platforms. Design up to 24 slides with images, logos, colors and automatic compositions.",
+    "twitterTitle": "Free Carousel Generator | Alfora",
+    "twitterDescription": "Create visual carousels for Instagram, LinkedIn, TikTok and more with up to 24 slides and optimized social media formats.",
+    "htmlLang": "en"
   },
   "tool": {
     "pageTitle": "Carousel Generator",
@@ -103,7 +108,19 @@
     "promptCopiedMessage": "An automatic prompt was copied so you can ask an AI to generate content in Alfora format.",
     "promptCopiedHelp": "Go to your favorite AI, paste the prompt into the chat, and complete your business or project details before sending it.",
     "promptPopupOk": "Got it",
-    "closePromptPopup": "Close message"
+    "closePromptPopup": "Close message",
+    "slideProposal": "New proposal",
+    "changeBackground": "Change background image",
+    "applyAutoGradient": "Apply automatic gradient",
+    "removeGradient": "Remove gradient",
+    "removeImageBackground": "Remove background",
+    "gradientPickerTitle": "Automatic gradients",
+    "gradientBrandDiagonal": "Brand diagonal",
+    "gradientBottom": "Dark bottom",
+    "gradientTop": "Dark top",
+    "gradientLeft": "Left fade",
+    "gradientRight": "Right fade",
+    "gradientAccent": "Brand accent"
   },
   "formats": {
     "instagramPortrait": "Instagram portrait · 1080×1350",
@@ -151,7 +168,16 @@
     "formatCopied": "Format copied.",
     "formatPasted": "Format applied.",
     "promptCopied": "Automatic prompt copied.",
-    "selectTranslationLanguage": "Select a language to translate."
+    "selectTranslationLanguage": "Select a language to translate.",
+    "slideProposalGenerated": "A new proposal was generated for this slide.",
+    "backgroundChanged": "Background image updated.",
+    "gradientApplied": "Gradient applied.",
+    "gradientRemoved": "Gradient removed.",
+    "backgroundRemovalProcessing": "Removing the image background...",
+    "backgroundRemovalComplete": "Background removed. A transparent copy was created.",
+    "backgroundRemovalError": "The background could not be removed from this image.",
+    "noImagesLoaded": "Upload images first.",
+    "assetLimitReached": "A new copy cannot be created because the uploaded image limit has been reached."
   },
   "info": {
     "heading": "Create a complete carousel in a few steps",

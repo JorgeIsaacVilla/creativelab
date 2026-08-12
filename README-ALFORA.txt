@@ -1467,3 +1467,817 @@ JSON ES + JSON EN > TEXTO HARDCODEADO.
 Estamos iniciando ahora la FASE 1.1.
 
 Espera a que te entregue la primera aplicación o instrucción antes de modificar archivos.
+
+# GUÍA DE VOZ DE MARCA — ALFORA
+
+ALFORA
+Guía interna de comunicación y marketing
+
+---
+
+1. POSICIONAMIENTO CENTRAL
+
+---
+
+Alfora es una plataforma de herramientas creativas online diseñada para convertir tareas visuales y técnicas complejas en procesos simples, rápidos y accesibles.
+
+Alfora está dirigida principalmente a:
+
+* Diseñadores gráficos.
+* Desarrolladores front-end.
+* Emprendedores.
+* Creadores de contenido.
+* Freelancers.
+* Profesionales que necesitan resultados visuales rápidos.
+* Personas que no saben utilizar programas complejos de diseño.
+* Personas que no tienen presupuesto para contratar a un diseñador.
+* Profesionales que sí saben realizar una tarea manualmente, pero no quieren perder tiempo haciéndola.
+
+La idea central de Alfora es:
+
+Hacer cosas complejas de forma extremadamente simple.
+
+Alfora no intenta reemplazar el talento ni el conocimiento del usuario.
+
+Alfora elimina la fricción entre una idea y su ejecución.
+
+---
+
+2. LAS DOS PROMESAS PRINCIPALES DE ALFORA
+
+---
+
+Toda la comunicación de Alfora debe reforzar constantemente dos conceptos.
+
+PROMESA 1 — VELOCIDAD
+
+Complex creative work. Done in under a minute.
+
+Alfora debe ser asociada con la capacidad de resolver tareas creativas complejas en menos de un minuto.
+
+No basta con decir que Alfora es rápida.
+
+Siempre que sea posible debemos demostrarlo.
+
+Ejemplos:
+
+8 slides. Under a minute.
+
+24 images. One carousel. Under a minute.
+
+Built in 42 seconds.
+
+Stop spending 30 minutes on a 30-second task.
+
+From content to carousel in under a minute.
+
+PROMESA 2 — ACCESO
+
+Free. Unlimited. No subscription.
+
+Alfora es:
+
+* Completamente gratuita.
+* De uso ilimitado.
+* Sin suscripción.
+
+Esta característica debe comunicarse recurrentemente porque elimina tres grandes objeciones:
+
+¿Cuánto cuesta?
+
+¿Tiene límites?
+
+¿Después me van a pedir una suscripción?
+
+La respuesta debe quedar clara:
+
+Free.
+Unlimited.
+No subscription.
+
+---
+
+3. ASOCIACIÓN QUE QUEREMOS CREAR
+
+---
+
+El objetivo de marketing es que cuando una persona escuche “Alfora” piense automáticamente:
+
+“Es la plataforma donde puedo hacer cosas complejas muy rápido y además es completamente gratis.”
+
+Queremos construir dos asociaciones mentales:
+
+ALFORA = MENOS DE UN MINUTO
+
+ALFORA = GRATIS, ILIMITADO Y SIN SUSCRIPCIÓN
+
+Estas ideas deben repetirse constantemente.
+
+La repetición es intencional.
+
+No importa que una campaña tenga humor, una demostración, una historia, un tutorial o una comparación.
+
+Al final, el usuario debe quedarse con estas dos ideas.
+
+---
+
+4. PERSONALIDAD DE LA MARCA
+
+---
+
+Alfora habla de manera:
+
+DIRECTA
+
+No necesitamos diez párrafos antes de mostrar una solución.
+
+Mostramos el problema.
+
+Mostramos la herramienta.
+
+Mostramos el resultado.
+
+CLARA
+
+Aunque Alfora tenga herramientas técnicamente complejas, la comunicación debe ser sencilla.
+
+No utilizamos lenguaje técnico innecesario cuando una frase simple puede explicar el beneficio.
+
+TECNOLÓGICA
+
+Alfora debe sentirse moderna, digital y orientada a herramientas.
+
+Pero nunca fría, complicada o inaccesible.
+
+SEGURA
+
+No utilizamos exageraciones como:
+
+“Revolutionary.”
+
+“World-changing.”
+
+“The most powerful tool ever created.”
+
+Preferimos demostrar el resultado.
+
+PRÁCTICA
+
+Alfora habla de resultados.
+
+No decimos únicamente:
+
+“Our Carousel Generator includes multiple customization options.”
+
+Preferimos:
+
+“Create up to 24 slides in one workflow.”
+
+RÁPIDA
+
+El propio contenido debe transmitir rapidez.
+
+Frases cortas.
+
+Demostraciones.
+
+Resultados.
+
+Cronómetros.
+
+Before / After.
+
+---
+
+5. PRINCIPIO FUNDAMENTAL DE COMUNICACIÓN
+
+---
+
+SHOW, DON’T JUST TELL.
+
+No queremos decir:
+
+“Alfora saves you time.”
+
+Queremos mostrar:
+
+00:00 — Inicio.
+
+00:37 — Resultado terminado.
+
+Entonces:
+
+Built in 37 seconds.
+
+Alfora.
+
+La demostración es más poderosa que la afirmación.
+
+---
+
+6. ESTRUCTURA RECOMENDADA PARA CAMPAÑAS
+
+---
+
+Siempre que sea posible utilizaremos esta estructura:
+
+1. PROBLEMA
+
+Mostrar una tarea complicada, lenta o repetitiva.
+
+2. FRICCIÓN
+
+Mostrar por qué normalmente toma demasiado tiempo.
+
+3. ALFORA
+
+Introducir la herramienta como solución.
+
+4. RESULTADO
+
+Mostrar claramente qué consiguió el usuario.
+
+5. TIEMPO
+
+Mostrar cuánto tardó.
+
+6. FIRMA DE MARCA
+
+Complex creative work. Done in under a minute.
+
+Free. Unlimited. No subscription.
+
+Alfora.art
+
+---
+
+7. FIRMA OFICIAL DE CONTENIDO
+
+---
+
+Siempre que el formato lo permita, los videos, Reels, Shorts, TikToks y piezas audiovisuales deben terminar con una pantalla final de Alfora.
+
+Versión completa:
+
+ALFORA
+
+Complex creative work.
+Done in under a minute.
+
+Free. Unlimited. No subscription.
+
+alfora.art
+
+Versión corta:
+
+ALFORA
+
+Under a minute.
+
+Free. Unlimited. No subscription.
+
+Otra opción:
+
+Complex creative work.
+Done in under a minute.
+
+Free · Unlimited · No subscription
+
+ALFORA
+
+No es obligatorio utilizar exactamente la misma combinación en todas las publicaciones.
+
+Podemos alternar.
+
+Pero una o ambas promesas deben estar presentes.
+
+---
+
+8. REGLA PARA TODAS LAS PUBLICACIONES
+
+---
+
+Toda publicación de Alfora debe reforzar como mínimo una de estas ideas:
+
+A. Tareas creativas complejas en menos de un minuto.
+
+B. Completamente gratis, uso ilimitado y sin suscripción.
+
+Siempre que el formato lo permita, deben aparecer las dos.
+
+Ejemplo:
+
+8 slides.
+Under a minute.
+
+Free.
+Unlimited.
+No subscription.
+
+Alfora.
+
+Otro ejemplo:
+
+Stop designing carousel posts slide by slide.
+
+Create up to 24 slides in one workflow.
+
+Free. Unlimited. No subscription.
+
+Alfora.
+
+Otro:
+
+Built in 42 seconds.
+
+Completely free.
+
+No limits.
+
+No subscription.
+
+Alfora.
+
+---
+
+9. ALFORA NO SE PRESENTA COMO UNA PLATAFORMA DE IA
+
+---
+
+Actualmente Alfora no debe ser presentada ni insinuada como una plataforma que utiliza inteligencia artificial.
+
+No utilizar frases como:
+
+“Alfora AI.”
+
+“AI-powered Alfora.”
+
+“Our AI generates your design.”
+
+“Create with Alfora AI.”
+
+Aunque algunas herramientas puedan aceptar contenido previamente generado con una IA externa, Alfora debe ser descrita como:
+
+* Plataforma de herramientas creativas.
+* Herramientas de automatización visual.
+* Herramientas online.
+* Generadores.
+* Utilidades para diseño y desarrollo.
+
+Nunca debemos provocar que el usuario crea que Alfora incorpora IA cuando actualmente no es así.
+
+---
+
+10. CÓMO HABLAR DE LAS HERRAMIENTAS
+
+---
+
+No enfocarse inicialmente en todas las características.
+
+Enfocarse en la transformación.
+
+NO:
+
+“Our Carousel Generator has images, logos, decorations, multiple layouts and customization options.”
+
+SÍ:
+
+“Turn your content into a complete carousel in under a minute.”
+
+NO:
+
+“Our UI Kit Generator lets you customize many interface properties.”
+
+SÍ:
+
+“Build a complete UI system in under a minute.”
+
+NO:
+
+“Our Element Separator contains advanced image processing controls.”
+
+SÍ:
+
+“Separate the elements you need and keep creating.”
+
+---
+
+11. EL RESULTADO ES EL PROTAGONISTA
+
+---
+
+Las herramientas de Alfora deben aparecer como el mecanismo que produce un resultado.
+
+El protagonista de una campaña no necesariamente es Alfora.
+
+Puede ser:
+
+El carrusel terminado.
+
+El UI Kit terminado.
+
+El QR generado.
+
+Los elementos separados.
+
+El Reel terminado.
+
+El diseño terminado.
+
+Después revelamos:
+
+Made with Alfora.
+
+Esto hace que el producto se venda a través del resultado.
+
+---
+
+12. HUMOR
+
+---
+
+Alfora puede utilizar humor.
+
+Especialmente alrededor de:
+
+* Procesos manuales absurdamente largos.
+* Demasiadas pestañas abiertas.
+* Tutoriales excesivamente largos.
+* Diseñar elemento por elemento.
+* Repetir una tarea innecesariamente.
+* Tener una entrega urgente.
+* Decir “esto será rápido” y tardar una hora.
+* Desarrolladores haciendo manualmente algo repetitivo.
+* Emprendedores intentando crear contenido contra el reloj.
+
+El humor nunca debe hacer que Alfora parezca infantil.
+
+El producto debe conservar una percepción:
+
+Tecnológica.
+Útil.
+Profesional.
+Moderna.
+
+---
+
+13. EJEMPLOS DE HOOKS
+
+---
+
+Still designing carousels slide by slide?
+
+This shouldn't take 30 minutes.
+
+There has to be a faster way.
+
+8 slides. Under a minute.
+
+24 slides. One workflow.
+
+Stop doing this manually.
+
+You could build it manually. But why?
+
+This took 42 seconds.
+
+Your content is ready. Why isn't your design?
+
+How long does this normally take you?
+
+Need this done today?
+
+---
+
+14. EJEMPLOS DE CIERRES
+
+---
+
+Complex creative work.
+Done in under a minute.
+
+Free. Unlimited. No subscription.
+
+Alfora.
+
+Built faster with Alfora.
+
+Free. Unlimited. No subscription.
+
+Under a minute.
+
+Completely free.
+
+Alfora.art
+
+Create faster.
+
+Build faster.
+
+Keep creating.
+
+Alfora.
+
+No subscription.
+No limits.
+Just create.
+
+Alfora.
+
+---
+
+15. EL CONCEPTO “MENOS DE UN MINUTO”
+
+---
+
+“Under a minute” puede convertirse en un elemento recurrente de las campañas.
+
+Podemos mostrar un cronómetro real.
+
+Ejemplo:
+
+00:00
+
+Empieza la tarea.
+
+00:08
+
+Contenido cargado.
+
+00:19
+
+Configuración.
+
+00:31
+
+Generación.
+
+00:43
+
+Resultado.
+
+Pantalla final:
+
+43 seconds.
+
+Made with Alfora.
+
+Free. Unlimited. No subscription.
+
+Esto permite convertir diferentes herramientas en una misma serie:
+
+“What can Alfora do in under a minute?”
+
+Carousel Generator.
+
+UI Kit Generator.
+
+QR Generator.
+
+Social Designer.
+
+Element Separator.
+
+Glass Generator.
+
+Gradient Generator.
+
+Etc.
+
+---
+
+16. GRATIS NO DEBE SER SINÓNIMO DE BAJA CALIDAD
+
+---
+
+Alfora no debe presentarse principalmente como:
+
+“Una alternativa gratuita.”
+
+Primero presentamos el valor.
+
+Después revelamos que también es gratis.
+
+Orden correcto:
+
+Resultado profesional.
+
+↓
+
+Menos de un minuto.
+
+↓
+
+Además:
+
+Free.
+Unlimited.
+No subscription.
+
+Queremos que el usuario piense:
+
+“Esto es increíblemente útil… ¿y además es gratis?”
+
+No:
+
+“Es gratis, así que probablemente sea limitado.”
+
+---
+
+17. PÚBLICOS PRINCIPALES
+
+---
+
+DISEÑADORES
+
+Mensaje principal:
+
+Sabes hacerlo manualmente.
+
+Alfora te ayuda a hacerlo mucho más rápido.
+
+DESARROLLADORES FRONT-END
+
+Mensaje principal:
+
+No pierdas tiempo construyendo manualmente recursos visuales o componentes repetitivos.
+
+EMPRENDEDORES
+
+Mensaje principal:
+
+Obtén resultados profesionales sin aprender software complicado ni pagar constantemente por herramientas o servicios.
+
+CREADORES DE CONTENIDO
+
+Mensaje principal:
+
+Produce más contenido dedicando menos tiempo al trabajo repetitivo.
+
+FREELANCERS Y AGENCIAS
+
+Mensaje principal:
+
+Reduce el tiempo de producción de tareas repetitivas y aumenta la capacidad de entrega.
+
+---
+
+18. DIFERENCIAS POR CANAL
+
+---
+
+LINKEDIN
+
+Enfocarse en:
+
+* Productividad.
+* Desarrollo de producto.
+* Developers.
+* Diseñadores.
+* Founders.
+* Freelancers.
+* Casos reales.
+* Tiempo ahorrado.
+* Build in public.
+* Resultados.
+
+Ejemplo:
+
+“I built a tool to create carousels faster.
+
+So I used it to create the carousel explaining the tool.
+
+It took less than a minute.”
+
+YOUTUBE
+
+Enfocarse en intención de búsqueda:
+
+“How to…”
+
+“Generator…”
+
+“Create…”
+
+“Build…”
+
+“Fast…”
+
+Mostrar herramientas resolviendo búsquedas concretas.
+
+Ejemplo:
+
+“How to create a carousel in under a minute.”
+
+“How to generate a UI Kit fast.”
+
+“Glassmorphism CSS Generator.”
+
+TIKTOK
+
+Enfocarse en:
+
+* Impacto visual.
+* Transformación.
+* Before/After.
+* Emprendedores.
+* Creadores.
+* Problemas cotidianos.
+* Humor.
+* Velocidad.
+
+Ejemplo:
+
+“POV: You said the carousel would only take 10 minutes.”
+
+Corte.
+
+Alfora.
+
+Resultado.
+
+“Under a minute.”
+
+---
+
+19. FRASES QUE DEFINEN ALFORA
+
+---
+
+Complex creative work.
+Done in under a minute.
+
+Free.
+Unlimited.
+No subscription.
+
+Design faster.
+Build faster.
+Keep creating.
+
+Stop doing manually what a tool can do in seconds.
+
+Turn complexity into a simple workflow.
+
+Your content.
+Your brand.
+Your result.
+
+Create more.
+Wait less.
+
+---
+
+20. OBJETIVO FINAL DE LA VOZ DE MARCA
+
+---
+
+Alfora debe convertirse en la marca que el usuario recuerda cuando piensa:
+
+“Necesito hacer esto rápido.”
+
+“Esto parece complicado.”
+
+“No quiero abrir un programa enorme para hacer esto.”
+
+“No quiero pagar una suscripción por hacer esto una vez.”
+
+“No quiero perder media hora.”
+
+“Seguro existe una herramienta para esto.”
+
+Queremos que la siguiente respuesta mental sea:
+
+ALFORA.
+
+---
+
+## RESUMEN INTERNO
+
+ALFORA DEBE SER RECORDADA POR DOS COSAS:
+
+1. COMPLEX CREATIVE WORK. DONE IN UNDER A MINUTE.
+
+2. FREE. UNLIMITED. NO SUBSCRIPTION.
+
+Podemos cambiar campañas.
+
+Podemos cambiar herramientas.
+
+Podemos hacer humor.
+
+Podemos hacer tutoriales.
+
+Podemos contar historias.
+
+Podemos mostrar procesos.
+
+Podemos experimentar con formatos.
+
+Pero estas dos ideas deben permanecer constantes.
+
+VELOCIDAD.
+
+ACCESO.
+
+ALFORA.

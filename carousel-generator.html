@@ -6,7 +6,6 @@
 
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7025188829601947"
      crossorigin="anonymous"></script>
-
 <!-- =========================================================
      IDENTIDAD DE MARCA · FAVICON
      Navegadores + buscadores
@@ -449,6 +448,26 @@
         .cg-slide-card.is-current {
             border-color: rgba(88, 242, 142, .5);
             box-shadow: inset 0 0 0 1px rgba(88, 242, 142, .08);
+        }
+
+        .cg-slide-proposal {
+            width: 100%;
+            min-height: 38px !important;
+            margin-top: 10px;
+            border: 1px solid rgba(88, 242, 142, .28);
+            border-radius: 9px;
+            color: var(--cg-primary);
+            background: rgba(88, 242, 142, .055);
+            cursor: pointer;
+            font-size: .76rem;
+            font-weight: 800;
+        }
+
+        .cg-slide-proposal:hover,
+        .cg-slide-proposal:focus-visible {
+            border-color: rgba(88, 242, 142, .58);
+            background: rgba(88, 242, 142, .11);
+            outline: none;
         }
 
         .cg-slide-card__top {
@@ -1297,6 +1316,42 @@
             display: block;
         }
 
+        .cg-gradient-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .cg-gradient-card {
+            min-height: 104px;
+            display: grid;
+            gap: 7px;
+            padding: 7px;
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 11px;
+            background: rgba(255,255,255,.03);
+            color: var(--cg-text);
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .cg-gradient-card:hover,
+        .cg-gradient-card:focus-visible {
+            border-color: rgba(88,242,142,.48);
+            outline: none;
+        }
+
+        .cg-gradient-preview {
+            display: block;
+            width: 100%;
+            height: 68px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,.12);
+        }
+
+        .cg-gradient-card strong {
+            font-size: .72rem;
+            line-height: 1.2;
+        }
+
         @media (max-width: 860px) {
             .cg-context-menu,
             .cg-asset-picker {
@@ -1958,6 +2013,27 @@ c2.imagen: "2"</code></pre>
         <span data-runtime-key="messages.downloadError" data-i18n="messages.downloadError">No se pudo preparar la descarga.</span>
         <span data-runtime-key="messages.paletteFromLogo" data-i18n="messages.paletteFromLogo">Paleta extraída del logo.</span>
         <span data-runtime-key="messages.paletteAutomatic" data-i18n="messages.paletteAutomatic">Paleta automática de Alfora.</span>
+        <span data-runtime-key="tool.slideProposal" data-i18n="tool.slideProposal">Nueva propuesta</span>
+        <span data-runtime-key="tool.changeBackground" data-i18n="tool.changeBackground">Cambiar imagen de fondo</span>
+        <span data-runtime-key="tool.applyAutoGradient" data-i18n="tool.applyAutoGradient">Aplicar gradiente automático</span>
+        <span data-runtime-key="tool.removeGradient" data-i18n="tool.removeGradient">Quitar gradiente</span>
+        <span data-runtime-key="tool.removeImageBackground" data-i18n="tool.removeImageBackground">Quitar fondo</span>
+        <span data-runtime-key="tool.gradientPickerTitle" data-i18n="tool.gradientPickerTitle">Gradientes automáticos</span>
+        <span data-runtime-key="tool.gradientBrandDiagonal" data-i18n="tool.gradientBrandDiagonal">Marca diagonal</span>
+        <span data-runtime-key="tool.gradientBottom" data-i18n="tool.gradientBottom">Oscuro inferior</span>
+        <span data-runtime-key="tool.gradientTop" data-i18n="tool.gradientTop">Oscuro superior</span>
+        <span data-runtime-key="tool.gradientLeft" data-i18n="tool.gradientLeft">Lateral izquierdo</span>
+        <span data-runtime-key="tool.gradientRight" data-i18n="tool.gradientRight">Lateral derecho</span>
+        <span data-runtime-key="tool.gradientAccent" data-i18n="tool.gradientAccent">Acento de marca</span>
+        <span data-runtime-key="messages.slideProposalGenerated" data-i18n="messages.slideProposalGenerated">Nueva propuesta generada para esta diapositiva.</span>
+        <span data-runtime-key="messages.backgroundChanged" data-i18n="messages.backgroundChanged">Imagen de fondo actualizada.</span>
+        <span data-runtime-key="messages.gradientApplied" data-i18n="messages.gradientApplied">Gradiente aplicado.</span>
+        <span data-runtime-key="messages.gradientRemoved" data-i18n="messages.gradientRemoved">Gradiente eliminado.</span>
+        <span data-runtime-key="messages.backgroundRemovalProcessing" data-i18n="messages.backgroundRemovalProcessing">Quitando fondo de la imagen...</span>
+        <span data-runtime-key="messages.backgroundRemovalComplete" data-i18n="messages.backgroundRemovalComplete">Fondo eliminado. Se creó una copia transparente.</span>
+        <span data-runtime-key="messages.backgroundRemovalError" data-i18n="messages.backgroundRemovalError">No fue posible quitar el fondo de esta imagen.</span>
+        <span data-runtime-key="messages.noImagesLoaded" data-i18n="messages.noImagesLoaded">Carga imágenes primero.</span>
+        <span data-runtime-key="messages.assetLimitReached" data-i18n="messages.assetLimitReached">No se puede crear otra copia porque alcanzaste el límite de imágenes cargadas.</span>
     </div>
 
     <script>
@@ -1968,6 +2044,9 @@ c2.imagen: "2"</code></pre>
         const MAX_PALETTE = 8;
         const MAX_BACKGROUNDS = 24;
         const MAX_DECORATIONS = 24;
+        const BACKGROUND_REMOVAL_LIBRARY_URL = 'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.7.0/+esm';
+        const BACKGROUND_REMOVAL_MODEL_PATH = 'https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/';
+        let backgroundRemovalFunction = null;
 
         const app = document.getElementById('carouselApp');
         const canvas = document.getElementById('carouselCanvas');
@@ -2154,6 +2233,7 @@ c2.imagen: "2"</code></pre>
                 extraDecorations: [],
                 backgroundLayers: [],
                 extraTexts: [],
+                backgroundGradient: null,
                 decorationsInitialized: false,
                 logoHidden: false,
                 titleHidden: false,
@@ -2522,6 +2602,14 @@ c2.imagen: "2"</code></pre>
                 card.append(createImageField(index, slide.imageIndex));
                 card.append(createTextField(index, 'copy', tr('tool.copyLabel', 'Copy'), slide.copy, tr('tool.copyPlaceholder', 'Escribe el copy...'), true));
 
+                const proposalButton = document.createElement('button');
+                proposalButton.type = 'button';
+                proposalButton.className = 'cg-slide-proposal';
+                proposalButton.dataset.action = 'proposal';
+                proposalButton.dataset.index = String(index);
+                proposalButton.textContent = tr('tool.slideProposal', 'Nueva propuesta');
+                card.append(proposalButton);
+
                 card.addEventListener('pointerdown', (event) => {
                     if (event.target.closest('[data-action="remove"]')) return;
                     state.currentIndex = index;
@@ -2733,6 +2821,7 @@ c2.imagen: "2"</code></pre>
                         extraDecorations: [],
                         backgroundLayers: [],
                         extraTexts: [],
+                        backgroundGradient: null,
                         decorationsInitialized: false,
                         logoHidden: false,
                         titleHidden: false,
@@ -3057,6 +3146,10 @@ c2.imagen: "2"</code></pre>
             const backgroundAsset = backgroundIndex !== null ? state.backgrounds[backgroundIndex] : null;
             const hasTransparentBg = Boolean(backgroundAsset?.analysis?.hasTransparency);
             const busyLevel = backgroundAsset?.analysis?.busyLevel ?? 0;
+            const explicitImage = slide.imageIndex !== 'auto'
+                && Number.isInteger(Number(slide.imageIndex))
+                && Number(slide.imageIndex) >= 0
+                && Number(slide.imageIndex) < state.backgrounds.length;
             const bgWithImages = {
                 1: hasTransparentBg ? ['transparent-feature', 'gradient-image', 'full-overlay'] : ['split', 'full-overlay', 'full-overlay', 'gradient-image'],
                 2: hasTransparentBg ? ['transparent-feature', 'gradient-image', 'solid'] : ['full-overlay', 'full-overlay', 'gradient-image', 'solid'],
@@ -3067,7 +3160,14 @@ c2.imagen: "2"</code></pre>
             };
 
             const noImages = ['solid', 'gradient'];
-            const backgroundMode = state.backgrounds.length ? pick(bgWithImages[format], rand) : pick(noImages, rand);
+            const explicitImageModes = hasTransparentBg
+                ? ['transparent-feature', 'gradient-image', 'full-overlay']
+                : ['full-overlay', 'gradient-image', 'full-overlay'];
+            // Si el código/manual define una imagen concreta, esa imagen es obligatoria:
+            // nunca se sustituye por un fondo sólido o por un gradiente sin imagen.
+            const backgroundMode = state.backgrounds.length
+                ? pick(explicitImage ? explicitImageModes : bgWithImages[format], rand)
+                : pick(noImages, rand);
             const weights = palette.map((_, paletteIndex) => state.paletteWeights[paletteIndex] ?? Math.max(.15, 1 - paletteIndex * .12));
             const dominantIndex = weightedPickIndex(weights, rand);
             const secondIndex = weightedPickIndex(weights.map((w, i) => i === dominantIndex ? w * .28 : w), rand);
@@ -3174,6 +3274,43 @@ c2.imagen: "2"</code></pre>
             gradient.addColorStop(1, colorB);
             context.fillStyle = gradient;
             context.fillRect(x, y, width, height);
+        }
+
+        function getGradientPresets(slide) {
+            const colors = slide?.design?.colors?.length ? slide.design.colors : currentPalette();
+            const c1 = colors[0] || '#07110C';
+            const c2 = colors[1] || '#19A866';
+            const c3 = colors[2] || '#63F3A0';
+            return [
+                { id:'brand-diagonal', label:tr('tool.gradientBrandDiagonal','Marca diagonal'), direction:'diagonal', stops:[[c1,.78,0],[c2,.26,1]] },
+                { id:'bottom', label:tr('tool.gradientBottom','Oscuro inferior'), direction:'vertical', stops:[[c1,0,0],[c1,.84,1]] },
+                { id:'top', label:tr('tool.gradientTop','Oscuro superior'), direction:'vertical', stops:[[c1,.84,0],[c1,0,1]] },
+                { id:'left', label:tr('tool.gradientLeft','Lateral izquierdo'), direction:'horizontal', stops:[[c1,.82,0],[c1,0,1]] },
+                { id:'right', label:tr('tool.gradientRight','Lateral derecho'), direction:'horizontal', stops:[[c1,0,0],[c1,.82,1]] },
+                { id:'accent', label:tr('tool.gradientAccent','Acento de marca'), direction:'diagonal', stops:[[c3,.66,0],[c2,.14,.55],[c1,.58,1]] }
+            ];
+        }
+
+        function gradientCssPreview(preset) {
+            const stops = preset.stops.map(([color,alpha,pos]) => `${rgba(color,alpha)} ${Math.round(pos*100)}%`).join(', ');
+            const angle = preset.direction === 'vertical' ? '180deg' : preset.direction === 'horizontal' ? '90deg' : '135deg';
+            return `linear-gradient(${angle}, ${stops})`;
+        }
+
+        function drawManualGradient(context, W, H, slide) {
+            const presetId = slide?.backgroundGradient?.presetId;
+            if (!presetId) return;
+            const preset = getGradientPresets(slide).find((item) => item.id === presetId);
+            if (!preset) return;
+            let gradient;
+            if (preset.direction === 'vertical') gradient = context.createLinearGradient(0,0,0,H);
+            else if (preset.direction === 'horizontal') gradient = context.createLinearGradient(0,0,W,0);
+            else gradient = context.createLinearGradient(0,0,W,H);
+            preset.stops.forEach(([color,alpha,pos]) => gradient.addColorStop(pos, rgba(color,alpha)));
+            context.save();
+            context.fillStyle = gradient;
+            context.fillRect(0,0,W,H);
+            context.restore();
         }
 
         function drawBackground(context, W, H, design, format, slide) {
@@ -3837,6 +3974,7 @@ c2.imagen: "2"</code></pre>
             context.clearRect(0, 0, W, H);
             slide.adjustments = normalizeAdjustments(slide.adjustments);
             drawBackground(context, W, H, design, design.format, slide);
+            drawManualGradient(context, W, H, slide);
             drawBackgroundLayers(context, W, H, slide);
 
             const geo = getGeometry(design.format, design.alignment, W, H, Boolean(state.logo && !slide.logoHidden), slide);
@@ -4246,6 +4384,7 @@ c2.imagen: "2"</code></pre>
         function closeAssetPicker() {
             assetPickerPopup.classList.remove('is-open');
             assetPickerPopup.setAttribute('aria-hidden','true');
+            assetPickerGrid.classList.remove('cg-gradient-grid');
             assetPickerGrid.innerHTML='';
         }
 
@@ -4491,9 +4630,146 @@ c2.imagen: "2"</code></pre>
             if(state.clipboard)menu.append(contextButton(tr('tool.pasteElement','Pegar'),pasteClipboard));
         }
 
+        function regenerateSlideProposal(index) {
+            const slide = state.slides[index];
+            if (!slide) return;
+            slide.seed = Math.floor(Math.random() * 2 ** 31);
+            // Solo regeneramos la propuesta visual base. El contenido, la imagen elegida,
+            // las correcciones manuales y las capas creadas por el usuario permanecen.
+            slide.extraDecorations = (slide.extraDecorations || []).filter((layer) => !String(layer.id || '').startsWith('dec-'));
+            slide.decorationsInitialized = false;
+            slide.design = buildDesign(slide, index);
+            state.currentIndex = index;
+            state.selection = null;
+            renderSlideCards();
+            renderDots();
+            syncEditControls();
+            queueRender();
+            showToast(tr('messages.slideProposalGenerated','Nueva propuesta generada para esta diapositiva.'));
+        }
+
+        function setBaseBackgroundImage(index) {
+            const slide = getCurrentSlide();
+            if (!slide || !state.backgrounds[index]) return;
+            slide.imageIndex = String(index);
+            slide.baseImageHidden = false;
+            slide.design = buildDesign(slide, state.currentIndex);
+            renderSlideCards();
+            queueRender();
+            showToast(tr('messages.backgroundChanged','Imagen de fondo actualizada.'));
+        }
+
+        function openBaseBackgroundPicker(event) {
+            closeContextMenu(); closeAssetPicker();
+            assetPickerTitle.textContent = tr('tool.changeBackground','Cambiar imagen de fondo');
+            if (!state.backgrounds.length) {
+                const empty=document.createElement('div');empty.className='cg-popup-note';
+                empty.textContent=tr('messages.noImagesLoaded','Carga imágenes primero.');
+                assetPickerGrid.append(empty);
+            }
+            state.backgrounds.forEach((asset,index)=>{
+                const button=document.createElement('button');button.type='button';button.className='cg-asset-card';
+                const img=document.createElement('img');img.src=asset.url||asset.dataUrl;img.alt=asset.name||'';button.append(img);
+                button.addEventListener('click',()=>{setBaseBackgroundImage(index);closeAssetPicker();});
+                assetPickerGrid.append(button);
+            });
+            placeFloatingMenu(assetPickerPopup,event);
+        }
+
+        function openGradientPicker(event) {
+            closeContextMenu(); closeAssetPicker();
+            const slide=getCurrentSlide(); if(!slide)return;
+            assetPickerTitle.textContent=tr('tool.gradientPickerTitle','Gradientes automáticos');
+            assetPickerGrid.classList.add('cg-gradient-grid');
+            getGradientPresets(slide).forEach((preset)=>{
+                const button=document.createElement('button');button.type='button';button.className='cg-gradient-card';
+                const preview=document.createElement('span');preview.className='cg-gradient-preview';preview.style.background=gradientCssPreview(preset);
+                const label=document.createElement('strong');label.textContent=preset.label;
+                button.append(preview,label);
+                button.addEventListener('click',()=>{
+                    slide.backgroundGradient={presetId:preset.id};
+                    closeAssetPicker();queueRender();showToast(tr('messages.gradientApplied','Gradiente aplicado.'));
+                });
+                assetPickerGrid.append(button);
+            });
+            placeFloatingMenu(assetPickerPopup,event);
+        }
+
+        function removeManualGradient() {
+            const slide=getCurrentSlide(); if(!slide)return;
+            slide.backgroundGradient=null;queueRender();showToast(tr('messages.gradientRemoved','Gradiente eliminado.'));
+        }
+
+        async function ensureBackgroundRemovalLibrary() {
+            if (backgroundRemovalFunction) return backgroundRemovalFunction;
+            const module = await import(BACKGROUND_REMOVAL_LIBRARY_URL);
+            backgroundRemovalFunction = module.removeBackground || module.default;
+            if (typeof backgroundRemovalFunction !== 'function') throw new Error('BACKGROUND_REMOVAL_LIBRARY');
+            return backgroundRemovalFunction;
+        }
+
+        async function assetToFileForBackgroundRemoval(asset) {
+            if (asset?.file instanceof File) return asset.file;
+            const source = asset?.dataUrl || asset?.url;
+            if (!source) throw new Error('NO_ASSET_SOURCE');
+            const response = await fetch(source);
+            const blob = await response.blob();
+            return new File([blob], asset?.name || 'image.png', { type: blob.type || 'image/png' });
+        }
+
+        async function createProcessedAsset(blob, sourceAsset) {
+            const baseName = String(sourceAsset?.name || 'image').replace(/\.[^.]+$/, '');
+            const file = new File([blob], `${baseName}-sin-fondo.png`, { type:'image/png' });
+            return loadImageFile(file);
+        }
+
+        async function removeSelectedImageBackground(selection) {
+            const slide=getCurrentSlide(); if(!slide||!selection)return;
+            let sourceAsset=null, targetCollection=null, applyIndex=null;
+            if(selection.kind==='baseImage') {
+                const index=Number(slide.design?.backgroundIndex);
+                if(!Number.isInteger(index)||!state.backgrounds[index])return;
+                sourceAsset=state.backgrounds[index];targetCollection=state.backgrounds;
+                applyIndex=(newIndex)=>{slide.imageIndex=String(newIndex);slide.baseImageHidden=false;slide.design=buildDesign(slide,state.currentIndex);state.selection={kind:'baseImage'};};
+            } else if(selection.kind==='backgroundLayer') {
+                const layer=selectedLayer(slide,selection);if(!layer||!state.backgrounds[layer.assetIndex])return;
+                sourceAsset=state.backgrounds[layer.assetIndex];targetCollection=state.backgrounds;
+                applyIndex=(newIndex)=>{layer.assetIndex=newIndex;};
+            } else if(selection.kind==='decoration') {
+                const layer=selectedLayer(slide,selection);if(!layer||!state.decorations[layer.assetIndex])return;
+                sourceAsset=state.decorations[layer.assetIndex];targetCollection=state.decorations;
+                applyIndex=(newIndex)=>{layer.assetIndex=newIndex;};
+            } else return;
+
+            const limit = targetCollection===state.backgrounds ? MAX_BACKGROUNDS : MAX_DECORATIONS;
+            if(targetCollection.length>=limit){showToast(tr('messages.assetLimitReached','No se puede crear otra copia porque alcanzaste el límite de imágenes cargadas.'));return;}
+            showToast(tr('messages.backgroundRemovalProcessing','Quitando fondo de la imagen...'));
+            try {
+                const removeBackground=await ensureBackgroundRemovalLibrary();
+                const file=await assetToFileForBackgroundRemoval(sourceAsset);
+                const blob=await removeBackground(file,{publicPath:BACKGROUND_REMOVAL_MODEL_PATH,debug:false,output:{format:'image/png',quality:1}});
+                const processed=await createProcessedAsset(blob,sourceAsset);
+                const newIndex=targetCollection.length;
+                targetCollection.push(processed);
+                applyIndex(newIndex);
+                updateCounts();renderSlideCards();queueRender();
+                showToast(tr('messages.backgroundRemovalComplete','Fondo eliminado. Se creó una copia transparente.'));
+            } catch(error) {
+                console.error(error);
+                showToast(tr('messages.backgroundRemovalError','No fue posible quitar el fondo de esta imagen.'));
+            }
+        }
+
         function openContextMenuAt(event,selection) {
             closeContextMenu(); closeAssetPicker(); const slide=getCurrentSlide();if(!slide)return; const menu=elementContextMenu;
-            const addCommonCanvasActions=()=>{menu.append(contextButton(tr('tool.addDecoration','Agregar elemento decorativo'),()=>openAssetPicker('decoration',event)));menu.append(contextButton(tr('tool.addBackgroundElement','Agregar imagen de fondo'),()=>openAssetPicker('background',event)));};
+            const addCommonCanvasActions=()=>{
+                menu.append(contextButton(tr('tool.changeBackground','Cambiar imagen de fondo'),()=>openBaseBackgroundPicker(event)));
+                menu.append(contextButton(tr('tool.applyAutoGradient','Aplicar gradiente automático'),()=>openGradientPicker(event)));
+                if(slide.backgroundGradient) menu.append(contextButton(tr('tool.removeGradient','Quitar gradiente'),removeManualGradient));
+                menu.append(contextSeparator());
+                menu.append(contextButton(tr('tool.addDecoration','Agregar elemento decorativo'),()=>openAssetPicker('decoration',event)));
+                menu.append(contextButton(tr('tool.addBackgroundElement','Agregar imagen de fondo'),()=>openAssetPicker('background',event)));
+            };
             if(!selection||selection.kind==='canvas'){
                 addCommonCanvasActions();appendClipboardActions(menu,{kind:'canvas'});
             } else if(selection.kind==='title'||selection.kind==='copy'||selection.kind==='extraText'){
@@ -4504,9 +4780,18 @@ c2.imagen: "2"</code></pre>
                 appendContrastControls(menu,selection);appendClipboardActions(menu,selection);
                 menu.append(contextSeparator(),contextButton(tr('tool.deleteSelected','Eliminar elemento seleccionado'),()=>deleteSelection(selection),true));
             } else if(selection.kind==='baseImage'){
-                addCommonCanvasActions();appendClipboardActions(menu,selection);menu.append(contextSeparator(),contextButton(tr('tool.removeBackground','Eliminar imagen de fondo'),()=>deleteSelection(selection),true));
+                menu.append(contextButton(tr('tool.changeBackground','Cambiar imagen de fondo'),()=>openBaseBackgroundPicker(event)));
+                menu.append(contextButton(tr('tool.applyAutoGradient','Aplicar gradiente automático'),()=>openGradientPicker(event)));
+                if(slide.backgroundGradient)menu.append(contextButton(tr('tool.removeGradient','Quitar gradiente'),removeManualGradient));
+                menu.append(contextButton(tr('tool.removeImageBackground','Quitar fondo'),()=>removeSelectedImageBackground(selection)));
+                menu.append(contextSeparator());
+                addCommonCanvasActions();appendClipboardActions(menu,selection);
+                menu.append(contextSeparator(),contextButton(tr('tool.removeBackground','Eliminar imagen de fondo'),()=>deleteSelection(selection),true));
             } else if(selection.kind==='backgroundLayer'||selection.kind==='decoration'){
-                addCommonCanvasActions();appendClipboardActions(menu,selection);menu.append(contextSeparator(),contextButton(selection.kind==='backgroundLayer'?tr('tool.removeBackground','Eliminar imagen de fondo'):tr('tool.deleteSelected','Eliminar elemento seleccionado'),()=>deleteSelection(selection),true));
+                menu.append(contextButton(tr('tool.removeImageBackground','Quitar fondo'),()=>removeSelectedImageBackground(selection)));
+                menu.append(contextSeparator());
+                addCommonCanvasActions();appendClipboardActions(menu,selection);
+                menu.append(contextSeparator(),contextButton(selection.kind==='backgroundLayer'?tr('tool.removeBackground','Eliminar imagen de fondo'):tr('tool.deleteSelected','Eliminar elemento seleccionado'),()=>deleteSelection(selection),true));
             }
             placeFloatingMenu(menu,event);
         }
@@ -4859,6 +5144,7 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
                         extraDecorations: slide.extraDecorations || [],
                         backgroundLayers: slide.backgroundLayers || [],
                         extraTexts: slide.extraTexts || [],
+                        backgroundGradient: slide.backgroundGradient || null,
                         decorationsInitialized: Boolean(slide.decorationsInitialized),
                         logoHidden: Boolean(slide.logoHidden),
                         titleHidden: Boolean(slide.titleHidden),
@@ -4929,6 +5215,7 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
                     extraDecorations: Array.isArray(item?.extraDecorations) ? item.extraDecorations : [],
                     backgroundLayers: Array.isArray(item?.backgroundLayers) ? item.backgroundLayers : [],
                     extraTexts: Array.isArray(item?.extraTexts) ? item.extraTexts : [],
+                    backgroundGradient: item?.backgroundGradient && typeof item.backgroundGradient === 'object' ? item.backgroundGradient : null,
                     decorationsInitialized: Boolean(item?.decorationsInitialized),
                     logoHidden: Boolean(item?.logoHidden),
                     titleHidden: Boolean(item?.titleHidden),
@@ -5013,6 +5300,12 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
         });
 
         slideList.addEventListener('click', (event) => {
+            const proposal = event.target.closest('[data-action="proposal"]');
+            if (proposal) {
+                event.stopPropagation();
+                regenerateSlideProposal(Number(proposal.dataset.index));
+                return;
+            }
             const remove = event.target.closest('[data-action="remove"]');
             if (!remove) return;
             event.stopPropagation();
