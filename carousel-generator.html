@@ -2034,6 +2034,28 @@ c2.imagen: "2"</code></pre>
         <span data-runtime-key="messages.backgroundRemovalError" data-i18n="messages.backgroundRemovalError">No fue posible quitar el fondo de esta imagen.</span>
         <span data-runtime-key="messages.noImagesLoaded" data-i18n="messages.noImagesLoaded">Carga imágenes primero.</span>
         <span data-runtime-key="messages.assetLimitReached" data-i18n="messages.assetLimitReached">No se puede crear otra copia porque alcanzaste el límite de imágenes cargadas.</span>
+        <span data-runtime-key="messages.elementCopied" data-i18n="messages.elementCopied">Elemento copiado.</span>
+        <span data-runtime-key="messages.elementCut" data-i18n="messages.elementCut">Elemento cortado.</span>
+        <span data-runtime-key="messages.elementPasted" data-i18n="messages.elementPasted">Elemento pegado.</span>
+        <span data-runtime-key="messages.fontLoaded" data-i18n="messages.fontLoaded">Tipografía cargada.</span>
+        <span data-runtime-key="messages.formatCopied" data-i18n="messages.formatCopied">Formato copiado.</span>
+        <span data-runtime-key="messages.formatPasted" data-i18n="messages.formatPasted">Formato aplicado.</span>
+        <span data-runtime-key="messages.promptCopied" data-i18n="messages.promptCopied">Prompt automático copiado.</span>
+        <span data-runtime-key="messages.selectTranslationLanguage" data-i18n="messages.selectTranslationLanguage">Selecciona un idioma para traducir.</span>
+        <span data-runtime-key="messages.translationComplete" data-i18n="messages.translationComplete">Contenido traducido.</span>
+        <span data-runtime-key="messages.translationError" data-i18n="messages.translationError">No fue posible traducir el contenido.</span>
+        <span data-runtime-key="tool.addBackgroundElement" data-i18n="tool.addBackgroundElement">Agregar imagen de fondo</span>
+        <span data-runtime-key="tool.addContrastPanel" data-i18n="tool.addContrastPanel">Aplicar panel de contraste</span>
+        <span data-runtime-key="tool.addDecoration" data-i18n="tool.addDecoration">Agregar elemento decorativo</span>
+        <span data-runtime-key="tool.deleteSelected" data-i18n="tool.deleteSelected">Eliminar elemento seleccionado</span>
+        <span data-runtime-key="tool.fontFamily" data-i18n="tool.fontFamily">Familia tipográfica</span>
+        <span data-runtime-key="tool.fullContrastPanel" data-i18n="tool.fullContrastPanel">Panel de contraste de extremo a extremo</span>
+        <span data-runtime-key="tool.generateNewProposal" data-i18n="tool.generateNewProposal">Generar nueva propuesta</span>
+        <span data-runtime-key="tool.panelColor" data-i18n="tool.panelColor">Color del panel</span>
+        <span data-runtime-key="tool.panelOpacity" data-i18n="tool.panelOpacity">Opacidad del panel</span>
+        <span data-runtime-key="tool.removeBackground" data-i18n="tool.removeBackground">Eliminar imagen de fondo</span>
+        <span data-runtime-key="tool.removeContrastPanel" data-i18n="tool.removeContrastPanel">Quitar panel de contraste</span>
+        <span data-runtime-key="tool.textColor" data-i18n="tool.textColor">Color del texto</span>
     </div>
 
     <script>
@@ -2142,8 +2164,9 @@ c2.imagen: "2"</code></pre>
         ];
 
         function tr(key, fallback = '') {
-            const node = document.querySelector(`[data-runtime-key="${key}"]`);
-            return (node?.textContent || fallback || key).trim();
+            const runtimeNode = document.querySelector(`[data-runtime-key="${key}"]`);
+            const translatedNode = document.querySelector(`[data-i18n="${key}"]`);
+            return (runtimeNode?.textContent || translatedNode?.textContent || fallback || key).trim();
         }
 
         function syncTranslatedAttributes() {
@@ -5028,7 +5051,53 @@ c2.imagen: "2"</code></pre>
             }
         }
 
+        function getActiveUiLanguage() {
+            const htmlLanguage = String(document.documentElement.lang || '').toLowerCase();
+            const storedLanguage = String(localStorage.getItem('creativeLabLanguage') || '').toLowerCase();
+            if (htmlLanguage.startsWith('en') || (!htmlLanguage && storedLanguage.startsWith('en'))) return 'en';
+            return 'es';
+        }
+
         function buildAutomaticAiPrompt() {
+            if (getActiveUiLanguage() === 'en') {
+                return `www.alfora.art/carrusel-generator
+
+Generate 24 content pieces for a social media carousel for my business or project using exactly Alfora's ALFORA-CAROUSEL/1 format.
+
+Before writing the carousel, use the following information and complete it with the details I will provide:
+- Company or project name: [COMPLETE]
+- Main product, service, or offer: [COMPLETE]
+- Target audience: [COMPLETE]
+- Carousel objective: [COMPLETE]
+- Communication tone: [COMPLETE]
+- Differentiators, benefits, or important information: [COMPLETE]
+
+Return only Alfora-compatible code, with no explanations before or after it. It must contain exactly 24 pieces numbered from c1 to c24 and use this structure:
+
+ALFORA-CAROUSEL/1
+
+c1.title: "Short, clear and engaging title"
+c1.copy: "Useful complementary copy that is easy to read on social media."
+c1.imagen: "auto"
+
+c2.title: "..."
+c2.copy: "..."
+c2.imagen: "auto"
+
+Continue the same pattern through c24.
+
+Rules:
+- Do not use JSON, lists, or Markdown outside the specified format.
+- Each title must communicate one main idea and work visually in a carousel.
+- Each copy must complement its title without repeating it literally.
+- Vary the purpose of the slides between education, benefit, problem, solution, proof, differentiator, call to action, and closing.
+- Do not invent specific company information that has not been provided.
+- Use cN.imagen: "auto" for all 24 pieces unless I specify otherwise.
+- Avoid excessively long text because the content will be placed inside social media designs.
+
+Now generate the carousel using the information about my company or project.`;
+            }
+
             return `www.alfora.art/carrusel-generator
 
 Genera 24 contenidos para un carrusel de redes sociales de mi negocio o proyecto utilizando exactamente el formato ALFORA-CAROUSEL/1 de Alfora.
@@ -5470,6 +5539,8 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
 
         document.addEventListener('creativeLab:languageChanged', () => {
             requestAnimationFrame(() => {
+                closeContextMenu();
+                closeAssetPicker();
                 syncTranslatedAttributes();
                 renderPaletteEditor();
                 queueRender();
