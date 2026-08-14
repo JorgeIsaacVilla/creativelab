@@ -450,21 +450,38 @@
             box-shadow: inset 0 0 0 1px rgba(88, 242, 142, .08);
         }
 
-        .cg-slide-proposal {
+        .cg-slide-actions-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 7px;
+            margin-top: 10px;
+        }
+
+        .cg-slide-proposal,
+        .cg-slide-update {
             width: 100%;
             min-height: 38px !important;
-            margin-top: 10px;
             border: 1px solid rgba(88, 242, 142, .28);
             border-radius: 9px;
-            color: var(--cg-primary);
-            background: rgba(88, 242, 142, .055);
             cursor: pointer;
-            font-size: .76rem;
+            font-size: .72rem;
             font-weight: 800;
         }
 
+        .cg-slide-proposal {
+            color: var(--cg-primary);
+            background: rgba(88, 242, 142, .055);
+        }
+
+        .cg-slide-update {
+            color: var(--cg-text);
+            background: rgba(255,255,255,.045);
+        }
+
         .cg-slide-proposal:hover,
-        .cg-slide-proposal:focus-visible {
+        .cg-slide-proposal:focus-visible,
+        .cg-slide-update:hover,
+        .cg-slide-update:focus-visible {
             border-color: rgba(88, 242, 142, .58);
             background: rgba(88, 242, 142, .11);
             outline: none;
@@ -476,6 +493,40 @@
             justify-content: space-between;
             gap: 10px;
             margin-bottom: 10px;
+        }
+
+        .cg-slide-card__actions {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            flex: 0 0 auto;
+        }
+
+        .cg-duplicate-slide {
+            width: 34px;
+            height: 34px;
+            min-height: 34px !important;
+            display: grid;
+            place-items: center;
+            padding: 0;
+            border: 1px solid rgba(88, 242, 142, .28);
+            border-radius: 50%;
+            background: rgba(88, 242, 142, .07);
+            color: var(--cg-primary);
+            cursor: pointer;
+        }
+
+        .cg-duplicate-slide:hover,
+        .cg-duplicate-slide:focus-visible {
+            border-color: rgba(88, 242, 142, .62);
+            background: rgba(88, 242, 142, .14);
+            outline: none;
+        }
+
+        .cg-duplicate-slide svg {
+            width: 16px;
+            height: 16px;
+            pointer-events: none;
         }
 
         .cg-slide-card__number {
@@ -1388,6 +1439,106 @@
             opacity: 1;
         }
 
+        .cg-inline-text-editor {
+            position: fixed;
+            z-index: 220;
+            margin: 0;
+            padding: 8px 10px;
+            resize: none;
+            overflow: auto;
+            border: 2px solid rgba(88,242,142,.92);
+            border-radius: 8px;
+            outline: none;
+            background: rgba(3,8,6,.88);
+            color: #ffffff;
+            box-shadow: 0 16px 50px rgba(0,0,0,.5);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .cg-translation-loading {
+            position: fixed;
+            z-index: 9998;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            background: rgba(0,0,0,.94);
+            color: #ffffff;
+            cursor: wait;
+        }
+
+        .cg-translation-loading[hidden],
+        .cg-translation-result[hidden] {
+            display: none !important;
+        }
+
+        .cg-translation-loading__box {
+            display: grid;
+            justify-items: center;
+            gap: 14px;
+            text-align: center;
+        }
+
+        .cg-translation-spinner {
+            width: 64px;
+            height: 64px;
+            border: 5px solid rgba(255,255,255,.16);
+            border-top-color: var(--color-primary, #58f28e);
+            border-radius: 50%;
+            animation: cgTranslationSpin .8s linear infinite;
+        }
+
+        @keyframes cgTranslationSpin {
+            to { transform: rotate(360deg); }
+        }
+
+        .cg-translation-loading strong {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+        }
+
+        .cg-translation-loading span:not(.cg-translation-spinner) {
+            color: rgba(255,255,255,.68);
+            font-size: .84rem;
+        }
+
+        .cg-translation-result {
+            position: fixed;
+            z-index: 9997;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            padding: 20px;
+            background: rgba(0,0,0,.70);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .cg-translation-result__card {
+            width: min(580px, calc(100vw - 32px));
+            padding: 24px;
+            border: 1px solid rgba(88,242,142,.30);
+            border-radius: 20px;
+            background: rgba(7,15,12,.98);
+            color: var(--cg-text);
+            box-shadow: 0 28px 90px rgba(0,0,0,.58);
+        }
+
+        .cg-translation-result__card h3 {
+            margin: 0 0 10px;
+            font-size: 1.25rem;
+        }
+
+        .cg-translation-result__card p {
+            margin: 0 0 18px;
+            color: var(--cg-soft);
+            line-height: 1.55;
+        }
+
+        body.cg-is-busy {
+            overflow: hidden !important;
+        }
+
         .cg-mobile-toggle,
         .cg-mobile-menu {
             display: none;
@@ -1949,6 +2100,22 @@ c2.imagen: "2"</code></pre>
 
     <footer id="site-footer"></footer>
 
+    <div id="translationBlockingOverlay" class="cg-translation-loading" hidden aria-live="polite" aria-busy="true">
+        <div class="cg-translation-loading__box">
+            <span class="cg-translation-spinner" aria-hidden="true"></span>
+            <strong data-i18n="tool.translatingContent">Traduciendo contenido...</strong>
+            <span id="translationProgress">0 / 0</span>
+        </div>
+    </div>
+
+    <div id="translationDonePopup" class="cg-translation-result" hidden role="dialog" aria-modal="true" aria-labelledby="translationDoneTitle">
+        <div class="cg-translation-result__card">
+            <h3 id="translationDoneTitle" data-i18n="tool.translationDoneTitle">Traducción completada</h3>
+            <p data-i18n="tool.translationDoneMessage">Todo el contenido del carrusel fue traducido correctamente.</p>
+            <button id="translationDoneButton" class="cg-button cg-button--primary" type="button" data-i18n="tool.continueButton">Continuar</button>
+        </div>
+    </div>
+
     <div id="cgRuntimeI18n" aria-hidden="true">
         <span data-runtime-key="tool.slideLabel" data-i18n="tool.slideLabel">Imagen</span>
         <span data-runtime-key="tool.titleLabel" data-i18n="tool.titleLabel">Título</span>
@@ -2034,6 +2201,12 @@ c2.imagen: "2"</code></pre>
         <span data-runtime-key="messages.backgroundRemovalError" data-i18n="messages.backgroundRemovalError">No fue posible quitar el fondo de esta imagen.</span>
         <span data-runtime-key="messages.noImagesLoaded" data-i18n="messages.noImagesLoaded">Carga imágenes primero.</span>
         <span data-runtime-key="messages.assetLimitReached" data-i18n="messages.assetLimitReached">No se puede crear otra copia porque alcanzaste el límite de imágenes cargadas.</span>
+        <span data-runtime-key="tool.duplicateSlide" data-i18n="tool.duplicateSlide">Duplicar diapositiva</span>
+        <span data-runtime-key="tool.applyUpdate" data-i18n="tool.applyUpdate">Aplicar actualización</span>
+        <span data-runtime-key="tool.localContrastPanel" data-i18n="tool.localContrastPanel">Ajustar panel al elemento</span>
+        <span data-runtime-key="messages.slideDuplicated" data-i18n="messages.slideDuplicated">Diapositiva duplicada.</span>
+        <span data-runtime-key="messages.slideUpdated" data-i18n="messages.slideUpdated">Actualización aplicada.</span>
+        <span data-runtime-key="messages.textLimitReached" data-i18n="messages.textLimitReached">Esta diapositiva alcanzó el límite de bloques de texto.</span>
         <span data-runtime-key="messages.elementCopied" data-i18n="messages.elementCopied">Elemento copiado.</span>
         <span data-runtime-key="messages.elementCut" data-i18n="messages.elementCut">Elemento cortado.</span>
         <span data-runtime-key="messages.elementPasted" data-i18n="messages.elementPasted">Elemento pegado.</span>
@@ -2066,6 +2239,7 @@ c2.imagen: "2"</code></pre>
         const MAX_PALETTE = 8;
         const MAX_BACKGROUNDS = 24;
         const MAX_DECORATIONS = 24;
+        const MAX_EXTRA_TEXTS = 23;
         const BACKGROUND_REMOVAL_LIBRARY_URL = 'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.7.0/+esm';
         const BACKGROUND_REMOVAL_MODEL_PATH = 'https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/';
         let backgroundRemovalFunction = null;
@@ -2121,6 +2295,10 @@ c2.imagen: "2"</code></pre>
         const promptCopiedPopup = document.getElementById('promptCopiedPopup');
         const closePromptPopupButton = document.getElementById('closePromptPopup');
         const promptPopupOkButton = document.getElementById('promptPopupOk');
+        const translationBlockingOverlay = document.getElementById('translationBlockingOverlay');
+        const translationProgress = document.getElementById('translationProgress');
+        const translationDonePopup = document.getElementById('translationDonePopup');
+        const translationDoneButton = document.getElementById('translationDoneButton');
 
         const editElementSelect = document.getElementById('editElementSelect');
         const adjustXRange = document.getElementById('adjustXRange');
@@ -2185,8 +2363,8 @@ c2.imagen: "2"</code></pre>
 
         function defaultAdjustments() {
             return {
-                title: { x: 0, y: 0, scale: 100, widthScale: 100, heightScale: 100 },
-                copy: { x: 0, y: 0, scale: 100, widthScale: 100, heightScale: 100 },
+                title: { x: 0, y: 0, scale: 100, widthScale: 100, heightScale: 100, boxManual: false },
+                copy: { x: 0, y: 0, scale: 100, widthScale: 100, heightScale: 100, boxManual: false },
                 image: { x: 0, y: 0, scale: 100 },
                 logo: { x: 0, y: 0, scale: 100 }
             };
@@ -2194,8 +2372,8 @@ c2.imagen: "2"</code></pre>
 
         function defaultElementStyles() {
             return {
-                title: { color: null, fontFamily: null, fontSize: null, align: null, panelMode: 'auto', panelColor: null, panelAlpha: .44 },
-                copy: { color: null, fontFamily: null, fontSize: null, align: null, panelMode: 'auto', panelColor: null, panelAlpha: .44 },
+                title: { color: null, fontFamily: null, fontSize: null, align: null, weight: null, lineHeight: null, panelMode: 'auto', panelColor: null, panelAlpha: .44 },
+                copy: { color: null, fontFamily: null, fontSize: null, align: null, weight: null, lineHeight: null, panelMode: 'auto', panelColor: null, panelAlpha: .44 },
                 logo: { panelMode: 'auto', panelColor: null, panelAlpha: .44 }
             };
         }
@@ -2212,6 +2390,8 @@ c2.imagen: "2"</code></pre>
                         ? clamp(Number(item.fontSize), 18, 600)
                         : null,
                     align: ['left','center','right'].includes(item.align) ? item.align : null,
+                    weight: item.weight !== null && item.weight !== undefined && Number.isFinite(Number(item.weight)) ? clamp(Number(item.weight), 100, 950) : null,
+                    lineHeight: item.lineHeight !== null && item.lineHeight !== undefined && Number.isFinite(Number(item.lineHeight)) ? clamp(Number(item.lineHeight), .75, 2.2) : null,
                     panelMode: ['auto','off','local','full'].includes(item.panelMode) ? item.panelMode : 'auto',
                     panelColor: /^#[0-9a-f]{6}$/i.test(String(item.panelColor || '')) ? String(item.panelColor).toUpperCase() : null,
                     panelAlpha: clamp(Number(item.panelAlpha ?? .44), .08, .96)
@@ -2240,6 +2420,7 @@ c2.imagen: "2"</code></pre>
                     const legacy = clamp(Number(item.scale) || 100, 20, 400);
                     base[key].widthScale = clamp(Number(item.widthScale) || legacy, 20, 400);
                     base[key].heightScale = clamp(Number(item.heightScale) || 100, 20, 400);
+                    base[key].boxManual = Boolean(item.boxManual);
                 }
             });
             return base;
@@ -2595,6 +2776,39 @@ c2.imagen: "2"</code></pre>
             addSlideButton.disabled = state.slides.length >= MAX_SLIDES;
         }
 
+        function duplicateSlide(index) {
+            if (state.slides.length >= MAX_SLIDES) {
+                showToast(tr('messages.maxSlides'));
+                return;
+            }
+            const source = state.slides[index];
+            if (!source) return;
+            const clone = deepClone(source);
+            state.slides.splice(index + 1, 0, clone);
+            state.currentIndex = index + 1;
+            state.selection = null;
+            renderSlideCards();
+            renderDots();
+            updateAddButton();
+            codeInput.value = serializeAlforaCode();
+            queueRender();
+            showToast(tr('messages.slideDuplicated', 'Diapositiva duplicada.'));
+        }
+
+        function applySlideUpdate(index) {
+            const slide = state.slides[index];
+            if (!slide) return;
+            state.currentIndex = index;
+            state.selection = null;
+            if (!slide.design) slide.design = buildDesign(slide, index);
+            codeInput.value = serializeAlforaCode();
+            renderSlideCards();
+            renderDots();
+            syncEditControls();
+            queueRender();
+            showToast(tr('messages.slideUpdated', 'Actualización aplicada.'));
+        }
+
         function renderSlideCards() {
             if (!slideList) return;
             const fragment = document.createDocumentFragment();
@@ -2610,6 +2824,18 @@ c2.imagen: "2"</code></pre>
                 number.className = 'cg-slide-card__number';
                 number.textContent = `${tr('tool.slideLabel', 'Imagen')} ${index + 1}`;
 
+                const actions = document.createElement('div');
+                actions.className = 'cg-slide-card__actions';
+
+                const duplicate = document.createElement('button');
+                duplicate.type = 'button';
+                duplicate.className = 'cg-duplicate-slide';
+                duplicate.dataset.action = 'duplicate';
+                duplicate.dataset.index = String(index);
+                duplicate.setAttribute('aria-label', `${tr('tool.duplicateSlide', 'Duplicar diapositiva')} ${index + 1}`);
+                duplicate.title = tr('tool.duplicateSlide', 'Duplicar diapositiva');
+                duplicate.innerHTML = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+
                 const remove = document.createElement('button');
                 remove.type = 'button';
                 remove.className = 'cg-remove-slide';
@@ -2618,12 +2844,19 @@ c2.imagen: "2"</code></pre>
                 remove.textContent = '−';
                 remove.setAttribute('aria-label', `${tr('tool.removeSlide', 'Eliminar imagen')} ${index + 1}`);
 
-                top.append(number, remove);
+                actions.append(duplicate, remove);
+                top.append(number, actions);
                 card.append(top);
 
                 card.append(createTextField(index, 'title', tr('tool.titleLabel', 'Título'), slide.title, tr('tool.titlePlaceholder', 'Escribe el título...'), false));
                 card.append(createImageField(index, slide.imageIndex));
                 card.append(createTextField(index, 'copy', tr('tool.copyLabel', 'Copy'), slide.copy, tr('tool.copyPlaceholder', 'Escribe el copy...'), true));
+                (slide.extraTexts || []).forEach((layer, extraIndex) => {
+                    card.append(createExtraTextField(index, layer, extraIndex));
+                });
+
+                const bottomActions = document.createElement('div');
+                bottomActions.className = 'cg-slide-actions-row';
 
                 const proposalButton = document.createElement('button');
                 proposalButton.type = 'button';
@@ -2631,10 +2864,19 @@ c2.imagen: "2"</code></pre>
                 proposalButton.dataset.action = 'proposal';
                 proposalButton.dataset.index = String(index);
                 proposalButton.textContent = tr('tool.slideProposal', 'Nueva propuesta');
-                card.append(proposalButton);
+
+                const updateButton = document.createElement('button');
+                updateButton.type = 'button';
+                updateButton.className = 'cg-slide-update';
+                updateButton.dataset.action = 'update';
+                updateButton.dataset.index = String(index);
+                updateButton.textContent = tr('tool.applyUpdate', 'Aplicar actualización');
+
+                bottomActions.append(proposalButton, updateButton);
+                card.append(bottomActions);
 
                 card.addEventListener('pointerdown', (event) => {
-                    if (event.target.closest('[data-action="remove"]')) return;
+                    if (event.target.closest('[data-action]')) return;
                     state.currentIndex = index;
                     card.parentElement?.querySelectorAll('.cg-slide-card').forEach((item) => item.classList.toggle('is-current', item === card));
                     renderDots();
@@ -2661,6 +2903,25 @@ c2.imagen: "2"</code></pre>
             control.value = value || '';
             control.placeholder = placeholder;
             if (!multiline) control.type = 'text';
+            wrapper.append(label, control);
+            return wrapper;
+        }
+
+        function createExtraTextField(index, layer, extraIndex) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'cg-field cg-field--extra-copy';
+            const label = document.createElement('label');
+            const number = extraIndex + 2;
+            const id = `slide-${index}-copy-${number}`;
+            label.htmlFor = id;
+            label.textContent = `${tr('tool.copyLabel', 'Copy')} ${number}`;
+            const control = document.createElement('textarea');
+            control.id = id;
+            control.dataset.slideIndex = String(index);
+            control.dataset.field = 'extraText';
+            control.dataset.extraTextId = String(layer.id || '');
+            control.value = String(layer.text || '');
+            control.placeholder = `${tr('tool.copyPlaceholder', 'Escribe el copy...')} ${number}`;
             wrapper.append(label, control);
             return wrapper;
         }
@@ -2781,9 +3042,12 @@ c2.imagen: "2"</code></pre>
                 const image = slide.imageIndex === 'auto' ? 'auto' : String(Number(slide.imageIndex) + 1);
                 lines.push(
                     `c${number}.title: "${escapeAlforaValue(slide.title)}"`,
-                    `c${number}.copy: "${escapeAlforaValue(slide.copy)}"`,
-                    `c${number}.imagen: "${escapeAlforaValue(image)}"`
+                    `c${number}.copy: "${escapeAlforaValue(slide.copy)}"`
                 );
+                (slide.extraTexts || []).slice(0, MAX_EXTRA_TEXTS).forEach((layer, extraIndex) => {
+                    lines.push(`c${number}.copy${extraIndex + 2}: "${escapeAlforaValue(layer.text || '')}"`);
+                });
+                lines.push(`c${number}.imagen: "${escapeAlforaValue(image)}"`);
                 if (index < state.slides.length - 1) lines.push('');
             });
             return lines.join('\n');
@@ -2805,7 +3069,6 @@ c2.imagen: "2"</code></pre>
                 title: 'title',
                 tittle: 'title',
                 titulo: 'title',
-                copy: 'copy',
                 image: 'image',
                 imagen: 'image'
             };
@@ -2813,16 +3076,26 @@ c2.imagen: "2"</code></pre>
             const meaningfulLines = body.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
             for (const line of meaningfulLines) {
                 if (line.startsWith('#') || line.startsWith('//')) continue;
-                const match = line.match(/^c(\d{1,2})\.(title|tittle|titulo|copy|image|imagen)\s*:\s*"((?:\\.|[^"\\])*)"\s*$/i);
+                const match = line.match(/^c(\d{1,2})\.(title|tittle|titulo|copy(?:\d{1,2})?|image|imagen)\s*:\s*"((?:\\.|[^"\\])*)"\s*$/i);
                 if (!match) throw new Error('INVALID_LINE');
 
                 const number = Number(match[1]);
                 if (!Number.isInteger(number) || number < 1 || number > MAX_SLIDES) throw new Error('INVALID_INDEX');
 
-                const field = fieldAliases[match[2].toLowerCase()];
+                const rawField = match[2].toLowerCase();
                 const value = unescapeAlforaValue(match[3]);
-                if (!entries.has(number)) entries.set(number, { title: '', copy: '', image: 'auto' });
-                entries.get(number)[field] = value;
+                if (!entries.has(number)) entries.set(number, { title: '', copy: '', copies: {}, image: 'auto' });
+                const entry = entries.get(number);
+                if (rawField === 'copy') {
+                    entry.copy = value;
+                } else if (/^copy\d+$/.test(rawField)) {
+                    const copyNumber = Number(rawField.slice(4));
+                    if (copyNumber < 2 || copyNumber > MAX_EXTRA_TEXTS + 1) throw new Error('INVALID_COPY_INDEX');
+                    entry.copies[copyNumber] = value;
+                } else {
+                    const field = fieldAliases[rawField];
+                    entry[field] = value;
+                }
             }
 
             if (!entries.size) throw new Error('EMPTY');
@@ -2843,7 +3116,29 @@ c2.imagen: "2"</code></pre>
                         styles: defaultElementStyles(),
                         extraDecorations: [],
                         backgroundLayers: [],
-                        extraTexts: [],
+                        extraTexts: Object.entries(item.copies || {})
+                            .sort((a, b) => Number(a[0]) - Number(b[0]))
+                            .slice(0, MAX_EXTRA_TEXTS)
+                            .map(([copyNumber, textValue], extraIndex) => ({
+                                id: `text-code-${Date.now()}-${copyNumber}-${Math.floor(Math.random()*1e6)}`,
+                                kind: 'extraText',
+                                role: 'copy',
+                                fieldKey: `copy${copyNumber}`,
+                                text: String(textValue || '').slice(0, 700),
+                                xPct: 50,
+                                yPct: clamp(72 + extraIndex * 7, 12, 92),
+                                widthPct: 70,
+                                heightPct: 10,
+                                fontFamily: state.fontFamily,
+                                fontSize: 36,
+                                color: null,
+                                align: 'center',
+                                weight: 650,
+                                panelMode: 'auto',
+                                panelColor: null,
+                                panelAlpha: .44,
+                                lineHeight: 1.1
+                            })),
                         backgroundGradient: null,
                         decorationsInitialized: false,
                         logoHidden: false,
@@ -3425,6 +3720,179 @@ c2.imagen: "2"</code></pre>
             context.closePath();
         }
 
+        function appendRoundedRectToPath(path, x, y, width, height, radius = 0) {
+            const r = Math.max(0, Math.min(radius, width / 2, height / 2));
+            if (r <= 0) {
+                path.rect(x, y, width, height);
+                return;
+            }
+            path.moveTo(x + r, y);
+            path.lineTo(x + width - r, y);
+            path.quadraticCurveTo(x + width, y, x + width, y + r);
+            path.lineTo(x + width, y + height - r);
+            path.quadraticCurveTo(x + width, y + height, x + width - r, y + height);
+            path.lineTo(x + r, y + height);
+            path.quadraticCurveTo(x, y + height, x, y + height - r);
+            path.lineTo(x, y + r);
+            path.quadraticCurveTo(x, y, x + r, y);
+            path.closePath();
+        }
+
+        function panelGapBetween(a, b) {
+            const horizontal = Math.max(0, Math.max(a.x, b.x) - Math.min(a.x + a.width, b.x + b.width));
+            const vertical = Math.max(0, Math.max(a.y, b.y) - Math.min(a.y + a.height, b.y + b.height));
+            return { horizontal, vertical };
+        }
+
+        function panelsShouldMerge(a, b, mergeGap) {
+            const gap = panelGapBetween(a, b);
+            const overlapX = Math.min(a.x + a.width, b.x + b.width) - Math.max(a.x, b.x);
+            const overlapY = Math.min(a.y + a.height, b.y + b.height) - Math.max(a.y, b.y);
+            const aFull = Boolean(a.fullWidth);
+            const bFull = Boolean(b.fullWidth);
+
+            // Superposición real: siempre forma una única superficie visual.
+            if (overlapX > 0 && overlapY > 0) return true;
+
+            // Paneles apilados: basta con que compartan una fracción razonable de ancho.
+            const minWidth = Math.max(1, Math.min(a.width, b.width));
+            const enoughHorizontalOverlap = overlapX >= minWidth * .16 || aFull || bFull;
+            if (gap.vertical <= mergeGap && enoughHorizontalOverlap) return true;
+
+            // Caso híbrido/lateral: si casi se tocan horizontalmente y se solapan en altura.
+            const minHeight = Math.max(1, Math.min(a.height, b.height));
+            const enoughVerticalOverlap = overlapY >= minHeight * .24;
+            return gap.horizontal <= mergeGap && enoughVerticalOverlap;
+        }
+
+        function contrastPanelDominance(panel) {
+            // Área visible * opacidad. Un full width suele ganar de forma natural,
+            // pero no modificamos el estilo original del elemento.
+            return Math.max(1, panel.width * panel.height) * clamp(Number(panel.alpha || .44), .08, .96);
+        }
+
+        function drawContrastPanelSmart(context, config) {
+            let { x, y, width, height, color, alpha, radius = 0, shadowBlur = 0, sourceId = null } = config;
+            if (!(width > 0 && height > 0)) return;
+
+            const canvasW = context.canvas.width;
+            const phase = context.__cgRenderPhase || 'direct';
+            const request = {
+                x, y, width, height, color, alpha, radius, shadowBlur, sourceId,
+                fullWidth: x <= 1 && width >= canvasW - 2
+            };
+
+            // Durante la fase de análisis no dibujamos nada: guardamos la geometría
+            // original de cada panel. De esta manera la unión visual nunca altera el
+            // color, modo o tamaño guardado por el usuario.
+            if (phase === 'collect') {
+                const registry = context.__cgContrastPanelRequests || (context.__cgContrastPanelRequests = []);
+                registry.push(request);
+                return;
+            }
+
+            // En backdrop solo medimos el fondo; en content el panel ya fue dibujado
+            // como parte de su grupo resuelto.
+            if (phase === 'backdrop' || phase === 'content' || phase === 'panels') return;
+
+            // Fallback para cualquier llamada fuera del render administrado.
+            context.save();
+            context.fillStyle = rgba(color, alpha);
+            if (shadowBlur > 0) {
+                context.shadowColor = 'rgba(0,0,0,.16)';
+                context.shadowBlur = shadowBlur;
+            }
+            roundedRectPath(context, x, y, width, height, radius);
+            context.fill();
+            context.restore();
+        }
+
+        function resolveAndDrawContrastPanels(context) {
+            const panels = [...(context.__cgContrastPanelRequests || [])];
+            if (!panels.length) return;
+
+            const mergeGap = Math.max(18, Math.min(context.canvas.width, context.canvas.height) * .012);
+            const visited = new Set();
+            const groups = [];
+
+            panels.forEach((panel, index) => {
+                if (visited.has(index)) return;
+                const queue = [index];
+                const group = [];
+                visited.add(index);
+                while (queue.length) {
+                    const currentIndex = queue.shift();
+                    const current = panels[currentIndex];
+                    group.push(current);
+                    panels.forEach((candidate, candidateIndex) => {
+                        if (visited.has(candidateIndex)) return;
+                        if (panelsShouldMerge(current, candidate, mergeGap)) {
+                            visited.add(candidateIndex);
+                            queue.push(candidateIndex);
+                        }
+                    });
+                }
+                groups.push(group);
+            });
+
+            groups.forEach((group) => {
+                const dominant = [...group].sort((a, b) => contrastPanelDominance(b) - contrastPanelDominance(a))[0];
+                const unifiedColor = dominant.color;
+                const unifiedAlpha = dominant.alpha;
+                const path = new Path2D();
+
+                group.forEach((panel) => {
+                    appendRoundedRectToPath(path, panel.x, panel.y, panel.width, panel.height, panel.radius || 0);
+                });
+
+                // Si hay una pequeña separación entre miembros conectados, añadimos
+                // puentes usando la zona de solapamiento. El resultado parece una sola
+                // placa aunque cada panel siga existiendo como un elemento independiente.
+                for (let i = 0; i < group.length; i += 1) {
+                    for (let j = i + 1; j < group.length; j += 1) {
+                        const a = group[i], b = group[j];
+                        if (!panelsShouldMerge(a, b, mergeGap)) continue;
+                        const overlapLeft = Math.max(a.x, b.x);
+                        const overlapRight = Math.min(a.x + a.width, b.x + b.width);
+                        const overlapTop = Math.max(a.y, b.y);
+                        const overlapBottom = Math.min(a.y + a.height, b.y + b.height);
+
+                        if (overlapRight > overlapLeft) {
+                            const topPanel = a.y <= b.y ? a : b;
+                            const bottomPanel = topPanel === a ? b : a;
+                            const bridgeTop = topPanel.y + topPanel.height;
+                            const bridgeBottom = bottomPanel.y;
+                            if (bridgeBottom > bridgeTop && bridgeBottom - bridgeTop <= mergeGap) {
+                                const bridgeX = (a.fullWidth || b.fullWidth) ? 0 : overlapLeft;
+                                const bridgeWidth = (a.fullWidth || b.fullWidth) ? context.canvas.width : overlapRight - overlapLeft;
+                                path.rect(bridgeX, bridgeTop - .75, bridgeWidth, bridgeBottom - bridgeTop + 1.5);
+                            }
+                        }
+
+                        if (overlapBottom > overlapTop) {
+                            const leftPanel = a.x <= b.x ? a : b;
+                            const rightPanel = leftPanel === a ? b : a;
+                            const bridgeLeft = leftPanel.x + leftPanel.width;
+                            const bridgeRight = rightPanel.x;
+                            if (bridgeRight > bridgeLeft && bridgeRight - bridgeLeft <= mergeGap) {
+                                path.rect(bridgeLeft - .75, overlapTop, bridgeRight - bridgeLeft + 1.5, overlapBottom - overlapTop);
+                            }
+                        }
+                    }
+                }
+
+                context.save();
+                context.fillStyle = rgba(unifiedColor, unifiedAlpha);
+                const maxShadow = Math.max(0, ...group.map((panel) => Number(panel.shadowBlur || 0)));
+                if (maxShadow > 0 && group.length === 1) {
+                    context.shadowColor = 'rgba(0,0,0,.16)';
+                    context.shadowBlur = maxShadow;
+                }
+                context.fill(path);
+                context.restore();
+            });
+        }
+
         function getSlideStyles(slide) {
             // IMPORTANTE: mantener referencias estables. Los controles contextuales
             // conservan una referencia al objeto de estilo mientras el menú está abierto.
@@ -3497,7 +3965,8 @@ c2.imagen: "2"</code></pre>
                     lockSize: true,
                     minSize: 18,
                     maxLines: 12,
-                    lineHeight: Number(layer.lineHeight || 1.1)
+                    lineHeight: Number(layer.lineHeight || 1.1),
+                    sourceId: layer.id || null
                 });
             });
         }
@@ -3554,25 +4023,82 @@ c2.imagen: "2"</code></pre>
             });
         }
 
-        function logoContrastTreatment(context, rect, design) {
-            if (!state.logo?.analysis) return null;
-            const samples = sampleCanvasColors(context, rect, context.canvas.width, context.canvas.height);
-            const logoColors = state.logo.analysis.opaqueColors?.length ? state.logo.analysis.opaqueColors : currentPalette().slice(0,3);
-            let pass = 0, total = 0;
-            logoColors.forEach((color) => samples.forEach((bg) => { total += 1; if (contrastRatio(color, bg) >= 3) pass += 1; }));
-            if (total && pass / total >= .72) return null;
+        function logoContrastSamples(context, rect, scaleMultiplier = 1) {
+            const logoImage = state.logo?.image;
+            if (!logoImage?.naturalWidth || !logoImage?.naturalHeight || !(rect.width > 0 && rect.height > 0)) return [];
+            const size = 42;
+            const bg = document.createElement('canvas');
+            const fg = document.createElement('canvas');
+            bg.width = bg.height = fg.width = fg.height = size;
+            const bgCtx = bg.getContext('2d', { willReadFrequently: true });
+            const fgCtx = fg.getContext('2d', { willReadFrequently: true });
+            bgCtx.drawImage(context.canvas, rect.x, rect.y, rect.width, rect.height, 0, 0, size, size);
+
+            const pad = size * .02;
+            const maxW = size - pad * 2;
+            const maxH = size - pad * 2;
+            const scale = Math.min(maxW / logoImage.naturalWidth, maxH / logoImage.naturalHeight) * clamp(scaleMultiplier, .72, 1.45);
+            const w = logoImage.naturalWidth * scale;
+            const h = logoImage.naturalHeight * scale;
+            fgCtx.drawImage(logoImage, (size - w) / 2, (size - h) / 2, w, h);
+
+            const bgData = bgCtx.getImageData(0,0,size,size).data;
+            const fgData = fgCtx.getImageData(0,0,size,size).data;
+            const samples = [];
+            for (let i = 0; i < fgData.length; i += 4) {
+                const a = fgData[i+3] / 255;
+                if (a < .22) continue;
+                samples.push({
+                    logo: rgbToHex(fgData[i], fgData[i+1], fgData[i+2]),
+                    background: rgbToHex(bgData[i], bgData[i+1], bgData[i+2]),
+                    weight: a
+                });
+            }
+            return samples;
+        }
+
+        function scoreLogoContrastSamples(samples, panelColor = null, panelAlpha = 0) {
+            if (!samples.length) return { passRate: 1, average: 7, p20: 7, median: 7 };
+            let totalWeight = 0, passWeight = 0, ratioWeight = 0;
+            const ratios = [];
+            samples.forEach((sample) => {
+                const bg = panelColor ? blendHex(panelColor, sample.background, panelAlpha) : sample.background;
+                const ratio = contrastRatio(sample.logo, bg);
+                const weight = sample.weight || 1;
+                totalWeight += weight;
+                ratioWeight += ratio * weight;
+                if (ratio >= 2.65) passWeight += weight;
+                ratios.push(ratio);
+            });
+            return {
+                passRate: passWeight / Math.max(.001, totalWeight),
+                average: ratioWeight / Math.max(.001, totalWeight),
+                p20: percentile(ratios, .20),
+                median: percentile(ratios, .50)
+            };
+        }
+
+        function logoContrastTreatment(context, rect, design, scaleMultiplier = 1) {
+            if (!state.logo?.image) return null;
+            const samples = logoContrastSamples(context, rect, scaleMultiplier);
+            const direct = scoreLogoContrastSamples(samples);
+
+            // Logos are not body text. A panel is only introduced when a meaningful
+            // portion of the real logo pixels genuinely loses separation from the background.
+            if (direct.passRate >= .72 && direct.average >= 3.0 && direct.median >= 2.55) return null;
+            if (direct.passRate >= .82 && direct.average >= 2.7) return null;
+
             const candidates = [...new Set([...currentPalette(), '#07110C', '#FFFFFF'])];
             let best = null, bestScore = -Infinity;
             candidates.forEach((panelColor) => {
-                [.30,.40,.50,.60,.70,.80].forEach((alpha) => {
-                    const mixed = samples.map((bg) => blendHex(panelColor,bg,alpha));
-                    let score = 0;
-                    logoColors.forEach((color) => {
-                        const ratios = mixed.map((bg) => contrastRatio(color,bg));
-                        score += ratios.filter((r) => r >= 3).length / Math.max(1,ratios.length);
-                    });
-                    score += paletteWeightForColor(panelColor) * .7;
-                    if (score > bestScore) { bestScore = score; best = { color: panelColor, alpha }; }
+                [.28,.34,.40,.46,.52,.58,.66,.74].forEach((alpha) => {
+                    const stats = scoreLogoContrastSamples(samples, panelColor, alpha);
+                    const score = stats.passRate * 11 + stats.p20 * 1.5 + stats.median * .55 + stats.average * .25
+                        + paletteWeightForColor(panelColor) * .35 - alpha * .22;
+                    if (score > bestScore) {
+                        bestScore = score;
+                        best = { color: panelColor, alpha, ...stats };
+                    }
                 });
             });
             return best;
@@ -3581,13 +4107,13 @@ c2.imagen: "2"</code></pre>
         function getLogoPanelTreatment(context, rect, design, slide) {
             const style = getSlideStyles(slide).logo;
             if (style.panelMode === 'off') return null;
-            const automatic = logoContrastTreatment(context, rect, design);
+            const automatic = logoContrastTreatment(context, rect, design, design?.logoScale || 1);
             if (style.panelMode === 'auto') {
                 if (!automatic) return null;
                 return {
                     color: style.panelColor || automatic.color,
                     alpha: clamp(Number(style.panelAlpha ?? automatic.alpha ?? .44), .08, .96),
-                    fullWidth: false
+                    fullWidth: true
                 };
             }
             return {
@@ -3598,18 +4124,27 @@ c2.imagen: "2"</code></pre>
         }
 
         function drawLogoSmart(context, logoImage, rect, alignment, design, scaleMultiplier = 1, slide = null) {
-            const treatment = slide ? getLogoPanelTreatment(context, rect, design, slide) : logoContrastTreatment(context, rect, design);
+            const phase = context.__cgRenderPhase || 'direct';
+            const treatment = slide ? getLogoPanelTreatment(context, rect, design, slide) : logoContrastTreatment(context, rect, design, scaleMultiplier);
             if (treatment) {
-                const padX = Math.max(10, rect.width * .035), padY = Math.max(8, rect.height * .18);
+                const padX = Math.max(18, rect.width * .045), padY = Math.max(18, rect.height * .22);
                 const x = treatment.fullWidth ? 0 : rect.x - padX;
                 const width = treatment.fullWidth ? context.canvas.width : rect.width + padX * 2;
-                context.save();
-                context.fillStyle = rgba(treatment.color, treatment.alpha);
-                roundedRectPath(context, x, rect.y - padY, width, rect.height + padY * 2, treatment.fullWidth ? 0 : Math.min(22,rect.height*.2));
-                context.fill();
-                context.restore();
+                drawContrastPanelSmart(context, {
+                    x,
+                    y: rect.y - padY,
+                    width,
+                    height: rect.height + padY * 2,
+                    color: treatment.color,
+                    alpha: treatment.alpha,
+                    radius: treatment.fullWidth ? 0 : Math.min(24, rect.height * .22),
+                    shadowBlur: 0,
+                    sourceId: 'logo'
+                });
             }
-            drawLogo(context, logoImage, rect, alignment, null, scaleMultiplier);
+            if (phase !== 'backdrop' && phase !== 'collect') {
+                drawLogo(context, logoImage, rect, 'center', null, scaleMultiplier);
+            }
         }
 
         function drawLogo(context, logoImage, rect, alignment = 'left', forcedColor = null, scaleMultiplier = 1) {
@@ -3730,18 +4265,19 @@ c2.imagen: "2"</code></pre>
             const textHeight = fit.lines.length * lineHeightPx;
             const fontFamily = options.family || state.fontFamily || 'Arial, Helvetica, sans-serif';
             const treatment = options.treatment || null;
+            const phase = context.__cgRenderPhase || 'direct';
 
             context.save();
             context.font = `${options.weight || 700} ${fit.size}px ${fontFamily}`;
             context.textAlign = align;
             context.textBaseline = 'top';
 
-            // El rectángulo solo aparece si el verificador de contraste determinó
-            // que la tipografía sola no es suficientemente legible.
             if (treatment?.panel) {
                 const maxLineWidth = fit.lines.reduce((max, line) => Math.max(max, context.measureText(line).width), 0);
-                const padX = Math.max(12, rect.width * treatment.panel.paddingXFactor);
-                const padY = Math.max(8, fit.size * treatment.panel.paddingYFactor);
+                // Padding real de lectura. 18 px es el mínimo en resolución de exportación;
+                // textos grandes reciben espacio adicional proporcional a la tipografía.
+                const padX = Math.max(18, fit.size * .26, rect.width * treatment.panel.paddingXFactor);
+                const padY = Math.max(18, fit.size * .30, fit.size * treatment.panel.paddingYFactor);
                 let panelWidth = Math.min(rect.width + padX * 2, maxLineWidth + padX * 2);
                 const panelHeight = Math.min(rect.height + padY * 2, textHeight + padY * 2);
                 let panelX = rect.x - padX;
@@ -3753,32 +4289,31 @@ c2.imagen: "2"</code></pre>
                     if (align === 'right') panelX = rect.x + rect.width - panelWidth + padX;
                 }
                 const panelY = rect.y - padY;
-
-                context.save();
-                context.fillStyle = rgba(treatment.panel.color, treatment.panel.alpha);
-                context.shadowColor = 'rgba(0,0,0,.16)';
-                context.shadowBlur = Math.max(5, fit.size * .14);
-                roundedRectPath(
-                    context,
-                    panelX,
-                    panelY,
-                    panelWidth,
-                    panelHeight,
-                    treatment.panel.fullWidth ? 0 : Math.max(10, panelHeight * treatment.panel.radiusFactor)
-                );
-                context.fill();
-                context.restore();
+                drawContrastPanelSmart(context, {
+                    x: panelX,
+                    y: panelY,
+                    width: panelWidth,
+                    height: panelHeight,
+                    color: treatment.panel.color,
+                    alpha: treatment.panel.alpha,
+                    radius: treatment.panel.fullWidth ? 0 : Math.max(12, panelHeight * treatment.panel.radiusFactor),
+                    shadowBlur: treatment.panel.fullWidth ? 0 : Math.max(5, fit.size * .14),
+                    sourceId: options.sourceId || null
+                });
             }
 
-            context.fillStyle = options.color || treatment?.textColor || '#FFFFFF';
-            const x = align === 'left' ? rect.x : align === 'right' ? rect.x + rect.width : rect.x + rect.width / 2;
-            let y = rect.y;
-            fit.lines.forEach((line) => {
-                context.fillText(line, x, y, rect.width);
-                y += lineHeightPx;
-            });
+            // En las fases backdrop/collect solo medimos y registramos paneles.
+            if (phase !== 'backdrop' && phase !== 'collect') {
+                context.fillStyle = options.color || treatment?.textColor || '#FFFFFF';
+                const x = align === 'left' ? rect.x : align === 'right' ? rect.x + rect.width : rect.x + rect.width / 2;
+                let y = rect.y;
+                fit.lines.forEach((line) => {
+                    context.fillText(line, x, y, rect.width);
+                    y += lineHeightPx;
+                });
+            }
             context.restore();
-            return { height: y - rect.y, lines: fit.lines, size: fit.size };
+            return { height: textHeight, lines: fit.lines, size: fit.size };
         }
 
         function getTextTreatmentForStyle(context, rect, design, W, H, style, variant) {
@@ -3854,6 +4389,20 @@ c2.imagen: "2"</code></pre>
             return getSlideStyles(slide)[element]?.fontFamily || state.fontFamily;
         }
 
+        function resolveTextWeight(slide, element, fallback) {
+            const value = getSlideStyles(slide)?.[element]?.weight;
+            return value !== null && value !== undefined && Number.isFinite(Number(value))
+                ? clamp(Number(value), 100, 950)
+                : fallback;
+        }
+
+        function resolveTextLineHeight(slide, element, fallback) {
+            const value = getSlideStyles(slide)?.[element]?.lineHeight;
+            return value !== null && value !== undefined && Number.isFinite(Number(value))
+                ? clamp(Number(value), .75, 2.2)
+                : fallback;
+        }
+
         function hasExplicitTextSize(slide, element) {
             const value = getSlideStyles(slide)?.[element]?.fontSize;
             return value !== null && value !== undefined && value !== '' && Number.isFinite(Number(value));
@@ -3870,6 +4419,55 @@ c2.imagen: "2"</code></pre>
             const title = {1:W*.075,2:W*.083,3:W*.070,4:W*.058,5:W*.052,6:W*.065};
             const copy = {1:W*.044,2:W*.043,3:W*.027,4:W*.052,5:W*.036,6:W*.048};
             return Math.max(element === 'title' ? 24 : 18, (element === 'title' ? title[format] : copy[format]) || W*.04);
+        }
+
+        function defaultTextLineHeightForSlide(slide, element) {
+            const format = Number(slide?.design?.format || 1);
+            const title = {1:1.02,2:1.03,3:1.04,4:1.05,5:1.14,6:1.02};
+            const copy = {1:1.12,2:1.16,3:1.09,4:1.08,5:1.12,6:1.06};
+            return (element === 'title' ? title[format] : copy[format]) || 1.1;
+        }
+
+        function defaultTextWeightForSlide(slide, element) {
+            const format = Number(slide?.design?.format || 1);
+            const title = {1:800,2:850,3:600,4:650,5:680,6:780};
+            const copy = {1:650,2:560,3:560,4:790,5:680,6:780};
+            return (element === 'title' ? title[format] : copy[format]) || (element === 'title' ? 800 : 650);
+        }
+
+        function defaultTextAlignForSlide(slide, element) {
+            const format = Number(slide?.design?.format || 1);
+            if ([2,4,5].includes(format)) return 'center';
+            if (format === 3 && element === 'copy') return 'center';
+            return slide?.design?.alignment || 'center';
+        }
+
+        function captureBaseTextVisualFormat(slide, element) {
+            const style = deepClone(getSlideStyles(slide)[element]);
+            const geo = getGeometry(slide.design.format, slide.design.alignment, canvas.width, canvas.height, Boolean(state.logo && !slide.logoHidden), slide);
+            const rect = element === 'title' ? geo.title : geo.copy;
+            const treatment = getTextTreatmentForElement(ctx, rect, slide.design, canvas.width, canvas.height, slide, element, element);
+            style.color = style.color || treatment.textColor || null;
+            style.fontFamily = style.fontFamily || resolveTextFont(slide, element);
+            style.fontSize = Number(style.fontSize || defaultTextSizeForSlide(slide, element, canvas.width));
+            style.align = style.align || defaultTextAlignForSlide(slide, element);
+            style.weight = Number(style.weight || defaultTextWeightForSlide(slide, element));
+            style.lineHeight = Number(style.lineHeight || defaultTextLineHeightForSlide(slide, element));
+            if (treatment.panel) {
+                style.panelMode = treatment.panel.fullWidth ? 'full' : 'local';
+                style.panelColor = treatment.panel.color;
+                style.panelAlpha = Number(treatment.panel.alpha ?? style.panelAlpha ?? .44);
+            } else {
+                style.panelMode = 'off';
+            }
+            return {
+                style,
+                fontSize: style.fontSize,
+                weight: defaultTextWeightForSlide(slide, element),
+                lineHeight: defaultTextLineHeightForSlide(slide, element),
+                align: style.align,
+                fontFamily: style.fontFamily
+            };
         }
 
         function applyRectAdjustment(rect, adjustment, W, H, scaleDimensions = true) {
@@ -3928,6 +4526,12 @@ c2.imagen: "2"</code></pre>
                 geo.title = { x: W * .20, y: H * .63, width: W * .68, height: H * .16 };
                 geo.copy = { x: W * .23, y: H * .81, width: W * .72, height: H * .11 };
                 safe.push(geo.logo, geo.title, geo.copy);
+            }
+
+            // El logo no se justifica con el texto: la propuesta automática siempre parte centrada.
+            if (geo.logo) {
+                geo.logo.x = W * .20;
+                geo.logo.width = W * .60;
             }
 
             const adjustments = normalizeAdjustments(slide?.adjustments);
@@ -4004,14 +4608,36 @@ c2.imagen: "2"</code></pre>
             ensureAutomaticDecorations(slide, design, W, H, geo.safe);
             drawExtraDecorations(context, W, H, slide);
 
-            if (design.format === 1) renderFormat1(context, W, H, slide, design, geo, index);
-            else if (design.format === 2) renderFormat2(context, W, H, slide, design, geo, index);
-            else if (design.format === 3) renderFormat3(context, W, H, slide, design, geo, index);
-            else if (design.format === 4) renderFormat4(context, W, H, slide, design, geo, index);
-            else if (design.format === 5) renderFormat5(context, W, H, slide, design, geo, index);
-            else renderFormat6(context, W, H, slide, design, geo, index);
+            const renderFormat = () => {
+                if (design.format === 1) renderFormat1(context, W, H, slide, design, geo, index);
+                else if (design.format === 2) renderFormat2(context, W, H, slide, design, geo, index);
+                else if (design.format === 3) renderFormat3(context, W, H, slide, design, geo, index);
+                else if (design.format === 4) renderFormat4(context, W, H, slide, design, geo, index);
+                else if (design.format === 5) renderFormat5(context, W, H, slide, design, geo, index);
+                else renderFormat6(context, W, H, slide, design, geo, index);
+            };
+
+            // 1) Dibujamos únicamente los overlays propios del formato.
+            context.__cgRenderPhase = 'backdrop';
+            renderFormat();
+
+            // 2) Medimos todos los paneles (locales, full width e híbridos) sin dibujarlos.
+            context.__cgContrastPanelRequests = [];
+            context.__cgRenderPhase = 'collect';
+            renderFormat();
             drawExtraTexts(context, W, H, slide, design);
 
+            // 3) Resolvemos grupos conectados y los dibujamos una sola vez.
+            context.__cgRenderPhase = 'panels';
+            resolveAndDrawContrastPanels(context);
+
+            // 4) Finalmente pintamos logo y textos encima, sin volver a pintar paneles.
+            context.__cgRenderPhase = 'content';
+            renderFormat();
+            drawExtraTexts(context, W, H, slide, design);
+
+            delete context.__cgRenderPhase;
+            delete context.__cgContrastPanelRequests;
             context.restore();
         }
 
@@ -4024,32 +4650,32 @@ c2.imagen: "2"</code></pre>
             const copyScale = elementScale(slide, 'copy');
             const align = resolveTextAlign(slide, 'title', design.alignment);
             const copyAlign = resolveTextAlign(slide, 'copy', design.alignment);
-            if (state.logo && !slide.logoHidden) drawLogoSmart(context, state.logo.image, geo.logo, align, design, design.logoScale, slide);
+            if (state.logo && !slide.logoHidden) drawLogoSmart(context, state.logo.image, geo.logo, 'center', design, design.logoScale, slide);
             const titleTreatment = getTextTreatmentForElement(context, geo.title, design, W, H, slide, 'title', 'title');
             const copyTreatment = getTextTreatmentForElement(context, geo.copy, design, W, H, slide, 'copy', 'copy');
             drawTextBlock(context, slideTitleText(slide, index), geo.title, {
                 align,
                 color: titleTreatment.textColor,
                 treatment: titleTreatment,
-                weight: 800,
+                weight: resolveTextWeight(slide, 'title', 800),
                 lockSize: hasExplicitTextSize(slide, 'title'),
                 startSize: resolveTextSize(slide, 'title', Math.max(30, W * .075)),
                 family: resolveTextFont(slide, 'title'),
                 minSize: 22,
                 maxLines: 4,
-                lineHeight: 1.02
+                lineHeight: resolveTextLineHeight(slide, 'title', 1.02)
             });
             drawTextBlock(context, slideCopyText(slide), geo.copy, {
                 align: copyAlign,
                 color: copyTreatment.textColor,
                 treatment: copyTreatment,
-                weight: 650,
+                weight: resolveTextWeight(slide, 'copy', 650),
                 lockSize: hasExplicitTextSize(slide, 'copy'),
                 startSize: resolveTextSize(slide, 'copy', Math.max(20, W * .044)),
                 family: resolveTextFont(slide, 'copy'),
                 minSize: 18,
                 maxLines: 5,
-                lineHeight: 1.12
+                lineHeight: resolveTextLineHeight(slide, 'copy', 1.12)
             });
         }
 
@@ -4060,41 +4686,43 @@ c2.imagen: "2"</code></pre>
             const titleTreatment = getTextTreatmentForElement(context, geo.title, design, W, H, slide, 'title', 'title');
             const copyTreatment = getTextTreatmentForElement(context, geo.copy, design, W, H, slide, 'copy', 'copy');
             drawTextBlock(context, slideTitleText(slide, index), geo.title, {
-                align: resolveTextAlign(slide, 'title', 'center'), color: titleTreatment.textColor, treatment: titleTreatment, weight: 850,
+                align: resolveTextAlign(slide, 'title', 'center'), color: titleTreatment.textColor, treatment: titleTreatment, weight: resolveTextWeight(slide, 'title', 850),
                 lockSize: hasExplicitTextSize(slide, 'title'),
-                startSize: resolveTextSize(slide, 'title', Math.max(32, W * .083)), family: resolveTextFont(slide, 'title'), minSize: 22, maxLines: 4, lineHeight: 1.03
+                startSize: resolveTextSize(slide, 'title', Math.max(32, W * .083)), family: resolveTextFont(slide, 'title'), minSize: 22, maxLines: 4, lineHeight: resolveTextLineHeight(slide, 'title', 1.03)
             });
             drawTextBlock(context, slideCopyText(slide), geo.copy, {
-                align: resolveTextAlign(slide, 'copy', 'center'), color: copyTreatment.textColor, treatment: copyTreatment, weight: 560,
+                align: resolveTextAlign(slide, 'copy', 'center'), color: copyTreatment.textColor, treatment: copyTreatment, weight: resolveTextWeight(slide, 'copy', 560),
                 lockSize: hasExplicitTextSize(slide, 'copy'),
-                startSize: resolveTextSize(slide, 'copy', Math.max(20, W * .043)), family: resolveTextFont(slide, 'copy'), minSize: 18, maxLines: 5, lineHeight: 1.16
+                startSize: resolveTextSize(slide, 'copy', Math.max(20, W * .043)), family: resolveTextFont(slide, 'copy'), minSize: 18, maxLines: 5, lineHeight: resolveTextLineHeight(slide, 'copy', 1.16)
             });
         }
 
         function renderFormat3(context, W, H, slide, design, geo, index) {
             const titleScale = elementScale(slide, 'title');
             const copyScale = elementScale(slide, 'copy');
-            const frameTreatment = getTreatment(context, geo.title, design, W, H, 'title');
-            context.save();
-            context.strokeStyle = rgba(frameTreatment.textColor, .58);
-            context.lineWidth = Math.max(2, W * .0018);
-            roundedRectPath(context, geo.frame.x, geo.frame.y, geo.frame.width, geo.frame.height, W * .026);
-            context.stroke();
-            context.restore();
+            if (context.__cgRenderPhase === 'backdrop') {
+                const frameTreatment = getTreatment(context, geo.title, design, W, H, 'title');
+                context.save();
+                context.strokeStyle = rgba(frameTreatment.textColor, .58);
+                context.lineWidth = Math.max(2, W * .0018);
+                roundedRectPath(context, geo.frame.x, geo.frame.y, geo.frame.width, geo.frame.height, W * .026);
+                context.stroke();
+                context.restore();
+            }
 
-            if (state.logo && !slide.logoHidden) drawLogoSmart(context, state.logo.image, geo.logo, design.alignment, design, design.logoScale, slide);
+            if (state.logo && !slide.logoHidden) drawLogoSmart(context, state.logo.image, geo.logo, 'center', design, design.logoScale, slide);
             const titleTreatment = getTextTreatmentForElement(context, geo.title, design, W, H, slide, 'title', 'title');
             drawTextBlock(context, slideTitleText(slide, index), geo.title, {
-                align: resolveTextAlign(slide, 'title', design.alignment), color: titleTreatment.textColor, treatment: titleTreatment, weight: 600,
+                align: resolveTextAlign(slide, 'title', design.alignment), color: titleTreatment.textColor, treatment: titleTreatment, weight: resolveTextWeight(slide, 'title', 600),
                 lockSize: hasExplicitTextSize(slide, 'title'),
-                startSize: resolveTextSize(slide, 'title', Math.max(30, W * .070)), family: resolveTextFont(slide, 'title'), minSize: 22, maxLines: 5, lineHeight: 1.04
+                startSize: resolveTextSize(slide, 'title', Math.max(30, W * .070)), family: resolveTextFont(slide, 'title'), minSize: 22, maxLines: 5, lineHeight: resolveTextLineHeight(slide, 'title', 1.04)
             });
             if (slideCopyText(slide)) {
                 const treatment = getTextTreatmentForElement(context, geo.copy, design, W, H, slide, 'copy', 'copy');
                 drawTextBlock(context, slideCopyText(slide), geo.copy, {
-                    align: resolveTextAlign(slide, 'copy', 'center'), color: treatment.textColor, treatment, weight: 560,
+                    align: resolveTextAlign(slide, 'copy', 'center'), color: treatment.textColor, treatment, weight: resolveTextWeight(slide, 'copy', 560),
                     lockSize: hasExplicitTextSize(slide, 'copy'),
-                startSize: resolveTextSize(slide, 'copy', Math.max(19, W * .027)), family: resolveTextFont(slide, 'copy'), minSize: 18, maxLines: 3, lineHeight: 1.09
+                startSize: resolveTextSize(slide, 'copy', Math.max(19, W * .027)), family: resolveTextFont(slide, 'copy'), minSize: 18, maxLines: 3, lineHeight: resolveTextLineHeight(slide, 'copy', 1.09)
                 });
             }
         }
@@ -4102,39 +4730,43 @@ c2.imagen: "2"</code></pre>
         function renderFormat4(context, W, H, slide, design, geo, index) {
             const titleScale = elementScale(slide, 'title');
             const copyScale = elementScale(slide, 'copy');
-            const shade = context.createLinearGradient(0, H * .48, 0, H);
-            shade.addColorStop(0, 'rgba(4,7,10,0)');
-            shade.addColorStop(1, rgba(design.colors[0], .64));
-            context.fillStyle = shade;
-            context.fillRect(0, H * .42, W, H * .58);
+            if (context.__cgRenderPhase === 'backdrop') {
+                const shade = context.createLinearGradient(0, H * .48, 0, H);
+                shade.addColorStop(0, 'rgba(4,7,10,0)');
+                shade.addColorStop(1, rgba(design.colors[0], .64));
+                context.fillStyle = shade;
+                context.fillRect(0, H * .42, W, H * .58);
+            }
             if (state.logo && !slide.logoHidden) drawLogoSmart(context, state.logo.image, geo.logo, 'center', design, design.logoScale, slide);
             const titleTreatment = getTextTreatmentForElement(context, geo.title, design, W, H, slide, 'title', 'title');
             const copyTreatment = getTextTreatmentForElement(context, geo.copy, design, W, H, slide, 'copy', 'copy');
             drawTextBlock(context, slideTitleText(slide, index), geo.title, {
-                align: resolveTextAlign(slide, 'title', 'center'), color: titleTreatment.textColor, treatment: titleTreatment, weight: 650,
+                align: resolveTextAlign(slide, 'title', 'center'), color: titleTreatment.textColor, treatment: titleTreatment, weight: resolveTextWeight(slide, 'title', 650),
                 lockSize: hasExplicitTextSize(slide, 'title'),
-                startSize: resolveTextSize(slide, 'title', Math.max(28, W * .058)), family: resolveTextFont(slide, 'title'), minSize: 22, maxLines: 3, lineHeight: 1.05
+                startSize: resolveTextSize(slide, 'title', Math.max(28, W * .058)), family: resolveTextFont(slide, 'title'), minSize: 22, maxLines: 3, lineHeight: resolveTextLineHeight(slide, 'title', 1.05)
             });
             drawTextBlock(context, slideCopyText(slide), geo.copy, {
-                align: resolveTextAlign(slide, 'copy', 'center'), color: copyTreatment.textColor, treatment: copyTreatment, weight: 790,
+                align: resolveTextAlign(slide, 'copy', 'center'), color: copyTreatment.textColor, treatment: copyTreatment, weight: resolveTextWeight(slide, 'copy', 790),
                 lockSize: hasExplicitTextSize(slide, 'copy'),
-                startSize: resolveTextSize(slide, 'copy', Math.max(20, W * .052)), family: resolveTextFont(slide, 'copy'), minSize: 18, maxLines: 4, lineHeight: 1.08
+                startSize: resolveTextSize(slide, 'copy', Math.max(20, W * .052)), family: resolveTextFont(slide, 'copy'), minSize: 18, maxLines: 4, lineHeight: resolveTextLineHeight(slide, 'copy', 1.08)
             });
         }
 
         function renderFormat5(context, W, H, slide, design, geo, index) {
             const titleScale = elementScale(slide, 'title');
             const copyScale = elementScale(slide, 'copy');
-            context.save();
-            context.fillStyle = 'rgba(3,7,10,.18)';
-            context.fillRect(0, 0, W, H);
-            context.restore();
+            if (context.__cgRenderPhase === 'backdrop') {
+                context.save();
+                context.fillStyle = 'rgba(3,7,10,.18)';
+                context.fillRect(0, 0, W, H);
+                context.restore();
+            }
             if (state.logo && !slide.logoHidden) drawLogoSmart(context, state.logo.image, geo.logo, 'center', design, design.logoScale, slide);
             const titleTreatment = getTextTreatmentForElement(context, geo.title, design, W, H, slide, 'title', 'title');
             drawTextBlock(context, slideTitleText(slide, index), geo.title, {
-                align: resolveTextAlign(slide, 'title', 'center'), color: titleTreatment.textColor, treatment: titleTreatment, weight: 680,
+                align: resolveTextAlign(slide, 'title', 'center'), color: titleTreatment.textColor, treatment: titleTreatment, weight: resolveTextWeight(slide, 'title', 680),
                 lockSize: hasExplicitTextSize(slide, 'title'),
-                startSize: resolveTextSize(slide, 'title', Math.max(28, W * .052)), family: resolveTextFont(slide, 'title'), minSize: 22, maxLines: 5, lineHeight: 1.14
+                startSize: resolveTextSize(slide, 'title', Math.max(28, W * .052)), family: resolveTextFont(slide, 'title'), minSize: 22, maxLines: 5, lineHeight: resolveTextLineHeight(slide, 'title', 1.14)
             });
             if (slideCopyText(slide)) {
                 const treatment = getTextTreatmentForElement(context, geo.copy, design, W, H, slide, 'copy', 'copy');
@@ -4142,11 +4774,11 @@ c2.imagen: "2"</code></pre>
                     align: resolveTextAlign(slide, 'copy', 'center'),
                     color: treatment.textColor,
                     treatment,
-                    weight: 680,
+                    weight: resolveTextWeight(slide, 'copy', 680),
                     lockSize: hasExplicitTextSize(slide, 'copy'),
                 startSize: resolveTextSize(slide, 'copy', Math.max(20, W * .036)),
                     family: resolveTextFont(slide, 'copy'),
-                    minSize: 18, maxLines: 7, lineHeight: 1.12
+                    minSize: 18, maxLines: 7, lineHeight: resolveTextLineHeight(slide, 'copy', 1.12)
                 });
             }
         }
@@ -4154,20 +4786,22 @@ c2.imagen: "2"</code></pre>
         function renderFormat6(context, W, H, slide, design, geo, index) {
             const titleScale = elementScale(slide, 'title');
             const copyScale = elementScale(slide, 'copy');
-            const overlay = context.createLinearGradient(0, 0, W, 0);
-            overlay.addColorStop(0, rgba(design.colors[0], .10));
-            overlay.addColorStop(1, rgba(design.colors[0], .58));
-            context.fillStyle = overlay;
-            context.fillRect(0, 0, W, H);
+            if (context.__cgRenderPhase === 'backdrop') {
+                const overlay = context.createLinearGradient(0, 0, W, 0);
+                overlay.addColorStop(0, rgba(design.colors[0], .10));
+                overlay.addColorStop(1, rgba(design.colors[0], .58));
+                context.fillStyle = overlay;
+                context.fillRect(0, 0, W, H);
+            }
 
             const align = design.alignment === 'left' ? 'left' : design.alignment === 'right' ? 'right' : 'center';
-            if (state.logo && !slide.logoHidden) drawLogoSmart(context, state.logo.image, geo.logo, align, design, design.logoScale, slide);
+            if (state.logo && !slide.logoHidden) drawLogoSmart(context, state.logo.image, geo.logo, 'center', design, design.logoScale, slide);
             const titleTreatment = getTextTreatmentForElement(context, geo.title, design, W, H, slide, 'title', 'title');
             const copyTreatment = getTextTreatmentForElement(context, geo.copy, design, W, H, slide, 'copy', 'copy');
             drawTextBlock(context, slideTitleText(slide, index), geo.title, {
-                align: resolveTextAlign(slide, 'title', align), color: titleTreatment.textColor, treatment: titleTreatment, weight: 780,
+                align: resolveTextAlign(slide, 'title', align), color: titleTreatment.textColor, treatment: titleTreatment, weight: resolveTextWeight(slide, 'title', 780),
                 lockSize: hasExplicitTextSize(slide, 'title'),
-                startSize: resolveTextSize(slide, 'title', Math.max(30, W * .065)), family: resolveTextFont(slide, 'title'), minSize: 22, maxLines: 4, lineHeight: 1.02
+                startSize: resolveTextSize(slide, 'title', Math.max(30, W * .065)), family: resolveTextFont(slide, 'title'), minSize: 22, maxLines: 4, lineHeight: resolveTextLineHeight(slide, 'title', 1.02)
             });
             if (slideCopyText(slide)) {
                 const treatment = getTextTreatmentForElement(context, geo.copy, design, W, H, slide, 'copy', 'copy');
@@ -4175,11 +4809,11 @@ c2.imagen: "2"</code></pre>
                     align: resolveTextAlign(slide, 'copy', align),
                     color: treatment.textColor,
                     treatment,
-                    weight: 780,
+                    weight: resolveTextWeight(slide, 'copy', 780),
                     lockSize: hasExplicitTextSize(slide, 'copy'),
                 startSize: resolveTextSize(slide, 'copy', Math.max(20, W * .048)),
                     family: resolveTextFont(slide, 'copy'),
-                    minSize: 18, maxLines: 8, lineHeight: 1.06
+                    minSize: 18, maxLines: 8, lineHeight: resolveTextLineHeight(slide, 'copy', 1.06)
                 });
             }
         }
@@ -4197,12 +4831,10 @@ c2.imagen: "2"</code></pre>
             };
         }
 
-        function getSelectionRect(selection, slide, W, H) {
+        function getLayoutSelectionRect(selection, slide, W, H) {
             if (!selection || !slide?.design) return null;
             const geo = getGeometry(slide.design.format, slide.design.alignment, W, H, Boolean(state.logo && !slide.logoHidden), slide);
-            if (selection.kind === 'title' || selection.kind === 'copy') {
-                return selection.kind === 'title' ? geo.title : geo.copy;
-            }
+            if (selection.kind === 'title' || selection.kind === 'copy') return selection.kind === 'title' ? geo.title : geo.copy;
             if (selection.kind === 'logo') return geo.logo;
             if (selection.kind === 'extraText') {
                 const layer = (slide.extraTexts || []).find((item) => item.id === selection.id);
@@ -4218,6 +4850,64 @@ c2.imagen: "2"</code></pre>
                 return layer ? getAssetLayerRect(layer, resolveLayerAsset(layer), W, H) : null;
             }
             return null;
+        }
+
+        function getTextVisualSelectionRect(selection, slide, rect, W, H) {
+            if (!rect) return null;
+
+            // Una vez que el usuario redimensiona la caja con los manejadores,
+            // la selección debe representar esa caja real. Antes del primer ajuste
+            // seguimos mostrando una selección compacta alrededor del contenido.
+            if (selection.kind === 'title' || selection.kind === 'copy') {
+                const adjustment = normalizeAdjustments(slide.adjustments)[selection.kind];
+                if (adjustment?.boxManual) return rect;
+            } else if (selection.kind === 'extraText') {
+                const manualLayer = selectedLayer(slide, selection);
+                if (manualLayer?.boxManual) return rect;
+            }
+
+            let text = '', fontSize = 36, family = state.fontFamily, weight = 650, lineHeight = 1.1, align = 'left';
+            if (selection.kind === 'title' || selection.kind === 'copy') {
+                const element = selection.kind;
+                text = element === 'title' ? slideTitleText(slide, state.currentIndex) : slideCopyText(slide);
+                fontSize = resolveTextSize(slide, element, defaultTextSizeForSlide(slide, element, W));
+                family = resolveTextFont(slide, element);
+                weight = resolveTextWeight(slide, element, defaultTextWeightForSlide(slide, element));
+                lineHeight = resolveTextLineHeight(slide, element, defaultTextLineHeightForSlide(slide, element));
+                align = resolveTextAlign(slide, element, defaultTextAlignForSlide(slide, element));
+            } else if (selection.kind === 'extraText') {
+                const layer = selectedLayer(slide, selection);
+                if (!layer) return rect;
+                text = layer.text || '';
+                fontSize = clamp(Number(layer.fontSize || 36), 18, 600);
+                family = layer.fontFamily || state.fontFamily;
+                weight = clamp(Number(layer.weight || 650), 100, 950);
+                lineHeight = clamp(Number(layer.lineHeight || 1.1), .75, 2.2);
+                align = layer.align || 'left';
+            } else return rect;
+
+            if (!String(text).trim()) return rect;
+            ctx.save();
+            ctx.font = `${weight} ${fontSize}px ${family}`;
+            const lines = getTextLines(ctx, text, Math.max(24, rect.width));
+            const maxLineWidth = Math.max(fontSize * 1.4, ...lines.map((line) => ctx.measureText(line).width));
+            ctx.restore();
+            const pad = 12;
+            const visibleWidth = clamp(maxLineWidth + pad * 2, Math.min(70, rect.width), rect.width);
+            const visibleHeight = clamp(lines.length * fontSize * lineHeight + pad * 2, Math.min(48, rect.height), rect.height);
+            let x = rect.x;
+            if (align === 'center') x = rect.x + (rect.width - visibleWidth) / 2;
+            if (align === 'right') x = rect.x + rect.width - visibleWidth;
+            return { x, y: rect.y - pad * .25, width: visibleWidth, height: visibleHeight };
+        }
+
+        function getSelectionRect(selection, slide, W, H) {
+            const rect = getLayoutSelectionRect(selection, slide, W, H);
+            if (!rect) return null;
+            if (selection?.kind === 'title' || selection?.kind === 'copy' || selection?.kind === 'extraText') {
+                return getTextVisualSelectionRect(selection, slide, rect, W, H);
+            }
+            return rect;
         }
 
         function selectionHandlePoints(rect) {
@@ -4251,12 +4941,13 @@ c2.imagen: "2"</code></pre>
             const W=canvas.width,H=canvas.height;
             const geo=getGeometry(slide.design.format,slide.design.alignment,W,H,Boolean(state.logo && !slide.logoHidden),slide);
             const padding=Math.min(W,H)*.015;
-            if (!slide.titleHidden && pointInRect(point.x,point.y,getTextHitRect('title',slide,W,H),padding)) return {kind:'title'};
-            if (!slide.copyHidden && pointInRect(point.x,point.y,getTextHitRect('copy',slide,W,H),padding)) return {kind:'copy'};
+            // Los textos pegados se dibujan al final, por eso también deben recibir el clic primero.
             for (let i=(slide.extraTexts||[]).length-1;i>=0;i--) {
-                const layer=slide.extraTexts[i]; const rect=getExtraTextRect(layer,W,H);
+                const layer=slide.extraTexts[i]; const rect=getSelectionRect({kind:'extraText',id:layer.id},slide,W,H);
                 if (pointInRect(point.x,point.y,rect,padding)) return {kind:'extraText',id:layer.id};
             }
+            if (!slide.titleHidden && pointInRect(point.x,point.y,getTextHitRect('title',slide,W,H),padding)) return {kind:'title'};
+            if (!slide.copyHidden && pointInRect(point.x,point.y,getTextHitRect('copy',slide,W,H),padding)) return {kind:'copy'};
             if (state.logo && !slide.logoHidden && pointInRect(point.x,point.y,geo.logo,padding)) return {kind:'logo'};
             for (let i=(slide.extraDecorations||[]).length-1;i>=0;i--) {
                 const layer=slide.extraDecorations[i]; const rect=getAssetLayerRect(layer,state.decorations[layer.assetIndex],W,H);
@@ -4317,11 +5008,15 @@ c2.imagen: "2"</code></pre>
             const baseAdjustment=['title','copy','logo','baseImage'].includes(selection?.kind)
                 ? {...slide.adjustments[selection.kind==='baseImage'?'image':selection.kind]}
                 : null;
+            const baseLayoutRect = getLayoutSelectionRect(selection,slide,canvas.width,canvas.height);
+            const baseVisualRect = getSelectionRect(selection,slide,canvas.width,canvas.height);
             state.canvasDrag={
                 pointerId:event.pointerId,startX:point.x,startY:point.y,moved:false,
                 selection:{...selection}, mode:handle?'resize':'move', handle:handle?.name||null,
                 baseAdjustment, baseLayer:layer?{...layer}:null,
-                baseRect:getSelectionRect(selection,slide,canvas.width,canvas.height)
+                baseRect:baseLayoutRect,
+                baseLayoutRect,
+                baseVisualRect
             };
             canvas.setPointerCapture?.(event.pointerId); queueRender();
         }
@@ -4344,31 +5039,86 @@ c2.imagen: "2"</code></pre>
                     layer.yPct=clamp(drag.baseLayer.yPct + dy/H*100,-20,120);
                 }
             } else {
-                const r=drag.baseRect || {x:W*.4,y:H*.4,width:W*.2,height:H*.2};
+                const layoutRect=drag.baseLayoutRect || drag.baseRect || {x:W*.4,y:H*.4,width:W*.2,height:H*.2};
+                const visualRect=drag.baseVisualRect || layoutRect;
                 const handle=drag.handle || 'se';
-                let factorX=1, factorY=1;
-                if(handle.includes('e')) factorX=(point.x-r.x)/Math.max(10,r.width);
-                if(handle.includes('w')) factorX=(r.x+r.width-point.x)/Math.max(10,r.width);
-                if(handle.includes('s')) factorY=(point.y-r.y)/Math.max(10,r.height);
-                if(handle.includes('n')) factorY=(r.y+r.height-point.y)/Math.max(10,r.height);
-                let factor=handle==='e'||handle==='w' ? factorX : handle==='n'||handle==='s' ? factorY : Math.max(factorX,factorY);
-                factor=clamp(factor,.15,6);
-                const newW=r.width*factor, newH=r.height*factor;
-                let shiftX=0, shiftY=0;
-                if(handle.includes('e')) shiftX=(newW-r.width)/2;
-                if(handle.includes('w')) shiftX=-(newW-r.width)/2;
-                if(handle.includes('s')) shiftY=(newH-r.height)/2;
-                if(handle.includes('n')) shiftY=-(newH-r.height)/2;
+
+                // Los manejadores trabajan sobre la caja que el usuario ve.
+                // El borde opuesto queda anclado: mover hacia afuera agranda y
+                // mover hacia adentro reduce, sin invertir el desplazamiento.
+                let left=visualRect.x;
+                let right=visualRect.x+visualRect.width;
+                let top=visualRect.y;
+                let bottom=visualRect.y+visualRect.height;
+
+                if(handle.includes('e')) right=visualRect.x+visualRect.width+dx;
+                if(handle.includes('w')) left=visualRect.x+dx;
+                if(handle.includes('s')) bottom=visualRect.y+visualRect.height+dy;
+                if(handle.includes('n')) top=visualRect.y+dy;
+
+                const isText = selection.kind==='title' || selection.kind==='copy' || selection.kind==='extraText';
+                const fontSize = selection.kind==='extraText'
+                    ? clamp(Number(layer?.fontSize || 36),18,600)
+                    : (selection.kind==='title' || selection.kind==='copy')
+                        ? resolveTextSize(slide,selection.kind,defaultTextSizeForSlide(slide,selection.kind,W))
+                        : 24;
+                const minWidth = isText ? Math.max(48,fontSize*1.15) : 24;
+                const minHeight = isText ? Math.max(38,fontSize*1.15) : 24;
+
+                if(right-left<minWidth) {
+                    if(handle.includes('w')) left=right-minWidth;
+                    else right=left+minWidth;
+                }
+                if(bottom-top<minHeight) {
+                    if(handle.includes('n')) top=bottom-minHeight;
+                    else bottom=top+minHeight;
+                }
+
+                let desired={x:left,y:top,width:right-left,height:bottom-top};
+
                 if(drag.baseAdjustment) {
                     const key=selection.kind==='baseImage'?'image':selection.kind;
                     if (selection.kind === 'title' || selection.kind === 'copy') {
-                        const baseW = Number(drag.baseAdjustment.widthScale || 100);
-                        const baseH = Number(drag.baseAdjustment.heightScale || 100);
-                        if (handle.includes('e') || handle.includes('w')) slide.adjustments[key].widthScale = clamp(baseW * factorX, 20, 400);
-                        if (handle.includes('n') || handle.includes('s')) slide.adjustments[key].heightScale = clamp(baseH * factorY, 20, 400);
-                        slide.adjustments[key].x = clamp(drag.baseAdjustment.x + shiftX/W*100, -100, 100);
-                        slide.adjustments[key].y = clamp(drag.baseAdjustment.y + shiftY/H*100, -100, 100);
+                        const baseWScale=clamp(Number(drag.baseAdjustment.widthScale || 100),20,400);
+                        const baseHScale=clamp(Number(drag.baseAdjustment.heightScale || 100),20,400);
+                        const rawW=layoutRect.width/Math.max(.001,baseWScale/100);
+                        const rawH=layoutRect.height/Math.max(.001,baseHScale/100);
+                        const minBoxW=rawW*.20, maxBoxW=rawW*4;
+                        const minBoxH=rawH*.20, maxBoxH=rawH*4;
+
+                        desired.width=clamp(desired.width,minBoxW,maxBoxW);
+                        desired.height=clamp(desired.height,minBoxH,maxBoxH);
+
+                        // Si una dimensión llegó a su límite, conservar anclado el lado contrario.
+                        if(handle.includes('w')) desired.x=right-desired.width;
+                        else if(handle.includes('e')) desired.x=left;
+                        else desired.x=visualRect.x+(visualRect.width-desired.width)/2;
+                        if(handle.includes('n')) desired.y=bottom-desired.height;
+                        else if(handle.includes('s')) desired.y=top;
+                        else desired.y=visualRect.y+(visualRect.height-desired.height)/2;
+
+                        const desiredCenterX=desired.x+desired.width/2;
+                        const desiredCenterY=desired.y+desired.height/2;
+                        const layoutCenterX=layoutRect.x+layoutRect.width/2;
+                        const layoutCenterY=layoutRect.y+layoutRect.height/2;
+
+                        slide.adjustments[key].widthScale=clamp(desired.width/rawW*100,20,400);
+                        slide.adjustments[key].heightScale=clamp(desired.height/rawH*100,20,400);
+                        slide.adjustments[key].x=clamp(drag.baseAdjustment.x+(desiredCenterX-layoutCenterX)/W*100,-100,100);
+                        slide.adjustments[key].y=clamp(drag.baseAdjustment.y+(desiredCenterY-layoutCenterY)/H*100,-100,100);
+                        slide.adjustments[key].boxManual=true;
                     } else {
+                        // Imágenes y logo mantienen un escalado proporcional uniforme.
+                        let factorX=desired.width/Math.max(10,visualRect.width);
+                        let factorY=desired.height/Math.max(10,visualRect.height);
+                        let factor=handle==='e'||handle==='w' ? factorX : handle==='n'||handle==='s' ? factorY : Math.max(factorX,factorY);
+                        factor=clamp(factor,.15,6);
+                        const newW=layoutRect.width*factor, newH=layoutRect.height*factor;
+                        let shiftX=0,shiftY=0;
+                        if(handle.includes('e'))shiftX=(newW-layoutRect.width)/2;
+                        if(handle.includes('w'))shiftX=-(newW-layoutRect.width)/2;
+                        if(handle.includes('s'))shiftY=(newH-layoutRect.height)/2;
+                        if(handle.includes('n'))shiftY=-(newH-layoutRect.height)/2;
                         slide.adjustments[key].scale=clamp(drag.baseAdjustment.scale*factor,20,400);
                         if(selection.kind!=='baseImage') {
                             slide.adjustments[key].x=clamp(drag.baseAdjustment.x+shiftX/W*100,-100,100);
@@ -4377,11 +5127,27 @@ c2.imagen: "2"</code></pre>
                     }
                 } else if(layer && drag.baseLayer) {
                     if (selection.kind === 'extraText') {
-                        if (handle.includes('e') || handle.includes('w')) layer.widthPct = clamp(Number(drag.baseLayer.widthPct || 50) * factorX, 5, 140);
-                        if (handle.includes('n') || handle.includes('s')) layer.heightPct = clamp(Number(drag.baseLayer.heightPct || 20) * factorY, 4, 120);
-                        layer.xPct=clamp(Number(drag.baseLayer.xPct || 50)+shiftX/W*100,-20,120);
-                        layer.yPct=clamp(Number(drag.baseLayer.yPct || 50)+shiftY/H*100,-20,120);
+                        const maxW=W*1.4, maxH=H*1.2;
+                        desired.width=clamp(desired.width,minWidth,maxW);
+                        desired.height=clamp(desired.height,minHeight,maxH);
+                        if(handle.includes('w')) desired.x=right-desired.width;
+                        if(handle.includes('n')) desired.y=bottom-desired.height;
+                        layer.widthPct=clamp(desired.width/W*100,5,140);
+                        layer.heightPct=clamp(desired.height/H*100,4,120);
+                        layer.xPct=clamp((desired.x+desired.width/2)/W*100,-20,120);
+                        layer.yPct=clamp((desired.y+desired.height/2)/H*100,-20,120);
+                        layer.boxManual=true;
                     } else {
+                        let factorX=desired.width/Math.max(10,visualRect.width);
+                        let factorY=desired.height/Math.max(10,visualRect.height);
+                        let factor=handle==='e'||handle==='w' ? factorX : handle==='n'||handle==='s' ? factorY : Math.max(factorX,factorY);
+                        factor=clamp(factor,.15,6);
+                        const newW=layoutRect.width*factor,newH=layoutRect.height*factor;
+                        let shiftX=0,shiftY=0;
+                        if(handle.includes('e'))shiftX=(newW-layoutRect.width)/2;
+                        if(handle.includes('w'))shiftX=-(newW-layoutRect.width)/2;
+                        if(handle.includes('s'))shiftY=(newH-layoutRect.height)/2;
+                        if(handle.includes('n'))shiftY=-(newH-layoutRect.height)/2;
                         layer.scale=clamp(drag.baseLayer.scale*factor,4,220);
                         layer.xPct=clamp(drag.baseLayer.xPct+shiftX/W*100,-20,120);
                         layer.yPct=clamp(drag.baseLayer.yPct+shiftY/H*100,-20,120);
@@ -4571,6 +5337,12 @@ c2.imagen: "2"</code></pre>
                     const live=styleForSelection(selection); if(!live)return;
                     live.panelMode='off'; queueRender();
                 }));
+                if (style.panelMode === 'full' || (selection.kind === 'logo' && style.panelMode === 'auto')) {
+                    menu.append(contextButton(tr('tool.localContrastPanel','Ajustar panel al elemento'),()=>{
+                        const live=styleForSelection(selection); if(!live)return;
+                        live.panelMode='local'; if(!live.panelColor)live.panelColor=currentPalette()[0]||'#07110C'; queueRender();
+                    }));
+                }
                 menu.append(contextButton(tr('tool.fullContrastPanel','Panel de contraste de extremo a extremo'),()=>{
                     const live=styleForSelection(selection); if(!live)return;
                     live.panelMode='full'; if(!live.panelColor)live.panelColor=currentPalette()[0]||'#07110C'; queueRender();
@@ -4589,7 +5361,19 @@ c2.imagen: "2"</code></pre>
             const slide=getCurrentSlide(); if(!slide||!selection)return;
             if(selection.kind==='title'||selection.kind==='copy'){
                 const text=selection.kind==='title'?slideTitleText(slide,state.currentIndex):slideCopyText(slide);
-                state.clipboard={type:'text',role:selection.kind,text,style:deepClone(getSlideStyles(slide)[selection.kind]),adjustment:deepClone(normalizeAdjustments(slide.adjustments)[selection.kind])};
+                const visual = captureBaseTextVisualFormat(slide, selection.kind);
+                state.clipboard={
+                    type:'text',
+                    role:selection.kind,
+                    text,
+                    style:visual.style,
+                    fontSize:visual.fontSize,
+                    weight:visual.weight,
+                    lineHeight:visual.lineHeight,
+                    align:visual.align,
+                    fontFamily:visual.fontFamily,
+                    adjustment:deepClone(normalizeAdjustments(slide.adjustments)[selection.kind])
+                };
             } else if(selection.kind==='extraText'){
                 const layer=selectedLayer(slide,selection);if(layer)state.clipboard={type:'textLayer',layer:deepClone(layer)};
             } else if(selection.kind==='logo'){
@@ -4606,12 +5390,28 @@ c2.imagen: "2"</code></pre>
             const slide=getCurrentSlide(),clip=state.clipboard;if(!slide||!clip)return;
             const newId=(prefix)=>`${prefix}-${Date.now()}-${Math.floor(Math.random()*1e6)}`;
             if(clip.type==='text'||clip.type==='textLayer'){
+                if ((slide.extraTexts || []).length >= MAX_EXTRA_TEXTS) {
+                    showToast(tr('messages.textLimitReached','Esta diapositiva alcanzó el límite de bloques de texto.'));
+                    return;
+                }
                 const source=clip.type==='text'?null:clip.layer;
-                const role=clip.type==='text'?clip.role:(source.role||'copy');
+                const sourceRole=clip.type==='text'?clip.role:(source.role||'copy');
                 const text=clip.type==='text'?clip.text:source.text;
                 const style=clip.type==='text'?clip.style:source;
-                const rect=clip.type==='text'?getSelectionRect({kind:role},slide,canvas.width,canvas.height):getExtraTextRect(source,canvas.width,canvas.height);
-                const layer={id:newId('text'),kind:'extraText',role,text,xPct:clamp(((rect.x+rect.width/2)/canvas.width*100)+8,5,95),yPct:clamp(((rect.y+rect.height/2)/canvas.height*100)+8,5,95),widthPct:rect.width/canvas.width*100,heightPct:rect.height/canvas.height*100,fontFamily:style.fontFamily||state.fontFamily,fontSize:Number(style.fontSize||defaultTextSizeForSlide(slide,role,canvas.width)),color:style.color||null,align:style.align||'left',weight:role==='title'?800:650,panelMode:style.panelMode||'auto',panelColor:style.panelColor||null,panelAlpha:Number(style.panelAlpha??.44)};
+                const rect=clip.type==='text'?getSelectionRect({kind:sourceRole},slide,canvas.width,canvas.height):getExtraTextRect(source,canvas.width,canvas.height);
+                const layer={
+                    id:newId('text'),kind:'extraText',role:'copy',fieldKey:`copy${(slide.extraTexts||[]).length+2}`,text,
+                    xPct:clamp(((rect.x+rect.width/2)/canvas.width*100)+8,5,95),
+                    yPct:clamp(((rect.y+rect.height/2)/canvas.height*100)+8,5,95),
+                    widthPct:rect.width/canvas.width*100,
+                    heightPct:clamp(((Number(clip.type==='text'?clip.fontSize:(style.fontSize||36)) * Number(clip.type==='text'?(clip.lineHeight||style.lineHeight||1.1):(style.lineHeight||1.1)) * Math.max(1, String(text||'').split(/\n/).length)) + 32) / canvas.height * 100, 5, rect.height/canvas.height*100),
+                    fontFamily:clip.type==='text'?(clip.fontFamily||style.fontFamily||state.fontFamily):(style.fontFamily||state.fontFamily),
+                    fontSize:Number(clip.type==='text'?clip.fontSize:(style.fontSize||36)),
+                    color:style.color||null,align:clip.type==='text'?(clip.align||style.align||'left'):(style.align||'left'),
+                    weight:Number(clip.type==='text'?clip.weight:(style.weight||650)),
+                    panelMode:style.panelMode||'auto',panelColor:style.panelColor||null,panelAlpha:Number(style.panelAlpha??.44),
+                    lineHeight:Number(clip.type==='text'?(clip.lineHeight||style.lineHeight||1.1):(style.lineHeight||1.1))
+                };
                 slide.extraTexts.push(layer);state.selection={kind:'extraText',id:layer.id};
             } else if(clip.type==='logo'&&state.logo){
                 const layer={id:newId('logo'),kind:'decoration',assetType:'logo',assetIndex:-1,xPct:55,yPct:20,scale:18,rotation:0,opacity:1};slide.extraDecorations.push(layer);state.selection={kind:'decoration',id:layer.id};
@@ -4621,23 +5421,86 @@ c2.imagen: "2"</code></pre>
             } else if(clip.type==='baseImage'&&Number.isInteger(Number(clip.assetIndex))&&state.backgrounds[clip.assetIndex]){
                 const layer={id:newId('background'),kind:'background',assetIndex:Number(clip.assetIndex),xPct:53,yPct:53,scale:48,rotation:0,opacity:1};slide.backgroundLayers.push(layer);state.selection={kind:'backgroundLayer',id:layer.id};
             }
+            renderSlideCards();
+            codeInput.value = serializeAlforaCode();
             queueRender();
             showToast(tr('messages.elementPasted','Elemento pegado.'));
         }
 
+        function captureTextFormat(selection) {
+            const slide = getCurrentSlide();
+            if (!slide || !selection) return null;
+            if (selection.kind === 'title' || selection.kind === 'copy') {
+                return deepClone(captureBaseTextVisualFormat(slide, selection.kind).style);
+            }
+            if (selection.kind === 'extraText') {
+                const layer = selectedLayer(slide, selection);
+                if (!layer) return null;
+                const rect = getExtraTextRect(layer, canvas.width, canvas.height);
+                const treatment = getTextTreatmentForStyle(ctx, rect, slide.design, canvas.width, canvas.height, layer, 'copy');
+                return {
+                    color: layer.color || treatment.textColor || null,
+                    fontFamily: layer.fontFamily || state.fontFamily,
+                    fontSize: clamp(Number(layer.fontSize || 36), 18, 600),
+                    align: layer.align || 'left',
+                    weight: clamp(Number(layer.weight || 650), 100, 950),
+                    lineHeight: clamp(Number(layer.lineHeight || 1.1), .75, 2.2),
+                    panelMode: treatment.panel ? (treatment.panel.fullWidth ? 'full' : 'local') : 'off',
+                    panelColor: treatment.panel?.color || layer.panelColor || null,
+                    panelAlpha: clamp(Number(treatment.panel?.alpha ?? layer.panelAlpha ?? .44), .08, .96)
+                };
+            }
+            return null;
+        }
+
+        function applyTextFormat(selection, format) {
+            const target = styleForSelection(selection);
+            if (!target || !format) return false;
+            const values = {
+                color: format.color || null,
+                fontFamily: format.fontFamily || state.fontFamily,
+                fontSize: clamp(Number(format.fontSize || 36), 18, 600),
+                align: ['left','center','right'].includes(format.align) ? format.align : 'left',
+                weight: clamp(Number(format.weight || 650), 100, 950),
+                lineHeight: clamp(Number(format.lineHeight || 1.1), .75, 2.2),
+                panelMode: ['auto','off','local','full'].includes(format.panelMode) ? format.panelMode : 'off',
+                panelColor: format.panelColor || null,
+                panelAlpha: clamp(Number(format.panelAlpha ?? .44), .08, .96)
+            };
+            Object.assign(target, values);
+            return true;
+        }
+
         function copyFormat(selection) {
-            const style=styleForSelection(selection); if(!style)return;
-            if(selection.kind==='title'||selection.kind==='copy'||selection.kind==='extraText') state.formatClipboard={type:'text',style:deepClone(style)};
-            else if(selection.kind==='logo') state.formatClipboard={type:'logo',style:deepClone(style)};
-            else if(selection.kind==='decoration'||selection.kind==='backgroundLayer') state.formatClipboard={type:'asset',style:{opacity:style.opacity,rotation:style.rotation,scale:style.scale}};
+            if (!selection) return;
+            if (selection.kind === 'title' || selection.kind === 'copy' || selection.kind === 'extraText') {
+                const format = captureTextFormat(selection);
+                if (format) state.formatClipboard = { type:'text', style:format };
+            } else if (selection.kind === 'logo') {
+                const style = styleForSelection(selection);
+                if (style) state.formatClipboard = { type:'logo', style:deepClone(style) };
+            } else if (selection.kind === 'decoration' || selection.kind === 'backgroundLayer') {
+                const style = styleForSelection(selection);
+                if (style) state.formatClipboard = { type:'asset', style:{ opacity:style.opacity, rotation:style.rotation, scale:style.scale } };
+            }
             if (state.formatClipboard) showToast(tr('messages.formatCopied','Formato copiado.'));
         }
 
         function pasteFormat(selection) {
-            const target=styleForSelection(selection),clip=state.formatClipboard;if(!target||!clip)return;
-            if(clip.type==='text'&&(selection.kind==='title'||selection.kind==='copy'||selection.kind==='extraText')) Object.assign(target,deepClone(clip.style));
-            else if(clip.type==='logo'&&selection.kind==='logo') Object.assign(target,deepClone(clip.style));
-            else if(clip.type==='asset'&&(selection.kind==='decoration'||selection.kind==='backgroundLayer')) Object.assign(target,deepClone(clip.style));
+            const clip = state.formatClipboard;
+            if (!selection || !clip) return;
+            let applied = false;
+            if (clip.type === 'text' && (selection.kind === 'title' || selection.kind === 'copy' || selection.kind === 'extraText')) {
+                applied = applyTextFormat(selection, deepClone(clip.style));
+            } else if (clip.type === 'logo' && selection.kind === 'logo') {
+                const target = styleForSelection(selection);
+                if (target) { Object.assign(target, deepClone(clip.style)); applied = true; }
+            } else if (clip.type === 'asset' && (selection.kind === 'decoration' || selection.kind === 'backgroundLayer')) {
+                const target = styleForSelection(selection);
+                if (target) { Object.assign(target, deepClone(clip.style)); applied = true; }
+            }
+            if (!applied) return;
+            renderSlideCards();
             queueRender();
             showToast(tr('messages.formatPasted','Formato aplicado.'));
         }
@@ -4783,6 +5646,94 @@ c2.imagen: "2"</code></pre>
             }
         }
 
+        function selectionTextValue(selection) {
+            const slide = getCurrentSlide();
+            if (!slide || !selection) return '';
+            if (selection.kind === 'title') return String(slide.title || '');
+            if (selection.kind === 'copy') return String(slide.copy || '');
+            if (selection.kind === 'extraText') return String(selectedLayer(slide, selection)?.text || '');
+            return '';
+        }
+
+        function setSelectionTextValue(selection, value) {
+            const slide = getCurrentSlide();
+            if (!slide || !selection) return;
+            if (selection.kind === 'title') { slide.title = value; slide.titleHidden = false; }
+            else if (selection.kind === 'copy') { slide.copy = value; slide.copyHidden = false; }
+            else if (selection.kind === 'extraText') {
+                const layer = selectedLayer(slide, selection);
+                if (layer) layer.text = value;
+            }
+        }
+
+        function openInlineTextEditor(event) {
+            const point = canvasPointFromEvent(event);
+            const selection = resolveCanvasSelection(point);
+            if (!selection || !['title','copy','extraText'].includes(selection.kind)) return;
+            const slide = getCurrentSlide();
+            const rect = getSelectionRect(selection, slide, canvas.width, canvas.height);
+            if (!rect) return;
+
+            closeContextMenu();
+            closeAssetPicker();
+            document.querySelector('.cg-inline-text-editor')?.remove();
+            state.selection = selection;
+            queueRender();
+
+            const canvasRect = canvas.getBoundingClientRect();
+            const scaleX = canvasRect.width / canvas.width;
+            const scaleY = canvasRect.height / canvas.height;
+            const style = styleForSelection(selection) || {};
+            const originalValue = selectionTextValue(selection);
+            const editor = document.createElement('textarea');
+            editor.className = 'cg-inline-text-editor';
+            editor.value = originalValue;
+            editor.spellcheck = true;
+            editor.style.left = `${canvasRect.left + rect.x * scaleX}px`;
+            editor.style.top = `${canvasRect.top + rect.y * scaleY}px`;
+            editor.style.width = `${Math.max(100, rect.width * scaleX)}px`;
+            editor.style.height = `${Math.max(48, rect.height * scaleY)}px`;
+            editor.style.fontFamily = style.fontFamily || state.fontFamily;
+            const sourceSize = selection.kind === 'extraText'
+                ? Number(style.fontSize || 36)
+                : Number(style.fontSize || defaultTextSizeForSlide(slide, selection.kind, canvas.width));
+            editor.style.fontSize = `${Math.max(14, sourceSize * scaleY)}px`;
+            editor.style.textAlign = style.align || (selection.kind === 'title' ? slide.design?.alignment || 'center' : 'left');
+            editor.style.lineHeight = String(style.lineHeight || 1.1);
+            if (style.color) editor.style.color = style.color;
+            document.body.append(editor);
+
+            let finished = false;
+            const commit = () => {
+                if (finished) return;
+                finished = true;
+                setSelectionTextValue(selection, editor.value);
+                editor.remove();
+                renderSlideCards();
+                codeInput.value = serializeAlforaCode();
+                queueRender();
+            };
+            const cancel = () => {
+                if (finished) return;
+                finished = true;
+                setSelectionTextValue(selection, originalValue);
+                editor.remove();
+                queueRender();
+            };
+
+            editor.addEventListener('input', () => {
+                setSelectionTextValue(selection, editor.value);
+                queueRender();
+            });
+            editor.addEventListener('keydown', (keyEvent) => {
+                if (keyEvent.key === 'Escape') { keyEvent.preventDefault(); cancel(); return; }
+                if ((keyEvent.ctrlKey || keyEvent.metaKey) && keyEvent.key === 'Enter') { keyEvent.preventDefault(); commit(); }
+            });
+            editor.addEventListener('blur', commit, { once: true });
+            editor.focus();
+            editor.select();
+        }
+
         function openContextMenuAt(event,selection) {
             closeContextMenu(); closeAssetPicker(); const slide=getCurrentSlide();if(!slide)return; const menu=elementContextMenu;
             const addCommonCanvasActions=()=>{
@@ -4803,17 +5754,16 @@ c2.imagen: "2"</code></pre>
                 appendContrastControls(menu,selection);appendClipboardActions(menu,selection);
                 menu.append(contextSeparator(),contextButton(tr('tool.deleteSelected','Eliminar elemento seleccionado'),()=>deleteSelection(selection),true));
             } else if(selection.kind==='baseImage'){
-                menu.append(contextButton(tr('tool.changeBackground','Cambiar imagen de fondo'),()=>openBaseBackgroundPicker(event)));
-                menu.append(contextButton(tr('tool.applyAutoGradient','Aplicar gradiente automático'),()=>openGradientPicker(event)));
-                if(slide.backgroundGradient)menu.append(contextButton(tr('tool.removeGradient','Quitar gradiente'),removeManualGradient));
-                menu.append(contextButton(tr('tool.removeImageBackground','Quitar fondo'),()=>removeSelectedImageBackground(selection)));
+                addCommonCanvasActions();
                 menu.append(contextSeparator());
-                addCommonCanvasActions();appendClipboardActions(menu,selection);
+                menu.append(contextButton(tr('tool.removeImageBackground','Quitar fondo'),()=>removeSelectedImageBackground(selection)));
+                appendClipboardActions(menu,selection);
                 menu.append(contextSeparator(),contextButton(tr('tool.removeBackground','Eliminar imagen de fondo'),()=>deleteSelection(selection),true));
             } else if(selection.kind==='backgroundLayer'||selection.kind==='decoration'){
-                menu.append(contextButton(tr('tool.removeImageBackground','Quitar fondo'),()=>removeSelectedImageBackground(selection)));
+                addCommonCanvasActions();
                 menu.append(contextSeparator());
-                addCommonCanvasActions();appendClipboardActions(menu,selection);
+                menu.append(contextButton(tr('tool.removeImageBackground','Quitar fondo'),()=>removeSelectedImageBackground(selection)));
+                appendClipboardActions(menu,selection);
                 menu.append(contextSeparator(),contextButton(selection.kind==='backgroundLayer'?tr('tool.removeBackground','Eliminar imagen de fondo'):tr('tool.deleteSelected','Eliminar elemento seleccionado'),()=>deleteSelection(selection),true));
             }
             placeFloatingMenu(menu,event);
@@ -5022,32 +5972,71 @@ c2.imagen: "2"</code></pre>
             return translated||text;
         }
 
+        function showTranslationLoader(total) {
+            translationProgress.textContent = `0 / ${total}`;
+            translationBlockingOverlay.hidden = false;
+            document.body.classList.add('cg-is-busy');
+        }
+
+        function updateTranslationLoader(done, total) {
+            translationProgress.textContent = `${done} / ${total}`;
+        }
+
+        function hideTranslationLoader() {
+            translationBlockingOverlay.hidden = true;
+            document.body.classList.remove('cg-is-busy');
+        }
+
+        function openTranslationDonePopup() {
+            closeToolsPopup();
+            translationDonePopup.hidden = false;
+        }
+
+        function closeTranslationDonePopup() {
+            translationDonePopup.hidden = true;
+        }
+
         async function translateAllContent() {
             const language=translateLanguage.value;
             if(!language){
                 showToast(tr('messages.selectTranslationLanguage','Selecciona un idioma para traducir.'));
                 return;
             }
+
+            const jobs = [];
+            state.slides.forEach((slide) => {
+                if (String(slide.title || '').trim()) jobs.push({ target: slide, key: 'title' });
+                if (String(slide.copy || '').trim()) jobs.push({ target: slide, key: 'copy' });
+                (slide.extraTexts || []).forEach((layer) => {
+                    if (String(layer.text || '').trim()) jobs.push({ target: layer, key: 'text' });
+                });
+            });
+
             translateAllButton.disabled=true;
+            showTranslationLoader(jobs.length);
+            await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+            let completed = 0;
+            let succeeded = false;
             try {
-                for(const slide of state.slides) {
-                    slide.title=await translateTextWithGoogle(slide.title,language);
-                    slide.copy=await translateTextWithGoogle(slide.copy,language);
-                    if (Array.isArray(slide.extraTexts)) {
-                        for (const layer of slide.extraTexts) {
-                            layer.text = await translateTextWithGoogle(layer.text, language);
-                        }
-                    }
+                for (const job of jobs) {
+                    job.target[job.key] = await translateTextWithGoogle(job.target[job.key], language);
+                    completed += 1;
+                    updateTranslationLoader(completed, jobs.length);
                 }
                 renderSlideCards();
                 codeInput.value=serializeAlforaCode();
                 queueRender();
-                showToast(tr('messages.translationComplete','Contenido traducido.'));
+                succeeded = true;
             } catch(error) {
                 console.error(error);
                 showToast(tr('messages.translationError','No fue posible traducir el contenido.'));
             } finally {
                 translateAllButton.disabled=false;
+                hideTranslationLoader();
+            }
+
+            if (succeeded) {
+                openTranslationDonePopup();
             }
         }
 
@@ -5283,7 +6272,7 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
                     styles: normalizeElementStyles(item?.styles),
                     extraDecorations: Array.isArray(item?.extraDecorations) ? item.extraDecorations : [],
                     backgroundLayers: Array.isArray(item?.backgroundLayers) ? item.backgroundLayers : [],
-                    extraTexts: Array.isArray(item?.extraTexts) ? item.extraTexts : [],
+                    extraTexts: Array.isArray(item?.extraTexts) ? item.extraTexts.slice(0, MAX_EXTRA_TEXTS).map((layer, extraIndex) => ({...layer, kind:'extraText', fieldKey:`copy${extraIndex+2}`, role:layer?.role || 'copy'})) : [],
                     backgroundGradient: item?.backgroundGradient && typeof item.backgroundGradient === 'object' ? item.backgroundGradient : null,
                     decorationsInitialized: Boolean(item?.decorationsInitialized),
                     logoHidden: Boolean(item?.logoHidden),
@@ -5352,9 +6341,14 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
             const index = Number(target.dataset.slideIndex);
             const field = target.dataset.field;
             if (!Number.isInteger(index) || !field || !state.slides[index]) return;
-            state.slides[index][field] = target.value;
-            if (field === 'title') state.slides[index].titleHidden = false;
-            if (field === 'copy') state.slides[index].copyHidden = false;
+            if (field === 'extraText') {
+                const layer = (state.slides[index].extraTexts || []).find((item) => item.id === target.dataset.extraTextId);
+                if (layer) layer.text = target.value;
+            } else {
+                state.slides[index][field] = target.value;
+                if (field === 'title') state.slides[index].titleHidden = false;
+                if (field === 'copy') state.slides[index].copyHidden = false;
+            }
             if (index === state.currentIndex) queueRender();
         });
 
@@ -5369,6 +6363,18 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
         });
 
         slideList.addEventListener('click', (event) => {
+            const duplicate = event.target.closest('[data-action="duplicate"]');
+            if (duplicate) {
+                event.stopPropagation();
+                duplicateSlide(Number(duplicate.dataset.index));
+                return;
+            }
+            const update = event.target.closest('[data-action="update"]');
+            if (update) {
+                event.stopPropagation();
+                applySlideUpdate(Number(update.dataset.index));
+                return;
+            }
             const proposal = event.target.closest('[data-action="proposal"]');
             if (proposal) {
                 event.stopPropagation();
@@ -5397,6 +6403,7 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
             fontInput.value='';
         });
         translateAllButton.addEventListener('click', translateAllContent);
+        translationDoneButton.addEventListener('click', closeTranslationDonePopup);
         generatePromptButton.addEventListener('click', generateAutomaticPrompt);
         closePromptPopupButton.addEventListener('click', closePromptCopiedPopup);
         promptPopupOkButton.addEventListener('click', closePromptCopiedPopup);
@@ -5439,6 +6446,7 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
         });
 
         canvas.addEventListener('pointerdown', beginCanvasDrag);
+        canvas.addEventListener('dblclick', (event) => { event.preventDefault(); event.stopPropagation(); openInlineTextEditor(event); });
         canvas.addEventListener('pointermove', moveCanvasDrag);
         canvas.addEventListener('pointerup', endCanvasDrag);
         canvas.addEventListener('pointercancel', endCanvasDrag);
@@ -5486,8 +6494,12 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
             }
         });
 
+        translationDonePopup.addEventListener('pointerdown', (event) => {
+            if (event.target === translationDonePopup) closeTranslationDonePopup();
+        });
+
         document.addEventListener('pointerdown', (event) => {
-            if (event.target.closest('#carouselCanvas, #elementContextMenu, #assetPickerPopup, #toolsPopup')) return;
+            if (event.target.closest('#carouselCanvas, #elementContextMenu, #assetPickerPopup, #toolsPopup, #translationDonePopup')) return;
             if (!viewerShell.contains(event.target)) {
                 state.selection = null;
                 closeContextMenu();

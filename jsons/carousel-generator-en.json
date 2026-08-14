@@ -54,7 +54,7 @@
     "mobileFormats": "Formats",
     "mobileResources": "Resources",
     "colorLabel": "Color",
-    "codeSyntaxHint": "Use one line per field: c1.title: \"...\", c1.copy: \"...\", and c1.imagen: \"auto\".",
+    "codeSyntaxHint": "Use one line per field: c1.title: \"...\", c1.copy: \"...\", c1.copy2: \"...\", c1.copy3: \"...\", and c1.imagen: \"auto\".",
     "projectActions": "Project actions",
     "saveProject": "Save project",
     "loadProject": "Load project",
@@ -120,7 +120,14 @@
     "gradientTop": "Dark top",
     "gradientLeft": "Left fade",
     "gradientRight": "Right fade",
-    "gradientAccent": "Brand accent"
+    "gradientAccent": "Brand accent",
+    "duplicateSlide": "Duplicate slide",
+    "applyUpdate": "Apply update",
+    "localContrastPanel": "Fit panel to element",
+    "translatingContent": "Translating content...",
+    "translationDoneTitle": "Translation complete",
+    "translationDoneMessage": "All carousel content was translated successfully. You can continue editing now.",
+    "continueButton": "Continue"
   },
   "formats": {
     "instagramPortrait": "Instagram portrait · 1080×1350",
@@ -177,19 +184,22 @@
     "backgroundRemovalComplete": "Background removed. A transparent copy was created.",
     "backgroundRemovalError": "The background could not be removed from this image.",
     "noImagesLoaded": "Upload images first.",
-    "assetLimitReached": "A new copy cannot be created because the uploaded image limit has been reached."
+    "assetLimitReached": "A new copy cannot be created because the uploaded image limit has been reached.",
+    "slideDuplicated": "Slide duplicated.",
+    "slideUpdated": "Update applied.",
+    "textLimitReached": "This slide has reached the text block limit."
   },
   "info": {
     "heading": "Create a complete carousel in a few steps",
     "description": "Add up to 24 content pieces, upload your visual identity and let the generator combine layouts, images and gradients with automatic contrast. Then select the title, copy, image or logo to adjust its position and size.",
     "codeDescription": "Code mode uses the ALFORA-CAROUSEL/1 format so you can prepare content with an AI, paste it into the tool, and quickly turn it into a visual carousel.",
     "codeGuideHeading": "How Alfora code works",
-    "codeGuideDescription": "ALFORA-CAROUSEL/1 is a simple text format. Each item is identified as c1, c2, c3, and so on up to c24. Each item can contain title, copy, and imagen.",
+    "codeGuideDescription": "ALFORA-CAROUSEL/1 is a simple text format. Each item is identified as c1, c2, c3, and so on up to c24. Each item can contain title, copy, additional copies such as copy2 and copy3, and imagen.",
     "codeImageRule": "For imagen you can write \"auto\" so Alfora automatically chooses one of the uploaded images, or specify its number, for example \"2\".",
     "aiHeading": "You can also ask an AI for the code",
     "aiDescription": "An AI can create the full content and return it ready to paste. It only needs to follow ALFORA-CAROUSEL/1, use one line per field, and number items starting at c1.",
     "aiPrompt": "Example instruction for an AI: “Create a 6-image carousel about my product in ALFORA-CAROUSEL/1 format. For each image write cN.title, cN.copy, and cN.imagen in quotes. Use imagen: \"auto\" and do not add explanations outside the code.”",
     "codeExampleLabel": "ALFORA-CAROUSEL/1 code example",
-    "codeExample": "ALFORA-CAROUSEL/1\nc1.title: \"Turn ideas into content\"\nc1.copy: \"Create a clear and attractive visual piece.\"\nc1.imagen: \"auto\"\n\nc2.title: \"Design faster\"\nc2.copy: \"Alfora organizes the content automatically.\"\nc2.imagen: \"2\""
+    "codeExample": "ALFORA-CAROUSEL/1\nc1.title: \"Turn ideas into content\"\nc1.copy: \"Create a clear and attractive visual piece.\"\nc1.copy2: \"Add a second text block whenever you need it.\"\nc1.imagen: \"auto\"\n\nc2.title: \"Design faster\"\nc2.copy: \"Alfora organizes the content automatically.\"\nc2.imagen: \"2\""
   }
 }

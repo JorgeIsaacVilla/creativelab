@@ -54,7 +54,7 @@
     "mobileFormats": "Formatos",
     "mobileResources": "Recursos",
     "colorLabel": "Color",
-    "codeSyntaxHint": "Usa una línea por campo: c1.title: \"...\", c1.copy: \"...\" y c1.imagen: \"auto\".",
+    "codeSyntaxHint": "Usa una línea por campo: c1.title: \"...\", c1.copy: \"...\", c1.copy2: \"...\", c1.copy3: \"...\" y c1.imagen: \"auto\".",
     "projectActions": "Acciones del proyecto",
     "saveProject": "Guardar proyecto",
     "loadProject": "Cargar proyecto",
@@ -120,7 +120,14 @@
     "gradientTop": "Oscuro superior",
     "gradientLeft": "Lateral izquierdo",
     "gradientRight": "Lateral derecho",
-    "gradientAccent": "Acento de marca"
+    "gradientAccent": "Acento de marca",
+    "duplicateSlide": "Duplicar diapositiva",
+    "applyUpdate": "Aplicar actualización",
+    "localContrastPanel": "Ajustar panel al elemento",
+    "translatingContent": "Traduciendo contenido...",
+    "translationDoneTitle": "Traducción completada",
+    "translationDoneMessage": "Todo el contenido del carrusel fue traducido correctamente. Ya puedes continuar editando.",
+    "continueButton": "Continuar"
   },
   "formats": {
     "instagramPortrait": "Instagram vertical · 1080×1350",
@@ -177,19 +184,22 @@
     "backgroundRemovalComplete": "Fondo eliminado. Se creó una copia transparente.",
     "backgroundRemovalError": "No fue posible quitar el fondo de esta imagen.",
     "noImagesLoaded": "Carga imágenes primero.",
-    "assetLimitReached": "No se puede crear otra copia porque alcanzaste el límite de imágenes cargadas."
+    "assetLimitReached": "No se puede crear otra copia porque alcanzaste el límite de imágenes cargadas.",
+    "slideDuplicated": "Diapositiva duplicada.",
+    "slideUpdated": "Actualización aplicada.",
+    "textLimitReached": "Esta diapositiva alcanzó el límite de bloques de texto."
   },
   "info": {
     "heading": "Crea un carrusel completo en pocos pasos",
     "description": "Añade hasta 24 piezas de contenido, carga tu identidad visual y deja que el generador combine layouts, imágenes y gradientes con contraste automático. Después puedes seleccionar título, copy, imagen o logo para ajustar su posición y tamaño.",
     "codeDescription": "El modo Código utiliza el formato ALFORA-CAROUSEL/1 para que puedas preparar el contenido con una IA, pegarlo en la herramienta y convertirlo rápidamente en un carrusel visual.",
     "codeGuideHeading": "Cómo funciona el código de Alfora",
-    "codeGuideDescription": "ALFORA-CAROUSEL/1 es un formato de texto simple. Cada pieza se identifica con c1, c2, c3 y así sucesivamente hasta c24. Cada pieza puede contener title, copy e imagen.",
+    "codeGuideDescription": "ALFORA-CAROUSEL/1 es un formato de texto simple. Cada pieza se identifica con c1, c2, c3 y así sucesivamente hasta c24. Cada pieza puede contener title, copy, copies adicionales como copy2 y copy3, e imagen.",
     "codeImageRule": "En imagen puedes escribir \"auto\" para que Alfora seleccione una imagen cargada automáticamente, o indicar su número, por ejemplo \"2\".",
     "aiHeading": "También puedes pedir el código a una IA",
     "aiDescription": "Una IA puede crear el contenido completo y devolverlo listo para pegar. Solo debe respetar ALFORA-CAROUSEL/1, usar una línea por campo y numerar las piezas desde c1.",
     "aiPrompt": "Ejemplo de instrucción para una IA: “Genera un carrusel de 6 imágenes sobre mi producto en formato ALFORA-CAROUSEL/1. Para cada imagen escribe cN.title, cN.copy y cN.imagen entre comillas. Usa imagen: \"auto\" y no añadas explicaciones fuera del código.”",
     "codeExampleLabel": "Ejemplo de código ALFORA-CAROUSEL/1",
-    "codeExample": "ALFORA-CAROUSEL/1\nc1.title: \"Convierte ideas en contenido\"\nc1.copy: \"Crea una pieza visual clara y atractiva.\"\nc1.imagen: \"auto\"\n\nc2.title: \"Diseña más rápido\"\nc2.copy: \"Alfora organiza el contenido automáticamente.\"\nc2.imagen: \"2\""
+    "codeExample": "ALFORA-CAROUSEL/1\nc1.title: \"Convierte ideas en contenido\"\nc1.copy: \"Crea una pieza visual clara y atractiva.\"\nc1.copy2: \"Añade un segundo bloque de texto cuando lo necesites.\"\nc1.imagen: \"auto\"\n\nc2.title: \"Diseña más rápido\"\nc2.copy: \"Alfora organiza el contenido automáticamente.\"\nc2.imagen: \"2\""
   }
 }
