@@ -1,0 +1,2289 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>image-generator-demo · Alfora</title>
+<link rel="icon" href="https://alfora.art/src/favicon.png">
+
+<style>
+:root{
+  --bg:#f3efe6;
+  --paper:#fbfaf6;
+  --panel:rgba(255,255,255,.76);
+  --text:#11130f;
+  --muted:#74776d;
+  --line:rgba(17,19,15,.11);
+  --brand:#174c38;
+  --brand2:#0f3728;
+  --lime:#d7ff55;
+  --orange:#e26d43;
+  --red:#a74034;
+  --yellow:#a66c0d;
+  --green:#2f8d53;
+  --shadow:0 28px 90px rgba(32,29,21,.11);
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text)}
+body{
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:
+    radial-gradient(circle at 3% 10%,rgba(226,109,67,.16),transparent 30rem),
+    radial-gradient(circle at 96% 85%,rgba(23,76,56,.10),transparent 36rem),
+    var(--bg);
+}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+button:disabled{opacity:.48;cursor:not-allowed}
+.shell{width:min(1510px,calc(100% - 28px));margin:auto;padding:14px 0 40px}
+.topbar{height:66px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.brand{display:flex;align-items:center;gap:11px}
+.logo{
+  width:40px;height:40px;border-radius:14px;background:#fff;overflow:hidden;
+  border:1px solid rgba(0,0,0,.05);box-shadow:0 9px 26px rgba(0,0,0,.08)
+}
+.logo img{width:100%;height:100%;object-fit:cover}
+.brand small,.brand strong{display:block}
+.brand small{font-size:9px;letter-spacing:.15em;color:var(--muted);font-weight:950;text-transform:uppercase}
+.brand strong{margin-top:1px;font-size:17px;letter-spacing:-.035em}
+.pills{display:flex;gap:8px;align-items:center}
+.pill{
+  height:34px;display:flex;align-items:center;gap:7px;padding:0 11px;border:1px solid var(--line);
+  border-radius:999px;background:rgba(255,255,255,.6);font-size:10px;font-weight:850
+}
+.dot{width:8px;height:8px;border-radius:50%;background:#b7b8b2}
+.dot.ok{background:var(--green);box-shadow:0 0 0 4px rgba(47,141,83,.12)}
+.dot.warn{background:#d69323}
+.dot.busy{background:var(--orange);animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.35}}
+.layout{display:grid;grid-template-columns:390px minmax(0,1fr);gap:14px}
+.card{
+  background:var(--panel);backdrop-filter:blur(18px);border:1px solid var(--line);
+  border-radius:30px;box-shadow:var(--shadow)
+}
+.sidebar{padding:19px;align-self:start;position:sticky;top:10px}
+.kicker{margin:0 0 8px;color:var(--orange);font-size:10px;font-weight:950;letter-spacing:.18em}
+h1{margin:0;font-size:36px;line-height:.99;letter-spacing:-.052em}
+.intro{margin:11px 0 0;color:var(--muted);font-size:12px;line-height:1.58}
+.field{margin-top:21px}
+.labelrow{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+label{font-size:12px;font-weight:850}
+.mini{font-size:9px;color:var(--muted)}
+.promptbox{position:relative}
+textarea{
+  width:100%;min-height:155px;resize:vertical;border:1px solid var(--line);border-radius:18px;
+  padding:15px 15px 40px;background:#fff;outline:none;color:var(--text);font-size:13px;line-height:1.55
+}
+textarea:focus{border-color:rgba(226,109,67,.55);box-shadow:0 0 0 4px rgba(226,109,67,.08)}
+.count{position:absolute;right:12px;bottom:10px;font-size:9px;color:var(--muted)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.chip{
+  border:1px solid var(--line);border-radius:999px;background:#fff;padding:7px 9px;
+  font-size:10px;font-weight:850;color:var(--text)
+}
+.settings{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:18px}
+.setting{
+  min-height:64px;padding:11px 12px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.53)
+}
+.setting small{display:block;color:var(--muted);font-size:9px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+.setting strong{display:block;margin-top:8px;font-size:12px}
+.steps-setting{grid-column:1/-1}
+.steps-select{
+  width:100%;
+  height:38px;
+  margin-top:7px;
+  border:1px solid var(--line);
+  border-radius:11px;
+  background:#fff;
+  color:var(--text);
+  padding:0 10px;
+  outline:none;
+  font-size:11px;
+  font-weight:850;
+}
+.steps-select:focus{
+  border-color:rgba(23,76,56,.42);
+  box-shadow:0 0 0 3px rgba(23,76,56,.08);
+}
+.setting-explain{
+  margin:8px 0 0;
+  color:var(--muted);
+  font-size:9px;
+  line-height:1.48;
+}
+.setting-explain strong{
+  display:inline;
+  margin:0;
+  font-size:9px;
+  color:var(--text);
+}
+.seedrow{display:flex;align-items:center;gap:6px;margin-top:3px}
+.seedrow input{width:100%;min-width:0;border:0;background:transparent;outline:none;font-weight:900}
+.icon{
+  width:31px;height:31px;border:1px solid var(--line);border-radius:10px;background:#fff
+}
+.primary{
+  width:100%;height:56px;margin-top:12px;border:0;border-radius:17px;background:var(--brand);color:#fff;
+  display:flex;align-items:center;justify-content:space-between;padding:0 15px;font-weight:900
+}
+.primary:hover:not(:disabled){background:var(--brand2)}
+.primary .arrow{
+  width:32px;height:32px;display:grid;place-items:center;border-radius:10px;background:var(--lime);color:var(--text)
+}
+.secondary{
+  border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--text);
+  height:39px;padding:0 11px;font-size:10px;font-weight:850
+}
+.engine{
+  margin-top:17px;padding:14px;border:1px solid var(--line);border-radius:19px;background:rgba(255,255,255,.49)
+}
+.engine-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.engine-head strong{font-size:12px}
+.statuscopy{margin:8px 0 0;color:var(--muted);font-size:10px;line-height:1.55}
+.checks{display:grid;gap:7px;margin-top:11px}
+.check{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 11px;border:1px solid var(--line);
+  border-radius:13px;background:rgba(255,255,255,.67)
+}
+.check div small,.check div strong{display:block}
+.check div small{color:var(--muted);font-size:8px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+.check div strong{font-size:10px;margin-top:2px}
+.badge{padding:6px 8px;border-radius:999px;font-size:8px;font-weight:950;white-space:nowrap}
+.badge.ok{background:rgba(47,141,83,.13);color:#21683a}
+.badge.no{background:rgba(167,64,52,.12);color:#853026}
+.badge.wait{background:rgba(166,108,13,.12);color:#79500c}
+.progressbox{display:none;margin-top:12px}
+.progressbox.show{display:block}
+.progressline{height:7px;border-radius:999px;background:rgba(0,0,0,.07);overflow:hidden}
+.progressbar{height:100%;width:0%;background:var(--brand);transition:width .25s ease}
+.progresstext{display:flex;justify-content:space-between;gap:12px;margin-top:7px;font-size:9px;color:var(--muted)}
+.note{
+  margin-top:11px;padding:11px 12px;border-radius:14px;background:rgba(23,76,56,.06);
+  color:var(--muted);font-size:9px;line-height:1.5
+}
+.resourcebox{
+  margin-top:11px;padding:12px;border:1px solid var(--line);border-radius:15px;background:rgba(255,255,255,.62)
+}
+.resourcehead{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.resourcehead strong{font-size:10px}
+.resourcehead span{font-size:9px;color:var(--muted);text-align:right}
+.resourcebar{height:6px;margin-top:9px;border-radius:999px;overflow:hidden;background:rgba(0,0,0,.07)}
+.resourcefill{height:100%;width:0%;background:var(--brand);transition:width .3s ease}
+.resourcecopy{margin-top:7px;color:var(--muted);font-size:9px;line-height:1.45}
+.resourceactions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:10px}
+.resourceactions .secondary{width:100%}
+.installsteps{display:grid;gap:6px;margin-top:11px}
+.installstep{
+  display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:12px;background:rgba(0,0,0,.025);
+  color:var(--muted);font-size:9px
+}
+.installstep .stepdot{
+  width:8px;height:8px;border-radius:50%;flex:0 0 auto;background:#c4c4be
+}
+.installstep.active{color:var(--text);font-weight:800}
+.installstep.active .stepdot{background:var(--orange);box-shadow:0 0 0 4px rgba(226,109,67,.1)}
+.installstep.done{color:#286f43}
+.installstep.done .stepdot{background:var(--green)}
+.installstep.error{color:var(--red)}
+.installstep.error .stepdot{background:var(--red)}
+.safety{
+  margin-top:10px;padding:10px 11px;border-radius:13px;background:rgba(215,255,85,.15);
+  color:#48501f;font-size:9px;line-height:1.5
+}
+.prompttools{
+  margin-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:7px
+}
+.prompttools .secondary{width:100%}
+.selectline{
+  margin-top:9px;display:grid;grid-template-columns:1fr 1fr;gap:8px
+}
+.selectwrap{
+  border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.58);padding:10px
+}
+.selectwrap small{
+  display:block;color:var(--muted);font-size:8px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:7px
+}
+.selectwrap select{
+  width:100%;height:34px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:0 9px;font-size:11px;color:var(--text);outline:none
+}
+.smartbox{
+  margin-top:10px;padding:12px;border:1px solid var(--line);border-radius:15px;background:rgba(255,255,255,.62)
+}
+.smartbox strong{display:block;font-size:10px}
+.smartbox p{margin:6px 0 0;color:var(--muted);font-size:9px;line-height:1.45}
+.smartchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.smarttag{
+  border-radius:999px;padding:6px 8px;background:rgba(23,76,56,.08);color:var(--brand);
+  font-size:8px;font-weight:900;letter-spacing:.03em
+}
+.helper{
+  margin-top:8px;padding:9px 10px;border-radius:12px;background:rgba(226,109,67,.08);color:#7b513e;font-size:9px;line-height:1.45
+}
+.optimized{
+  margin-top:10px;padding:11px 12px;border-radius:14px;background:rgba(0,0,0,.03);border:1px solid var(--line)
+}
+.optimized strong{display:block;font-size:10px}
+.optimized code{
+  display:block;margin-top:7px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  white-space:pre-wrap;font-size:9px;line-height:1.45;color:#3f4339
+}
+
+
+.stage{min-height:810px;padding:15px;display:flex;flex-direction:column}
+.stage-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:3px 3px 13px}
+.stage-head h2{margin:0;font-size:19px;letter-spacing:-.03em}
+.stage-head p{margin:4px 0 0;color:var(--muted);font-size:10px}
+.stage-actions{display:flex;gap:7px}
+.canvasarea{
+  flex:1;min-height:650px;position:relative;display:grid;place-items:center;overflow:hidden;
+  border:1px solid rgba(0,0,0,.08);border-radius:25px;
+  background:
+    linear-gradient(45deg,rgba(0,0,0,.024) 25%,transparent 25%,transparent 75%,rgba(0,0,0,.024) 75%),
+    linear-gradient(45deg,rgba(0,0,0,.024) 25%,transparent 25%,transparent 75%,rgba(0,0,0,.024) 75%),
+    #ebe5d7;
+  background-size:28px 28px;background-position:0 0,14px 14px
+}
+.empty{text-align:center;max-width:500px;padding:30px}
+.orbit{
+  width:112px;height:112px;margin:0 auto 20px;border-radius:50%;border:1px solid rgba(0,0,0,.10);
+  position:relative;display:grid;place-items:center
+}
+.orbit:before,.orbit:after{
+  content:"";position:absolute;border-radius:50%;border:1px solid rgba(226,109,67,.33);transform:rotate(48deg)
+}
+.orbit:before{width:146px;height:56px}.orbit:after{width:56px;height:146px}
+.core{
+  width:44px;height:44px;border-radius:14px;background:var(--brand);padding:8px;box-shadow:0 12px 30px rgba(23,76,56,.22)
+}
+.core img{width:100%;height:100%;object-fit:cover;border-radius:8px}
+.empty h3{margin:0;font-size:25px;letter-spacing:-.035em}
+.empty p{margin:8px 0 0;color:var(--muted);font-size:12px;line-height:1.6}
+.loading{display:none;text-align:center;padding:35px}
+.loading.show{display:block}
+.spinner{
+  width:74px;height:74px;margin:0 auto 18px;border-radius:50%;border:2px solid rgba(0,0,0,.1);
+  border-top-color:var(--orange);animation:spin .9s linear infinite
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading h3{margin:0;font-size:20px}
+.loading p{margin:7px 0 0;color:var(--muted);font-size:11px}
+.result{display:none;width:100%;height:100%;align-items:center;justify-content:center;padding:18px;position:relative}
+.result.show{display:flex}
+.result canvas{
+  width:min(78vh,100%);height:auto;max-height:610px;aspect-ratio:1/1;border-radius:21px;background:#ddd;
+  box-shadow:0 28px 75px rgba(0,0,0,.2);image-rendering:auto
+}
+.resultmeta{
+  position:absolute;left:24px;right:24px;bottom:24px;display:flex;justify-content:space-between;align-items:end;gap:12px
+}
+.metacard{
+  max-width:min(580px,74%);padding:11px 12px;border:1px solid rgba(255,255,255,.22);border-radius:14px;
+  background:rgba(15,16,13,.74);backdrop-filter:blur(12px);color:#fff;font-size:9px;line-height:1.5
+}
+.metacard strong{display:block;font-size:11px;margin-bottom:3px}
+.download{
+  height:42px;border:0;border-radius:12px;background:var(--lime);padding:0 13px;font-size:10px;font-weight:900;color:var(--text)
+}
+.recent{margin-top:14px}
+.recenthead{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.recenthead strong{font-size:11px}.recenthead span{font-size:9px;color:var(--muted)}
+.thumbs{display:flex;gap:8px;overflow:auto;padding-bottom:2px}
+.thumb{
+  width:78px;height:78px;flex:0 0 auto;padding:0;border:1px solid var(--line);border-radius:13px;overflow:hidden;background:#ddd
+}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.modal{
+  position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:18px;
+  background:rgba(14,16,12,.38);backdrop-filter:blur(11px);z-index:50
+}
+.modal.hidden{display:none}
+.modalcard{
+  width:min(630px,100%);padding:23px;border-radius:29px;background:rgba(255,255,255,.91);
+  border:1px solid rgba(255,255,255,.5);box-shadow:0 32px 100px rgba(0,0,0,.2)
+}
+.modaltop{display:flex;gap:14px;align-items:center}
+.modalicon{
+  width:58px;height:58px;border-radius:19px;background:#fff;overflow:hidden;border:1px solid rgba(0,0,0,.05)
+}
+.modalicon img{width:100%;height:100%;object-fit:cover}
+.modalcard h2{margin:0;font-size:28px;letter-spacing:-.042em;line-height:1.04}
+.modalcard p{margin:13px 0 0;color:var(--muted);font-size:12px;line-height:1.65}
+.modalgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+.modalitem{padding:12px;border-radius:15px;border:1px solid var(--line);background:rgba(255,255,255,.6)}
+.modalitem small,.modalitem strong{display:block}.modalitem small{font-size:8px;color:var(--muted);font-weight:900;text-transform:uppercase;letter-spacing:.08em}
+.modalitem strong{font-size:11px;margin-top:4px}
+.modalactions{display:flex;justify-content:flex-end;gap:9px;margin-top:18px}
+.toast{
+  position:fixed;right:18px;bottom:18px;max-width:420px;padding:12px 14px;border-radius:14px;
+  background:var(--text);color:#fff;font-size:11px;line-height:1.5;box-shadow:0 18px 55px rgba(0,0,0,.25);
+  transform:translateY(20px);opacity:0;pointer-events:none;transition:.22s;z-index:70
+}
+.toast.show{transform:none;opacity:1}.toast.error{background:var(--red)}
+@media(max-width:980px){
+  .layout{grid-template-columns:1fr}.sidebar{position:static}.stage{min-height:700px}
+}
+@media(max-width:620px){
+  .shell{width:min(100% - 14px,1510px)}.pills .pill:first-child{display:none}
+  .layout{gap:9px}.sidebar,.stage{border-radius:23px}.settings{grid-template-columns:1fr}
+  .canvasarea{min-height:500px}.resultmeta{left:14px;right:14px;bottom:14px}.metacard{max-width:67%}
+  .modalgrid{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+<div class="shell">
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo"><img src="https://alfora.art/src/favicon.png" alt="Alfora"></div>
+      <div>
+        <small>image-generator-demo</small>
+        <strong>Alfora Image</strong>
+      </div>
+    </div>
+    <div class="pills">
+      <div class="pill">Sin API · procesamiento en tu dispositivo</div>
+      <div class="pill"><span id="topDot" class="dot"></span><span id="topStatus">Motor sin activar</span></div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="card sidebar">
+      <p class="kicker">GENERADOR LOCAL · WEBGPU</p>
+      <h1>Escribe.<br>Genera.<br>Sin conectar nada.</h1>
+      <p class="intro">Esta versión ya no usa ComfyUI, puertos, localhost ni CORS. El modelo se ejecuta directamente en el navegador mediante la GPU del usuario, y Alfora optimiza internamente el prompt para mejorar la lectura del modelo.</p>
+
+      <div class="field">
+        <div class="labelrow"><label for="prompt">Prompt</label><span class="mini">Ctrl/⌘ + Enter</span></div>
+        <div class="promptbox">
+          <textarea id="prompt" maxlength="1800">Un cohete saliendo de la Luna, espacio lleno de estrellas, atmósfera fantástica y onírica, iluminación cinematográfica, gran detalle</textarea>
+          <span id="count" class="count">0 / 1800</span>
+        </div>
+        <div class="chips">
+          <button class="chip" data-prompt="Dreamlike rocket launching from the Moon, star-filled deep space, cinematic lighting, surreal atmosphere, highly detailed">Espacio</button>
+          <button class="chip" data-prompt="Editorial product photograph of a translucent amber perfume bottle, sculpted clay pedestal, warm soft light, luxury minimalism">Producto</button>
+          <button class="chip" data-prompt="Futuristic brutalist museum in a desert at sunset, monumental architecture, warm cinematic light, realistic photography">Arquitectura</button>
+          <button class="chip" data-prompt="Playful colorful 3D abstract sculpture, clean studio background, soft shadows, graphic design poster">3D</button>
+        </div>
+
+        <div class="selectline">
+          <div class="selectwrap">
+            <small>Tipo visual</small>
+            <select id="stylePreset">
+              <option value="auto">Auto</option>
+              <option value="photo">Fotografía</option>
+              <option value="illustration">Ilustración</option>
+              <option value="3d">3D</option>
+              <option value="product">Producto</option>
+              <option value="portrait">Retrato</option>
+              <option value="animal">Animal</option>
+            </select>
+          </div>
+          <div class="selectwrap">
+            <small>Asistencia</small>
+            <select id="assistLevel">
+              <option value="soft">Suave</option>
+              <option value="balanced" selected>Equilibrada</option>
+              <option value="strong">Fuerte</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="prompttools">
+          <button id="improvePromptBtn" class="secondary">Mejorar prompt</button>
+          <button id="toggleNegativeBtn" class="secondary">Defectos: Auto</button>
+        </div>
+
+        <div id="helperBox" class="helper">Consejo: si el resultado sale deformado, especifica sujeto principal, tipo de imagen y una acción simple.</div>
+
+        <div class="smartbox">
+          <strong>Asistencia de prompt</strong>
+          <p id="smartSummary">Optimizador OFF. Puedes probar pasos y CFG manualmente; CFG 1 conserva el comportamiento estable actual.</p>
+          <div id="smartTags" class="smartchips"></div>
+        </div>
+
+        <div class="optimized">
+          <strong>Prompt optimizado interno</strong>
+          <code id="optimizedPreview">Todavía no generado.</code>
+        </div>
+      </div>
+
+      <div class="settings">
+        <div class="setting">
+          <small>Resolución demo</small>
+          <strong id="resolutionInfo">512 × 512 · 1:1 · 3 pasos</strong>
+        </div>
+
+        <div class="setting">
+          <small>Seed</small>
+          <div class="seedrow">
+            <input id="seed" type="number" min="0" max="2147483647" value="42">
+            <button id="randomSeed" class="icon" title="Nueva seed">↻</button>
+          </div>
+        </div>
+
+        <div class="setting steps-setting">
+          <small>Pasos de inferencia</small>
+          <select id="stepsSelect" class="steps-select">
+            <option value="1">1 paso · ultra rápido · experimental</option>
+            <option value="2">2 pasos · rápido · menor refinamiento</option>
+            <option value="3" selected>3 pasos · calidad estándar · estable</option>
+            <option value="4">4 pasos · calidad alta · más lento</option>
+            <option value="5">5 pasos · refinamiento extra · experimental</option>
+            <option value="6">6 pasos · estilos complejos · experimental</option>
+            <option value="7">7 pasos · ilustración/cartoon · experimental</option>
+            <option value="8">8 pasos · máximo de prueba · experimental</option>
+          </select>
+          <p class="setting-explain">
+            Más pasos realizan más iteraciones del UNet. Pueden mejorar estructura o estilo,
+            pero aumentan el tiempo y no garantizan una mejora continua.
+          </p>
+        </div>
+
+        <div class="setting steps-setting">
+          <small>CFG Scale · experimental</small>
+          <select id="cfgSelect" class="steps-select">
+            <option value="0">0 · sin dirección del prompt · experimental</option>
+            <option value="0.5">0.5 · guía suave</option>
+            <option value="1" selected>1 · estándar actual · estable</option>
+            <option value="1.5">1.5 · guía fuerte · experimental</option>
+            <option value="2">2 · guía muy fuerte · experimental</option>
+          </select>
+          <p class="setting-explain">
+            <strong>¿Qué es CFG?</strong>
+            Compara una predicción condicionada por tu prompt con otra sin prompt.
+            En esta demo, <strong>1</strong> conserva el comportamiento actual.
+            Menos de 1 reduce la influencia del prompt; más de 1 la refuerza.
+            Los valores distintos de 1 requieren una segunda ejecución del UNet por cada paso,
+            por lo que pueden tardar más.
+          </p>
+        </div>
+      </div>
+
+      <button id="generateBtn" class="primary" disabled>
+        <span>Generar imagen</span><span class="arrow">→</span>
+      </button>
+
+      <div class="engine">
+        <div class="engine-head">
+          <strong>Motor del navegador</strong>
+          <button id="activateBtn" class="secondary">Activar</button>
+        </div>
+        <p id="engineCopy" class="statuscopy">La interfaz está lista. Las librerías de IA se cargarán únicamente cuando pulses Activar.</p>
+
+        <div class="checks">
+          <div class="check">
+            <div><small>Contexto</small><strong>HTTPS / localhost</strong></div>
+            <span id="secureBadge" class="badge wait">Revisando</span>
+          </div>
+          <div class="check">
+            <div><small>GPU</small><strong>WebGPU</strong></div>
+            <span id="webgpuBadge" class="badge wait">Revisando</span>
+          </div>
+          <div class="check">
+            <div><small>Precisión</small><strong>shader-f16</strong></div>
+            <span id="fp16Badge" class="badge wait">Pendiente</span>
+          </div>
+          <div class="check">
+            <div><small>Modelo</small><strong>SD-Turbo ONNX</strong></div>
+            <span id="modelBadge" class="badge wait">No cargado</span>
+          </div>
+        </div>
+
+        <div id="progressBox" class="progressbox">
+          <div class="progressline"><div id="progressBar" class="progressbar"></div></div>
+          <div class="progresstext">
+            <span id="progressText">Preparando…</span>
+            <span id="progressPct">0%</span>
+          </div>
+        </div>
+
+        <div id="installSteps" class="installsteps">
+          <div id="stepCompatibility" class="installstep"><span class="stepdot"></span><span>Comprobar navegador y GPU</span></div>
+          <div id="stepStorage" class="installstep"><span class="stepdot"></span><span>Revisar almacenamiento del sitio</span></div>
+          <div id="stepDownload" class="installstep"><span class="stepdot"></span><span>Cargar 3 componentes del modelo</span></div>
+          <div id="stepGpu" class="installstep"><span class="stepdot"></span><span>Preparar el motor en WebGPU</span></div>
+        </div>
+
+        <div class="resourcebox">
+          <div class="resourcehead">
+            <strong>Almacenamiento del sitio</strong>
+            <span id="storageLabel">Calculando…</span>
+          </div>
+          <div class="resourcebar"><div id="storageFill" class="resourcefill"></div></div>
+          <div id="storageCopy" class="resourcecopy">La generación ya no depende de guardar 2,4 GB en el almacenamiento privado del navegador. ONNX Runtime cargará los componentes directamente.</div>
+          <div class="resourceactions">
+            <button id="releaseMemoryBtn" class="secondary" disabled>Liberar memoria</button>
+            <button id="deleteModelBtn" class="secondary">Limpiar caché antigua</button>
+          </div>
+        </div>
+
+        <div class="safety">
+          <strong>Modo estable:</strong> ONNX Runtime carga los componentes directamente desde su URL, uno por uno. Así evitamos que una cuota de Cache Storage u OPFS bloquee el generador.
+        </div>
+
+        <div class="note">
+          El modelo completo ronda 2,4 GB. El navegador puede reutilizar su caché HTTP cuando sea posible, pero Alfora ya no exige reservar 2,4 GB de almacenamiento del sitio para poder funcionar.
+        </div>
+      </div>
+    </aside>
+
+    <section class="card stage">
+      <div class="stage-head">
+        <div>
+          <h2>Lienzo</h2>
+          <p id="pipelineInfo">Pipeline: latent 64 × 64 · Euler 3 pasos · CFG 0 → VAE 512 × 512</p>
+        </div>
+        <div class="stage-actions">
+          <button id="clearBtn" class="secondary">Limpiar</button>
+          <button id="downloadTopBtn" class="secondary" disabled>Descargar</button>
+        </div>
+      </div>
+
+      <div class="canvasarea">
+        <div id="emptyState" class="empty">
+          <div class="orbit"><div class="core"><img src="https://alfora.art/src/favicon.png" alt="Alfora"></div></div>
+          <h3>Todo ocurre aquí.</h3>
+          <p>Activa el motor una sola vez. Si tu navegador es compatible, Alfora descargará el modelo y lo ejecutará directamente con WebGPU.</p>
+        </div>
+
+        <div id="loadingState" class="loading">
+          <div class="spinner"></div>
+          <h3 id="loadingTitle">Preparando el motor</h3>
+          <p id="loadingText">Comprobando WebGPU…</p>
+        </div>
+
+        <div id="resultWrap" class="result">
+          <canvas id="resultCanvas" width="512" height="512"></canvas>
+          <div class="resultmeta">
+            <div class="metacard">
+              <strong>Generado en el dispositivo</strong>
+              <span id="resultMeta"></span>
+            </div>
+            <button id="downloadBtn" class="download">Descargar PNG</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="recent">
+        <div class="recenthead"><strong>Generaciones recientes</strong><span id="historyCount">0 imágenes</span></div>
+        <div id="thumbs" class="thumbs"></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div id="activationModal" class="modal">
+  <div class="modalcard">
+    <div class="modaltop">
+      <div class="modalicon"><img src="https://alfora.art/src/favicon.png" alt="Alfora"></div>
+      <div>
+        <p class="kicker" style="margin:0 0 4px">PRIMERA ACTIVACIÓN</p>
+        <h2>El generador puede trabajar directamente en tu GPU.</h2>
+      </div>
+    </div>
+    <p>Al continuar, Alfora comprobará WebGPU y cargará el modelo por componentes directamente en ONNX Runtime. No necesita instalar los 2,4 GB en OPFS ni Cache Storage.</p>
+    <div class="modalgrid">
+      <div class="modalitem"><small>Servidor local</small><strong>No necesario</strong></div>
+      <div class="modalitem"><small>ComfyUI</small><strong>No necesario</strong></div>
+      <div class="modalitem"><small>Procesamiento</small><strong>GPU del dispositivo</strong></div>
+      <div class="modalitem"><small>Créditos por imagen</small><strong>No</strong></div>
+    </div>
+    <div class="modalactions">
+      <button id="laterBtn" class="secondary" onclick="document.getElementById('activationModal').classList.add('hidden')">Ahora no</button>
+      <button id="modalActivateBtn" class="primary" style="width:auto;margin:0;padding:0 14px">
+        <span>Comprobar y activar</span><span class="arrow">→</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+const MODEL_BASE = "https://huggingface.co/schmuell/sd-turbo-ort-web/resolve/main";
+const ORT_MODULE_URLS = [
+  "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.27.0/dist/ort.webgpu.bundle.min.mjs",
+  "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.27.0/dist/ort.webgpu.min.mjs"
+];
+const TRANSFORMERS_MODULE_URL = "https://cdn.jsdelivr.net/npm/@huggingface/transformers@4.2.0/+esm";
+
+let ort = null;
+let AutoTokenizer = null;
+let runtimeLoadPromise = null;
+let tokenizerLoadPromise = null;
+const ORT_ASSETS = "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.27.0/dist/";
+const MODEL_CACHE = "alfora-image-model-v1";
+const MODEL_OPFS_DIR = "alfora-image-model-v1";
+const ACTIVATED_KEY = "alfora-image-webgpu-activated";
+const MODEL_INSTALLED_KEY = "alfora-image-model-installed-v1";
+const SAFE_FREE_BYTES = 3.0 * 1024 * 1024 * 1024;
+
+// Resolución BLOQUEADA del pipeline.
+// SD-Turbo recibe un latent 64×64 y el VAE debe devolver exactamente 512×512.
+const OUTPUT_WIDTH = 512;
+const OUTPUT_HEIGHT = 512;
+const LATENT_WIDTH = 64;
+const LATENT_HEIGHT = 64;
+const LATENT_CHANNELS = 4;
+const OUTPUT_CHANNELS = 3;
+
+// CFG experimental.
+// 1 conserva exactamente el comportamiento actual: conditioning positivo directo.
+// Los valores distintos de 1 activan una segunda predicción UNet sin prompt.
+const DEFAULT_CFG_SCALE = 1;
+const CFG_VALUES = [0,0.5,1,1.5,2];
+const CFG_STORAGE_KEY = "alfora-image-cfg-scale";
+
+// El usuario puede elegir entre 1 y 8 pasos.
+// 3 pasos queda como valor estable por defecto para estas pruebas.
+const DEFAULT_INFERENCE_STEPS = 3;
+const MIN_INFERENCE_STEPS = 1;
+const MAX_INFERENCE_STEPS = 8;
+const STEPS_STORAGE_KEY = "alfora-image-inference-steps";
+
+const TRAIN_TIMESTEPS = 1000;
+const BETA_START = 0.00085;
+const BETA_END = 0.012;
+const VAE_SCALE_FACTOR = 0.18215;
+
+
+const MODEL_FILES = {
+  unet: {
+    path: "unet/model.onnx",
+    approxMB: 640,
+    overrides: { batch_size:1, num_channels:LATENT_CHANNELS, height:LATENT_HEIGHT, width:LATENT_WIDTH, sequence_length:77 }
+  },
+  text_encoder: {
+    path: "text_encoder/model.onnx",
+    approxMB: 1700,
+    overrides: { batch_size:1 }
+  },
+  vae_decoder: {
+    path: "vae_decoder/model.onnx",
+    approxMB: 95,
+    overrides: { batch_size:1, num_channels_latent:LATENT_CHANNELS, height_latent:LATENT_HEIGHT, width_latent:LATENT_WIDTH }
+  }
+};
+const TOTAL_MODEL_MB = Object.values(MODEL_FILES).reduce((sum, item) => sum + item.approxMB, 0);
+
+const els = Object.fromEntries([
+  "prompt","count","seed","randomSeed","generateBtn","activateBtn","engineCopy",
+  "secureBadge","webgpuBadge","fp16Badge","modelBadge","progressBox","progressBar",
+  "progressText","progressPct","topDot","topStatus","emptyState","loadingState",
+  "loadingTitle","loadingText","resultWrap","resultCanvas","resultMeta","downloadBtn",
+  "downloadTopBtn","clearBtn","thumbs","historyCount","activationModal",
+  "laterBtn","modalActivateBtn","toast","storageLabel","storageFill","storageCopy","releaseMemoryBtn","deleteModelBtn","stepCompatibility","stepStorage","stepDownload","stepGpu","stylePreset","assistLevel","improvePromptBtn","toggleNegativeBtn","helperBox","smartSummary","smartTags","optimizedPreview","stepsSelect","cfgSelect","resolutionInfo","pipelineInfo"
+].map(id => [id, document.getElementById(id)]));
+
+const state = {
+  adapter:null,
+  device:null,
+  tokenizer:null,
+  sessions:{},
+  ready:false,
+  busy:false,
+  history:[],
+  installed:false,
+  persistent:false,
+  installController:null,
+  directMode:true,
+  useNegativeAuto:true
+};
+
+function normalizeInferenceSteps(value){
+  const parsed=parseInt(value,10);
+  if(!Number.isFinite(parsed)) return DEFAULT_INFERENCE_STEPS;
+  return Math.max(
+    MIN_INFERENCE_STEPS,
+    Math.min(MAX_INFERENCE_STEPS,parsed)
+  );
+}
+
+function getInferenceSteps(){
+  return normalizeInferenceSteps(
+    els.stepsSelect?.value ?? DEFAULT_INFERENCE_STEPS
+  );
+}
+
+function stepLabel(steps){
+  return `${steps} ${steps===1 ? "paso" : "pasos"}`;
+}
+
+function updateStepsUi(){
+  const steps=getInferenceSteps();
+
+  if(els.stepsSelect){
+    els.stepsSelect.value=String(steps);
+  }
+
+  if(els.resolutionInfo){
+    els.resolutionInfo.textContent=
+      `512 × 512 · 1:1 · ${stepLabel(steps)}`;
+  }
+
+  if(els.pipelineInfo){
+    els.pipelineInfo.textContent=
+      `Pipeline: latent 64 × 64 · Euler ${stepLabel(steps)} · CFG ${cfgLabel(getCfgScale())} → VAE 512 × 512`;
+  }
+
+  try{
+    localStorage.setItem(STEPS_STORAGE_KEY,String(steps));
+  }catch(_){}
+
+  return steps;
+}
+
+function loadSavedInferenceSteps(){
+  let saved=null;
+
+  try{
+    saved=localStorage.getItem(STEPS_STORAGE_KEY);
+  }catch(_){}
+
+  const steps=normalizeInferenceSteps(
+    saved ?? DEFAULT_INFERENCE_STEPS
+  );
+
+  if(els.stepsSelect){
+    els.stepsSelect.value=String(steps);
+  }
+
+  updateStepsUi();
+}
+
+function normalizeCfgScale(value){
+  const parsed=Number(value);
+  if(!Number.isFinite(parsed)) return DEFAULT_CFG_SCALE;
+
+  let closest=CFG_VALUES[0];
+  let distance=Math.abs(parsed-closest);
+
+  for(const candidate of CFG_VALUES){
+    const nextDistance=Math.abs(parsed-candidate);
+    if(nextDistance<distance){
+      closest=candidate;
+      distance=nextDistance;
+    }
+  }
+
+  return closest;
+}
+
+function getCfgScale(){
+  return normalizeCfgScale(
+    els.cfgSelect?.value ?? DEFAULT_CFG_SCALE
+  );
+}
+
+function cfgLabel(cfg){
+  return Number.isInteger(cfg) ? String(cfg) : cfg.toFixed(1);
+}
+
+function updateCfgUi(){
+  const cfg=getCfgScale();
+
+  if(els.cfgSelect){
+    els.cfgSelect.value=String(cfg);
+  }
+
+  try{
+    localStorage.setItem(CFG_STORAGE_KEY,String(cfg));
+  }catch(_){}
+
+  if(els.pipelineInfo){
+    els.pipelineInfo.textContent=
+      `Pipeline: latent 64 × 64 · Euler ${stepLabel(getInferenceSteps())} · CFG ${cfgLabel(cfg)} → VAE 512 × 512`;
+  }
+
+  return cfg;
+}
+
+function loadSavedCfgScale(){
+  let saved=null;
+
+  try{
+    saved=localStorage.getItem(CFG_STORAGE_KEY);
+  }catch(_){}
+
+  const cfg=normalizeCfgScale(
+    saved ?? DEFAULT_CFG_SCALE
+  );
+
+  if(els.cfgSelect){
+    els.cfgSelect.value=String(cfg);
+  }
+
+  updateCfgUi();
+}
+
+function combineCfgPredictions(unconditional,conditional,cfgScale){
+  if(
+    !unconditional?.data ||
+    !conditional?.data ||
+    unconditional.data.length!==conditional.data.length
+  ){
+    throw new Error("No se pudieron combinar las predicciones CFG.");
+  }
+
+  const out=new Float32Array(conditional.data.length);
+
+  // Fórmula clásica:
+  // guided = uncond + cfg * (cond - uncond)
+  //
+  // cfg = 1  -> exactamente cond (comportamiento estable actual)
+  // cfg < 1  -> reduce influencia del prompt
+  // cfg > 1  -> refuerza influencia del prompt
+  for(let i=0;i<out.length;i++){
+    const u=unconditional.data[i];
+    const c=conditional.data[i];
+    out[i]=u+(cfgScale*(c-u));
+  }
+
+  return new ort.Tensor("float32",out,conditional.dims);
+}
+
+async function ensureOrtRuntime(){
+  if(ort?.InferenceSession) return ort;
+
+  if(!runtimeLoadPromise){
+    runtimeLoadPromise=(async()=>{
+      setTop("Cargando motor","busy");
+      els.engineCopy.textContent="Cargando ONNX Runtime WebGPU…";
+
+      let lastError=null;
+
+      for(const url of ORT_MODULE_URLS){
+        try{
+          // La distribución WebGPU moderna de ONNX Runtime se carga como ES module.
+          // No dependemos de una variable global del runtime.
+          const mod=await import(url);
+          const candidate=(mod?.default?.InferenceSession) ? mod.default : mod;
+
+          if(!candidate?.InferenceSession || !candidate?.Tensor || !candidate?.env){
+            throw new Error("El módulo no contiene InferenceSession, Tensor y env.");
+          }
+
+          ort=candidate;
+
+          // WebGPU usa componentes WASM/JSEP auxiliares. Los mantenemos en la
+          // misma versión que el módulo principal.
+          ort.env.wasm.wasmPaths=ORT_ASSETS;
+          ort.env.wasm.numThreads=1;
+          ort.env.wasm.simd=true;
+
+          console.info("Alfora: ONNX Runtime WebGPU cargado desde",url);
+          return ort;
+        }catch(err){
+          console.warn("Alfora: falló ORT desde",url,err);
+          lastError=err;
+        }
+      }
+
+      throw new Error(
+        `No se pudo inicializar ONNX Runtime WebGPU. ${lastError?.message || ""}`.trim()
+      );
+    })().catch(err=>{
+      runtimeLoadPromise=null;
+      ort=null;
+      throw err;
+    });
+  }
+
+  return runtimeLoadPromise;
+}
+
+async function ensureTokenizerLibrary(){
+  if(AutoTokenizer) return AutoTokenizer;
+
+  if(!tokenizerLoadPromise){
+    tokenizerLoadPromise=import(TRANSFORMERS_MODULE_URL)
+      .then(mod=>{
+        if(!mod?.AutoTokenizer){
+          throw new Error("Transformers.js no expuso AutoTokenizer.");
+        }
+        AutoTokenizer=mod.AutoTokenizer;
+        return AutoTokenizer;
+      })
+      .catch(err=>{
+        tokenizerLoadPromise=null;
+        throw new Error(`No se pudo cargar el procesador de prompts: ${err?.message || err}`);
+      });
+  }
+
+  return tokenizerLoadPromise;
+}
+
+function reportBootError(err){
+  console.error("Alfora boot error:",err);
+  const message=String(err?.message||err);
+  if(els.engineCopy) els.engineCopy.textContent=message;
+  if(els.modelBadge) badge(els.modelBadge,"Error","no");
+  setTop("Error de interfaz","warn");
+  toast(message,true);
+}
+
+
+function badge(el, text, kind){
+  el.textContent = text;
+  el.className = "badge " + kind;
+}
+function setTop(text, kind=""){
+  els.topStatus.textContent = text;
+  els.topDot.className = "dot" + (kind ? " " + kind : "");
+}
+function toast(message, error=false){
+  els.toast.textContent = message;
+  els.toast.className = "toast show" + (error ? " error" : "");
+  clearTimeout(toast.t);
+  toast.t = setTimeout(() => els.toast.className="toast", 4200);
+}
+function updateCount(){ els.count.textContent = `${els.prompt.value.length} / 1800`; }
+function setLoading(show,title="",text=""){
+  els.loadingState.classList.toggle("show",show);
+  els.emptyState.style.display = show ? "none" : (els.resultWrap.classList.contains("show") ? "none" : "");
+  if(title) els.loadingTitle.textContent=title;
+  if(text) els.loadingText.textContent=text;
+}
+function setProgress(percent,text){
+  els.progressBox.classList.add("show");
+  els.progressBar.style.width = `${Math.max(0,Math.min(100,percent))}%`;
+  els.progressPct.textContent = `${Math.round(percent)}%`;
+  els.progressText.textContent = text;
+}
+function seededRandom(seed){
+  let a = seed >>> 0;
+  return function(){
+    a |= 0;
+    a = a + 0x6D2B79F5 | 0;
+    let t = Math.imul(a ^ a >>> 15, 1 | a);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+function gaussianArray(size,sigma,seed){
+  const rand=seededRandom(seed);
+  const out=new Float32Array(size);
+  for(let i=0;i<size;i+=2){
+    let u=Math.max(rand(),1e-7),v=rand();
+    const mag=Math.sqrt(-2*Math.log(u))*sigma;
+    out[i]=mag*Math.cos(2*Math.PI*v);
+    if(i+1<size) out[i+1]=mag*Math.sin(2*Math.PI*v);
+  }
+  return out;
+}
+function scaleLatents(t,sigma){
+  const out=new Float32Array(t.data.length);
+  const div=Math.sqrt(sigma*sigma+1);
+  for(let i=0;i<out.length;i++) out[i]=t.data[i]/div;
+  return new ort.Tensor("float32",out,t.dims);
+}
+function buildEulerSchedule(numInferenceSteps=DEFAULT_INFERENCE_STEPS){
+  // Replica la configuración del scheduler del modelo:
+  // EulerDiscreteScheduler
+  // beta_schedule = "scaled_linear"
+  // beta_start = 0.00085
+  // beta_end = 0.012
+  // num_train_timesteps = 1000
+  // timestep_spacing = "trailing"
+  //
+  // El schedule se reconstruye según el selector.
+  // Ejemplos aproximados:
+  // 1 paso  -> [999]
+  // 2 pasos -> [999, 499]
+  // 3 pasos -> [999, 666, 332]
+  // 4 pasos -> [999, 749, 499, 249]
+
+  const trainSigmas=new Float64Array(TRAIN_TIMESTEPS);
+  let alphaCumprod=1;
+
+  const sqrtStart=Math.sqrt(BETA_START);
+  const sqrtEnd=Math.sqrt(BETA_END);
+
+  for(let i=0;i<TRAIN_TIMESTEPS;i++){
+    const fraction=i/(TRAIN_TIMESTEPS-1);
+    const sqrtBeta=sqrtStart+(sqrtEnd-sqrtStart)*fraction;
+    const beta=sqrtBeta*sqrtBeta;
+    const alpha=1-beta;
+
+    alphaCumprod*=alpha;
+    trainSigmas[i]=Math.sqrt((1-alphaCumprod)/alphaCumprod);
+  }
+
+  const stepRatio=TRAIN_TIMESTEPS/numInferenceSteps;
+  const timesteps=[];
+  const sigmas=[];
+
+  for(let i=0;i<numInferenceSteps;i++){
+    // Equivalent to:
+    // np.arange(num_train_timesteps, 0, -step_ratio).round() - 1
+    const timestep=Math.round(TRAIN_TIMESTEPS-(i*stepRatio))-1;
+    const clamped=Math.max(0,Math.min(TRAIN_TIMESTEPS-1,timestep));
+
+    timesteps.push(clamped);
+    sigmas.push(trainSigmas[clamped]);
+  }
+
+  // Euler termina en sigma 0.
+  sigmas.push(0);
+
+  console.info(
+    `[Alfora] Euler schedule ${numInferenceSteps} pasos:`,
+    timesteps.map((t,i)=>({
+      step:i+1,
+      timestep:t,
+      sigma:Number(sigmas[i].toFixed(6)),
+      nextSigma:Number(sigmas[i+1].toFixed(6))
+    }))
+  );
+
+  return {timesteps,sigmas};
+}
+
+function eulerSchedulerStep(modelOutput,sample,sigma,nextSigma){
+  // prediction_type = "epsilon"
+  //
+  // pred_original = sample - sigma * epsilon
+  // derivative    = (sample - pred_original) / sigma = epsilon
+  // prev_sample   = sample + derivative * (nextSigma - sigma)
+  //
+  // IMPORTANTE:
+  // NO aplicamos el factor del VAE aquí. Ese factor solo se aplica
+  // después del último paso de denoising.
+  const out=new Float32Array(sample.data.length);
+  const dt=nextSigma-sigma;
+
+  for(let i=0;i<out.length;i++){
+    out[i]=sample.data[i]+modelOutput.data[i]*dt;
+  }
+
+  return new ort.Tensor("float32",out,sample.dims);
+}
+
+function scaleLatentForVae(t){
+  const out=new Float32Array(t.data.length);
+
+  for(let i=0;i<out.length;i++){
+    out[i]=t.data[i]/VAE_SCALE_FACTOR;
+  }
+
+  return new ort.Tensor("float32",out,t.dims);
+}
+function assertTensorDims(name,dims,expected){
+  const actual=Array.from(dims||[]);
+  const ok=actual.length===expected.length && actual.every((v,i)=>Number(v)===Number(expected[i]));
+  console.info(`[Alfora] ${name}:`,actual.join(" × "));
+  if(!ok){
+    throw new Error(
+      `${name} tiene dimensiones ${actual.join("×") || "desconocidas"}, `+
+      `pero Alfora exige ${expected.join("×")}. Se detuvo la generación para evitar reescalar o interpolar píxeles.`
+    );
+  }
+}
+
+function prepareOutputCanvas(canvas){
+  // Tamaño interno REAL del bitmap, no CSS.
+  canvas.width=OUTPUT_WIDTH;
+  canvas.height=OUTPUT_HEIGHT;
+
+  const ctx=canvas.getContext("2d",{
+    alpha:true,
+    desynchronized:false,
+    willReadFrequently:false
+  });
+
+  // Nunca suavizamos un reescalado porque aquí no debe existir reescalado.
+  ctx.imageSmoothingEnabled=false;
+  return ctx;
+}
+
+function tensorToCanvas(tensor,canvas){
+  const dims=Array.from(tensor.dims||[]);
+
+  // Salida VAE obligatoria: NCHW [1,3,512,512].
+  assertTensorDims(
+    "Salida VAE",
+    dims,
+    [1,OUTPUT_CHANNELS,OUTPUT_HEIGHT,OUTPUT_WIDTH]
+  );
+
+  const data=tensor.data;
+  const expectedValues=OUTPUT_CHANNELS*OUTPUT_WIDTH*OUTPUT_HEIGHT;
+
+  if(data.length!==expectedValues){
+    throw new Error(
+      `La salida VAE contiene ${data.length} valores; se esperaban exactamente ${expectedValues}.`
+    );
+  }
+
+  const ctx=prepareOutputCanvas(canvas);
+  const image=new ImageData(OUTPUT_WIDTH,OUTPUT_HEIGHT);
+  const plane=OUTPUT_WIDTH*OUTPUT_HEIGHT;
+
+  // Conversión directa tensor → píxel. No drawImage, no scale, no resize.
+  for(let i=0;i<plane;i++){
+    const r=Math.max(0,Math.min(1,data[i]/2+.5));
+    const g=Math.max(0,Math.min(1,data[plane+i]/2+.5));
+    const b=Math.max(0,Math.min(1,data[(2*plane)+i]/2+.5));
+    const p=i*4;
+
+    image.data[p]=Math.round(r*255);
+    image.data[p+1]=Math.round(g*255);
+    image.data[p+2]=Math.round(b*255);
+    image.data[p+3]=255;
+  }
+
+  ctx.putImageData(image,0,0);
+
+  // Verificación final del bitmap real.
+  if(canvas.width!==OUTPUT_WIDTH || canvas.height!==OUTPUT_HEIGHT){
+    throw new Error(
+      `El bitmap final cambió inesperadamente a ${canvas.width}×${canvas.height}.`
+    );
+  }
+
+  console.info(
+    `[Alfora] Bitmap final: ${canvas.width} × ${canvas.height} píxeles reales`
+  );
+
+  return {
+    width:canvas.width,
+    height:canvas.height,
+    latent:`${LATENT_WIDTH}×${LATENT_HEIGHT}`,
+    decoded:`${OUTPUT_WIDTH}×${OUTPUT_HEIGHT}`
+  };
+}
+
+function setStep(el,status){
+  el.className="installstep" + (status ? " " + status : "");
+}
+function niceGB(bytes){
+  if(!Number.isFinite(bytes)) return "—";
+  return `${(bytes/1024/1024/1024).toFixed(bytes > 10*1024**3 ? 0 : 1)} GB`;
+}
+function idlePause(ms=300){
+  return new Promise(resolve=>{
+    if("requestIdleCallback" in window){
+      requestIdleCallback(()=>setTimeout(resolve,Math.min(ms,120)),{timeout:ms+500});
+    }else{
+      setTimeout(resolve,ms);
+    }
+  });
+}
+async function refreshStorageInfo(){
+  if(!navigator.storage?.estimate){
+    els.storageLabel.textContent="No disponible";
+    els.storageCopy.textContent="Este navegador no informa la cuota de almacenamiento.";
+    return {usage:0,quota:Infinity,free:Infinity};
+  }
+  const estimate=await navigator.storage.estimate();
+  const usage=Number(estimate.usage||0);
+  const quota=Number(estimate.quota||0);
+  const free=Math.max(0,quota-usage);
+  const pct=quota ? Math.min(100,(usage/quota)*100) : 0;
+  els.storageFill.style.width=`${pct}%`;
+  els.storageLabel.textContent=`${niceGB(usage)} usados`;
+  els.storageCopy.textContent=quota
+    ? `${niceGB(free)} aproximadamente disponibles para este sitio · cuota ${niceGB(quota)}`
+    : `Uso aproximado: ${niceGB(usage)}`;
+  return {usage,quota,free};
+}
+async function requestPersistentStorage(){
+  if(!navigator.storage?.persist) return false;
+  try{
+    state.persistent=await navigator.storage.persist();
+    return state.persistent;
+  }catch(_){
+    return false;
+  }
+}
+async function getModelDirectory(create=true){
+  if(!navigator.storage?.getDirectory) return null;
+  const root=await navigator.storage.getDirectory();
+  try{
+    return await root.getDirectoryHandle(MODEL_OPFS_DIR,{create});
+  }catch(err){
+    if(!create && err?.name==="NotFoundError") return null;
+    throw err;
+  }
+}
+function opfsName(path){
+  return path.replaceAll("/","__");
+}
+async function getOpfsFileInfo(path){
+  const dir=await getModelDirectory(false);
+  if(!dir) return null;
+  try{
+    const handle=await dir.getFileHandle(opfsName(path));
+    const file=await handle.getFile();
+    return {handle,file,size:file.size};
+  }catch(err){
+    if(err?.name==="NotFoundError") return null;
+    throw err;
+  }
+}
+async function cacheStatus(){
+  let found=0;
+  let bytes=0;
+
+  if(navigator.storage?.getDirectory){
+    try{
+      for(const file of Object.values(MODEL_FILES)){
+        const info=await getOpfsFileInfo(file.path);
+        if(info && info.size>0){
+          found++;
+          bytes+=info.size;
+        }
+      }
+    }catch(err){
+      console.warn("No pude revisar OPFS",err);
+    }
+  }
+
+  // Compatibilidad con instalaciones antiguas en Cache Storage.
+  if(found<Object.keys(MODEL_FILES).length){
+    try{
+      const cache=await caches.open(MODEL_CACHE);
+      for(const file of Object.values(MODEL_FILES)){
+        if(await getOpfsFileInfo(file.path)) continue;
+        const url=`${MODEL_BASE}/${file.path}`;
+        const hit=await cache.match(url);
+        if(hit){
+          found++;
+          const len=Number(hit.headers.get("content-length"))||0;
+          bytes+=len;
+        }
+      }
+    }catch(_){}
+  }
+
+  state.installed=found===Object.keys(MODEL_FILES).length;
+  if(state.installed) localStorage.setItem(MODEL_INSTALLED_KEY,"1");
+  else localStorage.removeItem(MODEL_INSTALLED_KEY);
+  return {found,total:Object.keys(MODEL_FILES).length,bytes};
+}
+async function writeResponseToOpfs(file,response,index,total){
+  const dir=await getModelDirectory(true);
+  if(!dir) throw new Error("OPFS no está disponible en este navegador.");
+
+  const handle=await dir.getFileHandle(opfsName(file.path),{create:true});
+  const writable=await handle.createWritable();
+
+  const totalBytes=Number(response.headers.get("content-length"))||0;
+  const reader=response.body?.getReader();
+  let loaded=0;
+
+  try{
+    if(!reader){
+      // Fallback raro: una sola copia si el stream no está disponible.
+      const blob=await response.blob();
+      await writable.write(blob);
+      loaded=blob.size;
+    }else{
+      while(true){
+        const {done,value}=await reader.read();
+        if(done) break;
+        if(value){
+          await writable.write(value);
+          loaded+=value.byteLength;
+
+          const filePct=totalBytes ? loaded/totalBytes : 0;
+          const start=(index/total)*72;
+          const slice=72/total;
+          const overall=start+(filePct*slice);
+          setProgress(
+            overall,
+            `${file.path} · ${(loaded/1024/1024).toFixed(0)} MB${totalBytes ? ` / ${(totalBytes/1024/1024).toFixed(0)} MB` : ""}`
+          );
+        }
+        // Ceder el hilo cada cierto tiempo ayuda a mantener la interfaz respirando.
+        if(loaded && loaded%(32*1024*1024)<2*1024*1024){
+          await idlePause(20);
+        }
+      }
+    }
+    await writable.close();
+  }catch(err){
+    try{ await writable.abort(); }catch(_){}
+    try{ await dir.removeEntry(opfsName(file.path)); }catch(_){}
+    throw err;
+  }
+
+  return loaded;
+}
+async function storeModelFile(file,index,total){
+  const opfsInfo=await getOpfsFileInfo(file.path);
+  const start=(index/total)*72;
+  const end=((index+1)/total)*72;
+
+  if(opfsInfo && opfsInfo.size>0){
+    setProgress(end,`${file.path} · ya está guardado`);
+    return;
+  }
+
+  // Si venimos de una instalación antigua correcta en Cache Storage, migrarla
+  // hacia OPFS sin volver a descargar.
+  try{
+    const cache=await caches.open(MODEL_CACHE);
+    const oldHit=await cache.match(`${MODEL_BASE}/${file.path}`);
+    if(oldHit){
+      els.loadingText.textContent=`Migrando componente ${index+1} de ${total} al almacenamiento estable…`;
+      await writeResponseToOpfs(file,oldHit,index,total);
+      setProgress(end,`${file.path} · migrado`);
+      await idlePause(250);
+      return;
+    }
+  }catch(_){}
+
+  const controller=state.installController;
+  setProgress(start,`Descargando ${file.path} · ~${file.approxMB} MB`);
+  els.loadingText.textContent=`Guardando componente ${index+1} de ${total} en el dispositivo · ~${file.approxMB} MB`;
+
+  const response=await fetch(`${MODEL_BASE}/${file.path}`,{
+    signal:controller?.signal,
+    cache:"default"
+  });
+  if(!response.ok) throw new Error(`No se pudo descargar ${file.path} (${response.status}).`);
+
+  try{
+    await writeResponseToOpfs(file,response,index,total);
+  }catch(err){
+    if(err?.name==="QuotaExceededError"){
+      const estimate=await navigator.storage?.estimate?.().catch(()=>null);
+      const free=estimate ? Math.max(0,(estimate.quota||0)-(estimate.usage||0)) : 0;
+      throw new Error(
+        `El navegador rechazó el almacenamiento del modelo por cuota. `+
+        `${free ? `Espacio estimado disponible: ${niceGB(free)}. ` : ""}`+
+        `Prueba cerrar otras pestañas de este sitio o eliminar el modelo anterior y volver a intentarlo.`
+      );
+    }
+    throw err;
+  }
+
+  setProgress(end,`${file.path} · guardado`);
+  await idlePause(350);
+}
+async function installModelFiles(){
+  const entries=Object.entries(MODEL_FILES);
+  state.installController=new AbortController();
+
+  const before=await refreshStorageInfo();
+  if(Number.isFinite(before.free) && before.free < SAFE_FREE_BYTES){
+    throw new Error(`No hay suficiente espacio disponible para instalar el modelo con margen de seguridad. Disponibles: ${niceGB(before.free)}.`);
+  }
+
+  await requestPersistentStorage();
+
+  for(let i=0;i<entries.length;i++){
+    const [,file]=entries[i];
+    await storeModelFile(file,i,entries.length);
+  }
+
+  state.installController=null;
+  state.installed=true;
+  localStorage.setItem(MODEL_INSTALLED_KEY,"1");
+  await refreshStorageInfo();
+
+  // Ya no necesitamos conservar duplicados del modelo en Cache Storage.
+  try{ await caches.delete(MODEL_CACHE); }catch(_){}
+}
+async function readModelBytes(file){
+  const info=await getOpfsFileInfo(file.path);
+  if(info){
+    return await info.file.arrayBuffer();
+  }
+
+  // Fallback para navegadores sin OPFS / instalaciones antiguas.
+  const cache=await caches.open(MODEL_CACHE);
+  const hit=await cache.match(`${MODEL_BASE}/${file.path}`);
+  if(!hit) throw new Error(`Falta ${file.path} en la instalación local.`);
+  return await hit.arrayBuffer();
+}
+
+function getSessionOptions(file){
+  return {
+    executionProviders:["webgpu"],
+    enableMemPattern:false,
+    enableCpuMemArena:false,
+    freeDimensionOverrides:file.overrides,
+    extra:{session:{
+      disable_prepacking:"1",
+      use_device_allocator_for_initializers:"1"
+    }}
+  };
+}
+
+async function createSessionDirect(name,file,index,total){
+  const start=8+(index/total)*90;
+  const end=8+((index+1)/total)*90;
+  const url=`${MODEL_BASE}/${file.path}`;
+
+  setProgress(start,`Cargando ${name} · componente ${index+1} de ${total}`);
+  els.loadingText.textContent=`Cargando ${name} directamente en ONNX Runtime · ${index+1} de ${total}`;
+
+  // ONNX Runtime Web admite una ruta/URL de modelo directamente.
+  // Así el navegador/ORT administran la transferencia y evitamos escribir
+  // manualmente varios GB en OPFS o Cache Storage.
+  const session=await ort.InferenceSession.create(url,getSessionOptions(file));
+
+  setProgress(end,`${name} listo`);
+  await idlePause(name==="text_encoder" ? 900 : 450);
+  return session;
+}
+
+async function createSessionFromCache(name,file,index,total){
+  const start=72+(index/total)*27;
+  const end=72+((index+1)/total)*27;
+  setProgress(start,`Preparando ${name} en WebGPU…`);
+  els.loadingText.textContent=`Preparando GPU · componente ${index+1} de ${total}`;
+
+  // Sólo se materializa en RAM el componente que ONNX está inicializando ahora.
+  let modelBytes=await readModelBytes(file);
+
+  const session=await ort.InferenceSession.create(modelBytes,{
+    ...getSessionOptions(file),
+    extra:{session:{
+      ...getSessionOptions(file).extra.session,
+      use_ort_model_bytes_directly:"1",
+      use_ort_model_bytes_for_initializers:"1"
+    }}
+  });
+
+  modelBytes=null;
+  setProgress(end,`${name} listo`);
+  await idlePause(name==="text_encoder" ? 800 : 400);
+  return session;
+}
+async function releaseEngineMemory(showToast=true){
+  if(state.busy) return;
+
+  const sessions=Object.values(state.sessions);
+  state.sessions={};
+  state.ready=false;
+
+  els.generateBtn.disabled=true;
+  els.releaseMemoryBtn.disabled=true;
+  els.activateBtn.textContent="Cargar motor";
+  setTop("Motor descargado de memoria","warn");
+  badge(els.modelBadge,"No cargado","wait");
+  els.engineCopy.textContent="La RAM/GPU del generador fue liberada. Pulsa “Cargar motor” para volver a preparar ONNX Runtime.";
+
+  for(const session of sessions){
+    try{ await session.release?.(); }catch(_){}
+  }
+
+  if(showToast) toast("Memoria del generador liberada.");
+}
+
+async function deleteInstalledModel(){
+  if(state.busy) return;
+
+  await releaseEngineMemory(false);
+
+  // Limpia únicamente datos de las versiones antiguas que usaban OPFS/Cache Storage.
+  try{
+    if(navigator.storage?.getDirectory){
+      const root=await navigator.storage.getDirectory();
+      await root.removeEntry(MODEL_OPFS_DIR,{recursive:true});
+    }
+  }catch(err){
+    if(err?.name!=="NotFoundError") console.warn("No pude borrar OPFS antiguo",err);
+  }
+
+  try{ await caches.delete(MODEL_CACHE); }catch(_){}
+
+  localStorage.removeItem(MODEL_INSTALLED_KEY);
+  state.installed=false;
+
+  setProgress(0,"Caché antigua eliminada");
+  els.progressBox.classList.remove("show");
+  setStep(els.stepDownload,"");
+  setStep(els.stepGpu,"");
+  await refreshStorageInfo();
+
+  els.engineCopy.textContent="Se limpiaron los datos de las versiones antiguas. La versión actual carga el modelo directamente.";
+  setTop("Motor sin cargar","");
+
+  toast("Caché antigua de Alfora eliminada.");
+}
+
+
+const NEGATIVE_DEFAULT = "deformed anatomy, bad proportions, duplicate subject, extra limbs, extra fingers, malformed face, distorted eyes, blurred face, bad hands, broken hands, fused fingers, weird mouth, low detail, cropped subject, disfigured animal, mutated hands, multiple heads, messy composition";
+
+const STYLE_PRESETS = {
+  auto: {
+    label:"Auto",
+    prefix:"",
+    base:"",
+    composition:"clear subject, readable scene"
+  },
+  photo: {
+    label:"Fotografía",
+    prefix:"professional photo of",
+    base:"realistic lighting, natural textures, photographic detail, realistic scene",
+    composition:"clear subject, believable photo composition, realistic depth"
+  },
+  illustration: {
+    label:"Ilustración",
+    prefix:"detailed illustration of",
+    base:"refined drawing, coherent shapes, visually clear illustration",
+    composition:"clear silhouette, readable composition"
+  },
+  "3d": {
+    label:"3D",
+    prefix:"high quality 3d render of",
+    base:"clean materials, studio quality lighting, crisp forms",
+    composition:"clear subject, readable 3d composition"
+  },
+  product: {
+    label:"Producto",
+    prefix:"premium product photo of",
+    base:"editorial product photography, clean background, premium lighting, highly detailed object",
+    composition:"single main product, centered framing, clean contours"
+  },
+  portrait: {
+    label:"Retrato",
+    prefix:"portrait photo of",
+    base:"clear face, natural facial proportions, realistic skin or fur, portrait lighting",
+    composition:"one main subject, upper body or close portrait, centered composition"
+  },
+  animal: {
+    label:"Animal",
+    prefix:"photo of",
+    base:"clear animal subject, realistic fur or feathers, natural anatomy, visible eyes",
+    composition:"one main animal subject, readable pose, clean framing"
+  }
+};
+
+const SUBJECT_HINTS = [
+  {
+    test:/\b(persona|hombre|mujer|retrato|rostro|cara|niña|niño|man|woman|person|portrait|face|girl|boy)\b/i,
+    tags:["persona"],
+    boost:"one main person, clear face, centered composition, natural anatomy, coherent eyes, coherent hands if visible"
+  },
+  {
+    test:/\b(perro|gato|pájaro|ave|pollo|pollito|gallina|caballo|pez|calamar|animal|dog|cat|bird|chicken|hen|horse|fish|squid|animal)\b/i,
+    tags:["animal"],
+    boost:"main animal clearly visible, coherent anatomy, readable pose, natural body proportions"
+  },
+  {
+    test:/\b(botella|perfume|producto|lámpara|objeto|shoe|watch|bottle|product|object|lamp)\b/i,
+    tags:["producto"],
+    boost:"single main product, centered framing, clear contours, premium lighting"
+  },
+  {
+    test:/\b(edificio|casa|museo|arquitectura|building|house|museum|architecture)\b/i,
+    tags:["arquitectura"],
+    boost:"architecture as primary subject, clean geometry, readable perspective"
+  },
+  {
+    test:/\b(coche|carro|auto|vehículo|car|vehicle|racing)\b/i,
+    tags:["vehículo"],
+    boost:"single clear vehicle, clean perspective, detailed body lines"
+  }
+];
+
+const ACTION_HINTS = [
+  { test:/\b(comiendo|eating)\b/i, boost:"clearly eating food, visible meal, visible action" },
+  { test:/\b(espaguetis|spaghetti|pasta|noodles)\b/i, boost:"spaghetti or pasta clearly visible, plate or bowl visible" },
+  { test:/\b(sonriendo|smiling)\b/i, boost:"natural smile, pleasant expression" },
+  { test:/\b(corriendo|running)\b/i, boost:"dynamic running pose, visible movement" },
+  { test:/\b(sentado|sitting)\b/i, boost:"clear seated pose" },
+  { test:/\b(sosteniendo|holding)\b/i, boost:"held object clearly visible" }
+];
+
+const RELATION_HINTS = [
+  { test:/\b(debajo de|under)\b/i, boost:"the spatial relationship is clear" },
+  { test:/\b(alas|wings)\b/i, boost:"wings clearly visible" },
+  { test:/\b(mother|madre|mam[aá]|gallina)\b/i, boost:"the larger guardian subject and the smaller secondary subject are both visible" },
+  { test:/\b(luna|moon)\b/i, boost:"moon environment clearly visible" },
+  { test:/\b(cohete|rocket)\b/i, boost:"rocket clearly visible as the main subject" }
+];
+
+const SCENE_HINTS = [
+  { test:/\b(alicia|wonderland|maravillas)\b/i, boost:"whimsical fantasy environment, storybook wonderland mood" },
+  { test:/\b(espacio|space|moon|stars?)\b/i, boost:"space environment, stars visible, atmospheric depth" }
+];
+
+function detectLikelyPerson(prompt){
+  if(/\b(persona|hombre|mujer|retrato|rostro|cara|man|woman|person|portrait|face)\b/i.test(prompt)) return true;
+  return /^[a-záéíóúñ]+(?:\s+[a-záéíóúñ]+){1,3}\s+(comiendo|eating|smiling|sonriendo|running|corriendo|sitting|sentado|holding|sosteniendo)\b/i.test(prompt.trim());
+}
+
+function inferPromptNeeds(prompt){
+  const tags=[];
+  const boosts=[];
+  for(const item of SUBJECT_HINTS){
+    if(item.test.test(prompt)){
+      for(const tag of item.tags){
+        if(!tags.includes(tag)) tags.push(tag);
+      }
+      boosts.push(item.boost);
+    }
+  }
+  for(const item of ACTION_HINTS){
+    if(item.test.test(prompt)) boosts.push(item.boost);
+  }
+  for(const item of RELATION_HINTS){
+    if(item.test.test(prompt)) boosts.push(item.boost);
+  }
+  for(const item of SCENE_HINTS){
+    if(item.test.test(prompt)) boosts.push(item.boost);
+  }
+  if(detectLikelyPerson(prompt) && !tags.includes("persona")) tags.push("persona");
+  const short=prompt.trim().split(/\s+/).filter(Boolean).length<6;
+  return {tags,boosts,short};
+}
+
+function translatePromptES(input){
+  const replacements=[
+    [/^un\s+/i,"a "],
+    [/^una\s+/i,"a "],
+    [/\by\b/gi," and "],
+    [/\bdebajo de\b/gi,"under"],
+    [/\bbajo\b/gi,"under"],
+    [/\bcon\b/gi,"with"],
+    [/\bsobre\b/gi,"on"],
+    [/\ben el\b/gi,"in the"],
+    [/\ben la\b/gi,"in the"],
+    [/\ben una\b/gi,"in a"],
+    [/\ben un\b/gi,"in a"],
+    [/\bespacio\b/gi,"space"],
+    [/\bestrellas?\b/gi,"stars"],
+    [/\bestrellado\b/gi,"star-filled"],
+    [/\bfant[aá]stico\b/gi,"fantastical"],
+    [/\bon[ií]rico\b/gi,"dreamlike"],
+    [/\bpollo\b/gi,"chick"],
+    [/\bpollito\b/gi,"baby chick"],
+    [/\bgallina\b/gi,"hen"],
+    [/\bcalamar\b/gi,"squid"],
+    [/\bagua\b/gi,"water"],
+    [/\bluna\b/gi,"moon"],
+    [/\bcohete\b/gi,"rocket"],
+    [/\bproducto\b/gi,"product"],
+    [/\bretrato\b/gi,"portrait"],
+    [/\bdetalle\b/gi,"detail"],
+    [/\bdetallado\b/gi,"detailed"],
+    [/\biluminaci[oó]n cinematogr[aá]fica\b/gi,"cinematic lighting"],
+    [/\bfotograf[ií]a\b/gi,"photography"],
+    [/\bilustraci[oó]n\b/gi,"illustration"],
+    [/\balas\b/gi,"wings"],
+    [/\bmadre\b/gi,"mother"],
+    [/\bmam[aá]\b/gi,"mother"],
+    [/\bcomiendo\b/gi,"eating"],
+    [/\bespaguetis\b/gi,"spaghetti"],
+    [/\bpasta\b/gi,"pasta"],
+    [/\bsonriendo\b/gi,"smiling"],
+    [/\bcorriendo\b/gi,"running"],
+    [/\bsentado\b/gi,"sitting"],
+    [/\bsosteniendo\b/gi,"holding"],
+    [/\bpa[ií]s de las maravillas\b/gi,"wonderland"]
+  ];
+  let text=input.trim();
+  for(const [rx,repl] of replacements) text=text.replace(rx,repl);
+  return text.replace(/\s+/g," ").trim();
+}
+
+function buildOptimizedPrompt(rawPrompt){
+  const clean=(rawPrompt || "").trim();
+
+  // OPTIMIZADOR TOTALMENTE DESACTIVADO.
+  // El texto escrito por el usuario pasa sin modificación al tokenizer.
+  return {
+    optimized:clean,
+    negative:"",
+    posScale:1.0,
+    negScale:0.0,
+    tags:[],
+    short:false,
+    summary:"Optimizador desactivado. El modelo recibe exactamente el prompt escrito.",
+    meta:{
+      optimizerDisabled:true
+    }
+  };
+}
+
+function updatePromptAssistant(){
+  const raw=els.prompt?.value?.trim() || "";
+  const data=buildOptimizedPrompt(raw);
+  const inferenceSteps=getInferenceSteps();
+  const cfg=getCfgScale();
+
+  if(els.smartSummary){
+    els.smartSummary.textContent=
+      `Optimizador OFF · SD-Turbo directo · ${stepLabel(inferenceSteps)} Euler · CFG ${cfgLabel(cfg)}.`;
+  }
+
+  if(els.smartTags){
+    els.smartTags.innerHTML="";
+
+    const optimizerTag=document.createElement("span");
+    optimizerTag.className="smarttag";
+    optimizerTag.textContent="OPTIMIZER OFF";
+    els.smartTags.appendChild(optimizerTag);
+
+    const cfgTag=document.createElement("span");
+    cfgTag.className="smarttag";
+    cfgTag.textContent=`CFG ${cfgLabel(cfg)}`;
+    els.smartTags.appendChild(cfgTag);
+  }
+
+  if(els.optimizedPreview){
+    els.optimizedPreview.textContent=raw
+      ? `${raw}
+
+Prompt optimizer: OFF
+Pasos: ${inferenceSteps}
+CFG / Guidance: ${cfgLabel(cfg)}
+Negative conditioning: OFF`
+      : `Prompt optimizer: OFF
+Pasos: ${inferenceSteps}
+CFG / Guidance: ${cfgLabel(cfg)}
+Negative conditioning: OFF`;
+  }
+
+  if(els.helperBox){
+    els.helperBox.textContent=
+      "Prueba directa: Alfora no traducirá, ampliará ni modificará el prompt.";
+  }
+
+  return data;
+}
+
+async function testWebGPU(){
+  const secure=window.isSecureContext;
+  badge(els.secureBadge, secure ? "Correcto" : "Requiere HTTPS", secure ? "ok":"no");
+  if(!secure) throw new Error("WebGPU requiere un contexto seguro. Usa HTTPS o localhost.");
+
+  if(!("gpu" in navigator)){
+    badge(els.webgpuBadge,"No disponible","no");
+    badge(els.fp16Badge,"No disponible","no");
+    throw new Error("Este navegador no expone WebGPU.");
+  }
+  badge(els.webgpuBadge,"Disponible","ok");
+
+  const adapter=await navigator.gpu.requestAdapter({powerPreference:"high-performance"});
+  if(!adapter) throw new Error("No fue posible obtener un adaptador WebGPU.");
+
+  state.adapter=adapter;
+  const fp16=adapter.features.has("shader-f16");
+  badge(els.fp16Badge,fp16 ? "Compatible":"No compatible",fp16 ? "ok":"no");
+  if(!fp16) throw new Error("Esta demo de SD-Turbo FP16 necesita una GPU/navegador con shader-f16.");
+
+  state.device=await adapter.requestDevice({requiredFeatures:["shader-f16"]});
+  return true;
+}
+async function activateEngine(){
+  if(state.busy) return;
+
+  state.busy=true;
+  els.activateBtn.disabled=true;
+  els.modalActivateBtn.disabled=true;
+  els.activationModal.classList.add("hidden");
+
+  setTop("Preparando WebGPU","busy");
+  setLoading(true,"Preparando el generador","Comprobando compatibilidad…");
+  els.engineCopy.textContent="Preparando el generador sin instalación obligatoria en el almacenamiento del sitio.";
+
+  setStep(els.stepCompatibility,"active");
+  setStep(els.stepStorage,"");
+  setStep(els.stepDownload,"");
+  setStep(els.stepGpu,"");
+
+  try{
+    await testWebGPU();
+    setStep(els.stepCompatibility,"done");
+    localStorage.setItem(ACTIVATED_KEY,"1");
+
+    els.loadingText.textContent="Cargando librerías de IA…";
+    await ensureOrtRuntime();
+    await ensureTokenizerLibrary();
+
+    // El almacenamiento ahora es informativo: nunca bloquea la carga del modelo.
+    setStep(els.stepStorage,"active");
+    await refreshStorageInfo();
+    setStep(els.stepStorage,"done");
+
+    if(!state.tokenizer){
+      els.loadingText.textContent="Preparando el procesador de texto…";
+      state.tokenizer=await AutoTokenizer.from_pretrained("Xenova/clip-vit-base-patch16");
+      state.tokenizer.pad_token_id=0;
+    }
+
+    setStep(els.stepDownload,"active");
+    badge(els.modelBadge,"Cargando","wait");
+    setProgress(8,"Iniciando carga directa del modelo…");
+
+    // Limpiar sesiones anteriores antes de recrearlas.
+    for(const session of Object.values(state.sessions)){
+      try{ await session.release?.(); }catch(_){}
+    }
+    state.sessions={};
+
+    const entries=Object.entries(MODEL_FILES);
+
+    // Carga estrictamente secuencial para reducir presión de memoria.
+    for(let i=0;i<entries.length;i++){
+      const [name,file]=entries[i];
+      state.sessions[name]=await createSessionDirect(name,file,i,entries.length);
+    }
+
+    setStep(els.stepDownload,"done");
+    setStep(els.stepGpu,"done");
+
+    state.ready=true;
+    state.directMode=true;
+    badge(els.modelBadge,"Listo","ok");
+    setProgress(100,"Motor listo");
+    els.generateBtn.disabled=false;
+    els.releaseMemoryBtn.disabled=false;
+    els.activateBtn.textContent="Activo";
+    els.engineCopy.textContent="Motor listo. El modelo se cargó directamente en WebGPU sin depender de OPFS/Cache Storage.";
+    els.storageCopy.textContent="El almacenamiento del sitio ya no limita la activación. El navegador puede reutilizar su propia caché HTTP cuando corresponda.";
+    setTop("Motor listo","ok");
+    setLoading(false);
+
+    toast("Generador listo. Se evitó el almacenamiento que estaba provocando QuotaExceededError.");
+  }catch(err){
+    console.error(err);
+    state.ready=false;
+
+    badge(els.modelBadge,"No cargado","no");
+    setTop("No disponible","warn");
+    els.engineCopy.textContent=String(err.message||err);
+    setLoading(false);
+
+    if(els.stepCompatibility.classList.contains("active")) setStep(els.stepCompatibility,"error");
+    else if(els.stepDownload.classList.contains("active")) setStep(els.stepDownload,"error");
+    else setStep(els.stepGpu,"error");
+
+    toast(String(err.message||err),true);
+  }finally{
+    state.busy=false;
+    els.activateBtn.disabled=false;
+    els.modalActivateBtn.disabled=false;
+  }
+}
+async function generate(){
+  if(!state.ready) return activateEngine();
+  if(state.busy) return;
+
+  const prompt=els.prompt.value.trim();
+  if(!prompt) return toast("Escribe un prompt.",true);
+
+  const inferenceSteps=getInferenceSteps();
+  const guidanceScale=getCfgScale();
+  const prepared = updatePromptAssistant(true);
+  const finalPrompt = prepared.optimized;
+  const finalNegative = "";
+
+  state.busy=true;
+  els.generateBtn.disabled=true;
+  if(els.stepsSelect) els.stepsSelect.disabled=true;
+  if(els.cfgSelect) els.cfgSelect.disabled=true;
+  setTop("Generando","busy");
+  setLoading(true,"Generando en tu GPU","Codificando el prompt…");
+  els.resultWrap.classList.remove("show");
+
+  const started=performance.now();
+  try{
+    const encoded=await state.tokenizer(finalPrompt,{
+      padding:"max_length",
+      max_length:77,
+      truncation:true
+    });
+
+    const idsSource=encoded.input_ids?.data ?? encoded.input_ids;
+    const ids=new Int32Array(77);
+    for(let i=0;i<77;i++) ids[i]=Number(idsSource[i] ?? 0);
+
+    const textResult=await state.sessions.text_encoder.run({
+      input_ids:new ort.Tensor("int32",ids,[1,77])
+    });
+    const hidden=textResult.last_hidden_state;
+
+    let unconditionalHidden=null;
+
+    // CFG 1 conserva exactamente el pipeline actual y NO hace trabajo extra.
+    // Para cualquier otro valor generamos también el conditioning vacío.
+    if(guidanceScale!==1){
+      els.loadingText.textContent="Preparando conditioning CFG sin prompt…";
+
+      const emptyEncoded=await state.tokenizer("",{
+        padding:"max_length",
+        max_length:77,
+        truncation:true
+      });
+
+      const emptyIdsSource=emptyEncoded.input_ids?.data ?? emptyEncoded.input_ids;
+      const emptyIds=new Int32Array(77);
+
+      for(let i=0;i<77;i++){
+        emptyIds[i]=Number(emptyIdsSource[i] ?? 0);
+      }
+
+      const emptyTextResult=await state.sessions.text_encoder.run({
+        input_ids:new ort.Tensor("int32",emptyIds,[1,77])
+      });
+
+      unconditionalHidden=emptyTextResult.last_hidden_state;
+    }
+
+    els.loadingText.textContent=`Creando latentes para ${stepLabel(inferenceSteps)}…`;
+
+    const seed=Math.max(0,Number(els.seed.value)||0);
+    const latentShape=[1,LATENT_CHANNELS,LATENT_HEIGHT,LATENT_WIDTH];
+    const latentValueCount=LATENT_CHANNELS*LATENT_HEIGHT*LATENT_WIDTH;
+
+    const schedule=buildEulerSchedule(inferenceSteps);
+    const initialSigma=schedule.sigmas[0];
+
+    // El ruido inicial usa el sigma máximo del schedule.
+    let currentLatent=new ort.Tensor(
+      "float32",
+      gaussianArray(latentValueCount,initialSigma,seed),
+      latentShape
+    );
+
+    assertTensorDims(
+      "Latent inicial",
+      currentLatent.dims,
+      [1,LATENT_CHANNELS,LATENT_HEIGHT,LATENT_WIDTH]
+    );
+
+    const conditioning=hidden;
+    console.info(
+      `[Alfora] CFG: ${guidanceScale} · `+
+      `${guidanceScale===1 ? "conditioning directo" : "classifier-free guidance activo"} · `+
+      `negative prompt: OFF · pasos: ${inferenceSteps}`
+    );
+
+    for(let stepIndex=0;stepIndex<inferenceSteps;stepIndex++){
+      const timestep=schedule.timesteps[stepIndex];
+      const sigma=schedule.sigmas[stepIndex];
+      const nextSigma=schedule.sigmas[stepIndex+1];
+
+      els.loadingText.textContent=
+        `Sintetizando · paso ${stepIndex+1} de ${inferenceSteps} · timestep ${timestep}…`;
+
+      console.info(
+        `[Alfora] Paso ${stepIndex+1}/${inferenceSteps} · `+
+        `timestep ${timestep} · sigma ${sigma.toFixed(6)} → ${nextSigma.toFixed(6)}`
+      );
+
+      const modelInput=scaleLatents(currentLatent,sigma);
+
+      const timestepTensor=new ort.Tensor(
+        "int64",
+        BigInt64Array.from([BigInt(timestep)]),
+        [1]
+      );
+
+      const conditionalOut=await state.sessions.unet.run({
+        sample:modelInput,
+        timestep:timestepTensor,
+        encoder_hidden_states:conditioning
+      });
+
+      assertTensorDims(
+        `Salida UNet condicional paso ${stepIndex+1}`,
+        conditionalOut.out_sample.dims,
+        [1,LATENT_CHANNELS,LATENT_HEIGHT,LATENT_WIDTH]
+      );
+
+      let noisePrediction=conditionalOut.out_sample;
+      let unconditionalOut=null;
+      let guidedPrediction=null;
+
+      if(guidanceScale!==1){
+        // Segunda predicción: mismo latent/timestep, pero sin prompt.
+        unconditionalOut=await state.sessions.unet.run({
+          sample:modelInput,
+          timestep:timestepTensor,
+          encoder_hidden_states:unconditionalHidden
+        });
+
+        assertTensorDims(
+          `Salida UNet sin prompt paso ${stepIndex+1}`,
+          unconditionalOut.out_sample.dims,
+          [1,LATENT_CHANNELS,LATENT_HEIGHT,LATENT_WIDTH]
+        );
+
+        guidedPrediction=combineCfgPredictions(
+          unconditionalOut.out_sample,
+          conditionalOut.out_sample,
+          guidanceScale
+        );
+
+        noisePrediction=guidedPrediction;
+      }
+
+      const nextLatent=eulerSchedulerStep(
+        noisePrediction,
+        currentLatent,
+        sigma,
+        nextSigma
+      );
+
+      assertTensorDims(
+        `Latent después del paso ${stepIndex+1}`,
+        nextLatent.dims,
+        [1,LATENT_CHANNELS,LATENT_HEIGHT,LATENT_WIDTH]
+      );
+
+      // Liberamos tensores temporales del paso.
+      if(typeof modelInput?.dispose==="function"){
+        try{ modelInput.dispose(); }catch(_){}
+      }
+      if(typeof conditionalOut.out_sample?.dispose==="function"){
+        try{ conditionalOut.out_sample.dispose(); }catch(_){}
+      }
+      if(typeof unconditionalOut?.out_sample?.dispose==="function"){
+        try{ unconditionalOut.out_sample.dispose(); }catch(_){}
+      }
+      if(typeof guidedPrediction?.dispose==="function"){
+        try{ guidedPrediction.dispose(); }catch(_){}
+      }
+      if(
+        currentLatent!==nextLatent &&
+        typeof currentLatent?.dispose==="function"
+      ){
+        try{ currentLatent.dispose(); }catch(_){}
+      }
+
+      currentLatent=nextLatent;
+    }
+
+    // El factor 1 / 0.18215 se aplica UNA SOLA VEZ,
+    // después de completar los 2 pasos, justo antes del VAE.
+    const vaeLatent=scaleLatentForVae(currentLatent);
+
+    assertTensorDims(
+      "Latent para VAE",
+      vaeLatent.dims,
+      [1,LATENT_CHANNELS,LATENT_HEIGHT,LATENT_WIDTH]
+    );
+
+    els.loadingText.textContent="Decodificando 512 × 512 píxeles…";
+
+    const decoded=await state.sessions.vae_decoder.run({
+      latent_sample:vaeLatent
+    });
+
+    const outputInfo=tensorToCanvas(decoded.sample,els.resultCanvas);
+
+    if(typeof hidden.dispose==="function"){
+      try{ hidden.dispose(); }catch(_){}
+    }
+    if(typeof unconditionalHidden?.dispose==="function"){
+      try{ unconditionalHidden.dispose(); }catch(_){}
+    }
+    if(typeof currentLatent?.dispose==="function"){
+      try{ currentLatent.dispose(); }catch(_){}
+    }
+    if(typeof vaeLatent?.dispose==="function"){
+      try{ vaeLatent.dispose(); }catch(_){}
+    }
+    if(typeof decoded.sample?.dispose==="function"){
+      try{ decoded.sample.dispose(); }catch(_){}
+    }
+
+    const elapsed=((performance.now()-started)/1000).toFixed(1);
+    els.resultMeta.textContent=
+      `${outputInfo.width} × ${outputInfo.height} reales · `+
+      `latent ${outputInfo.latent} · seed ${seed} · ${stepLabel(inferenceSteps)} · CFG ${cfgLabel(guidanceScale)} · ${elapsed}s · WebGPU`;
+    els.loadingState.classList.remove("show");
+    els.resultWrap.classList.add("show");
+    els.emptyState.style.display="none";
+    els.downloadTopBtn.disabled=false;
+
+    const dataUrl=els.resultCanvas.toDataURL("image/png");
+    state.history.unshift({dataUrl,prompt,seed,elapsed,steps:inferenceSteps,cfg:guidanceScale});
+    state.history=state.history.slice(0,8);
+    renderHistory();
+
+    setTop("Motor listo","ok");
+    toast(`Imagen generada localmente en ${elapsed}s.`);
+  }catch(err){
+    console.error(err);
+    setTop("Error al generar","warn");
+    setLoading(false);
+    els.emptyState.style.display="";
+    toast(String(err.message||err),true);
+  }finally{
+    state.busy=false;
+    els.generateBtn.disabled=!state.ready;
+    if(els.stepsSelect) els.stepsSelect.disabled=false;
+    if(els.cfgSelect) els.cfgSelect.disabled=false;
+  }
+}
+function renderHistory(){
+  els.thumbs.innerHTML="";
+  state.history.forEach(item=>{
+    const b=document.createElement("button");
+    b.className="thumb";
+    b.title=item.prompt;
+    const img=document.createElement("img");
+    img.src=item.dataUrl;
+    img.alt="Generación reciente";
+    b.appendChild(img);
+    b.onclick=()=>{
+      const ctx=els.resultCanvas.getContext("2d");
+      const source=new Image();
+      source.onload=()=>{
+        els.resultCanvas.width=OUTPUT_WIDTH;
+        els.resultCanvas.height=OUTPUT_HEIGHT;
+        ctx.imageSmoothingEnabled=false;
+
+        // El historial sólo acepta imágenes creadas por este pipeline 512×512.
+        if(source.naturalWidth!==OUTPUT_WIDTH || source.naturalHeight!==OUTPUT_HEIGHT){
+          toast(
+            `La imagen del historial mide ${source.naturalWidth}×${source.naturalHeight}; `+
+            `se esperaba 512×512.`,
+            true
+          );
+          return;
+        }
+        ctx.drawImage(source,0,0);
+        els.resultMeta.textContent=`512 × 512 · seed ${item.seed} · ${stepLabel(item.steps||DEFAULT_INFERENCE_STEPS)} · CFG ${cfgLabel(item.cfg ?? DEFAULT_CFG_SCALE)} · ${item.elapsed}s · historial`;
+        els.resultWrap.classList.add("show");
+        els.emptyState.style.display="none";
+        els.downloadTopBtn.disabled=false;
+      };
+      source.src=item.dataUrl;
+    };
+    els.thumbs.appendChild(b);
+  });
+  els.historyCount.textContent=`${state.history.length} ${state.history.length===1?"imagen":"imágenes"}`;
+}
+function download(){
+  if(!els.resultWrap.classList.contains("show")) return;
+
+  if(
+    els.resultCanvas.width!==OUTPUT_WIDTH ||
+    els.resultCanvas.height!==OUTPUT_HEIGHT
+  ){
+    toast(
+      `Exportación detenida: el bitmap mide ${els.resultCanvas.width}×${els.resultCanvas.height} `+
+      `y debe medir exactamente 512×512.`,
+      true
+    );
+    return;
+  }
+
+  const a=document.createElement("a");
+  a.download=`alfora-image-512x512-${getInferenceSteps()}steps-cfg${String(getCfgScale()).replace(".","p")}-seed-${els.seed.value}.png`;
+  a.href=els.resultCanvas.toDataURL("image/png");
+  a.click();
+}
+function clearResult(){
+  els.resultWrap.classList.remove("show");
+  els.loadingState.classList.remove("show");
+  els.emptyState.style.display="";
+  els.downloadTopBtn.disabled=true;
+}
+async function initialCheck(){
+  badge(
+    els.secureBadge,
+    window.isSecureContext ? "Correcto" : "Requiere HTTPS",
+    window.isSecureContext ? "ok" : "no"
+  );
+
+  badge(
+    els.webgpuBadge,
+    ("gpu" in navigator) ? "Detectado" : "No disponible",
+    ("gpu" in navigator) ? "ok" : "no"
+  );
+
+  await refreshStorageInfo();
+
+  // Sólo detectamos datos antiguos para ofrecer limpieza; ya no condicionan el motor.
+  const oldStorage=await cacheStatus();
+  if(oldStorage.found>0){
+    els.storageCopy.textContent=`Hay ${oldStorage.found} componente(s) de una versión anterior guardados. Puedes limpiarlos; la versión actual no los necesita.`;
+  }else{
+    els.storageCopy.textContent="La versión actual no necesita reservar 2,4 GB en OPFS o Cache Storage.";
+  }
+
+  badge(els.modelBadge,"No cargado","wait");
+  els.activateBtn.textContent="Cargar motor";
+
+  if(localStorage.getItem(ACTIVATED_KEY)==="1"){
+    els.activationModal.classList.add("hidden");
+  }
+}
+
+// Controles críticos: se conectan antes de ejecutar cualquier diagnóstico o carga externa.
+els.laterBtn.onclick=()=>{
+  els.activationModal.classList.add("hidden");
+};
+
+els.modalActivateBtn.onclick=()=>{
+  activateEngine().catch(reportBootError);
+};
+
+els.activateBtn.onclick=()=>{
+  activateEngine().catch(reportBootError);
+};
+
+updateCount();
+loadSavedInferenceSteps();
+loadSavedCfgScale();
+
+try{
+  updatePromptAssistant();
+  initialCheck().catch(reportBootError);
+}catch(err){
+  reportBootError(err);
+}
+
+els.prompt.addEventListener("input",()=>{updateCount(); updatePromptAssistant();});
+els.prompt.addEventListener("keydown",e=>{
+  if((e.ctrlKey||e.metaKey)&&e.key==="Enter") generate();
+});
+document.querySelectorAll(".chip").forEach(btn=>{
+  btn.onclick=()=>{els.prompt.value=btn.dataset.prompt||"";updateCount();updatePromptAssistant();}
+});
+els.randomSeed.onclick=()=>els.seed.value=Math.floor(Math.random()*2147483647);
+
+els.stepsSelect.onchange=()=>{
+  updateStepsUi();
+  updateCfgUi();
+  updatePromptAssistant();
+  toast(`Próxima generación: ${stepLabel(getInferenceSteps())}.`);
+};
+
+els.cfgSelect.onchange=()=>{
+  updateCfgUi();
+  updateStepsUi();
+  updatePromptAssistant();
+
+  const cfg=getCfgScale();
+  toast(
+    cfg===1
+      ? "CFG 1: comportamiento estable actual."
+      : `CFG ${cfgLabel(cfg)}: prueba experimental; puede tardar más.`
+  );
+};
+
+els.improvePromptBtn.textContent="Optimizador OFF";
+els.improvePromptBtn.disabled=true;
+els.improvePromptBtn.onclick=null;
+els.toggleNegativeBtn.textContent="Defectos: OFF";
+els.toggleNegativeBtn.disabled=true;
+els.toggleNegativeBtn.onclick=()=>{
+  els.toggleNegativeBtn.textContent = "Defectos: OFF";
+  updatePromptAssistant();
+};
+els.stylePreset.onchange=()=>updatePromptAssistant();
+els.assistLevel.onchange=()=>updatePromptAssistant();
+els.generateBtn.onclick=()=>generate().catch(reportBootError);
+els.downloadBtn.onclick=download;
+els.downloadTopBtn.onclick=download;
+els.clearBtn.onclick=clearResult;
+els.releaseMemoryBtn.onclick=()=>releaseEngineMemory(true);
+els.deleteModelBtn.onclick=deleteInstalledModel;
+</script>
+</body>
+</html>
