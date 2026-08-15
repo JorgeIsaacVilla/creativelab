@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light">
-<title>image-generator-demo · Alfora</title>
+<title>image-generator-demo · Alfora · Hostinger/mobile fix</title>
 <link rel="icon" href="https://alfora.art/src/favicon.png">
 
 <style>
@@ -474,7 +474,7 @@ textarea:focus{border-color:rgba(226,109,67,.55);box-shadow:0 0 0 4px rgba(226,1
 
         <div class="checks">
           <div class="check">
-            <div><small>Contexto</small><strong>HTTPS / localhost</strong></div>
+            <div><small>Contexto</small><strong id="contextValue">Detectando entorno…</strong></div>
             <span id="secureBadge" class="badge wait">Revisando</span>
           </div>
           <div class="check">
@@ -674,7 +674,7 @@ const els = Object.fromEntries([
   "progressText","progressPct","topDot","topStatus","emptyState","loadingState",
   "loadingTitle","loadingText","resultWrap","resultCanvas","resultMeta","downloadBtn",
   "downloadTopBtn","clearBtn","thumbs","historyCount","activationModal",
-  "laterBtn","modalActivateBtn","toast","storageLabel","storageFill","storageCopy","releaseMemoryBtn","deleteModelBtn","stepCompatibility","stepStorage","stepDownload","stepGpu","stylePreset","assistLevel","improvePromptBtn","toggleNegativeBtn","helperBox","smartSummary","smartTags","optimizedPreview","stepsSelect","cfgSelect","resolutionInfo","pipelineInfo"
+  "laterBtn","modalActivateBtn","toast","storageLabel","storageFill","storageCopy","releaseMemoryBtn","deleteModelBtn","stepCompatibility","stepStorage","stepDownload","stepGpu","stylePreset","assistLevel","improvePromptBtn","toggleNegativeBtn","helperBox","smartSummary","smartTags","optimizedPreview","stepsSelect","cfgSelect","resolutionInfo","pipelineInfo","contextValue"
 ].map(id => [id, document.getElementById(id)]));
 
 const state = {
@@ -689,7 +689,10 @@ const state = {
   persistent:false,
   installController:null,
   directMode:true,
-  useNegativeAuto:true
+  useNegativeAuto:true,
+  adapterMode:"none",
+  wakeLock:null,
+  deviceLossHooked:false
 };
 
 function normalizeInferenceSteps(value){
@@ -866,6 +869,12 @@ async function ensureOrtRuntime(){
           }
 
           ort=candidate;
+
+          // Reutilizamos el adaptador que ya validamos en el preflight.
+          // ORT crea el GPUDevice; evitamos abrir un segundo dispositivo manual.
+          if(state.adapter && ort.env?.webgpu){
+            ort.env.webgpu.adapter=state.adapter;
+          }
 
           // WebGPU usa componentes WASM/JSEP auxiliares. Los mantenemos en la
           // misma versión que el módulo principal.
@@ -1427,8 +1436,15 @@ async function createSessionDirect(name,file,index,total){
   // manualmente varios GB en OPFS o Cache Storage.
   const session=await ort.InferenceSession.create(url,getSessionOptions(file));
 
+  // Después de la primera sesión, ORT ya expone el GPUDevice real que usa.
+  hookOrtDeviceLoss();
+
   setProgress(end,`${name} listo`);
-  await idlePause(name==="text_encoder" ? 900 : 450);
+  await idlePause(
+    name==="text_encoder"
+      ? (isMobileBrowser() ? 1400 : 900)
+      : (isMobileBrowser() ? 700 : 450)
+  );
   return session;
 }
 
@@ -1461,6 +1477,8 @@ async function releaseEngineMemory(showToast=true){
   const sessions=Object.values(state.sessions);
   state.sessions={};
   state.ready=false;
+  state.device=null;
+  state.deviceLossHooked=false;
 
   els.generateBtn.disabled=true;
   els.releaseMemoryBtn.disabled=true;
@@ -1751,33 +1769,211 @@ Negative conditioning: OFF`;
   return data;
 }
 
+
+function isMobileBrowser(){
+  return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent || "");
+}
+function isAndroidBrowser(){
+  return /Android/i.test(navigator.userAgent || "");
+}
+function environmentLabel(){
+  const host=location.host || location.hostname || "desconocido";
+  const mobile=isMobileBrowser() ? " · móvil" : " · escritorio";
+  return `${location.protocol}//${host}${mobile}`;
+}
+function compactGpuLimits(adapter){
+  if(!adapter?.limits) return {};
+  const names=[
+    "maxBufferSize",
+    "maxStorageBufferBindingSize",
+    "maxComputeWorkgroupStorageSize",
+    "maxComputeInvocationsPerWorkgroup"
+  ];
+  const out={};
+  for(const name of names){
+    const value=adapter.limits[name];
+    if(value!==undefined) out[name]=Number(value);
+  }
+  return out;
+}
+async function requestBestWebGPUAdapter(){
+  // En escritorio y móviles modernos usamos el adaptador normal.
+  // No forzamos powerPreference: algunos navegadores/plataformas lo ignoran
+  // y en móvil puede limitar innecesariamente la selección del adaptador.
+  let adapter=null;
+  try{
+    adapter=await navigator.gpu.requestAdapter();
+  }catch(err){
+    console.warn("[Alfora] requestAdapter estándar falló:",err);
+  }
+  if(adapter){
+    return {adapter,mode:"standard"};
+  }
+
+  // Chrome moderno puede exponer compatibilityMode en Android para GPUs
+  // que no entran por la ruta WebGPU/Vulkan estándar. Si el navegador no
+  // conoce esta opción, simplemente la ignora o devuelve null.
+  if(isAndroidBrowser()){
+    try{
+      adapter=await navigator.gpu.requestAdapter({compatibilityMode:true});
+      if(adapter){
+        return {adapter,mode:"compatibility"};
+      }
+    }catch(err){
+      console.warn("[Alfora] compatibilityMode no disponible:",err);
+    }
+  }
+
+  return {adapter:null,mode:"none"};
+}
+async function requestScreenWakeLock(){
+  if(!isMobileBrowser() || !("wakeLock" in navigator)) return;
+  try{
+    if(!state.wakeLock){
+      state.wakeLock=await navigator.wakeLock.request("screen");
+      state.wakeLock.addEventListener?.("release",()=>{
+        state.wakeLock=null;
+      });
+    }
+  }catch(err){
+    console.info("[Alfora] Wake Lock no disponible:",err?.message || err);
+  }
+}
+async function releaseScreenWakeLock(){
+  try{
+    await state.wakeLock?.release?.();
+  }catch(_){}
+  state.wakeLock=null;
+}
+function hookOrtDeviceLoss(){
+  if(state.deviceLossHooked) return;
+  const device=ort?.env?.webgpu?.device;
+  if(!device?.lost) return;
+
+  state.device=device;
+  state.deviceLossHooked=true;
+
+  device.lost.then(info=>{
+    console.error("[Alfora] Dispositivo WebGPU perdido:",info);
+    state.ready=false;
+    if(els.generateBtn) els.generateBtn.disabled=true;
+    if(els.engineCopy){
+      els.engineCopy.textContent=
+        "La GPU dejó de estar disponible. En móvil puede ocurrir por memoria insuficiente, cambio de app o suspensión del navegador. Recarga la página para volver a intentarlo.";
+    }
+    if(els.modelBadge) badge(els.modelBadge,"GPU perdida","no");
+    setTop("GPU no disponible","warn");
+    toast("La GPU se desconectó durante la sesión. Recarga la página para intentarlo de nuevo.",true);
+  }).catch(()=>{});
+}
+function friendlyRuntimeError(err){
+  const raw=String(err?.message || err || "Error desconocido");
+  const lower=raw.toLowerCase();
+
+  if(lower.includes("shader-f16")){
+    return "Este dispositivo expone WebGPU, pero no soporta shader-f16. El modelo FP16 actual de Alfora no puede ejecutarse en este teléfono.";
+  }
+  if(
+    lower.includes("out of memory") ||
+    lower.includes("out-of-memory") ||
+    lower.includes("oom") ||
+    lower.includes("allocation") ||
+    lower.includes("memory")
+  ){
+    return "El navegador se quedó sin memoria al preparar SD-Turbo. El modelo actual ronda 2,4 GB y algunos teléfonos no pueden mantenerlo completo en memoria.";
+  }
+  if(
+    lower.includes("failed to fetch") ||
+    lower.includes("networkerror") ||
+    lower.includes("network error") ||
+    lower.includes("load failed")
+  ){
+    return "No se pudieron descargar todos los componentes del motor. Revisa la conexión y vuelve a intentar; Alfora cargará los archivos directamente desde sus fuentes HTTPS.";
+  }
+  if(lower.includes("webgpu") || lower.includes("adapter")){
+    return "WebGPU no está disponible con la configuración actual de este navegador/dispositivo. En Android conviene probar Chrome actualizado; Alfora también intenta automáticamente el modo de compatibilidad cuando existe.";
+  }
+  if(lower.includes("device lost") || lower.includes("gpu device")){
+    return "La GPU dejó de estar disponible durante la carga. En teléfonos suele indicar presión de memoria, suspensión de la pestaña o una limitación del controlador.";
+  }
+  return raw;
+}
+
 async function testWebGPU(){
   const secure=window.isSecureContext;
-  badge(els.secureBadge, secure ? "Correcto" : "Requiere HTTPS", secure ? "ok":"no");
-  if(!secure) throw new Error("WebGPU requiere un contexto seguro. Usa HTTPS o localhost.");
+
+  if(els.contextValue){
+    els.contextValue.textContent=environmentLabel();
+  }
+
+  badge(
+    els.secureBadge,
+    secure ? (location.hostname==="localhost" ? "Local seguro" : "HTTPS correcto") : "Requiere HTTPS",
+    secure ? "ok":"no"
+  );
+
+  if(!secure){
+    throw new Error("WebGPU requiere un contexto seguro. Publica la herramienta con HTTPS.");
+  }
 
   if(!("gpu" in navigator)){
     badge(els.webgpuBadge,"No disponible","no");
     badge(els.fp16Badge,"No disponible","no");
-    throw new Error("Este navegador no expone WebGPU.");
+    throw new Error(
+      isMobileBrowser()
+        ? "Este navegador móvil no expone WebGPU. Prueba Chrome actualizado en Android compatible."
+        : "Este navegador no expone WebGPU."
+    );
   }
-  badge(els.webgpuBadge,"Disponible","ok");
 
-  const adapter=await navigator.gpu.requestAdapter({powerPreference:"high-performance"});
-  if(!adapter) throw new Error("No fue posible obtener un adaptador WebGPU.");
+  badge(els.webgpuBadge,"Buscando GPU","wait");
+
+  const result=await requestBestWebGPUAdapter();
+  const adapter=result.adapter;
+
+  if(!adapter){
+    badge(els.webgpuBadge,"Sin adaptador","no");
+    badge(els.fp16Badge,"No comprobado","no");
+    throw new Error("WebGPU existe, pero el navegador no pudo obtener un adaptador GPU compatible.");
+  }
 
   state.adapter=adapter;
-  const fp16=adapter.features.has("shader-f16");
-  badge(els.fp16Badge,fp16 ? "Compatible":"No compatible",fp16 ? "ok":"no");
-  if(!fp16) throw new Error("Esta demo de SD-Turbo FP16 necesita una GPU/navegador con shader-f16.");
+  state.adapterMode=result.mode;
 
-  state.device=await adapter.requestDevice({requiredFeatures:["shader-f16"]});
+  badge(
+    els.webgpuBadge,
+    result.mode==="compatibility" ? "Compatible · móvil" : "Disponible",
+    "ok"
+  );
+
+  const fp16=adapter.features?.has?.("shader-f16")===true;
+  badge(els.fp16Badge,fp16 ? "Compatible":"No compatible",fp16 ? "ok":"no");
+
+  console.info("[Alfora] Diagnóstico WebGPU",{
+    url:location.href,
+    secureContext:window.isSecureContext,
+    mobile:isMobileBrowser(),
+    adapterMode:state.adapterMode,
+    shaderF16:fp16,
+    limits:compactGpuLimits(adapter),
+    userAgent:navigator.userAgent
+  });
+
+  if(!fp16){
+    throw new Error("shader-f16 no está disponible en este adaptador WebGPU.");
+  }
+
+  // IMPORTANTE: no llamamos requestDevice() aquí.
+  // ONNX Runtime creará su propio GPUDevice usando el adaptador validado.
+  // La versión anterior abría un dispositivo adicional sólo para probarlo,
+  // algo especialmente costoso e innecesario en teléfonos.
   return true;
 }
 async function activateEngine(){
   if(state.busy) return;
 
   state.busy=true;
+  await requestScreenWakeLock();
   els.activateBtn.disabled=true;
   els.modalActivateBtn.disabled=true;
   els.activationModal.classList.add("hidden");
@@ -1849,17 +2045,30 @@ async function activateEngine(){
     console.error(err);
     state.ready=false;
 
+    const message=friendlyRuntimeError(err);
+
     badge(els.modelBadge,"No cargado","no");
     setTop("No disponible","warn");
-    els.engineCopy.textContent=String(err.message||err);
+    els.engineCopy.textContent=message;
     setLoading(false);
+
+    console.error("[Alfora] Diagnóstico de activación",{
+      host:location.host,
+      protocol:location.protocol,
+      secureContext:window.isSecureContext,
+      mobile:isMobileBrowser(),
+      webgpu:"gpu" in navigator,
+      adapterMode:state.adapterMode,
+      originalError:String(err?.message || err)
+    });
 
     if(els.stepCompatibility.classList.contains("active")) setStep(els.stepCompatibility,"error");
     else if(els.stepDownload.classList.contains("active")) setStep(els.stepDownload,"error");
     else setStep(els.stepGpu,"error");
 
-    toast(String(err.message||err),true);
+    toast(message,true);
   }finally{
+    await releaseScreenWakeLock();
     state.busy=false;
     els.activateBtn.disabled=false;
     els.modalActivateBtn.disabled=false;
@@ -1879,6 +2088,7 @@ async function generate(){
   const finalNegative = "";
 
   state.busy=true;
+  await requestScreenWakeLock();
   els.generateBtn.disabled=true;
   if(els.stepsSelect) els.stepsSelect.disabled=true;
   if(els.cfgSelect) els.cfgSelect.disabled=true;
@@ -2107,11 +2317,13 @@ async function generate(){
     toast(`Imagen generada localmente en ${elapsed}s.`);
   }catch(err){
     console.error(err);
+    const message=friendlyRuntimeError(err);
     setTop("Error al generar","warn");
     setLoading(false);
     els.emptyState.style.display="";
-    toast(String(err.message||err),true);
+    toast(message,true);
   }finally{
+    await releaseScreenWakeLock();
     state.busy=false;
     els.generateBtn.disabled=!state.ready;
     if(els.stepsSelect) els.stepsSelect.disabled=false;
@@ -2184,16 +2396,22 @@ function clearResult(){
   els.downloadTopBtn.disabled=true;
 }
 async function initialCheck(){
+  if(els.contextValue){
+    els.contextValue.textContent=environmentLabel();
+  }
+
   badge(
     els.secureBadge,
-    window.isSecureContext ? "Correcto" : "Requiere HTTPS",
+    window.isSecureContext
+      ? (location.hostname==="localhost" ? "Local seguro" : "HTTPS correcto")
+      : "Requiere HTTPS",
     window.isSecureContext ? "ok" : "no"
   );
 
   badge(
     els.webgpuBadge,
-    ("gpu" in navigator) ? "Detectado" : "No disponible",
-    ("gpu" in navigator) ? "ok" : "no"
+    ("gpu" in navigator) ? "Detectado · pendiente" : "No disponible",
+    ("gpu" in navigator) ? "wait" : "no"
   );
 
   await refreshStorageInfo();
@@ -2213,6 +2431,19 @@ async function initialCheck(){
     els.activationModal.classList.add("hidden");
   }
 }
+
+
+window.addEventListener("unhandledrejection",event=>{
+  console.error("[Alfora] Promise rechazada sin manejar:",event.reason);
+});
+window.addEventListener("error",event=>{
+  console.error("[Alfora] Error global:",event.error || event.message);
+});
+document.addEventListener("visibilitychange",()=>{
+  if(document.visibilityState==="visible" && state.busy){
+    requestScreenWakeLock().catch(()=>{});
+  }
+});
 
 // Controles críticos: se conectan antes de ejecutar cualquier diagnóstico o carga externa.
 els.laterBtn.onclick=()=>{
