@@ -1,0 +1,13 @@
+{
+  "adSupport": {
+    "title": "Is Alfora helping you?",
+    "message": "We could not show advertising during this visit. Alfora is free, and ads help us maintain and keep improving the tools. If you can, please allow ads for alfora.art.",
+    "allowAds": "How to allow ads",
+    "continue": "Keep using Alfora",
+    "supportAnotherWay": "Support another way",
+    "instructionsTitle": "Allow ads for alfora.art",
+    "instructions": "Open your ad blocker or browser protection settings and add alfora.art to the allowed-sites list. Then reload this page.",
+    "networkNote": "If ads are blocked by a university, company or managed network, you may not be able to change it from this device.",
+    "closeAria": "Close support message"
+  }
+}
