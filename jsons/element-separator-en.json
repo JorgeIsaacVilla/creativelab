@@ -1,93 +1,165 @@
 {
   "seo": {
-    "title": "Separate image elements online for free | Alfora",
-    "description": "Separate and cut out image elements online for free. Select with points or draw the outline, refine the selection and download the isolated object or the full image with a transparent cutout."
+    "title": "Separate Image Elements & Remove Backgrounds Online Free | Alfora",
+    "description": "Separate objects, people, products and image elements, remove backgrounds and download transparent PNG layers. Free with local processing in your browser.",
+    "ogTitle": "Free Smart Layer & Background Separator | Alfora",
+    "ogDescription": "Separate image elements automatically or with a brush, isolate objects and download transparent PNG layers directly in your browser.",
+    "twitterTitle": "Separate Elements & Remove Backgrounds Free | Alfora",
+    "twitterDescription": "Detect, separate and download image objects as transparent PNG layers with local processing in your browser.",
+    "htmlLang": "en"
   },
   "product": {
-    "eyebrow": "Precise manual extraction",
-    "title": "Element separator",
-    "description": "Select points or draw the outline of an element, refine the selection and download either the isolated element or the full image with a transparent cutout."
+    "eyebrow": "Smart and free separation",
+    "title": "Smart Layer Separator",
+    "description": "Automatically separate objects and elements from an image, or draw around an item with the smart brush to isolate it as a transparent layer. Everything is processed directly in your browser."
   },
-  "steps": {
-    "uploadTitle": "1. Upload an image",
-    "uploadButton": "Select image",
-    "uploadHelp": "PNG, JPG or WebP",
-    "selectTitle": "2. Mark the element",
-    "selectHelp": "Place points around the outline or use draw mode to trace it directly.",
-    "downloadTitle": "3. Download"
+  "tool": {
+    "name": "Smart Layers",
+    "subtitle": "Automatic separation + brush-assisted selection",
+    "ariaLabel": "Smart layer separator"
+  },
+  "upload": {
+    "title": "1. Image",
+    "button": "Upload an image",
+    "help": "JPG, PNG or WEBP",
+    "ready": "Image ready",
+    "waiting": "Waiting for image",
+    "dropAriaLabel": "Upload an image to separate its elements"
+  },
+  "separation": {
+    "title": "2. Separation",
+    "imageType": "Image type",
+    "modes": {
+      "auto": "Automatic",
+      "design": "Design / logo",
+      "mixed": "Mixed post · photo + text + logo",
+      "photo": "Photo / scene"
+    },
+    "modeHelp": "Automatic mode distinguishes between designs, mixed posts and photographs.",
+    "layerComposition": "Layer composition",
+    "presets": {
+      "clean": "Clean · fewer pieces",
+      "balanced": "Balanced · recommended",
+      "detail": "Detailed · more pieces"
+    },
+    "refine": "Refine main objects with SlimSAM",
+    "brushHelp": "Draw around the object. When you release the pointer, Alfora closes the shape and searches for the main object inside the area."
   },
   "actions": {
-    "upload": "Upload image",
-    "undoPoint": "Undo last point",
-    "clearSelection": "Clear selection",
-    "extract": "Isolate element",
-    "download": "Download element PNG",
-    "downloadRemainder": "Download image with cutout",
-    "reset": "Start again",
-    "pointMode": "Point mode",
-    "drawMode": "Draw mode"
+    "separateAll": "Separate all elements",
+    "enableBrush": "🖌️ Enable brush mode",
+    "disableBrush": "🖌️ Disable brush mode",
+    "extractBrush": "✂️ Separate brush selection",
+    "clearBrush": "⌫ Clear selection",
+    "resetLayer": "↩ Reset selected layer",
+    "resetAll": "⟳ Reset all",
+    "deleteLayer": "Delete layer",
+    "show": "Show",
+    "hide": "Hide",
+    "solo": "Isolate this layer",
+    "downloadLayer": "Download transparent PNG",
+    "openTools": "Open tools",
+    "closeTools": "Close tools"
   },
-  "mobileTools": {
-    "open": "Open tools",
-    "close": "Close tools",
-    "title": "Tools",
-    "uploadDescription": "Select a PNG, JPG or WebP image",
-    "pointModeDescription": "Mark the outline by placing points",
-    "drawModeDescription": "Draw the outline with your finger, mouse or stylus",
-    "undoDescription": "Remove the last marked point",
-    "clearDescription": "Remove the entire selection",
-    "extractDescription": "Generate the isolated element",
-    "downloadDescription": "Save only the isolated element",
-    "downloadRemainderDescription": "Save the full image without the selected area",
-    "resetDescription": "Clear the image and start again"
+  "pipeline": {
+    "ocr": "OCR",
+    "shapes": "Shapes",
+    "objects": "Objects",
+    "refinement": "Refinement",
+    "composer": "Composer",
+    "pending": "pending",
+    "analyzing": "analyzing",
+    "segmenting": "segmenting",
+    "detectingInstances": "detecting instances",
+    "loading": "loading",
+    "refining": "refining",
+    "deduplicating": "deduplicating",
+    "grouping": "grouping",
+    "notRequired": "not required",
+    "skipped": "skipped"
   },
-  "preview": {
-    "originalTitle": "Image and selection",
-    "originalHint": "Place points or draw over the image to create the outline.",
-    "originalEmpty": "The image will appear here.",
-    "resultTitle": "Isolated element",
-    "resultHint": "The result will have a transparent background.",
-    "resultEmpty": "The isolated element will appear here.",
-    "points": "{count} points",
-    "selectionCanvasLabel": "Element selection area",
-    "resultCanvasLabel": "Isolated element preview",
-    "remainderCanvasLabel": "Full image with the selected area transparent"
+  "engine": {
+    "title": "Separation engine",
+    "refinementTitle": "Refinement:",
+    "refinementText": "SlimSAM adjusts the edges of the main objects.",
+    "composerTitle": "Layer Composer:",
+    "composerText": "removes duplicates and groups related fragments.",
+    "privacyTitle": "Privacy:",
+    "privacyText": "the main processing runs locally in your browser."
   },
-  "messages": {
-    "ready": "Upload an image to begin.",
-    "loaded": "Image loaded. Mark or draw the element outline.",
-    "selecting": "Continue defining the element outline.",
-    "pointMode": "Point mode enabled.",
-    "drawMode": "Draw mode enabled.",
-    "pointMoved": "Point adjusted successfully.",
-    "undone": "Last point removed.",
-    "extracted": "Element isolated successfully.",
-    "downloaded": "Element downloaded as a PNG.",
-    "downloadedRemainder": "Image with cutout downloaded as a PNG.",
-    "cleared": "Selection cleared.",
-    "reset": "Tool reset.",
-    "error": "The image could not be loaded."
+  "toolbar": {
+    "original": "View original",
+    "layers": "View layers",
+    "download": "Download composition",
+    "hint": "Select a layer to move, hide, isolate or download it as a transparent PNG."
   },
-  "toast": {
-    "loaded": "Image loaded successfully.",
-    "pointMode": "Point mode enabled.",
-    "drawMode": "Draw mode enabled.",
-    "undone": "Last point removed.",
-    "cleared": "Selection cleared.",
-    "extracted": "Element isolated successfully.",
-    "downloaded": "Element downloaded successfully.",
-    "downloadedRemainder": "Image with cutout downloaded successfully.",
-    "reset": "Tool reset successfully."
+  "empty": {
+    "title": "Smart Layer Separator",
+    "description": "Upload an image to separate elements automatically or select a specific item with the brush."
+  },
+  "layers": {
+    "title": "Detected layers",
+    "none": "Layers will appear here after analysis.",
+    "single": "1 layer",
+    "multiple": "{count} layers",
+    "selectedObject": "Selected object",
+    "manualSelection": "Manual selection",
+    "sceneRemainder": "Scene / remainder",
+    "background": "Background",
+    "backgroundRemainder": "Background / remainder",
+    "object": "Object",
+    "shape": "Shape",
+    "text": "Text",
+    "group": "Group"
+  },
+  "brush": {
+    "ready": "Draw a contour around the object and release the pointer to close the shape.",
+    "closed": "Selection closed. Now press “Separate brush selection”.",
+    "analyzing": "Analyzing brush selection…",
+    "detectingText": "Detecting text inside the selection…",
+    "detectingShapes": "Looking for shapes inside the selection…",
+    "detectingObjects": "Looking for objects inside the selection…",
+    "detectingLogos": "Looking for logos and shapes…",
+    "completed": "Selection separated",
+    "noObject": "I could not find a clear object inside the contour. Try drawing a little closer to the object.",
+    "error": "The brush selection could not be separated."
+  },
+  "status": {
+    "analyzingStructure": "Analyzing structure…",
+    "detectingTexts": "Detecting text…",
+    "detectingElements": "Detecting shapes and elements…",
+    "separatingPhotoObjects": "Separating objects from the photo…",
+    "findingOverlays": "Looking for logos, overlays and shapes…",
+    "separatingSceneObjects": "Separating scene objects…",
+    "composing": "Composing design pieces…",
+    "reconstructing": "Reconstructing composition…",
+    "layersReady": "Layers ready",
+    "processingError": "Processing error"
   },
   "info": {
-    "eyebrow": "Flexible transparent selection",
-    "title": "How to separate an element with Alfora",
-    "description": "Manually select an element using points or freehand tracing, refine the outline and generate two results: the isolated transparent element and the full image with the selected area removed.",
-    "stepOneTitle": "1. Upload",
-    "stepOneText": "Select a PNG, JPG or WebP image.",
-    "stepTwoTitle": "2. Trace",
-    "stepTwoText": "Place points or draw around the element and refine the selection when needed.",
-    "stepThreeTitle": "3. Download",
-    "stepThreeText": "Download the isolated element or the full image with the selected area transparent."
+    "ariaLabel": "Tool information",
+    "automaticTitle": "Automatic and assisted separation",
+    "automaticText": "Use full separation when you want to detect several pieces at once, or enable the brush to precisely indicate which object you want to convert into an independent layer.",
+    "layersTitle": "Layers ready to reuse",
+    "layersText": "Move, hide, isolate and download detected elements as transparent PNG files. The remaining scene stays available so you can keep separating more pieces.",
+    "localTitle": "Local processing",
+    "localText": "The main engines run on your device through WebGPU or WASM, keeping the workflow inside the browser whenever your device is compatible."
+  },
+  "accessibility": {
+    "languageSelector": "Select language",
+    "openTools": "Open tools",
+    "closeTools": "Close tools",
+    "engineStatus": "Engine status",
+    "toolInformation": "Tool information"
+  },
+  "messages": {
+    "imageReady": "Image ready.",
+    "separationReady": "Separation completed.",
+    "brushSelectionReady": "Selection ready.",
+    "layerDeleted": "Layer deleted.",
+    "downloadStarted": "Download started.",
+    "invalidImage": "Select a valid JPG, PNG or WEBP image.",
+    "processingError": "The separation could not be completed.",
+    "browserAdvice": "Tip: publish the tool over HTTPS or use a local server."
   }
 }

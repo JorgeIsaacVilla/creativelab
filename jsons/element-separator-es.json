@@ -1,93 +1,165 @@
 {
   "seo": {
-    "title": "Separar elementos de una imagen online gratis | Alfora",
-    "description": "Separa y recorta elementos de una imagen online gratis. Selecciona por puntos o dibuja el contorno, ajusta la selección y descarga el objeto aislado o la imagen con el área transparente."
+    "title": "Separar elementos y quitar fondo de imágenes online gratis | Alfora",
+    "description": "Separa objetos, personas, productos y elementos de una imagen, quita el fondo y descarga capas PNG transparentes. Gratis y con procesamiento local en tu navegador.",
+    "ogTitle": "Separador inteligente de capas y fondos gratis | Alfora",
+    "ogDescription": "Separa elementos de una imagen automáticamente o con pincel, aísla objetos y descarga capas PNG transparentes directamente desde tu navegador.",
+    "twitterTitle": "Separar elementos y quitar fondo gratis | Alfora",
+    "twitterDescription": "Detecta, separa y descarga objetos de una imagen como capas PNG transparentes con procesamiento local en tu navegador.",
+    "htmlLang": "es"
   },
   "product": {
-    "eyebrow": "Extracción manual precisa",
-    "title": "Separador de elementos",
-    "description": "Selecciona por puntos o dibuja el contorno de un elemento, corrige la selección y descarga el recorte o la imagen completa con el área transparente."
+    "eyebrow": "Separación inteligente y gratuita",
+    "title": "Separador inteligente de capas",
+    "description": "Separa automáticamente objetos y elementos de una imagen o rodea una pieza con el pincel inteligente para aislarla como una capa transparente. Todo se procesa directamente en tu navegador."
   },
-  "steps": {
-    "uploadTitle": "1. Carga una imagen",
-    "uploadButton": "Seleccionar imagen",
-    "uploadHelp": "PNG, JPG o WebP",
-    "selectTitle": "2. Marca el elemento",
-    "selectHelp": "Selecciona puntos alrededor del contorno o utiliza el modo trazo para dibujarlo directamente.",
-    "downloadTitle": "3. Descarga"
+  "tool": {
+    "name": "Capas inteligentes",
+    "subtitle": "Separación automática + selección asistida con pincel",
+    "ariaLabel": "Separador inteligente de capas"
+  },
+  "upload": {
+    "title": "1. Imagen",
+    "button": "Sube una imagen",
+    "help": "JPG, PNG o WEBP",
+    "ready": "Imagen lista",
+    "waiting": "Esperando imagen",
+    "dropAriaLabel": "Subir una imagen para separar sus elementos"
+  },
+  "separation": {
+    "title": "2. Separación",
+    "imageType": "Tipo de imagen",
+    "modes": {
+      "auto": "Automático",
+      "design": "Diseño / logo",
+      "mixed": "Post mixto · foto + texto + logo",
+      "photo": "Fotografía / escena"
+    },
+    "modeHelp": "Automático distingue entre diseño, post mixto y fotografía.",
+    "layerComposition": "Composición de capas",
+    "presets": {
+      "clean": "Limpia · pocas piezas",
+      "balanced": "Equilibrada · recomendada",
+      "detail": "Detallada · más piezas"
+    },
+    "refine": "Refinar objetos principales con SlimSAM",
+    "brushHelp": "Dibuja alrededor del objeto. Al soltar el clic, Alfora cierra la figura y busca el objeto principal dentro del área."
   },
   "actions": {
-    "upload": "Cargar imagen",
-    "undoPoint": "Deshacer último punto",
-    "clearSelection": "Limpiar selección",
-    "extract": "Aislar elemento",
-    "download": "Descargar elemento PNG",
-    "downloadRemainder": "Descargar imagen con hueco",
-    "reset": "Comenzar de nuevo",
-    "pointMode": "Modo puntos",
-    "drawMode": "Modo trazo"
+    "separateAll": "Separar todos los elementos",
+    "enableBrush": "🖌️ Activar modo pincel",
+    "disableBrush": "🖌️ Desactivar modo pincel",
+    "extractBrush": "✂️ Separar selección con pincel",
+    "clearBrush": "⌫ Limpiar selección",
+    "resetLayer": "↩ Restablecer capa seleccionada",
+    "resetAll": "⟳ Restablecer todas",
+    "deleteLayer": "Eliminar capa",
+    "show": "Mostrar",
+    "hide": "Ocultar",
+    "solo": "Aislar esta capa",
+    "downloadLayer": "Descargar PNG transparente",
+    "openTools": "Abrir herramientas",
+    "closeTools": "Cerrar herramientas"
   },
-  "mobileTools": {
-    "open": "Abrir herramientas",
-    "close": "Cerrar herramientas",
-    "title": "Herramientas",
-    "uploadDescription": "Selecciona una imagen PNG, JPG o WebP",
-    "pointModeDescription": "Marca el contorno colocando puntos",
-    "drawModeDescription": "Dibuja el contorno con el dedo, mouse o lápiz",
-    "undoDescription": "Elimina el último punto marcado",
-    "clearDescription": "Elimina toda la selección",
-    "extractDescription": "Genera el elemento aislado",
-    "downloadDescription": "Guarda únicamente el elemento recortado",
-    "downloadRemainderDescription": "Guarda la imagen completa sin el área seleccionada",
-    "resetDescription": "Limpia la imagen y comienza nuevamente"
+  "pipeline": {
+    "ocr": "OCR",
+    "shapes": "Formas",
+    "objects": "Objetos",
+    "refinement": "Refinado",
+    "composer": "Composer",
+    "pending": "pendiente",
+    "analyzing": "analizando",
+    "segmenting": "segmentando",
+    "detectingInstances": "detectando instancias",
+    "loading": "cargando",
+    "refining": "refinando",
+    "deduplicating": "deduplicando",
+    "grouping": "agrupando",
+    "notRequired": "no necesario",
+    "skipped": "omitido"
   },
-  "preview": {
-    "originalTitle": "Imagen y selección",
-    "originalHint": "Marca puntos o dibuja sobre la imagen para crear el contorno.",
-    "originalEmpty": "La imagen aparecerá aquí.",
-    "resultTitle": "Elemento aislado",
-    "resultHint": "El resultado tendrá fondo transparente.",
-    "resultEmpty": "El elemento aislado aparecerá aquí.",
-    "points": "{count} puntos",
-    "selectionCanvasLabel": "Área de selección del elemento",
-    "resultCanvasLabel": "Vista previa del elemento aislado",
-    "remainderCanvasLabel": "Imagen completa con el área seleccionada transparente"
+  "engine": {
+    "title": "Motor de separación",
+    "refinementTitle": "Refinado:",
+    "refinementText": "SlimSAM ajusta los bordes de los objetos principales.",
+    "composerTitle": "Layer Composer:",
+    "composerText": "elimina duplicados y agrupa fragmentos relacionados.",
+    "privacyTitle": "Privacidad:",
+    "privacyText": "el procesamiento principal se realiza localmente en el navegador."
   },
-  "messages": {
-    "ready": "Carga una imagen para comenzar.",
-    "loaded": "Imagen cargada. Marca o dibuja el contorno del elemento.",
-    "selecting": "Continúa delimitando el contorno del elemento.",
-    "pointMode": "Modo puntos activado.",
-    "drawMode": "Modo trazo activado.",
-    "pointMoved": "Punto ajustado correctamente.",
-    "undone": "Último punto eliminado.",
-    "extracted": "Elemento aislado correctamente.",
-    "downloaded": "Elemento descargado como PNG.",
-    "downloadedRemainder": "Imagen con hueco descargada como PNG.",
-    "cleared": "Selección limpiada.",
-    "reset": "Herramienta restablecida.",
-    "error": "No se pudo cargar la imagen."
+  "toolbar": {
+    "original": "Ver original",
+    "layers": "Ver capas",
+    "download": "Descargar composición",
+    "hint": "Selecciona una capa para moverla, ocultarla, aislarla o descargarla como PNG transparente."
   },
-  "toast": {
-    "loaded": "Imagen cargada correctamente.",
-    "pointMode": "Modo puntos activado.",
-    "drawMode": "Modo trazo activado.",
-    "undone": "Último punto eliminado.",
-    "cleared": "Selección limpiada.",
-    "extracted": "Elemento aislado correctamente.",
-    "downloaded": "Elemento descargado correctamente.",
-    "downloadedRemainder": "Imagen con hueco descargada correctamente.",
-    "reset": "Herramienta restablecida correctamente."
+  "empty": {
+    "title": "Separador inteligente de capas",
+    "description": "Sube una imagen para separar elementos automáticamente o seleccionar una pieza con el pincel."
+  },
+  "layers": {
+    "title": "Capas detectadas",
+    "none": "Las capas aparecerán aquí después del análisis.",
+    "single": "1 capa",
+    "multiple": "{count} capas",
+    "selectedObject": "Objeto seleccionado",
+    "manualSelection": "Selección manual",
+    "sceneRemainder": "Escena / resto",
+    "background": "Fondo",
+    "backgroundRemainder": "Fondo / resto",
+    "object": "Objeto",
+    "shape": "Forma",
+    "text": "Texto",
+    "group": "Grupo"
+  },
+  "brush": {
+    "ready": "Dibuja un contorno alrededor del objeto y suelta el clic para cerrar la figura.",
+    "closed": "Selección cerrada. Ahora pulsa “Separar selección con pincel”.",
+    "analyzing": "Analizando selección del pincel…",
+    "detectingText": "Detectando textos en la selección…",
+    "detectingShapes": "Buscando formas en la selección…",
+    "detectingObjects": "Buscando objetos en la selección…",
+    "detectingLogos": "Buscando logos y formas…",
+    "completed": "Selección separada",
+    "noObject": "No encontré un objeto claro dentro del contorno. Prueba dibujando un poco más cerca del objeto.",
+    "error": "No se pudo separar la selección del pincel."
+  },
+  "status": {
+    "analyzingStructure": "Analizando estructura…",
+    "detectingTexts": "Detectando textos…",
+    "detectingElements": "Detectando formas y elementos…",
+    "separatingPhotoObjects": "Separando objetos de la fotografía…",
+    "findingOverlays": "Buscando logo, overlays y formas…",
+    "separatingSceneObjects": "Separando objetos de la escena…",
+    "composing": "Componiendo piezas de diseño…",
+    "reconstructing": "Reconstruyendo composición…",
+    "layersReady": "Capas listas",
+    "processingError": "Error al procesar"
   },
   "info": {
-    "eyebrow": "Selección flexible y transparente",
-    "title": "Cómo separar un elemento con Alfora",
-    "description": "Selecciona manualmente un elemento mediante puntos o trazos, ajusta el contorno y genera dos resultados: el elemento aislado con transparencia y la imagen completa con el área seleccionada eliminada.",
-    "stepOneTitle": "1. Carga",
-    "stepOneText": "Selecciona una imagen PNG, JPG o WebP.",
-    "stepTwoTitle": "2. Delimita",
-    "stepTwoText": "Marca puntos o dibuja el contorno del elemento y ajusta la selección cuando lo necesites.",
-    "stepThreeTitle": "3. Descarga",
-    "stepThreeText": "Descarga el elemento aislado o la imagen completa con el área seleccionada transparente."
+    "ariaLabel": "Información de la herramienta",
+    "automaticTitle": "Separación automática y asistida",
+    "automaticText": "Usa la separación completa cuando quieras detectar varias piezas de una vez, o activa el pincel para indicar con precisión qué objeto deseas convertir en una capa independiente.",
+    "layersTitle": "Capas listas para reutilizar",
+    "layersText": "Mueve, oculta, aísla y descarga los elementos detectados como PNG transparentes. La escena restante se mantiene para que puedas continuar separando más piezas.",
+    "localTitle": "Procesamiento local",
+    "localText": "Los motores principales trabajan en tu dispositivo mediante WebGPU o WASM, manteniendo el flujo de trabajo dentro del navegador siempre que el equipo sea compatible."
+  },
+  "accessibility": {
+    "languageSelector": "Seleccionar idioma",
+    "openTools": "Abrir herramientas",
+    "closeTools": "Cerrar herramientas",
+    "engineStatus": "Estado de motores",
+    "toolInformation": "Información de la herramienta"
+  },
+  "messages": {
+    "imageReady": "Imagen lista.",
+    "separationReady": "Separación completada.",
+    "brushSelectionReady": "Selección preparada.",
+    "layerDeleted": "Capa eliminada.",
+    "downloadStarted": "Descarga iniciada.",
+    "invalidImage": "Selecciona una imagen JPG, PNG o WEBP válida.",
+    "processingError": "No se pudo completar la separación.",
+    "browserAdvice": "Consejo: publica la herramienta por HTTPS o utiliza un servidor local."
   }
 }
