@@ -1,0 +1,428 @@
+AUG 17
+ALFORA-CAROUSEL/1
+c1.title: "Still doing this manually?"
+c1.copy: "Create a post. Duplicate it. Change the text. Change the image. Adjust everything again."
+c1.imagen: "auto"
+
+c2.title: "Now repeat it."
+c2.copy: "Five times. Ten times. Twenty-four times."
+c2.imagen: "auto"
+
+c3.title: "One post is easy."
+c3.copy: "A full campaign is where repetitive work starts to pile up."
+c3.imagen: "auto"
+
+c4.title: "The problem is the workflow."
+c4.copy: "Creative work should not mean rebuilding the same structure again and again."
+c4.imagen: "auto"
+
+c5.title: "Use Alfora for the repetitive part."
+c5.copy: "Organize multiple pieces in one workflow and keep control of the content."
+c5.imagen: "auto"
+
+c6.title: "Work faster. Keep control."
+c6.copy: "Complex creative work. Done in under a minute. Free. Unlimited. No subscription. alfora.art"
+c6.imagen: "auto"
+
+POST COPY 2:
+Still doing repetitive creative work manually?
+
+Try Alfora: www.alfora.art
+
+Create, organize and speed up the tasks that should not take your whole day.
+
+Complex creative work. Done in under a minute.
+
+Free. Unlimited. No subscription.
+
+#Alfora #CreativeTools #ContentCreation #Productivity
+
+
+AUG 18
+ALFORA-CAROUSEL/1
+c1.title: "Need 5+ posts for your business?"
+c1.copy: "You do not have to design every piece from scratch."
+c1.imagen: "auto"
+
+c2.title: "Prepare the campaign content."
+c2.copy: "Start with the message, offer or idea you want to communicate."
+c2.imagen: "auto"
+
+c3.title: "Bring it into Alfora."
+c3.copy: "Use the Carousel Generator to organize the campaign in one place."
+c3.imagen: "auto"
+
+c4.title: "Work with up to 24 pieces."
+c4.copy: "Keep the content structured instead of rebuilding each post separately."
+c4.imagen: "auto"
+
+c5.title: "Personalize the result."
+c5.copy: "Adjust the content and visual direction to match your campaign."
+c5.imagen: "auto"
+
+c6.title: "One campaign. More content."
+c6.copy: "Create faster at alfora.art/carrusel-generator. Free. Unlimited. No subscription."
+c6.imagen: "auto"
+
+POST COPY 2:
+Need 5, 10 or even 24 social media pieces?
+
+Start here: www.alfora.art
+
+Use Alfora to organize your campaign, personalize the content and avoid rebuilding every post from zero.
+
+One campaign. More content. Less repetitive work.
+
+Free. Unlimited. No subscription.
+
+#Alfora #SocialMediaMarketing #ContentCreation #MarketingTools
+
+
+AUG 19
+ALFORA-CAROUSEL/1
+c1.title: "Not everything needs AI."
+c1.copy: "AI is powerful. But the best tool depends on the job."
+c1.imagen: "auto"
+
+c2.title: "Need new ideas or an image?"
+c2.copy: "Generative AI can be a great way to explore possibilities."
+c2.imagen: "auto"
+
+c3.title: "Need an exact ratio?"
+c3.copy: "You may just need a tool that gives you the exact result."
+c3.imagen: "auto"
+
+c4.title: "Need contrast, a QR code or CSS values?"
+c4.copy: "Those tasks need precision more than interpretation."
+c4.imagen: "auto"
+
+c5.title: "Use the right tool for the problem."
+c5.copy: "Sometimes you need generation. Sometimes you need control."
+c5.imagen: "auto"
+
+c6.title: "That is how we think about tools."
+c6.copy: "Explore Alfora at alfora.art."
+c6.imagen: "auto"
+
+POST COPY 2:
+Not every creative task needs AI.
+
+Explore Alfora: www.alfora.art
+
+AI is powerful when you need possibilities. Precise tools are powerful when you need an exact result.
+
+Use generation when it helps.
+Use control when it matters.
+
+#Alfora #ArtificialIntelligence #CreativeTechnology #DesignTools
+
+
+AUG 20
+ALFORA-CAROUSEL/1
+c1.title: "Your website does not need one button."
+c1.copy: "It needs a button system."
+c1.imagen: "auto"
+
+c2.title: "Primary. Secondary."
+c2.copy: "Define the roles before every screen invents its own version."
+c2.imagen: "auto"
+
+c3.title: "Hover. Disabled."
+c3.copy: "States matter just as much as the default button."
+c3.imagen: "auto"
+
+c4.title: "Small. Medium. Large."
+c4.copy: "Keep sizing consistent across the interface."
+c4.imagen: "auto"
+
+c5.title: "Define it once."
+c5.copy: "Colors, radius, spacing and states should work as one system."
+c5.imagen: "auto"
+
+c6.title: "Build the system. Not every button."
+c6.copy: "Create it faster with Alfora. alfora.art"
+c6.imagen: "auto"
+
+POST COPY 2:
+Stop designing every button as if it were the first one.
+
+Build the system at www.alfora.art
+
+Primary. Secondary. Hover. Disabled. Sizes. Radius. Spacing.
+
+Define the rules once and keep your interface consistent.
+
+#Alfora #UIDesign #WebDesign #Frontend #DesignSystems
+
+
+AUG 21
+ALFORA-CAROUSEL/1
+c1.title: "Can you create professional-looking posts without being a designer?"
+c1.copy: "Start with what a small business actually has."
+c1.imagen: "auto"
+
+c2.title: "You have a business."
+c2.copy: "You know what you sell and who you want to reach."
+c2.imagen: "auto"
+
+c3.title: "You have a logo."
+c3.copy: "Maybe a few images too."
+c3.imagen: "auto"
+
+c4.title: "You have something to say."
+c4.copy: "A promotion, service, event or useful message."
+c4.imagen: "auto"
+
+c5.title: "What you may not have is hours to design."
+c5.copy: "Complex software should not be a requirement for every simple campaign."
+c5.imagen: "auto"
+
+c6.title: "Make the workflow simpler."
+c6.copy: "Use tools that help you organize, adapt and create without starting from zero."
+c6.imagen: "auto"
+
+c7.title: "You bring the idea. Alfora helps with the workflow."
+c7.copy: "Free. Unlimited. No subscription. alfora.art"
+c7.imagen: "auto"
+
+POST COPY 2:
+No design degree? You can still build better-looking content for your business.
+
+Start at www.alfora.art
+
+Bring your idea, logo, images and message. Alfora helps simplify the workflow so you can focus on what you want to communicate.
+
+Free. Unlimited. No subscription.
+
+#Alfora #SmallBusiness #Entrepreneurs #ContentCreation
+
+
+AUG 24
+ALFORA-CAROUSEL/1
+c1.title: "Stop making customers type long URLs."
+c1.copy: "If the destination is one scan away, make it one scan away."
+c1.imagen: "auto"
+
+c2.title: "They are already in front of you."
+c2.copy: "Do not add unnecessary steps between interest and action."
+c2.imagen: "auto"
+
+c3.title: "Create the QR."
+c3.copy: "Point it to your website, form, menu, contact page or social profile."
+c3.imagen: "auto"
+
+c4.title: "Print it. Share it. Scan it."
+c4.copy: "A small shortcut can make the experience much easier."
+c4.imagen: "auto"
+
+c5.title: "Make the next step simple."
+c5.copy: "Create a QR with Alfora. Free. Unlimited. No subscription. alfora.art"
+c5.imagen: "auto"
+
+POST COPY 2:
+Your customer should not have to type a long URL.
+
+Create the shortcut at www.alfora.art
+
+Generate a QR code for your website, menu, form, contact page or social profile.
+
+Create it. Print it. Scan it.
+
+Free. Unlimited. No subscription.
+
+#Alfora #QRCode #MarketingTools #SmallBusiness
+
+
+AUG 25
+ALFORA-CAROUSEL/1
+c1.title: "AI can generate a possibility."
+c1.copy: "A concept. An image. A direction."
+c1.imagen: "auto"
+
+c2.title: "Then another."
+c2.copy: "And another."
+c2.imagen: "auto"
+
+c3.title: "More options are powerful."
+c3.copy: "But more options do not make the decision for you."
+c3.imagen: "auto"
+
+c4.title: "Creation still needs direction."
+c4.copy: "Someone has to decide what fits the goal and what does not."
+c4.imagen: "auto"
+
+c5.title: "AI creates possibilities."
+c5.copy: "You keep the control."
+c5.imagen: "auto"
+
+c6.title: "We are building with that idea in mind."
+c6.copy: "More is coming to Alfora. alfora.art"
+c6.imagen: "auto"
+
+POST COPY 2:
+AI can create possibilities. You still decide what matters.
+
+See what we are building: www.alfora.art
+
+The future of creative work is not just about generating more. It is about combining speed, judgment and control.
+
+More is coming to Alfora.
+
+#Alfora #ArtificialIntelligence #CreativeTechnology #FutureOfWork
+
+
+AUG 26
+ALFORA-CAROUSEL/1
+c1.title: "It looks good. But can you read it?"
+c1.copy: "A beautiful color combination can still fail its message."
+c1.imagen: "auto"
+
+c2.title: "Low contrast hides information."
+c2.copy: "If people have to struggle to read the text, the design is working against them."
+c2.imagen: "auto"
+
+c3.title: "Design is communication."
+c3.copy: "The message needs to be visible, not just attractive."
+c3.imagen: "auto"
+
+c4.title: "Check before you publish."
+c4.copy: "A quick contrast check can reveal problems before your audience sees them."
+c4.imagen: "auto"
+
+c5.title: "Good design should be readable."
+c5.copy: "Visual style and clarity should work together."
+c5.imagen: "auto"
+
+c6.title: "Check the contrast with Alfora."
+c6.copy: "Free. Unlimited. No subscription. alfora.art"
+c6.imagen: "auto"
+
+POST COPY 2:
+A beautiful design that is hard to read is still a problem.
+
+Check your creative workflow at www.alfora.art
+
+Contrast affects clarity. Before you publish, make sure your colors help people understand the message instead of hiding it.
+
+#Alfora #GraphicDesign #Accessibility #DesignTips #CreativeTools
+
+
+AUG 27
+ALFORA-CAROUSEL/1
+c1.title: "You made the perfect post."
+c1.copy: "Then you uploaded it."
+c1.imagen: "auto"
+
+c2.title: "And half of it disappeared."
+c2.copy: "Important text gets cropped. Images stretch. Black bars appear."
+c2.imagen: "auto"
+
+c3.title: "The design may not be the problem."
+c3.copy: "The format might be."
+c3.imagen: "auto"
+
+c4.title: "Check the ratio first."
+c4.copy: "Match the content to the space where it will actually be published."
+c4.imagen: "auto"
+
+c5.title: "Good design needs the right format."
+c5.copy: "Check your aspect ratio with Alfora. alfora.art"
+c5.imagen: "auto"
+
+POST COPY 2:
+Great design. Wrong format. Bad result.
+
+Check it first at www.alfora.art
+
+A wrong aspect ratio can crop text, stretch images or add unwanted empty space.
+
+The design may be right.
+The format may be wrong.
+
+#Alfora #SocialMediaDesign #DesignTips #ContentCreation
+
+
+AUG 28
+ALFORA-CAROUSEL/1
+c1.title: "Can you work professionally using only Alfora?"
+c1.copy: "That is a question we want to test."
+c1.imagen: "auto"
+
+c2.title: "Social content?"
+c2.copy: "Create and organize campaigns without rebuilding every piece from zero."
+c2.imagen: "auto"
+
+c3.title: "Web UI systems?"
+c3.copy: "Define repeatable visual elements instead of improvising them screen by screen."
+c3.imagen: "auto"
+
+c4.title: "QR codes and design checks?"
+c4.copy: "Handle small technical tasks without opening heavy software."
+c4.imagen: "auto"
+
+c5.title: "Image and creative utilities?"
+c5.copy: "Use focused tools when you need a specific result."
+c5.imagen: "auto"
+
+c6.title: "Alfora is still growing."
+c6.copy: "The challenge gets more interesting every time a new tool is ready."
+c6.imagen: "auto"
+
+c7.title: "The Alfora Challenge."
+c7.copy: "How far can one creative platform take a real professional workflow? alfora.art"
+c7.imagen: "auto"
+
+POST COPY 2:
+Could you handle a professional creative workflow using only Alfora?
+
+Follow the challenge at www.alfora.art
+
+Social content. UI systems. QR codes. Design checks. Image tools. And more tools still being built.
+
+How far can we take it?
+
+#Alfora #CreativeWorkflow #DesignTools #BuildInPublic
+
+
+AUG 31
+ALFORA-CAROUSEL/1
+c1.title: "We are building Alfora."
+c1.copy: "Not as one giant tool, but as a collection of focused creative tools."
+c1.imagen: "auto"
+
+c2.title: "For social content."
+c2.copy: "Faster ways to organize and produce campaigns."
+c2.imagen: "auto"
+
+c3.title: "For web and UI work."
+c3.copy: "Small tools for systems, checks and repetitive decisions."
+c3.imagen: "auto"
+
+c4.title: "For image workflows."
+c4.copy: "Focused utilities for tasks that should not require a complicated process."
+c4.imagen: "auto"
+
+c5.title: "And we are still building."
+c5.copy: "New tools are being tested, improved and added."
+c5.imagen: "auto"
+
+c6.title: "The idea stays the same."
+c6.copy: "Make complex creative work simpler, faster and easier to control."
+c6.imagen: "auto"
+
+c7.title: "Alfora."
+c7.copy: "Complex creative work. Done in under a minute. Free. Unlimited. No subscription. alfora.art"
+c7.imagen: "auto"
+
+POST COPY 2:
+We are building Alfora one focused tool at a time.
+
+Explore it at www.alfora.art
+
+Social content. Web and UI utilities. Image workflows. Creative tools designed to make complex tasks simpler and faster.
+
+Complex creative work. Done in under a minute.
+
+Free. Unlimited. No subscription.
+
+#Alfora #CreativeTools #DesignTools #Productivity #BuildInPublic

@@ -127,7 +127,11 @@
     "translatingContent": "Traduciendo contenido...",
     "translationDoneTitle": "Traducción completada",
     "translationDoneMessage": "Todo el contenido del carrusel fue traducido correctamente. Ya puedes continuar editando.",
-    "continueButton": "Continuar"
+    "continueButton": "Continuar",
+    "applyCodeUpdates": "Aplicar actualizaciones",
+    "bringToFront": "Pasar al frente",
+    "sendToBack": "Pasar atrás",
+    "addRandomDecorations": "Agregar elementos decorativos aleatorios"
   },
   "formats": {
     "instagramPortrait": "Instagram vertical · 1080×1350",
@@ -187,7 +191,11 @@
     "assetLimitReached": "No se puede crear otra copia porque alcanzaste el límite de imágenes cargadas.",
     "slideDuplicated": "Diapositiva duplicada.",
     "slideUpdated": "Actualización aplicada.",
-    "textLimitReached": "Esta diapositiva alcanzó el límite de bloques de texto."
+    "textLimitReached": "Esta diapositiva alcanzó el límite de bloques de texto.",
+    "codeUpdatesApplied": "Actualizaciones aplicadas sin cambiar el diseño.",
+    "codeUpdatesIgnored": "entradas no correspondían a diapositivas existentes.",
+    "noSlidesUpdated": "No se encontró ninguna diapositiva existente para actualizar.",
+    "randomDecorationsAdded": "Elementos decorativos aleatorios agregados."
   },
   "info": {
     "heading": "Crea un carrusel completo en pocos pasos",

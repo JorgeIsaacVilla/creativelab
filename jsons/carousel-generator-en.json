@@ -127,7 +127,11 @@
     "translatingContent": "Translating content...",
     "translationDoneTitle": "Translation complete",
     "translationDoneMessage": "All carousel content was translated successfully. You can continue editing now.",
-    "continueButton": "Continue"
+    "continueButton": "Continue",
+    "applyCodeUpdates": "Apply updates",
+    "bringToFront": "Bring to front",
+    "sendToBack": "Send to back",
+    "addRandomDecorations": "Add random decorative elements"
   },
   "formats": {
     "instagramPortrait": "Instagram portrait · 1080×1350",
@@ -187,7 +191,11 @@
     "assetLimitReached": "A new copy cannot be created because the uploaded image limit has been reached.",
     "slideDuplicated": "Slide duplicated.",
     "slideUpdated": "Update applied.",
-    "textLimitReached": "This slide has reached the text block limit."
+    "textLimitReached": "This slide has reached the text block limit.",
+    "codeUpdatesApplied": "Updates applied without changing the design.",
+    "codeUpdatesIgnored": "entries did not match existing slides.",
+    "noSlidesUpdated": "No existing slides were found to update.",
+    "randomDecorationsAdded": "Random decorative elements added."
   },
   "info": {
     "heading": "Create a complete carousel in a few steps",

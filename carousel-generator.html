@@ -1257,6 +1257,35 @@
             background: transparent;
         }
 
+        .cg-context-color-row {
+            grid-template-columns: minmax(0, 1fr) auto minmax(86px, 108px);
+        }
+
+        .cg-context-color-code {
+            width: 100%;
+            min-height: 36px !important;
+            padding: 7px 8px;
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 8px;
+            background: rgba(255,255,255,.035);
+            color: var(--cg-text);
+            font: 700 .72rem/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace !important;
+            text-transform: uppercase;
+        }
+
+        .cg-context-color-code:focus {
+            outline: none;
+            border-color: rgba(88,242,142,.55);
+            box-shadow: 0 0 0 3px rgba(88,242,142,.07);
+        }
+
+        .cg-context-custom-font-button {
+            min-width: 132px;
+            padding: 7px 10px;
+            white-space: normal;
+            line-height: 1.15;
+        }
+
         .cg-context-panel-color {
             display: grid;
             gap: 6px;
@@ -1811,7 +1840,6 @@
     </style>
 
     <script src="scripts/language.js" defer></script>
-    <script src="scripts/detectordebloqueoanuncios.js" defer></script>
     <script src="scripts/shared.js" defer></script>
 </head>
 <body data-page="carousel-generator">
@@ -1851,8 +1879,8 @@
                     <p class="cg-code-intro" data-i18n="tool.codeSyntaxHint">Usa una línea por campo: c1.title: &quot;...&quot;, c1.copy: &quot;...&quot; y c1.imagen: &quot;auto&quot;.</p>
                     <textarea id="codeInput" class="cg-code-textarea" spellcheck="false" data-i18n-placeholder="tool.codePlaceholder" placeholder="ALFORA-CAROUSEL/1"></textarea>
                     <div class="cg-code-actions">
-                        <button id="copyCodeButton" class="cg-button" type="button" data-i18n="tool.copyCurrentCode">Copiar código actual</button>
-                        <button id="applyCodeButton" class="cg-button cg-button--primary" type="button" data-i18n="tool.applyCode">Aplicar código</button>
+                        <button id="copyCodeButton" class="cg-button" type="button" data-i18n="tool.applyCodeUpdates">Aplicar actualizaciones</button>
+                        <button id="applyCodeButton" class="cg-button cg-button--primary" type="button" data-i18n="tool.generateNewProposal">Generar nueva propuesta</button>
                     </div>
                     <p id="codeStatus" class="cg-code-status" aria-live="polite"></p>
                 </div>
@@ -2194,6 +2222,7 @@ c2.imagen: "2"</code></pre>
         <span data-runtime-key="tool.gradientRight" data-i18n="tool.gradientRight">Lateral derecho</span>
         <span data-runtime-key="tool.gradientAccent" data-i18n="tool.gradientAccent">Acento de marca</span>
         <span data-runtime-key="messages.slideProposalGenerated" data-i18n="messages.slideProposalGenerated">Nueva propuesta generada para esta diapositiva.</span>
+        <span data-runtime-key="messages.randomDecorationsAdded" data-i18n="messages.randomDecorationsAdded">Elementos decorativos aleatorios agregados.</span>
         <span data-runtime-key="messages.backgroundChanged" data-i18n="messages.backgroundChanged">Imagen de fondo actualizada.</span>
         <span data-runtime-key="messages.gradientApplied" data-i18n="messages.gradientApplied">Gradiente aplicado.</span>
         <span data-runtime-key="messages.gradientRemoved" data-i18n="messages.gradientRemoved">Gradiente eliminado.</span>
@@ -2221,6 +2250,9 @@ c2.imagen: "2"</code></pre>
         <span data-runtime-key="tool.addBackgroundElement" data-i18n="tool.addBackgroundElement">Agregar imagen de fondo</span>
         <span data-runtime-key="tool.addContrastPanel" data-i18n="tool.addContrastPanel">Aplicar panel de contraste</span>
         <span data-runtime-key="tool.addDecoration" data-i18n="tool.addDecoration">Agregar elemento decorativo</span>
+        <span data-runtime-key="tool.bringToFront" data-i18n="tool.bringToFront">Pasar al frente</span>
+        <span data-runtime-key="tool.sendToBack" data-i18n="tool.sendToBack">Pasar atrás</span>
+        <span data-runtime-key="tool.addRandomDecorations" data-i18n="tool.addRandomDecorations">Agregar elementos decorativos aleatorios</span>
         <span data-runtime-key="tool.deleteSelected" data-i18n="tool.deleteSelected">Eliminar elemento seleccionado</span>
         <span data-runtime-key="tool.fontFamily" data-i18n="tool.fontFamily">Familia tipográfica</span>
         <span data-runtime-key="tool.fullContrastPanel" data-i18n="tool.fullContrastPanel">Panel de contraste de extremo a extremo</span>
@@ -2358,7 +2390,6 @@ c2.imagen: "2"</code></pre>
                 el.setAttribute('placeholder', tr(key, el.getAttribute('placeholder') || ''));
             });
             mobileToggle.setAttribute('aria-label', mobileMenu.classList.contains('is-open') ? tr('tool.closeTools') : tr('tool.openTools'));
-            if (state?.codeAppliedOnce) applyCodeButton.textContent = tr('tool.generateNewProposal', 'Generar nueva propuesta');
             renderSlideCards();
         }
 
@@ -3154,6 +3185,17 @@ c2.imagen: "2"</code></pre>
         function applyAlforaCode() {
             try {
                 const parsed = parseAlforaCode(codeInput.value);
+                const previousSlides = state.slides || [];
+                parsed.forEach((slide, index) => {
+                    const previous = previousSlides[index];
+                    const userDecorations = (previous?.extraDecorations || [])
+                        .filter(isUserPlacedDecoration)
+                        .map((layer) => deepClone(layer));
+                    if (userDecorations.length) {
+                        slide.extraDecorations = userDecorations;
+                        slide.decorationsInitialized = true;
+                    }
+                });
                 if (state.codeAppliedOnce) {
                     parsed.forEach((slide) => { slide.seed = Math.floor(Math.random() * 2 ** 31); });
                 }
@@ -3161,7 +3203,6 @@ c2.imagen: "2"</code></pre>
                 state.currentIndex = 0;
                 regenerateDesigns(state.codeAppliedOnce);
                 state.codeAppliedOnce = true;
-                applyCodeButton.textContent = tr('tool.generateNewProposal', 'Generar nueva propuesta');
                 renderSlideCards();
                 renderDots();
                 updateAddButton();
@@ -3176,18 +3217,187 @@ c2.imagen: "2"</code></pre>
             }
         }
 
-        async function copyCurrentCode() {
-            codeInput.value = serializeAlforaCode();
+        function parseAlforaUpdates(raw) {
+            const prefix = 'ALFORA-CAROUSEL/1';
+            let text = String(raw || '').trim();
+            text = text.replace(/^```(?:text|txt|plaintext)?\s*/i, '').replace(/\s*```$/i, '').trim();
+            if (!text.startsWith(prefix)) throw new Error('INVALID_PREFIX');
+
+            const body = text.slice(prefix.length).trim();
+            if (!body) throw new Error('EMPTY');
+
+            const entries = new Map();
+            const meaningfulLines = body.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
+
+            for (const line of meaningfulLines) {
+                if (line.startsWith('#') || line.startsWith('//')) continue;
+                const match = line.match(/^c(\d{1,2})\.(title|tittle|titulo|copy(?:\d{1,2})?|image|imagen)\s*:\s*"((?:\\.|[^"\\])*)"\s*$/i);
+                if (!match) throw new Error('INVALID_LINE');
+
+                const number = Number(match[1]);
+                if (!Number.isInteger(number) || number < 1 || number > MAX_SLIDES) throw new Error('INVALID_INDEX');
+
+                if (!entries.has(number)) {
+                    entries.set(number, {
+                        number,
+                        hasTitle: false,
+                        title: '',
+                        hasCopy: false,
+                        copy: '',
+                        copies: {},
+                        hasImage: false,
+                        image: 'auto'
+                    });
+                }
+
+                const entry = entries.get(number);
+                const rawField = match[2].toLowerCase();
+                const value = unescapeAlforaValue(match[3]);
+
+                if (rawField === 'title' || rawField === 'tittle' || rawField === 'titulo') {
+                    entry.hasTitle = true;
+                    entry.title = value;
+                } else if (rawField === 'copy') {
+                    entry.hasCopy = true;
+                    entry.copy = value;
+                } else if (/^copy\d+$/.test(rawField)) {
+                    const copyNumber = Number(rawField.slice(4));
+                    if (copyNumber < 2 || copyNumber > MAX_EXTRA_TEXTS + 1) throw new Error('INVALID_COPY_INDEX');
+                    entry.copies[copyNumber] = value;
+                } else if (rawField === 'image' || rawField === 'imagen') {
+                    entry.hasImage = true;
+                    entry.image = value;
+                }
+            }
+
+            if (!entries.size) throw new Error('EMPTY');
+            return [...entries.values()].sort((a, b) => a.number - b.number);
+        }
+
+        function makeUpdatedExtraCopyLayer(slide, copyNumber, textValue) {
+            const baseStyle = getSlideStyles(slide).copy || {};
+            const extraIndex = Math.max(0, copyNumber - 2);
+            const defaultSize = Math.round(resolveTextSize(
+                slide,
+                'copy',
+                defaultTextSizeForSlide(slide, 'copy', canvas.width || getCanvasSize().width)
+            ));
+
+            return {
+                id: `text-update-${Date.now()}-${copyNumber}-${Math.floor(Math.random() * 1e6)}`,
+                kind: 'extraText',
+                role: 'copy',
+                fieldKey: `copy${copyNumber}`,
+                text: String(textValue ?? '').slice(0, 700),
+                xPct: 50,
+                yPct: clamp(72 + extraIndex * 7, 12, 92),
+                widthPct: 70,
+                heightPct: 10,
+                fontFamily: baseStyle.fontFamily || state.fontFamily,
+                fontSize: defaultSize,
+                color: baseStyle.color || null,
+                align: baseStyle.align || 'center',
+                weight: 650,
+                panelMode: baseStyle.panelMode || 'auto',
+                panelColor: baseStyle.panelColor || null,
+                panelAlpha: Number(baseStyle.panelAlpha ?? .44),
+                lineHeight: 1.1
+            };
+        }
+
+        function applyCodeUpdates() {
             try {
-                await navigator.clipboard.writeText(codeInput.value);
-                codeStatus.textContent = tr('messages.codeCopied');
+                const updates = parseAlforaUpdates(codeInput.value);
+                let updatedSlides = 0;
+                let ignoredSlides = 0;
+
+                updates.forEach((entry) => {
+                    const slideIndex = entry.number - 1;
+                    const slide = state.slides[slideIndex];
+                    if (!slide) {
+                        ignoredSlides += 1;
+                        return;
+                    }
+
+                    let changed = false;
+
+                    if (entry.hasTitle) {
+                        slide.title = String(entry.title ?? '').slice(0, 280);
+                        slide.titleHidden = false;
+                        changed = true;
+                    }
+
+                    if (entry.hasCopy) {
+                        slide.copy = String(entry.copy ?? '').slice(0, 700);
+                        slide.copyHidden = false;
+                        changed = true;
+                    }
+
+                    Object.entries(entry.copies || {})
+                        .sort((a, b) => Number(a[0]) - Number(b[0]))
+                        .forEach(([copyNumberRaw, textValue]) => {
+                            const copyNumber = Number(copyNumberRaw);
+                            const fieldKey = `copy${copyNumber}`;
+                            let layer = (slide.extraTexts || []).find((item) => item.fieldKey === fieldKey);
+
+                            if (!layer) {
+                                if ((slide.extraTexts || []).length >= MAX_EXTRA_TEXTS) return;
+                                layer = makeUpdatedExtraCopyLayer(slide, copyNumber, textValue);
+                                slide.extraTexts.push(layer);
+                            } else {
+                                layer.text = String(textValue ?? '').slice(0, 700);
+                            }
+                            changed = true;
+                        });
+
+                    // Una imagen concreta puede cambiarse sin regenerar la composición.
+                    // "auto" conserva el fondo que ya estaba elegido para evitar una nueva propuesta accidental.
+                    if (entry.hasImage) {
+                        const imageValue = String(entry.image || 'auto').trim().toLowerCase();
+                        if (/^\d+$/.test(imageValue) && Number(imageValue) > 0) {
+                            const newImageIndex = Number(imageValue) - 1;
+                            if (state.backgrounds[newImageIndex]) {
+                                slide.imageIndex = String(newImageIndex);
+                                slide.baseImageHidden = false;
+                                if (!slide.design) slide.design = buildDesign(slide, slideIndex);
+                                slide.design.backgroundIndex = newImageIndex;
+
+                                // Mantener la estructura actual. Solo garantizamos que el fondo pueda mostrar la imagen.
+                                if (slide.design.backgroundMode === 'solid') slide.design.backgroundMode = 'full-overlay';
+                                if (slide.design.backgroundMode === 'gradient') slide.design.backgroundMode = 'gradient-image';
+                                changed = true;
+                            }
+                        } else if (imageValue === 'auto') {
+                            slide.imageIndex = 'auto';
+                            changed = true;
+                        }
+                    }
+
+                    if (changed) updatedSlides += 1;
+                });
+
+                if (!updatedSlides) {
+                    codeStatus.textContent = tr('messages.noSlidesUpdated', 'No se encontró ninguna diapositiva existente para actualizar.');
+                    codeStatus.className = 'cg-code-status is-error';
+                    return;
+                }
+
+                renderSlideCards();
+                renderDots();
+                updateAddButton();
+                queueRender();
+
+                const baseMessage = tr('messages.codeUpdatesApplied', 'Actualizaciones aplicadas sin cambiar el diseño.');
+                const ignoredMessage = ignoredSlides
+                    ? ` ${ignoredSlides} ${tr('messages.codeUpdatesIgnored', 'entradas no correspondían a diapositivas existentes.')}`
+                    : '';
+                codeStatus.textContent = `${baseMessage}${ignoredMessage}`;
                 codeStatus.className = 'cg-code-status is-success';
-            } catch {
-                codeInput.focus();
-                codeInput.select();
-                document.execCommand('copy');
-                codeStatus.textContent = tr('messages.codeCopied');
-                codeStatus.className = 'cg-code-status is-success';
+                showToast(baseMessage);
+            } catch (error) {
+                const empty = error?.message === 'EMPTY';
+                codeStatus.textContent = empty ? tr('messages.emptyCode') : tr('messages.invalidCode');
+                codeStatus.className = 'cg-code-status is-error';
             }
         }
 
@@ -3290,6 +3500,17 @@ c2.imagen: "2"</code></pre>
                 state.objectUrls.delete(item.url);
             });
             state.decorations = loaded;
+
+            // Cargar recursos decorativos no equivale a colocarlos en el canvas.
+            // Evitamos que el primer render inserte automáticamente una versión
+            // rotada del recurso recién cargado. El usuario puede agregarlo
+            // manualmente (entra recto) o usar la acción explícita de elementos
+            // decorativos aleatorios (esa sí conserva rotación aleatoria).
+            state.slides.forEach((slide) => {
+                slide.extraDecorations = (slide.extraDecorations || []).filter(isUserPlacedDecoration);
+                slide.decorationsInitialized = true;
+            });
+
             regenerateDesigns(false);
             updateCounts();
             queueRender();
@@ -3993,35 +4214,110 @@ c2.imagen: "2"</code></pre>
             });
         }
 
-        function ensureAutomaticDecorations(slide, design, W, H, safeRects) {
-            if (slide.decorationsInitialized || !state.decorations.length) return;
-            slide.decorationsInitialized = true;
-            const rand = seededRandom((design.decorSeed ^ 0x7f4a7c15) >>> 0);
-            const count = Math.min(state.decorations.length, 1 + Math.floor(rand() * Math.min(3, state.decorations.length)));
+        function decorationSource(layer) {
+            if (!layer) return 'manual';
+            if (layer.source) return layer.source;
+            // Compatibilidad con proyectos anteriores: los ids dec-* eran creados
+            // exclusivamente por el automatismo del generador.
+            return String(layer.id || '').startsWith('dec-') ? 'auto' : 'manual';
+        }
+
+        function isUserPlacedDecoration(layer) {
+            return decorationSource(layer) !== 'auto';
+        }
+
+        function hasUserPlacedDecorations(slide) {
+            return (slide?.extraDecorations || []).some(isUserPlacedDecoration);
+        }
+
+        function addRandomDecorationBatch(slide, design, W, H, safeRects, options = {}) {
+            if (!slide || !state.decorations.length) return 0;
+            const source = options.source || 'auto';
+            const rand = options.rand || Math.random;
+            const requested = Math.max(1, Number(options.count) || 1);
+            const count = Math.min(requested, state.decorations.length);
             const indices = shuffle([...state.decorations.keys()], rand).slice(0, count);
+
             indices.forEach((assetIndex) => {
                 let xPct = 10 + rand() * 80;
                 let yPct = 8 + rand() * 84;
                 const scale = 8 + rand() * 10;
-                for (let attempt = 0; attempt < 18; attempt += 1) {
+                for (let attempt = 0; attempt < 24; attempt += 1) {
                     const candidate = { x: xPct/100*W-W*.05, y: yPct/100*H-H*.05, width: W*.10, height: H*.10 };
-                    if (safeRects.every((safe) => !rectsOverlap(candidate, safe, Math.min(W,H)*.02))) break;
+                    if ((safeRects || []).every((safe) => !rectsOverlap(candidate, safe, Math.min(W,H)*.02))) break;
                     xPct = 6 + rand() * 88;
                     yPct = 6 + rand() * 88;
                 }
                 slide.extraDecorations.push({
-                    id: `dec-${Date.now()}-${assetIndex}-${Math.floor(rand()*1e6)}`,
+                    id: `${source === 'auto' ? 'dec' : 'dec-user'}-${Date.now()}-${assetIndex}-${Math.floor(rand()*1e6)}`,
                     kind: 'decoration', assetIndex, xPct, yPct, scale,
-                    rotation: (rand()-.5)*30, opacity: .78 + rand()*.22
+                    rotation: (rand()-.5)*30, opacity: .78 + rand()*.22,
+                    source,
+                    layerPosition: 'back'
                 });
+            });
+            return count;
+        }
+
+        function ensureAutomaticDecorations(slide, design, W, H, safeRects) {
+            if (slide.decorationsInitialized || !state.decorations.length) return;
+
+            // Si el usuario colocó una firma, sello, recurso manual o pidió decoraciones
+            // aleatorias explícitamente, las nuevas propuestas respetan esa decisión y
+            // no agregan más adornos por su cuenta.
+            if (hasUserPlacedDecorations(slide)) {
+                slide.decorationsInitialized = true;
+                return;
+            }
+
+            slide.decorationsInitialized = true;
+            const rand = seededRandom((design.decorSeed ^ 0x7f4a7c15) >>> 0);
+            const count = Math.min(state.decorations.length, 1 + Math.floor(rand() * Math.min(3, state.decorations.length)));
+            addRandomDecorationBatch(slide, design, W, H, safeRects, { count, rand, source: 'auto' });
+        }
+
+        function drawExtraDecorations(context, W, H, slide, position = 'back') {
+            (slide.extraDecorations || []).forEach((layer) => {
+                const layerPosition = layer.layerPosition === 'front' ? 'front' : 'back';
+                if (layerPosition !== position) return;
+                const asset = layer.assetType === 'logo' ? state.logo : state.decorations[layer.assetIndex];
+                if (asset) drawAssetLayer(context, layer, asset, W, H);
             });
         }
 
-        function drawExtraDecorations(context, W, H, slide) {
-            (slide.extraDecorations || []).forEach((layer) => {
-                const asset = state.decorations[layer.assetIndex];
-                if (asset) drawAssetLayer(context, layer, asset, W, H);
-            });
+        function setDecorationLayerPosition(selection, position) {
+            const slide = getCurrentSlide();
+            if (!slide || selection?.kind !== 'decoration') return;
+            const list = slide.extraDecorations || [];
+            const index = list.findIndex((item) => item.id === selection.id);
+            if (index < 0) return;
+            const layer = list[index];
+            layer.layerPosition = position === 'front' ? 'front' : 'back';
+
+            // Además del plano general, reordenamos dentro de ese plano para que
+            // "al frente" sea realmente el último elemento decorativo dibujado.
+            list.splice(index, 1);
+            if (layer.layerPosition === 'front') list.push(layer);
+            else list.unshift(layer);
+            queueRender();
+            closeContextMenu();
+        }
+
+        function addRandomDecorationsToCurrentSlide() {
+            const slide = getCurrentSlide();
+            if (!slide) return;
+            if (!state.decorations.length) {
+                showToast(tr('tool.uploadDecorations', 'Carga decoraciones primero.'));
+                return;
+            }
+            if (!slide.design) slide.design = buildDesign(slide, state.currentIndex);
+            const { width: W, height: H } = getCanvasSize();
+            const geo = getGeometry(slide.design.format, slide.design.alignment, W, H, Boolean(state.logo && !slide.logoHidden), slide);
+            const count = 1 + Math.floor(Math.random() * Math.min(4, state.decorations.length));
+            addRandomDecorationBatch(slide, slide.design, W, H, geo.safe, { count, rand: Math.random, source: 'user-random' });
+            slide.decorationsInitialized = true;
+            queueRender();
+            showToast(tr('messages.randomDecorationsAdded', 'Elementos decorativos aleatorios agregados.'));
         }
 
         function logoContrastSamples(context, rect, scaleMultiplier = 1) {
@@ -4607,7 +4903,7 @@ c2.imagen: "2"</code></pre>
 
             const geo = getGeometry(design.format, design.alignment, W, H, Boolean(state.logo && !slide.logoHidden), slide);
             ensureAutomaticDecorations(slide, design, W, H, geo.safe);
-            drawExtraDecorations(context, W, H, slide);
+            drawExtraDecorations(context, W, H, slide, 'back');
 
             const renderFormat = () => {
                 if (design.format === 1) renderFormat1(context, W, H, slide, design, geo, index);
@@ -4636,6 +4932,10 @@ c2.imagen: "2"</code></pre>
             context.__cgRenderPhase = 'content';
             renderFormat();
             drawExtraTexts(context, W, H, slide, design);
+
+            // Firmas, sellos y decoraciones que el usuario manda al frente se pintan
+            // después de textos y paneles de contraste, conservando su opacidad real.
+            drawExtraDecorations(context, W, H, slide, 'front');
 
             delete context.__cgRenderPhase;
             delete context.__cgContrastPanelRequests;
@@ -5218,17 +5518,78 @@ c2.imagen: "2"</code></pre>
             return null;
         }
 
+        function normalizeContextHexColor(value) {
+            let color = String(value || '').trim().toUpperCase();
+            if (!color.startsWith('#')) color = `#${color}`;
+            if (/^#[0-9A-F]{3}$/.test(color)) {
+                color = `#${color.slice(1).split('').map((char) => char + char).join('')}`;
+            }
+            return /^#[0-9A-F]{6}$/.test(color) ? color : null;
+        }
+
         function createColorRow(selection) {
             const style = styleForSelection(selection); if (!style) return null;
-            const row=document.createElement('label');row.className='cg-context-row';
-            const span=document.createElement('span');span.textContent=tr('tool.textColor','Color del texto');
-            const input=document.createElement('input');input.type='color'; input.value=style.color || '#FFFFFF';
-            input.addEventListener('input',()=>{
-                const live = styleForSelection(selection); if (!live) return;
-                live.color=input.value.toUpperCase();
+            const wrapper = document.createElement('div');
+            wrapper.className = 'cg-context-panel-color';
+
+            const row=document.createElement('label');
+            row.className='cg-context-row cg-context-color-row';
+            const span=document.createElement('span');
+            span.textContent=tr('tool.textColor','Color del texto');
+            const input=document.createElement('input');
+            input.type='color';
+            input.value=style.color || '#FFFFFF';
+            const code=document.createElement('input');
+            code.type='text';
+            code.className='cg-context-color-code';
+            code.value=(style.color || '#FFFFFF').toUpperCase();
+            code.maxLength=7;
+            code.spellcheck=false;
+            code.setAttribute('aria-label', tr('tool.textColor','Color del texto'));
+
+            const applyColor=(value)=>{
+                const normalized=normalizeContextHexColor(value);
+                if(!normalized)return false;
+                const live=styleForSelection(selection); if(!live)return false;
+                live.color=normalized;
+                input.value=normalized;
+                code.value=normalized;
                 queueRender();
+                return true;
+            };
+
+            input.addEventListener('input',()=>applyColor(input.value));
+            code.addEventListener('input',()=>{
+                const normalized=normalizeContextHexColor(code.value);
+                if(normalized)applyColor(normalized);
             });
-            row.append(span,input);return row;
+            code.addEventListener('change',()=>{
+                if(!applyColor(code.value)) code.value=(styleForSelection(selection)?.color || input.value || '#FFFFFF').toUpperCase();
+            });
+
+            row.append(span,input,code);
+            wrapper.append(row);
+
+            const palette=document.createElement('div');
+            palette.className='cg-context-palette';
+            const colorChoices=[...new Set([...currentPalette().slice(0,8),'#FFFFFF','#101414'])];
+            colorChoices.forEach((color)=>{
+                const normalized=normalizeContextHexColor(color); if(!normalized)return;
+                const chip=document.createElement('button');
+                chip.type='button';
+                chip.className='cg-context-color-chip';
+                chip.style.background=normalized;
+                chip.title=normalized;
+                chip.setAttribute('aria-label', `${tr('tool.textColor','Color del texto')} ${normalized}`);
+                chip.addEventListener('click',(event)=>{
+                    event.preventDefault();
+                    event.stopPropagation();
+                    applyColor(normalized);
+                });
+                palette.append(chip);
+            });
+            wrapper.append(palette);
+            return wrapper;
         }
 
         function createPanelColorControl(selection) {
@@ -5276,16 +5637,68 @@ c2.imagen: "2"</code></pre>
 
         function createFontRow(selection) {
             const style=styleForSelection(selection); if(!style)return null;
-            const row=document.createElement('label');row.className='cg-context-row';
-            const span=document.createElement('span');span.textContent=tr('tool.fontFamily','Familia tipográfica');
-            const select=fontFamilySelect.cloneNode(true);select.removeAttribute('id');select.value=style.fontFamily || state.fontFamily;
+            const wrapper=document.createElement('div');
+            wrapper.className='cg-context-panel-color';
+
+            const row=document.createElement('label');
+            row.className='cg-context-row';
+            const span=document.createElement('span');
+            span.textContent=tr('tool.fontFamily','Familia tipográfica');
+            const select=fontFamilySelect.cloneNode(true);
+            select.removeAttribute('id');
+            select.value=style.fontFamily || state.fontFamily;
             select.addEventListener('change',async()=>{
                 const live = styleForSelection(selection); if (!live) return;
                 live.fontFamily=select.value;
                 await loadFontFamilyValue(select.value);
                 queueRender();
             });
-            row.append(span,select);return row;
+            row.append(span,select);
+            wrapper.append(row);
+
+            const uploadRow=document.createElement('div');
+            uploadRow.className='cg-context-row';
+            const uploadLabel=document.createElement('span');
+            uploadLabel.textContent=tr('tool.customFonts','Tipografías personalizadas');
+            const uploadButton=document.createElement('button');
+            uploadButton.type='button';
+            uploadButton.className='cg-context-mini-button cg-context-custom-font-button';
+            uploadButton.textContent=tr('tool.uploadFont','Cargar tipografía');
+            const localInput=document.createElement('input');
+            localInput.type='file';
+            localInput.accept='.ttf,.otf,.woff,.woff2,font/ttf,font/otf,font/woff,font/woff2';
+            localInput.className='cg-hidden-input';
+
+            uploadButton.addEventListener('click',(event)=>{
+                event.preventDefault();
+                event.stopPropagation();
+                localInput.click();
+            });
+            localInput.addEventListener('change',async()=>{
+                const file=localInput.files?.[0]; if(!file)return;
+                const previousText=uploadButton.textContent;
+                uploadButton.disabled=true;
+                try {
+                    const dataUrl=await readFileAsDataUrl(file);
+                    const family=await registerCustomFont(file.name,dataUrl,true);
+                    const live=styleForSelection(selection); if(!live)return;
+                    live.fontFamily=family;
+                    const globalOption=[...fontFamilySelect.options].find((option)=>option.value===family);
+                    if(globalOption && ![...select.options].some((option)=>option.value===family)) select.append(globalOption.cloneNode(true));
+                    select.value=family;
+                    await loadFontFamilyValue(family);
+                    queueRender();
+                } catch(error) {
+                    console.error(error);
+                } finally {
+                    uploadButton.disabled=false;
+                    uploadButton.textContent=previousText;
+                    localInput.value='';
+                }
+            });
+            uploadRow.append(uploadLabel,uploadButton,localInput);
+            wrapper.append(uploadRow);
+            return wrapper;
         }
 
         async function loadFontFamilyValue(value) {
@@ -5415,10 +5828,10 @@ c2.imagen: "2"</code></pre>
                 };
                 slide.extraTexts.push(layer);state.selection={kind:'extraText',id:layer.id};
             } else if(clip.type==='logo'&&state.logo){
-                const layer={id:newId('logo'),kind:'decoration',assetType:'logo',assetIndex:-1,xPct:55,yPct:20,scale:18,rotation:0,opacity:1};slide.extraDecorations.push(layer);state.selection={kind:'decoration',id:layer.id};
+                const layer={id:newId('logo'),kind:'decoration',assetType:'logo',assetIndex:-1,xPct:55,yPct:20,scale:18,rotation:0,opacity:1,source:'manual',layerPosition:'back'};slide.extraDecorations.push(layer);slide.decorationsInitialized=true;state.selection={kind:'decoration',id:layer.id};
             } else if(clip.type==='assetLayer'){
                 const layer=deepClone(clip.layer);layer.id=newId(layer.kind||'layer');layer.xPct=clamp(Number(layer.xPct||50)+8,-10,110);layer.yPct=clamp(Number(layer.yPct||50)+8,-10,110);
-                if(clip.selectionKind==='backgroundLayer'){slide.backgroundLayers.push(layer);state.selection={kind:'backgroundLayer',id:layer.id};}else{slide.extraDecorations.push(layer);state.selection={kind:'decoration',id:layer.id};}
+                if(clip.selectionKind==='backgroundLayer'){slide.backgroundLayers.push(layer);state.selection={kind:'backgroundLayer',id:layer.id};}else{layer.source='manual';layer.layerPosition=layer.layerPosition==='front'?'front':'back';slide.extraDecorations.push(layer);slide.decorationsInitialized=true;state.selection={kind:'decoration',id:layer.id};}
             } else if(clip.type==='baseImage'&&Number.isInteger(Number(clip.assetIndex))&&state.backgrounds[clip.assetIndex]){
                 const layer={id:newId('background'),kind:'background',assetIndex:Number(clip.assetIndex),xPct:53,yPct:53,scale:48,rotation:0,opacity:1};slide.backgroundLayers.push(layer);state.selection={kind:'backgroundLayer',id:layer.id};
             }
@@ -5523,8 +5936,8 @@ c2.imagen: "2"</code></pre>
             slide.seed = Math.floor(Math.random() * 2 ** 31);
             // Solo regeneramos la propuesta visual base. El contenido, la imagen elegida,
             // las correcciones manuales y las capas creadas por el usuario permanecen.
-            slide.extraDecorations = (slide.extraDecorations || []).filter((layer) => !String(layer.id || '').startsWith('dec-'));
-            slide.decorationsInitialized = false;
+            slide.extraDecorations = (slide.extraDecorations || []).filter(isUserPlacedDecoration);
+            slide.decorationsInitialized = hasUserPlacedDecorations(slide);
             slide.design = buildDesign(slide, index);
             state.currentIndex = index;
             state.selection = null;
@@ -5743,6 +6156,7 @@ c2.imagen: "2"</code></pre>
                 if(slide.backgroundGradient) menu.append(contextButton(tr('tool.removeGradient','Quitar gradiente'),removeManualGradient));
                 menu.append(contextSeparator());
                 menu.append(contextButton(tr('tool.addDecoration','Agregar elemento decorativo'),()=>openAssetPicker('decoration',event)));
+                menu.append(contextButton(tr('tool.addRandomDecorations','Agregar elementos decorativos aleatorios'),addRandomDecorationsToCurrentSlide));
                 menu.append(contextButton(tr('tool.addBackgroundElement','Agregar imagen de fondo'),()=>openAssetPicker('background',event)));
             };
             if(!selection||selection.kind==='canvas'){
@@ -5761,6 +6175,11 @@ c2.imagen: "2"</code></pre>
                 appendClipboardActions(menu,selection);
                 menu.append(contextSeparator(),contextButton(tr('tool.removeBackground','Eliminar imagen de fondo'),()=>deleteSelection(selection),true));
             } else if(selection.kind==='backgroundLayer'||selection.kind==='decoration'){
+                if (selection.kind === 'decoration') {
+                    menu.append(contextButton(tr('tool.bringToFront','Pasar al frente'),()=>setDecorationLayerPosition(selection,'front')));
+                    menu.append(contextButton(tr('tool.sendToBack','Pasar atrás'),()=>setDecorationLayerPosition(selection,'back')));
+                    menu.append(contextSeparator());
+                }
                 addCommonCanvasActions();
                 menu.append(contextSeparator());
                 menu.append(contextButton(tr('tool.removeImageBackground','Quitar fondo'),()=>removeSelectedImageBackground(selection)));
@@ -5784,7 +6203,7 @@ c2.imagen: "2"</code></pre>
                 const img=document.createElement('img');img.src=asset.url||asset.dataUrl;img.alt=asset.name||'';button.append(img);
                 button.addEventListener('click',()=>{
                     const slide=getCurrentSlide();if(!slide)return;
-                    const layer={id:`${type}-${Date.now()}-${Math.floor(Math.random()*1e6)}`,kind:type,assetIndex:index,xPct:50,yPct:50,scale:type==='background'?48:15,rotation:0,opacity:1};
+                    const layer={id:`${type}-${Date.now()}-${Math.floor(Math.random()*1e6)}`,kind:type,assetIndex:index,xPct:50,yPct:50,scale:type==='background'?48:15,rotation:0,opacity:1,source:'manual',layerPosition:type==='decoration'?'back':undefined};
                     if(type==='decoration')slide.extraDecorations.push(layer);else slide.backgroundLayers.push(layer);
                     state.selection={kind:type==='decoration'?'decoration':'backgroundLayer',id:layer.id};
                     closeAssetPicker();queueRender();
@@ -6471,7 +6890,7 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
             projectInput.value = '';
         });
         applyCodeButton.addEventListener('click', applyAlforaCode);
-        copyCodeButton.addEventListener('click', copyCurrentCode);
+        copyCodeButton.addEventListener('click', applyCodeUpdates);
 
         paletteGrid.addEventListener('input', (event) => {
             if (event.target.type !== 'color') return;
