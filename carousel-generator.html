@@ -2152,6 +2152,7 @@ c2.imagen: "2"</code></pre>
         <span data-runtime-key="tool.copyLabel" data-i18n="tool.copyLabel">Copy</span>
         <span data-runtime-key="tool.imageLabel" data-i18n="tool.imageLabel">Imagen</span>
         <span data-runtime-key="tool.autoImage" data-i18n="tool.autoImage">Automática</span>
+        <span data-runtime-key="tool.noBackgroundImage" data-i18n="tool.noBackgroundImage">Sin imagen de fondo</span>
         <span data-runtime-key="tool.removeSlide" data-i18n="tool.removeSlide">Eliminar imagen</span>
         <span data-runtime-key="tool.titlePlaceholder" data-i18n="tool.titlePlaceholder">Escribe el título...</span>
         <span data-runtime-key="tool.copyPlaceholder" data-i18n="tool.copyPlaceholder">Escribe el copy...</span>
@@ -2214,7 +2215,7 @@ c2.imagen: "2"</code></pre>
         <span data-runtime-key="tool.changeBackground" data-i18n="tool.changeBackground">Cambiar imagen de fondo</span>
         <span data-runtime-key="tool.applyAutoGradient" data-i18n="tool.applyAutoGradient">Aplicar gradiente automático</span>
         <span data-runtime-key="tool.removeGradient" data-i18n="tool.removeGradient">Quitar gradiente</span>
-        <span data-runtime-key="tool.removeImageBackground" data-i18n="tool.removeImageBackground">Quitar fondo</span>
+        <span data-runtime-key="tool.removeImageBackground" data-i18n="tool.removeImageBackground">Quitar fondo a imagen</span>
         <span data-runtime-key="tool.gradientPickerTitle" data-i18n="tool.gradientPickerTitle">Gradientes automáticos</span>
         <span data-runtime-key="tool.gradientBrandDiagonal" data-i18n="tool.gradientBrandDiagonal">Marca diagonal</span>
         <span data-runtime-key="tool.gradientBottom" data-i18n="tool.gradientBottom">Oscuro inferior</span>
@@ -2266,6 +2267,7 @@ c2.imagen: "2"</code></pre>
     </div>
 
     <script>
+        //Generador de caruseles V1.8 (Estable)
     (() => {
         'use strict';
 
@@ -2975,6 +2977,10 @@ c2.imagen: "2"</code></pre>
             auto.value = 'auto';
             auto.textContent = tr('tool.autoImage', 'Automática');
             select.append(auto);
+            const noBackground = document.createElement('option');
+            noBackground.value = 'none';
+            noBackground.textContent = tr('tool.noBackgroundImage', 'Sin imagen de fondo');
+            select.append(noBackground);
             state.backgrounds.forEach((image, imageIndex) => {
                 const option = document.createElement('option');
                 option.value = String(imageIndex);
@@ -3073,7 +3079,12 @@ c2.imagen: "2"</code></pre>
             const lines = ['ALFORA-CAROUSEL/1'];
             state.slides.forEach((slide, index) => {
                 const number = index + 1;
-                const image = slide.imageIndex === 'auto' ? 'auto' : String(Number(slide.imageIndex) + 1);
+        const image =
+            slide.imageIndex === 'auto'
+                ? 'auto'
+                : slide.imageIndex === 'none'
+                    ? 'none'
+                    : String(Number(slide.imageIndex) + 1);
                 lines.push(
                     `c${number}.title: "${escapeAlforaValue(slide.title)}"`,
                     `c${number}.copy: "${escapeAlforaValue(slide.copy)}"`
@@ -3138,9 +3149,20 @@ c2.imagen: "2"</code></pre>
                 .sort((a, b) => a[0] - b[0])
                 .slice(0, MAX_SLIDES)
                 .map(([, item]) => {
-                    const imageValue = String(item.image || 'auto').trim().toLowerCase();
-                    let imageIndex = 'auto';
-                    if (/^\d+$/.test(imageValue) && Number(imageValue) > 0) imageIndex = String(Number(imageValue) - 1);
+                const imageValue = String(item.image || 'auto').trim().toLowerCase();
+
+                let imageIndex = 'auto';
+
+                if (
+                    imageValue === 'none' ||
+                    imageValue === 'sin imagen' ||
+                    imageValue === 'sin imagen de fondo' ||
+                    imageValue === 'no background image'
+                ) {
+                    imageIndex = 'none';
+                } else if (/^\d+$/.test(imageValue) && Number(imageValue) > 0) {
+                    imageIndex = String(Number(imageValue) - 1);
+                }
                     return {
                         title: String(item.title ?? '').slice(0, 280),
                         copy: String(item.copy ?? '').slice(0, 700),
@@ -3370,8 +3392,32 @@ c2.imagen: "2"</code></pre>
                                 if (slide.design.backgroundMode === 'gradient') slide.design.backgroundMode = 'gradient-image';
                                 changed = true;
                             }
+                            } else if (
+                            imageValue === 'none' ||
+                            imageValue === 'sin imagen' ||
+                            imageValue === 'sin imagen de fondo' ||
+                            imageValue === 'no background image'
+                        ) {
+                            slide.imageIndex = 'none';
+                            slide.baseImageHidden = true;
+
+                            if (!slide.design) {
+                                slide.design = buildDesign(slide, slideIndex);
+                            }
+
+                            slide.design.backgroundIndex = null;
+
+                            if (
+                                ['split', 'full-overlay', 'gradient-image', 'transparent-feature']
+                                    .includes(slide.design.backgroundMode)
+                            ) {
+                                slide.design.backgroundMode = 'gradient';
+                            }
+
+                            changed = true;
                         } else if (imageValue === 'auto') {
                             slide.imageIndex = 'auto';
+                            slide.baseImageHidden = false;
                             changed = true;
                         }
                     }
@@ -3706,9 +3752,15 @@ c2.imagen: "2"</code></pre>
                 6: ['left', 'center', 'right']
             };
 
+            const noBackgroundImage = slide.imageIndex === 'none';
+
             let backgroundIndex = null;
-            if (state.backgrounds.length) {
-                if (slide.imageIndex !== 'auto' && Number(slide.imageIndex) < state.backgrounds.length) {
+
+            if (state.backgrounds.length && !noBackgroundImage) {
+                if (
+                    slide.imageIndex !== 'auto' &&
+                    Number(slide.imageIndex) < state.backgrounds.length
+                ) {
                     backgroundIndex = Number(slide.imageIndex);
                 } else {
                     backgroundIndex = Math.floor(rand() * state.backgrounds.length);
@@ -3718,7 +3770,8 @@ c2.imagen: "2"</code></pre>
             const backgroundAsset = backgroundIndex !== null ? state.backgrounds[backgroundIndex] : null;
             const hasTransparentBg = Boolean(backgroundAsset?.analysis?.hasTransparency);
             const busyLevel = backgroundAsset?.analysis?.busyLevel ?? 0;
-            const explicitImage = slide.imageIndex !== 'auto'
+            const explicitImage = !noBackgroundImage
+                && slide.imageIndex !== 'auto'
                 && Number.isInteger(Number(slide.imageIndex))
                 && Number(slide.imageIndex) >= 0
                 && Number(slide.imageIndex) < state.backgrounds.length;
@@ -3737,9 +3790,11 @@ c2.imagen: "2"</code></pre>
                 : ['full-overlay', 'gradient-image', 'full-overlay'];
             // Si el código/manual define una imagen concreta, esa imagen es obligatoria:
             // nunca se sustituye por un fondo sólido o por un gradiente sin imagen.
-            const backgroundMode = state.backgrounds.length
-                ? pick(explicitImage ? explicitImageModes : bgWithImages[format], rand)
-                : pick(noImages, rand);
+            const backgroundMode = noBackgroundImage
+                ? pick(noImages, rand)
+                : state.backgrounds.length
+                    ? pick(explicitImage ? explicitImageModes : bgWithImages[format], rand)
+                    : pick(noImages, rand);
             const weights = palette.map((_, paletteIndex) => state.paletteWeights[paletteIndex] ?? Math.max(.15, 1 - paletteIndex * .12));
             const dominantIndex = weightedPickIndex(weights, rand);
             const secondIndex = weightedPickIndex(weights.map((w, i) => i === dominantIndex ? w * .28 : w), rand);
@@ -5975,15 +6030,109 @@ c2.imagen: "2"</code></pre>
             if(state.clipboard)menu.append(contextButton(tr('tool.pasteElement','Pegar'),pasteClipboard));
         }
 
+        // Al pasar de una composición personalizada a una propuesta automática,
+        // la geometría manual del diseño anterior no debe contaminar el nuevo layout.
+        // Conservamos contenido, recursos, colores, fuentes, paneles, imagen elegida,
+        // recorte de la imagen y capas colocadas por el usuario.
+        function prepareSlideForAutomaticProposal(slide) {
+            if (!slide) return;
+
+            const currentAdjustments = normalizeAdjustments(slide.adjustments);
+            const cleanAdjustments = defaultAdjustments();
+
+            // Reiniciar únicamente la geometría de los elementos que pertenecen
+            // a la diagramación automática. El encuadre manual del fondo se conserva.
+            cleanAdjustments.image = { ...currentAdjustments.image };
+            slide.adjustments = cleanAdjustments;
+
+            // Tamaño, alineación, peso e interlineado pueden haber quedado fijados
+            // para la composición anterior. Al crear otra propuesta deben volver
+            // a los valores propios del nuevo formato. Fuente, color y panel permanecen.
+            const styles = getSlideStyles(slide);
+            ['title', 'copy'].forEach((key) => {
+                styles[key].fontSize = null;
+                styles[key].align = null;
+                styles[key].weight = null;
+                styles[key].lineHeight = null;
+            });
+        }
+
+        function reflowExtraTextsForAutomaticProposal(slide) {
+            const layers = slide?.extraTexts || [];
+            if (!layers.length || !slide.design) return;
+
+            const { width: W, height: H } = getCanvasSize();
+            const hasLogo = Boolean(state.logo && !slide.logoHidden);
+            const geo = getGeometry(slide.design.format, slide.design.alignment, W, H, hasLogo, slide);
+            const padding = H * .022;
+            const topLimit = H * .06;
+            const bottomLimit = H * .94;
+
+            const occupied = [
+                hasLogo ? geo.logo : null,
+                slide.titleHidden ? null : geo.title,
+                slide.copyHidden ? null : geo.copy
+            ]
+                .filter((rect) => rect && rect.width > 0 && rect.height > 0)
+                .sort((a, b) => a.y - b.y);
+
+            const gaps = [];
+            let cursor = topLimit;
+            occupied.forEach((rect) => {
+                const gapEnd = Math.min(bottomLimit, rect.y - padding);
+                if (gapEnd > cursor) gaps.push({ y: cursor, height: gapEnd - cursor });
+                cursor = Math.max(cursor, rect.y + rect.height + padding);
+            });
+            if (bottomLimit > cursor) gaps.push({ y: cursor, height: bottomLimit - cursor });
+
+            const gap = gaps.sort((a, b) => b.height - a.height)[0] || {
+                y: H * .12,
+                height: H * .76
+            };
+
+            const count = layers.length;
+            const spacing = H * .012;
+            const usableHeight = Math.max(H * .06, gap.height - spacing * Math.max(0, count - 1));
+            const blockHeight = clamp(usableHeight / Math.max(1, count), H * .055, H * .115);
+            const totalHeight = blockHeight * count + spacing * Math.max(0, count - 1);
+            const startY = clamp(
+                gap.y + Math.max(0, (gap.height - totalHeight) / 2),
+                topLimit,
+                Math.max(topLimit, bottomLimit - totalHeight)
+            );
+
+            const defaultSize = Math.round(defaultTextSizeForSlide(slide, 'copy', W));
+            const defaultAlign = defaultTextAlignForSlide(slide, 'copy');
+            const widthPct = clamp((geo.copy?.width || W * .70) / W * 100, 38, 78);
+            const centerPct = geo.copy
+                ? clamp((geo.copy.x + geo.copy.width / 2) / W * 100, 20, 80)
+                : 50;
+
+            layers.forEach((layer, extraIndex) => {
+                const centerY = startY + blockHeight / 2 + extraIndex * (blockHeight + spacing);
+                layer.xPct = centerPct;
+                layer.yPct = clamp(centerY / H * 100, 6, 94);
+                layer.widthPct = widthPct;
+                layer.heightPct = clamp(blockHeight / H * 100, 5.5, 12);
+                layer.fontSize = Math.min(
+                    Number.isFinite(Number(layer.fontSize)) ? Number(layer.fontSize) : defaultSize,
+                    defaultSize
+                );
+                layer.align = defaultAlign;
+            });
+        }
+
         function regenerateSlideProposal(index) {
             const slide = state.slides[index];
             if (!slide) return;
             slide.seed = Math.floor(Math.random() * 2 ** 31);
-            // Solo regeneramos la propuesta visual base. El contenido, la imagen elegida,
-            // las correcciones manuales y las capas creadas por el usuario permanecen.
+            prepareSlideForAutomaticProposal(slide);
+            // Regeneramos la propuesta visual base conservando contenido, imagen elegida
+            // y capas creadas por el usuario, pero sin reutilizar la geometría del layout anterior.
             slide.extraDecorations = (slide.extraDecorations || []).filter(isUserPlacedDecoration);
             slide.decorationsInitialized = hasUserPlacedDecorations(slide);
             slide.design = buildDesign(slide, index);
+            reflowExtraTextsForAutomaticProposal(slide);
             state.currentIndex = index;
             state.selection = null;
             renderSlideCards();
@@ -6227,7 +6376,7 @@ c2.imagen: "2"</code></pre>
             } else if(selection.kind==='baseImage'){
                 addCommonCanvasActions();
                 menu.append(contextSeparator());
-                menu.append(contextButton(tr('tool.removeImageBackground','Quitar fondo'),()=>removeSelectedImageBackground(selection)));
+                menu.append(contextButton(tr('tool.removeImageBackground','Quitar fondo a imagen'),()=>removeSelectedImageBackground(selection)));
                 appendClipboardActions(menu,selection);
                 menu.append(contextSeparator(),contextButton(tr('tool.removeBackground','Eliminar imagen de fondo'),()=>deleteSelection(selection),true));
             } else if(selection.kind==='backgroundLayer'||selection.kind==='decoration'){
@@ -6238,7 +6387,7 @@ c2.imagen: "2"</code></pre>
                 }
                 addCommonCanvasActions();
                 menu.append(contextSeparator());
-                menu.append(contextButton(tr('tool.removeImageBackground','Quitar fondo'),()=>removeSelectedImageBackground(selection)));
+                menu.append(contextButton(tr('tool.removeImageBackground','Quitar fondo a imagen'),()=>removeSelectedImageBackground(selection)));
                 appendClipboardActions(menu,selection);
                 menu.append(contextSeparator(),contextButton(selection.kind==='backgroundLayer'?tr('tool.removeBackground','Eliminar imagen de fondo'):tr('tool.deleteSelected','Eliminar elemento seleccionado'),()=>deleteSelection(selection),true));
             }
@@ -6279,7 +6428,10 @@ c2.imagen: "2"</code></pre>
         }
 
         function generateCarousel() {
+            state.slides.forEach((slide) => prepareSlideForAutomaticProposal(slide));
             regenerateDesigns(true);
+            state.slides.forEach((slide) => reflowExtraTextsForAutomaticProposal(slide));
+            state.selection = null;
             queueRender();
             showToast(tr('messages.generated'));
         }
@@ -6287,7 +6439,10 @@ c2.imagen: "2"</code></pre>
         function selectFormat(format) {
             state.selectedFormat = format;
             document.querySelectorAll('.cg-format-button').forEach((button) => button.classList.toggle('is-active', button.dataset.format === format));
+            state.slides.forEach((slide) => prepareSlideForAutomaticProposal(slide));
             regenerateDesigns(false);
+            state.slides.forEach((slide) => reflowExtraTextsForAutomaticProposal(slide));
+            state.selection = null;
             renderCurrentSlide();
             closeMobilePanels();
         }
@@ -6832,12 +6987,43 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
 
         slideList.addEventListener('change', (event) => {
             const target = event.target;
+
             if (target.dataset.field !== 'imageIndex') return;
+
             const index = Number(target.dataset.slideIndex);
-            if (!state.slides[index]) return;
-            state.slides[index].imageIndex = target.value;
-            state.slides[index].design = buildDesign(state.slides[index], index);
-            if (index === state.currentIndex) queueRender();
+            const slide = state.slides[index];
+
+            if (!slide) return;
+
+            slide.imageIndex = target.value;
+
+            if (target.value === 'none') {
+                // Quitar únicamente la imagen de fondo.
+                // Conserva la propuesta, posiciones, textos y demás elementos.
+                slide.baseImageHidden = true;
+
+                if (!slide.design) {
+                    slide.design = buildDesign(slide, index);
+                }
+
+                slide.design.backgroundIndex = null;
+
+                // Si la propuesta dependía de una imagen,
+                // convertir el fondo en un gradiente de la paleta actual.
+                if (
+                    ['split', 'full-overlay', 'gradient-image', 'transparent-feature']
+                        .includes(slide.design.backgroundMode)
+                ) {
+                    slide.design.backgroundMode = 'gradient';
+                }
+            } else {
+                slide.baseImageHidden = false;
+                slide.design = buildDesign(slide, index);
+            }
+
+            if (index === state.currentIndex) {
+                queueRender();
+            }
         });
 
         slideList.addEventListener('click', (event) => {
@@ -7056,6 +7242,34 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
         syncEditControls();
         queueRender();
     })();
+
+    /* =========================================================
+   PRÓXIMAS ACTUALIZACIONES · CAROUSEL GENERATOR
+
+   1. PC FULL HD
+      - Cuando el usuario seleccione el formato PC Full HD,
+        ofrecer opciones adicionales de exportación:
+        · PowerPoint (.pptx)
+        · PDF
+        · Mantener también la descarga actual de imágenes.
+
+   2. REMOVEDOR DE FONDO
+      - Separar toda la lógica del removedor de fondo de imágenes
+        del archivo principal carousel-generator.html.
+      - Crear un script independiente y reutilizable.
+      - La idea es que cualquier herramienta de Alfora pueda llamar
+        al mismo motor de eliminación de fondo sin duplicar código.
+      - Mantener modelo, carga de librería, procesamiento y errores
+        centralizados en ese script compartido.
+
+   3. EXPERIENCIA MÓVIL
+      - Revisar y mejorar específicamente la UX del generador
+        de carruseles en dispositivos móviles.
+      - Priorizar área de trabajo, controles contextuales,
+        edición de textos, selección de elementos y navegación.
+      - Reducir interacciones incómodas y aprovechar mejor
+        el espacio disponible en pantallas pequeñas.
+   ========================================================= */
     </script>
 </body>
 </html>
