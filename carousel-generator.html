@@ -1935,6 +1935,7 @@
                         <option value="pinterest" data-width="1000" data-height="1500" data-i18n="formats.pinterestPortrait">Pinterest · 1000×1500</option>
                         <option value="threads-portrait" data-width="1080" data-height="1350" data-i18n="formats.threadsPortrait">Threads vertical · 1080×1350</option>
                         <option value="youtube-community" data-width="1080" data-height="1080" data-i18n="formats.youtubeCommunity">YouTube Community · 1080×1080</option>
+                        <option value="youtube-shorts" data-width="1080" data-height="1920" data-i18n="formats.youtubeShorts">YouTube Shorts · 1080×1920</option>
                         <option value="desktop-fullhd" data-width="1920" data-height="1080" data-i18n="formats.desktopFullHd">PC Full HD · 1920×1080</option>
                     </select>
 
@@ -2470,6 +2471,7 @@ c2.imagen: "2"</code></pre>
                 backgroundLayers: [],
                 extraTexts: [],
                 backgroundGradient: null,
+                backgroundEffectDisabled: false,
                 decorationsInitialized: false,
                 logoHidden: false,
                 titleHidden: false,
@@ -3172,6 +3174,7 @@ c2.imagen: "2"</code></pre>
                                 lineHeight: 1.1
                             })),
                         backgroundGradient: null,
+                        backgroundEffectDisabled: false,
                         decorationsInitialized: false,
                         logoHidden: false,
                         titleHidden: false,
@@ -3650,11 +3653,40 @@ c2.imagen: "2"</code></pre>
             };
         }
 
-        function applySocialFormat() {
+        function scaleManualTextSizesForCanvasWidth(scale) {
+            if (!Number.isFinite(scale) || scale <= 0 || Math.abs(scale - 1) < 0.0001) return;
+            state.slides.forEach((slide) => {
+                const styles = getSlideStyles(slide);
+                ['title', 'copy'].forEach((key) => {
+                    if (styles[key]?.fontSize !== null && styles[key]?.fontSize !== undefined && styles[key]?.fontSize !== '') {
+                        styles[key].fontSize = clamp(Number(styles[key].fontSize) * scale, 18, 600);
+                    }
+                });
+                (slide.extraTexts || []).forEach((layer) => {
+                    if (layer.fontSize !== null && layer.fontSize !== undefined && layer.fontSize !== '') {
+                        layer.fontSize = clamp(Number(layer.fontSize) * scale, 18, 600);
+                    }
+                });
+            });
+        }
+
+        function applySocialFormat({ scaleContent = true } = {}) {
             const { width, height } = getCanvasSize();
+            const previousWidth = Number(canvas.width) || width;
+
+            // Cambiar de formato social nunca debe regenerar una propuesta.
+            // Las posiciones/cajas ya usan porcentajes; solo escalamos los tamaños
+            // manuales de fuente cuando cambia el ancho real del canvas.
+            if (scaleContent && previousWidth > 0 && previousWidth !== width) {
+                scaleManualTextSizesForCanvasWidth(width / previousWidth);
+            }
+
             canvas.width = width;
             canvas.height = height;
-            regenerateDesigns(false);
+            state.selection = null;
+            renderSlideCards();
+            renderDots();
+            syncEditControls();
             renderCurrentSlide();
         }
 
@@ -3869,6 +3901,19 @@ c2.imagen: "2"</code></pre>
             context.save();
             context.fillStyle = c1;
             context.fillRect(0, 0, W, H);
+
+            // El usuario puede quitar el tratamiento automático del fondo sin
+            // eliminar la imagen. Esto cubre gradientes, overlays y fondos mixtos
+            // generados por la propuesta automática.
+            if (slide.backgroundEffectDisabled) {
+                if (image) drawCover(context, image, 0, 0, W, H, imageOptions);
+                else {
+                    context.fillStyle = c1;
+                    context.fillRect(0, 0, W, H);
+                }
+                context.restore();
+                return;
+            }
 
             if (design.backgroundMode === 'solid') {
                 context.fillStyle = c1;
@@ -5953,6 +5998,8 @@ c2.imagen: "2"</code></pre>
             if (!slide || !state.backgrounds[index]) return;
             slide.imageIndex = String(index);
             slide.baseImageHidden = false;
+            slide.backgroundEffectDisabled = false;
+            slide.backgroundGradient = null;
             slide.design = buildDesign(slide, state.currentIndex);
             renderSlideCards();
             queueRender();
@@ -5987,6 +6034,7 @@ c2.imagen: "2"</code></pre>
                 const label=document.createElement('strong');label.textContent=preset.label;
                 button.append(preview,label);
                 button.addEventListener('click',()=>{
+                    slide.backgroundEffectDisabled = true;
                     slide.backgroundGradient={presetId:preset.id};
                     closeAssetPicker();queueRender();showToast(tr('messages.gradientApplied','Gradiente aplicado.'));
                 });
@@ -5995,9 +6043,17 @@ c2.imagen: "2"</code></pre>
             placeFloatingMenu(assetPickerPopup,event);
         }
 
+        function hasAutomaticBackgroundTreatment(slide) {
+            if (!slide?.design || slide.backgroundEffectDisabled) return false;
+            return slide.design.backgroundMode !== 'solid';
+        }
+
         function removeManualGradient() {
             const slide=getCurrentSlide(); if(!slide)return;
-            slide.backgroundGradient=null;queueRender();showToast(tr('messages.gradientRemoved','Gradiente eliminado.'));
+            slide.backgroundGradient = null;
+            slide.backgroundEffectDisabled = true;
+            queueRender();
+            showToast(tr('messages.gradientRemoved','Gradiente eliminado.'));
         }
 
         async function ensureBackgroundRemovalLibrary() {
@@ -6153,7 +6209,7 @@ c2.imagen: "2"</code></pre>
             const addCommonCanvasActions=()=>{
                 menu.append(contextButton(tr('tool.changeBackground','Cambiar imagen de fondo'),()=>openBaseBackgroundPicker(event)));
                 menu.append(contextButton(tr('tool.applyAutoGradient','Aplicar gradiente automático'),()=>openGradientPicker(event)));
-                if(slide.backgroundGradient) menu.append(contextButton(tr('tool.removeGradient','Quitar gradiente'),removeManualGradient));
+                if(slide.backgroundGradient || hasAutomaticBackgroundTreatment(slide)) menu.append(contextButton(tr('tool.removeGradient','Quitar gradiente'),removeManualGradient));
                 menu.append(contextSeparator());
                 menu.append(contextButton(tr('tool.addDecoration','Agregar elemento decorativo'),()=>openAssetPicker('decoration',event)));
                 menu.append(contextButton(tr('tool.addRandomDecorations','Agregar elementos decorativos aleatorios'),addRandomDecorationsToCurrentSlide));
@@ -6623,6 +6679,7 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
                         backgroundLayers: slide.backgroundLayers || [],
                         extraTexts: slide.extraTexts || [],
                         backgroundGradient: slide.backgroundGradient || null,
+                        backgroundEffectDisabled: Boolean(slide.backgroundEffectDisabled),
                         decorationsInitialized: Boolean(slide.decorationsInitialized),
                         logoHidden: Boolean(slide.logoHidden),
                         titleHidden: Boolean(slide.titleHidden),
@@ -6694,6 +6751,7 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
                     backgroundLayers: Array.isArray(item?.backgroundLayers) ? item.backgroundLayers : [],
                     extraTexts: Array.isArray(item?.extraTexts) ? item.extraTexts.slice(0, MAX_EXTRA_TEXTS).map((layer, extraIndex) => ({...layer, kind:'extraText', fieldKey:`copy${extraIndex+2}`, role:layer?.role || 'copy'})) : [],
                     backgroundGradient: item?.backgroundGradient && typeof item.backgroundGradient === 'object' ? item.backgroundGradient : null,
+                    backgroundEffectDisabled: Boolean(item?.backgroundEffectDisabled),
                     decorationsInitialized: Boolean(item?.decorationsInitialized),
                     logoHidden: Boolean(item?.logoHidden),
                     titleHidden: Boolean(item?.titleHidden),
@@ -6710,7 +6768,7 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
                 renderPaletteEditor();
                 updateCounts();
                 updateAddButton();
-                applySocialFormat();
+                applySocialFormat({ scaleContent: false });
                 syncEditControls();
                 showToast(tr('messages.projectLoaded'));
             } catch (error) {
@@ -6871,7 +6929,7 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
         canvas.addEventListener('pointerup', endCanvasDrag);
         canvas.addEventListener('pointercancel', endCanvasDrag);
 
-        socialFormat.addEventListener('change', applySocialFormat);
+        socialFormat.addEventListener('change', () => applySocialFormat({ scaleContent: true }));
         prevSlideButton.addEventListener('click', () => navigate(-1));
         nextSlideButton.addEventListener('click', () => navigate(1));
         generateButton.addEventListener('click', generateCarousel);
