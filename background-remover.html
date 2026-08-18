@@ -1008,6 +1008,8 @@
   </noscript>
 
   <script type="module">
+    //v2.1 Etable 
+    
     const LIBRARY_URL =
       "https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.7.0/+esm";
 
@@ -1339,85 +1341,1163 @@
       };
     }
 
+    function clamp01(value) {
+      return Math.max(0, Math.min(1, value));
+    }
+
+    function smoothStep01(value) {
+      const normalized = clamp01(value);
+      return normalized * normalized * (3 - 2 * normalized);
+    }
+
+    function colorDistance(red, green, blue, background) {
+      return Math.sqrt(
+        Math.pow(red - background.red, 2) +
+        Math.pow(green - background.green, 2) +
+        Math.pow(blue - background.blue, 2)
+      );
+    }
+
+    function percentile(values, ratio) {
+      if (!values.length) {
+        return 0;
+      }
+
+      values.sort((a, b) => a - b);
+
+      const position = Math.max(
+        0,
+        Math.min(values.length - 1, Math.round((values.length - 1) * ratio))
+      );
+
+      return values[position];
+    }
+
     function analyzeBorderBackground(imageData, width, height) {
       const data = imageData.data;
       const sampleDepth = Math.max(
         2,
-        Math.min(12, Math.round(Math.min(width, height) * 0.035))
+        Math.min(18, Math.round(Math.min(width, height) * 0.035))
       );
 
-      let red = 0;
-      let green = 0;
-      let blue = 0;
-      let count = 0;
-      let varianceSource = [];
+      const bucketCounts = new Uint32Array(4096);
+      let sampleCount = 0;
+      let dominantBucket = 0;
+      let dominantCount = 0;
 
-      function samplePixel(x, y) {
-        const index = (y * width + x) * 4;
-        const alpha = data[index + 3];
+      function visitBorderPixels(callback) {
+        for (let y = 0; y < height; y += 1) {
+          for (let x = 0; x < width; x += 1) {
+            const onBorder =
+              x < sampleDepth ||
+              x >= width - sampleDepth ||
+              y < sampleDepth ||
+              y >= height - sampleDepth;
 
-        if (alpha < 16) return;
+            if (!onBorder) {
+              continue;
+            }
 
-        const r = data[index];
-        const g = data[index + 1];
-        const b = data[index + 2];
+            const index = (y * width + x) * 4;
+            const alpha = data[index + 3];
 
-        red += r;
-        green += g;
-        blue += b;
-        count += 1;
-        varianceSource.push((r + g + b) / 3);
-      }
+            if (alpha < 16) {
+              continue;
+            }
 
-      for (let y = 0; y < height; y += 1) {
-        for (let x = 0; x < width; x += 1) {
-          const onBorder =
-            x < sampleDepth ||
-            x >= width - sampleDepth ||
-            y < sampleDepth ||
-            y >= height - sampleDepth;
-
-          if (onBorder) {
-            samplePixel(x, y);
+            callback(
+              data[index],
+              data[index + 1],
+              data[index + 2]
+            );
           }
         }
       }
 
-      if (!count) {
+      visitBorderPixels((red, green, blue) => {
+        const bucket =
+          ((red >> 4) << 8) |
+          ((green >> 4) << 4) |
+          (blue >> 4);
+
+        const count = ++bucketCounts[bucket];
+        sampleCount += 1;
+
+        if (count > dominantCount) {
+          dominantCount = count;
+          dominantBucket = bucket;
+        }
+      });
+
+      if (!sampleCount) {
         return {
-          isBrightUniform: false,
-          luminance: 0,
-          variance: Infinity
+          isUniform: false,
+          confidence: 0,
+          red: 0,
+          green: 0,
+          blue: 0,
+          meanDistance: Infinity,
+          deviation: Infinity
         };
       }
 
-      const averageRed = red / count;
-      const averageGreen = green / count;
-      const averageBlue = blue / count;
-      const luminance =
-        0.2126 * averageRed +
-        0.7152 * averageGreen +
-        0.0722 * averageBlue;
+      const dominantRed = ((dominantBucket >> 8) & 15) * 16 + 7.5;
+      const dominantGreen = ((dominantBucket >> 4) & 15) * 16 + 7.5;
+      const dominantBlue = (dominantBucket & 15) * 16 + 7.5;
 
-      const mean = varianceSource.reduce((sum, value) => sum + value, 0) /
-        varianceSource.length;
+      let redSum = 0;
+      let greenSum = 0;
+      let blueSum = 0;
+      let inlierCount = 0;
 
-      const variance = varianceSource.reduce(
-        (sum, value) => sum + Math.pow(value - mean, 2),
-        0
-      ) / varianceSource.length;
+      visitBorderPixels((red, green, blue) => {
+        const distance = Math.sqrt(
+          Math.pow(red - dominantRed, 2) +
+          Math.pow(green - dominantGreen, 2) +
+          Math.pow(blue - dominantBlue, 2)
+        );
+
+        if (distance > 34) {
+          return;
+        }
+
+        redSum += red;
+        greenSum += green;
+        blueSum += blue;
+        inlierCount += 1;
+      });
+
+      if (!inlierCount) {
+        return {
+          isUniform: false,
+          confidence: 0,
+          red: dominantRed,
+          green: dominantGreen,
+          blue: dominantBlue,
+          meanDistance: Infinity,
+          deviation: Infinity
+        };
+      }
+
+      const averageRed = redSum / inlierCount;
+      const averageGreen = greenSum / inlierCount;
+      const averageBlue = blueSum / inlierCount;
+
+      let distanceSum = 0;
+      let squaredDistanceSum = 0;
+      let measuredCount = 0;
+
+      visitBorderPixels((red, green, blue) => {
+        const distance = Math.sqrt(
+          Math.pow(red - averageRed, 2) +
+          Math.pow(green - averageGreen, 2) +
+          Math.pow(blue - averageBlue, 2)
+        );
+
+        if (distance > 42) {
+          return;
+        }
+
+        distanceSum += distance;
+        squaredDistanceSum += distance * distance;
+        measuredCount += 1;
+      });
+
+      const meanDistance = measuredCount
+        ? distanceSum / measuredCount
+        : Infinity;
+
+      const variance = measuredCount
+        ? Math.max(
+            0,
+            squaredDistanceSum / measuredCount - meanDistance * meanDistance
+          )
+        : Infinity;
+
+      const deviation = Math.sqrt(variance);
+      const inlierRatio = inlierCount / sampleCount;
+      const dominantRatio = dominantCount / sampleCount;
+      const confidence = Math.max(inlierRatio, dominantRatio);
 
       return {
-        isBrightUniform: luminance >= 218 && variance <= 520,
-        luminance,
-        variance,
+        isUniform:
+          inlierRatio >= 0.72 &&
+          meanDistance <= 18 &&
+          deviation <= 14,
+        confidence,
         red: averageRed,
         green: averageGreen,
-        blue: averageBlue
+        blue: averageBlue,
+        meanDistance,
+        deviation
       };
     }
 
-    async function repairLineArtResult(blob) {
+    function getForegroundDistanceReference(
+      sourceData,
+      resultData,
+      background,
+      pixelCount
+    ) {
+      const distances = [];
+      const sampleStep = Math.max(1, Math.floor(pixelCount / 14000));
+
+      for (let pixel = 0; pixel < pixelCount; pixel += sampleStep) {
+        const index = pixel * 4;
+        const sourceAlpha = sourceData[index + 3];
+        const resultAlpha = resultData[index + 3];
+
+        if (sourceAlpha < 16 || resultAlpha < 175) {
+          continue;
+        }
+
+        const distance = colorDistance(
+          sourceData[index],
+          sourceData[index + 1],
+          sourceData[index + 2],
+          background
+        );
+
+        if (distance > background.tolerance) {
+          distances.push(distance);
+        }
+      }
+
+      if (!distances.length) {
+        return Math.max(background.tolerance + 64, 120);
+      }
+
+      return Math.max(
+        background.tolerance + 48,
+        percentile(distances, 0.35)
+      );
+    }
+
+    function normalizeAlpha(alpha) {
+      if (alpha <= 6) {
+        return 0;
+      }
+
+      /*
+       * No forzamos los píxeles casi opacos a 255. En bordes antialiasados,
+       * elevar 249-254 a opaco puede convertir una contaminación mínima del
+       * fondo en una línea oscura visible sobre fondos claros.
+       */
+      return alpha;
+    }
+
+    function refineUniformBackgroundPixels(
+      sourceData,
+      resultData,
+      background,
+      foregroundReference
+    ) {
+      const denominator = Math.max(
+        1,
+        foregroundReference - background.tolerance
+      );
+
+      const backgroundCoreTolerance = Math.max(
+        4,
+        Math.min(16, background.tolerance * 0.52)
+      );
+
+      const residualModelWeight = Math.max(
+        0.04,
+        Math.min(0.14, 0.14 - background.confidence * 0.1)
+      );
+
+      let changedPixels = 0;
+
+      for (let index = 0; index < sourceData.length; index += 4) {
+        const sourceRed = sourceData[index];
+        const sourceGreen = sourceData[index + 1];
+        const sourceBlue = sourceData[index + 2];
+        const sourceAlpha = sourceData[index + 3];
+        const originalResultAlpha = resultData[index + 3];
+
+        if (sourceAlpha < 16) {
+          if (originalResultAlpha !== 0) {
+            resultData[index + 3] = 0;
+            changedPixels += 1;
+          }
+          continue;
+        }
+
+        const distanceFromBackground = colorDistance(
+          sourceRed,
+          sourceGreen,
+          sourceBlue,
+          background
+        );
+
+        const modelAlpha = originalResultAlpha / 255;
+        const colorAlpha = smoothStep01(
+          (distanceFromBackground - background.tolerance) / denominator
+        );
+
+        let refinedAlpha = modelAlpha;
+
+        /*
+         * En fondos uniformes, el color original es una segunda señal de máscara.
+         * La versión anterior conservaba el 25 % de la máscara del modelo incluso
+         * cuando el píxel coincidía con el fondo. Eso dejaba aros oscuros dentro de
+         * letras y halos alrededor de gráficos. Aquí esa confianza residual se
+         * reduce de forma proporcional a la uniformidad real del fondo.
+         */
+        if (
+          distanceFromBackground <= backgroundCoreTolerance &&
+          modelAlpha < 0.985
+        ) {
+          refinedAlpha = 0;
+        } else if (colorAlpha < modelAlpha) {
+          refinedAlpha =
+            colorAlpha +
+            (modelAlpha - colorAlpha) * residualModelWeight;
+        } else if (colorAlpha > modelAlpha + 0.1) {
+          const restoreStrength =
+            colorAlpha >= 0.82 && modelAlpha <= 0.55
+              ? 0.5
+              : 0.22;
+
+          refinedAlpha =
+            modelAlpha + (colorAlpha - modelAlpha) * restoreStrength;
+        }
+
+        refinedAlpha = smoothStep01(
+          (refinedAlpha - 0.015) / 0.97
+        );
+
+        if (refinedAlpha < 0.02) {
+          refinedAlpha = 0;
+        } else if (refinedAlpha > 0.98) {
+          refinedAlpha = 1;
+        }
+
+        const targetAlpha = Math.round(refinedAlpha * 255);
+
+        if (targetAlpha === 0) {
+          if (originalResultAlpha !== 0) {
+            resultData[index + 3] = 0;
+            changedPixels += 1;
+          }
+          continue;
+        }
+
+        if (targetAlpha < 252) {
+          /*
+           * Recupera el color del sujeto antes de mezclarlo con el fondo original.
+           * Para el cálculo usamos también la cobertura sugerida por el color:
+           * cuando el modelo deja demasiado alfa en un píxel negro/gris de borde,
+           * la cobertura cromática evita conservar ese negro como un halo visible.
+           */
+          const recoveryAlpha = Math.max(
+            0.055,
+            Math.min(
+              1,
+              colorAlpha > 0.035
+                ? colorAlpha
+                : refinedAlpha
+            )
+          );
+
+          const recoveredRed = Math.max(
+            0,
+            Math.min(
+              255,
+              (sourceRed - (1 - recoveryAlpha) * background.red) /
+                recoveryAlpha
+            )
+          );
+          const recoveredGreen = Math.max(
+            0,
+            Math.min(
+              255,
+              (sourceGreen - (1 - recoveryAlpha) * background.green) /
+                recoveryAlpha
+            )
+          );
+          const recoveredBlue = Math.max(
+            0,
+            Math.min(
+              255,
+              (sourceBlue - (1 - recoveryAlpha) * background.blue) /
+                recoveryAlpha
+            )
+          );
+
+          const edgeStrength =
+            1 - Math.abs(refinedAlpha * 2 - 1);
+          const backgroundInfluence = 1 - colorAlpha;
+          const decontaminationStrength = Math.min(
+            0.94,
+            edgeStrength * 0.82 + backgroundInfluence * 0.28
+          ) * Math.min(1, background.confidence);
+
+          resultData[index] = Math.round(
+            resultData[index] * (1 - decontaminationStrength) +
+            recoveredRed * decontaminationStrength
+          );
+          resultData[index + 1] = Math.round(
+            resultData[index + 1] * (1 - decontaminationStrength) +
+            recoveredGreen * decontaminationStrength
+          );
+          resultData[index + 2] = Math.round(
+            resultData[index + 2] * (1 - decontaminationStrength) +
+            recoveredBlue * decontaminationStrength
+          );
+        }
+
+        if (targetAlpha !== originalResultAlpha) {
+          resultData[index + 3] = targetAlpha;
+          changedPixels += 1;
+        }
+      }
+
+      return changedPixels;
+    }
+
+
+    function restoreSolidForegroundPlateaus(
+      sourceData,
+      resultData,
+      background,
+      foregroundReference,
+      width,
+      height
+    ) {
+      const strongDistance = Math.max(
+        background.tolerance + 44,
+        Math.min(
+          background.tolerance + 170,
+          foregroundReference * 0.58
+        )
+      );
+      const supportDistance = Math.max(
+        background.tolerance + 30,
+        strongDistance * 0.76
+      );
+      const sameColorTolerance = Math.max(
+        18,
+        Math.min(42, background.tolerance * 1.2 + 14)
+      );
+
+      let changedPixels = 0;
+
+      /*
+       * Protege superficies gráficas sólidas (texto, logotipos, iconos, formas
+       * planas) que IMG.LY haya dejado con vetas o zonas semitransparentes.
+       *
+       * La decisión NO depende solo del alfa del modelo. El píxel debe:
+       * 1) estar claramente lejos del color de fondo;
+       * 2) pertenecer a una meseta de color localmente estable; y
+       * 3) estar rodeado mayoritariamente por otros píxeles de primer plano.
+       *
+       * De esta forma recuperamos el interior de letras blancas sin endurecer
+       * los bordes antialiasados ni aplicar el mismo tratamiento a fotografías.
+       */
+      for (let pass = 0; pass < 3; pass += 1) {
+        const snapshot = new Uint8ClampedArray(resultData);
+        let passChanges = 0;
+
+        for (let y = 1; y < height - 1; y += 1) {
+          for (let x = 1; x < width - 1; x += 1) {
+            const index = (y * width + x) * 4;
+            const currentAlpha = snapshot[index + 3];
+
+            if (
+              currentAlpha >= 254 ||
+              sourceData[index + 3] < 16
+            ) {
+              continue;
+            }
+
+            const centerRed = sourceData[index];
+            const centerGreen = sourceData[index + 1];
+            const centerBlue = sourceData[index + 2];
+            const centerDistance = colorDistance(
+              centerRed,
+              centerGreen,
+              centerBlue,
+              background
+            );
+
+            if (centerDistance < strongDistance) {
+              continue;
+            }
+
+            let foregroundNeighbors = 0;
+            let similarNeighbors = 0;
+            let strongOpaqueNeighbors = 0;
+            let neighborCount = 0;
+
+            for (let ny = y - 1; ny <= y + 1; ny += 1) {
+              for (let nx = x - 1; nx <= x + 1; nx += 1) {
+                if (nx === x && ny === y) {
+                  continue;
+                }
+
+                const neighborIndex = (ny * width + nx) * 4;
+
+                if (sourceData[neighborIndex + 3] < 16) {
+                  continue;
+                }
+
+                neighborCount += 1;
+
+                const neighborDistance = colorDistance(
+                  sourceData[neighborIndex],
+                  sourceData[neighborIndex + 1],
+                  sourceData[neighborIndex + 2],
+                  background
+                );
+
+                if (neighborDistance >= supportDistance) {
+                  foregroundNeighbors += 1;
+                }
+
+                const localColorDistance = Math.sqrt(
+                  Math.pow(sourceData[neighborIndex] - centerRed, 2) +
+                  Math.pow(sourceData[neighborIndex + 1] - centerGreen, 2) +
+                  Math.pow(sourceData[neighborIndex + 2] - centerBlue, 2)
+                );
+
+                if (localColorDistance <= sameColorTolerance) {
+                  similarNeighbors += 1;
+                }
+
+                if (
+                  snapshot[neighborIndex + 3] >= 238 &&
+                  neighborDistance >= supportDistance
+                ) {
+                  strongOpaqueNeighbors += 1;
+                }
+              }
+            }
+
+            if (!neighborCount) {
+              continue;
+            }
+
+            const foregroundRatio = foregroundNeighbors / neighborCount;
+            const similarRatio = similarNeighbors / neighborCount;
+            const opaqueSupportRatio = strongOpaqueNeighbors / neighborCount;
+
+            /*
+             * Una meseta de color fuerte es una señal especialmente fiable en
+             * texto blanco/negro y gráficos planos. Si el modelo abrió un hueco
+             * grande, no exigimos que los vecinos ya sean opacos; el propio RGB
+             * original y la continuidad cromática pueden reconstruirlo.
+             */
+            const veryFlatInterior =
+              foregroundRatio >= 0.875 &&
+              similarRatio >= 0.75;
+
+            const supportedInterior =
+              foregroundRatio >= 0.75 &&
+              similarRatio >= 0.625 &&
+              opaqueSupportRatio >= 0.25;
+
+            if (!veryFlatInterior && !supportedInterior) {
+              continue;
+            }
+
+            let targetAlpha;
+
+            if (
+              veryFlatInterior &&
+              centerDistance >= strongDistance * 1.08
+            ) {
+              targetAlpha = 255;
+            } else {
+              targetAlpha = Math.max(
+                currentAlpha,
+                Math.round(
+                  currentAlpha +
+                  (252 - currentAlpha) *
+                  (0.72 + opaqueSupportRatio * 0.2)
+                )
+              );
+            }
+
+            if (targetAlpha <= currentAlpha) {
+              continue;
+            }
+
+            const sourceMix = veryFlatInterior
+              ? 1
+              : Math.min(
+                  0.94,
+                  0.68 + similarRatio * 0.22
+                );
+
+            resultData[index] = Math.round(
+              snapshot[index] * (1 - sourceMix) +
+              centerRed * sourceMix
+            );
+            resultData[index + 1] = Math.round(
+              snapshot[index + 1] * (1 - sourceMix) +
+              centerGreen * sourceMix
+            );
+            resultData[index + 2] = Math.round(
+              snapshot[index + 2] * (1 - sourceMix) +
+              centerBlue * sourceMix
+            );
+            resultData[index + 3] = targetAlpha;
+            passChanges += 1;
+          }
+        }
+
+        changedPixels += passChanges;
+
+        if (!passChanges) {
+          break;
+        }
+      }
+
+      return changedPixels;
+    }
+
+
+    function restoreConfidentForegroundInteriors(
+      sourceData,
+      resultData,
+      background,
+      foregroundReference,
+      width,
+      height
+    ) {
+      const pixelCount = width * height;
+      const strongDistance = Math.max(
+        background.tolerance + 54,
+        Math.min(
+          background.tolerance + 150,
+          foregroundReference * 0.72
+        )
+      );
+      const supportDistance = Math.max(
+        background.tolerance + 40,
+        strongDistance * 0.88
+      );
+      const scanRadius = Math.max(
+        2,
+        Math.min(5, Math.round(Math.min(width, height) / 220))
+      );
+
+      let changedPixels = 0;
+
+      /*
+       * IMG.LY puede producir "mordidas" o vetas semitransparentes dentro de
+       * gráficos sólidos aunque el color original esté muy lejos del fondo.
+       * Aquí reconstruimos únicamente esas zonas INTERNAS: el píxel debe ser
+       * cromáticamente un primer plano fuerte y, además, estar rodeado por
+       * primer plano confiable. Así no endurecemos el antialiasing exterior.
+       */
+      for (let pass = 0; pass < 4; pass += 1) {
+        const snapshot = new Uint8ClampedArray(resultData);
+        let passChanges = 0;
+
+        function isStrongForeground(x, y) {
+          if (x < 0 || x >= width || y < 0 || y >= height) {
+            return false;
+          }
+
+          const index = (y * width + x) * 4;
+
+          if (
+            snapshot[index + 3] < 228 ||
+            sourceData[index + 3] < 16
+          ) {
+            return false;
+          }
+
+          return colorDistance(
+            sourceData[index],
+            sourceData[index + 1],
+            sourceData[index + 2],
+            background
+          ) >= supportDistance;
+        }
+
+        function hasSupportInDirection(x, y, dx, dy) {
+          for (let step = 1; step <= scanRadius; step += 1) {
+            const nx = x + dx * step;
+            const ny = y + dy * step;
+
+            if (nx < 0 || nx >= width || ny < 0 || ny >= height) {
+              return false;
+            }
+
+            if (isStrongForeground(nx, ny)) {
+              return true;
+            }
+
+            const index = (ny * width + nx) * 4;
+            const neighborDistance = colorDistance(
+              sourceData[index],
+              sourceData[index + 1],
+              sourceData[index + 2],
+              background
+            );
+
+            /*
+             * Si encontramos fondo real antes de hallar soporte, esta dirección
+             * sale del sujeto y no debe participar en el relleno interior.
+             */
+            if (
+              snapshot[index + 3] <= 10 &&
+              neighborDistance <= background.tolerance * 1.45
+            ) {
+              return false;
+            }
+          }
+
+          return false;
+        }
+
+        for (let y = 0; y < height; y += 1) {
+          for (let x = 0; x < width; x += 1) {
+            const pixel = y * width + x;
+            const index = pixel * 4;
+            const currentAlpha = snapshot[index + 3];
+
+            if (
+              currentAlpha >= 250 ||
+              sourceData[index + 3] < 16
+            ) {
+              continue;
+            }
+
+            const distanceFromBackground = colorDistance(
+              sourceData[index],
+              sourceData[index + 1],
+              sourceData[index + 2],
+              background
+            );
+
+            if (distanceFromBackground < strongDistance) {
+              continue;
+            }
+
+            let strongNeighbors = 0;
+            let checkedNeighbors = 0;
+
+            const minY = Math.max(0, y - 1);
+            const maxY = Math.min(height - 1, y + 1);
+            const minX = Math.max(0, x - 1);
+            const maxX = Math.min(width - 1, x + 1);
+
+            for (let ny = minY; ny <= maxY; ny += 1) {
+              for (let nx = minX; nx <= maxX; nx += 1) {
+                if (nx === x && ny === y) {
+                  continue;
+                }
+
+                checkedNeighbors += 1;
+
+                if (isStrongForeground(nx, ny)) {
+                  strongNeighbors += 1;
+                }
+              }
+            }
+
+            const horizontalEnclosure =
+              hasSupportInDirection(x, y, -1, 0) &&
+              hasSupportInDirection(x, y, 1, 0);
+            const verticalEnclosure =
+              hasSupportInDirection(x, y, 0, -1) &&
+              hasSupportInDirection(x, y, 0, 1);
+            const diagonalOneEnclosure =
+              hasSupportInDirection(x, y, -1, -1) &&
+              hasSupportInDirection(x, y, 1, 1);
+            const diagonalTwoEnclosure =
+              hasSupportInDirection(x, y, 1, -1) &&
+              hasSupportInDirection(x, y, -1, 1);
+
+            const enclosureCount =
+              Number(horizontalEnclosure) +
+              Number(verticalEnclosure) +
+              Number(diagonalOneEnclosure) +
+              Number(diagonalTwoEnclosure);
+
+            const localSupport = checkedNeighbors
+              ? strongNeighbors / checkedNeighbors
+              : 0;
+
+            /*
+             * Una sola pareja opuesta es suficiente únicamente cuando también
+             * existe apoyo local. Dos o más parejas indican claramente un hueco
+             * interno. Esto evita convertir el borde exterior en una silueta dura.
+             */
+            const isInteriorDamage =
+              enclosureCount >= 2 ||
+              (
+                enclosureCount >= 1 &&
+                localSupport >= 0.34
+              ) ||
+              localSupport >= 0.72;
+
+            if (!isInteriorDamage) {
+              continue;
+            }
+
+            const distanceConfidence = smoothStep01(
+              (distanceFromBackground - strongDistance) /
+              Math.max(1, foregroundReference - strongDistance)
+            );
+            const structureConfidence = Math.min(
+              1,
+              enclosureCount * 0.34 + localSupport * 0.7
+            );
+            const restoreConfidence = Math.min(
+              1,
+              0.58 +
+              distanceConfidence * 0.18 +
+              structureConfidence * 0.32
+            );
+
+            let targetAlpha = Math.round(
+              currentAlpha +
+              (255 - currentAlpha) * restoreConfidence
+            );
+
+            if (
+              enclosureCount >= 2 &&
+              localSupport >= 0.45 &&
+              distanceConfidence >= 0.2
+            ) {
+              targetAlpha = 255;
+            } else if (targetAlpha >= 248) {
+              targetAlpha = 248;
+            }
+
+            if (targetAlpha <= currentAlpha) {
+              continue;
+            }
+
+            const restoreMix = Math.min(
+              0.92,
+              (targetAlpha - currentAlpha) / 255 + 0.24
+            );
+
+            resultData[index] = Math.round(
+              snapshot[index] * (1 - restoreMix) +
+              sourceData[index] * restoreMix
+            );
+            resultData[index + 1] = Math.round(
+              snapshot[index + 1] * (1 - restoreMix) +
+              sourceData[index + 1] * restoreMix
+            );
+            resultData[index + 2] = Math.round(
+              snapshot[index + 2] * (1 - restoreMix) +
+              sourceData[index + 2] * restoreMix
+            );
+            resultData[index + 3] = targetAlpha;
+            passChanges += 1;
+          }
+        }
+
+        changedPixels += passChanges;
+
+        if (!passChanges) {
+          break;
+        }
+      }
+
+      return changedPixels;
+    }
+
+    function cleanUniformBackgroundFringes(
+      sourceData,
+      resultData,
+      background,
+      width,
+      height
+    ) {
+      const pixelCount = width * height;
+      const coreTolerance = Math.max(
+        4,
+        Math.min(16, background.tolerance * 0.52)
+      );
+      const haloTolerance = Math.max(
+        coreTolerance + 10,
+        Math.min(54, background.tolerance * 1.75 + 10)
+      );
+
+      let changedPixels = 0;
+
+      /*
+       * Hace crecer únicamente regiones que YA son transparentes hacia píxeles
+       * vecinos cuyo color sigue perteneciendo al fondo. Esto limpia el borde de
+       * huecos cerrados (por ejemplo el interior de una "o") sin aplicar un
+       * borrado cromático global sobre posibles detalles legítimos del sujeto.
+       */
+      for (let pass = 0; pass < 3; pass += 1) {
+        const alphaSnapshot = new Uint8Array(pixelCount);
+
+        for (let pixel = 0; pixel < pixelCount; pixel += 1) {
+          alphaSnapshot[pixel] = resultData[pixel * 4 + 3];
+        }
+
+        let passChanges = 0;
+
+        for (let y = 0; y < height; y += 1) {
+          for (let x = 0; x < width; x += 1) {
+            const pixel = y * width + x;
+            const index = pixel * 4;
+            const currentAlpha = alphaSnapshot[pixel];
+
+            if (currentAlpha === 0 || sourceData[index + 3] < 16) {
+              continue;
+            }
+
+            const distanceFromBackground = colorDistance(
+              sourceData[index],
+              sourceData[index + 1],
+              sourceData[index + 2],
+              background
+            );
+
+            if (distanceFromBackground > haloTolerance) {
+              continue;
+            }
+
+            let neighborCount = 0;
+            let transparentNeighbors = 0;
+            let weakNeighbors = 0;
+
+            const minY = Math.max(0, y - 1);
+            const maxY = Math.min(height - 1, y + 1);
+            const minX = Math.max(0, x - 1);
+            const maxX = Math.min(width - 1, x + 1);
+
+            for (let ny = minY; ny <= maxY; ny += 1) {
+              for (let nx = minX; nx <= maxX; nx += 1) {
+                if (nx === x && ny === y) {
+                  continue;
+                }
+
+                const neighborAlpha = alphaSnapshot[ny * width + nx];
+                neighborCount += 1;
+
+                if (neighborAlpha <= 18) {
+                  transparentNeighbors += 1;
+                } else if (neighborAlpha <= 84) {
+                  weakNeighbors += 1;
+                }
+              }
+            }
+
+            if (!neighborCount || (!transparentNeighbors && !weakNeighbors)) {
+              continue;
+            }
+
+            const proximityToBackground =
+              1 - smoothStep01(
+                (distanceFromBackground - coreTolerance) /
+                Math.max(1, haloTolerance - coreTolerance)
+              );
+
+            const support = Math.min(
+              1,
+              (
+                transparentNeighbors +
+                weakNeighbors * 0.38
+              ) / Math.max(1, neighborCount * 0.42)
+            );
+
+            let targetAlpha = currentAlpha;
+
+            if (
+              distanceFromBackground <= coreTolerance &&
+              (transparentNeighbors > 0 || weakNeighbors >= 2)
+            ) {
+              targetAlpha = 0;
+            } else {
+              const reduction = Math.min(
+                0.92,
+                proximityToBackground *
+                support *
+                (0.72 + pass * 0.08)
+              );
+
+              targetAlpha = Math.round(
+                currentAlpha * (1 - reduction)
+              );
+
+              if (targetAlpha <= 7) {
+                targetAlpha = 0;
+              }
+            }
+
+            if (targetAlpha < resultData[index + 3]) {
+              resultData[index + 3] = targetAlpha;
+              passChanges += 1;
+            }
+          }
+        }
+
+        changedPixels += passChanges;
+
+        if (!passChanges) {
+          break;
+        }
+      }
+
+      return changedPixels;
+    }
+
+    function decontaminateEdgeColorsFromForeground(
+      sourceData,
+      resultData,
+      background,
+      width,
+      height
+    ) {
+      const snapshot = new Uint8ClampedArray(resultData);
+      let changedPixels = 0;
+
+      for (let y = 0; y < height; y += 1) {
+        for (let x = 0; x < width; x += 1) {
+          const index = (y * width + x) * 4;
+          const alpha = snapshot[index + 3];
+
+          if (alpha <= 8 || alpha >= 255) {
+            continue;
+          }
+
+          const sourceVectorRed = sourceData[index] - background.red;
+          const sourceVectorGreen = sourceData[index + 1] - background.green;
+          const sourceVectorBlue = sourceData[index + 2] - background.blue;
+          const sourceMagnitude = Math.sqrt(
+            sourceVectorRed * sourceVectorRed +
+            sourceVectorGreen * sourceVectorGreen +
+            sourceVectorBlue * sourceVectorBlue
+          );
+
+          if (sourceMagnitude < background.tolerance * 0.8) {
+            continue;
+          }
+
+          let bestIndex = -1;
+          let bestScore = -Infinity;
+
+          const minY = Math.max(0, y - 2);
+          const maxY = Math.min(height - 1, y + 2);
+          const minX = Math.max(0, x - 2);
+          const maxX = Math.min(width - 1, x + 2);
+
+          for (let ny = minY; ny <= maxY; ny += 1) {
+            for (let nx = minX; nx <= maxX; nx += 1) {
+              if (nx === x && ny === y) {
+                continue;
+              }
+
+              const neighborIndex = (ny * width + nx) * 4;
+              const neighborAlpha = snapshot[neighborIndex + 3];
+
+              if (neighborAlpha < 252) {
+                continue;
+              }
+
+              const neighborVectorRed =
+                snapshot[neighborIndex] - background.red;
+              const neighborVectorGreen =
+                snapshot[neighborIndex + 1] - background.green;
+              const neighborVectorBlue =
+                snapshot[neighborIndex + 2] - background.blue;
+              const neighborMagnitude = Math.sqrt(
+                neighborVectorRed * neighborVectorRed +
+                neighborVectorGreen * neighborVectorGreen +
+                neighborVectorBlue * neighborVectorBlue
+              );
+
+              if (neighborMagnitude <= sourceMagnitude + 8) {
+                continue;
+              }
+
+              const cosine =
+                (
+                  sourceVectorRed * neighborVectorRed +
+                  sourceVectorGreen * neighborVectorGreen +
+                  sourceVectorBlue * neighborVectorBlue
+                ) /
+                Math.max(1, sourceMagnitude * neighborMagnitude);
+
+              if (cosine < 0.9) {
+                continue;
+              }
+
+              const spatialDistance =
+                Math.abs(nx - x) + Math.abs(ny - y);
+              const score =
+                cosine * 1000 +
+                neighborMagnitude -
+                spatialDistance * 10;
+
+              if (score > bestScore) {
+                bestScore = score;
+                bestIndex = neighborIndex;
+              }
+            }
+          }
+
+          if (bestIndex < 0) {
+            continue;
+          }
+
+          const edgeAmount = 1 - alpha / 255;
+          const strength = Math.min(
+            0.88,
+            (0.28 + edgeAmount * 0.62) *
+            Math.min(1, background.confidence)
+          );
+
+          const red = Math.round(
+            snapshot[index] * (1 - strength) +
+            snapshot[bestIndex] * strength
+          );
+          const green = Math.round(
+            snapshot[index + 1] * (1 - strength) +
+            snapshot[bestIndex + 1] * strength
+          );
+          const blue = Math.round(
+            snapshot[index + 2] * (1 - strength) +
+            snapshot[bestIndex + 2] * strength
+          );
+
+          if (
+            red !== resultData[index] ||
+            green !== resultData[index + 1] ||
+            blue !== resultData[index + 2]
+          ) {
+            resultData[index] = red;
+            resultData[index + 1] = green;
+            resultData[index + 2] = blue;
+            changedPixels += 1;
+          }
+        }
+      }
+
+      return changedPixels;
+    }
+
+    function normalizeResultAlpha(resultData) {
+      let changedPixels = 0;
+
+      for (let index = 3; index < resultData.length; index += 4) {
+        const normalized = normalizeAlpha(resultData[index]);
+
+        if (normalized !== resultData[index]) {
+          resultData[index] = normalized;
+          changedPixels += 1;
+        }
+      }
+
+      return changedPixels;
+    }
+
+    async function refineBackgroundRemovalResult(blob) {
       if (!sourceImage || !blob) {
         return blob;
       }
@@ -1433,15 +2513,6 @@
           return blob;
         }
 
-        const width = Math.min(
-          sourcePixels.canvas.width,
-          resultPixels.canvas.width
-        );
-        const height = Math.min(
-          sourcePixels.canvas.height,
-          resultPixels.canvas.height
-        );
-
         if (
           sourcePixels.canvas.width !== resultPixels.canvas.width ||
           sourcePixels.canvas.height !== resultPixels.canvas.height
@@ -1449,81 +2520,105 @@
           return blob;
         }
 
+        const width = sourcePixels.canvas.width;
+        const height = sourcePixels.canvas.height;
+        const pixelCount = width * height;
+        const sourceData = sourcePixels.imageData.data;
+        const resultData = resultPixels.imageData.data;
+
         const backgroundAnalysis = analyzeBorderBackground(
           sourcePixels.imageData,
           width,
           height
         );
 
-        /*
-         * Solo se activa en imágenes con borde claro y uniforme.
-         * Esto evita alterar fotografías, fondos oscuros o composiciones complejas.
-         */
-        if (!backgroundAnalysis.isBrightUniform) {
-          return blob;
-        }
+        let changedPixels = 0;
 
-        const sourceData = sourcePixels.imageData.data;
-        const resultData = resultPixels.imageData.data;
-        let restoredPixels = 0;
-
-        for (let index = 0; index < sourceData.length; index += 4) {
-          const sourceRed = sourceData[index];
-          const sourceGreen = sourceData[index + 1];
-          const sourceBlue = sourceData[index + 2];
-          const sourceAlpha = sourceData[index + 3];
-          const resultAlpha = resultData[index + 3];
-
-          if (sourceAlpha < 16 || resultAlpha >= 220) {
-            continue;
-          }
-
-          const sourceLuminance =
-            0.2126 * sourceRed +
-            0.7152 * sourceGreen +
-            0.0722 * sourceBlue;
-
-          const distanceFromBackground = Math.sqrt(
-            Math.pow(sourceRed - backgroundAnalysis.red, 2) +
-            Math.pow(sourceGreen - backgroundAnalysis.green, 2) +
-            Math.pow(sourceBlue - backgroundAnalysis.blue, 2)
-          );
-
-          /*
-           * Recupera trazos oscuros o colores muy alejados del fondo blanco.
-           * Los tonos casi blancos permanecen transparentes.
-           */
-          const clearlyForeground =
-            sourceLuminance <= 178 ||
-            distanceFromBackground >= 105;
-
-          if (!clearlyForeground) {
-            continue;
-          }
-
-          const darknessStrength = Math.max(
-            0,
-            Math.min(1, (220 - sourceLuminance) / 130)
-          );
-
-          const restoredAlpha = Math.round(
-            Math.max(
-              resultAlpha,
-              110 + darknessStrength * 145
+        if (backgroundAnalysis.isUniform) {
+          const tolerance = Math.max(
+            8,
+            Math.min(
+              34,
+              backgroundAnalysis.meanDistance +
+              backgroundAnalysis.deviation * 2.4 +
+              6
             )
           );
 
-          resultData[index] = sourceRed;
-          resultData[index + 1] = sourceGreen;
-          resultData[index + 2] = sourceBlue;
-          resultData[index + 3] = restoredAlpha;
-          restoredPixels += 1;
+          const background = {
+            red: backgroundAnalysis.red,
+            green: backgroundAnalysis.green,
+            blue: backgroundAnalysis.blue,
+            tolerance,
+            confidence: backgroundAnalysis.confidence
+          };
+
+          const foregroundReference = getForegroundDistanceReference(
+            sourceData,
+            resultData,
+            background,
+            pixelCount
+          );
+
+          changedPixels += refineUniformBackgroundPixels(
+            sourceData,
+            resultData,
+            background,
+            foregroundReference
+          );
+
+          changedPixels += restoreSolidForegroundPlateaus(
+            sourceData,
+            resultData,
+            background,
+            foregroundReference,
+            width,
+            height
+          );
+
+          changedPixels += restoreConfidentForegroundInteriors(
+            sourceData,
+            resultData,
+            background,
+            foregroundReference,
+            width,
+            height
+          );
+
+          /*
+           * Segunda pasada después de la reconstrucción estructural: los píxeles
+           * recién recuperados sirven de apoyo para cerrar vetas interiores que
+           * antes eran demasiado anchas para la máscara del modelo.
+           */
+          changedPixels += restoreSolidForegroundPlateaus(
+            sourceData,
+            resultData,
+            background,
+            foregroundReference,
+            width,
+            height
+          );
+
+          changedPixels += cleanUniformBackgroundFringes(
+            sourceData,
+            resultData,
+            background,
+            width,
+            height
+          );
+
+          changedPixels += decontaminateEdgeColorsFromForeground(
+            sourceData,
+            resultData,
+            background,
+            width,
+            height
+          );
         }
 
-        /*
-         * Evita reemplazar el resultado si la reparación casi no hizo cambios.
-         */
-        if (restoredPixels < Math.max(12, width * height * 0.00025)) {
+        changedPixels += normalizeResultAlpha(resultData);
+
+        if (!changedPixels) {
           return blob;
         }
 
@@ -1675,7 +2770,7 @@
           }
         });
 
-        transparentBlob = await repairLineArtResult(transparentBlob);
+        transparentBlob = await refineBackgroundRemovalResult(transparentBlob);
 
         revokeUrl(transparentUrl);
         transparentUrl = URL.createObjectURL(transparentBlob);
