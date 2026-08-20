@@ -1,59 +1,57 @@
 {
   "seo": {
     "title": "Separate Image Elements & Remove Backgrounds Online Free | Alfora",
-    "description": "Separate objects, people, products and image elements, remove backgrounds and download transparent PNG layers. Free with local processing in your browser.",
+    "description": "Select objects with a rectangle, circle or brush, remove their background and turn them into movable PNG layers. Free and directly in your browser.",
     "ogTitle": "Free Smart Layer & Background Separator | Alfora",
-    "ogDescription": "Separate image elements automatically or with a brush, isolate objects and download transparent PNG layers directly in your browser.",
+    "ogDescription": "Select image pieces, clean their background, leave the cutout hole in the scene and download transparent PNG layers.",
     "twitterTitle": "Separate Elements & Remove Backgrounds Free | Alfora",
-    "twitterDescription": "Detect, separate and download image objects as transparent PNG layers with local processing in your browser.",
+    "twitterDescription": "Turn selected objects into movable, downloadable transparent PNG layers.",
     "htmlLang": "en"
   },
   "product": {
-    "eyebrow": "Smart and free separation",
+    "eyebrow": "Fast, guided and free separation",
     "title": "Smart Layer Separator",
-    "description": "Automatically separate objects and elements from an image, or draw around an item with the smart brush to isolate it as a transparent layer. Everything is processed directly in your browser."
+    "description": "Select an object with a rectangle, circle or brush. Alfora crops the area, cleans the background, leaves the hole in the original scene and creates a movable PNG layer."
   },
   "tool": {
     "name": "Smart Layers",
-    "subtitle": "Automatic separation + brush-assisted selection",
-    "ariaLabel": "Smart layer separator"
+    "subtitle": "Guided selection → local crop → clean background → movable layers",
+    "ariaLabel": "Smart layer separator",
+    "localLimit": "Local limit: 1000 px"
   },
   "upload": {
     "title": "1. Image",
-    "button": "Upload an image",
+    "button": "🖼 Upload image",
     "help": "JPG, PNG or WEBP",
     "ready": "Image ready",
-    "waiting": "Waiting for image",
-    "dropAriaLabel": "Upload an image to separate its elements"
+    "waiting": "Waiting for image"
   },
-  "separation": {
-    "title": "2. Separation",
-    "imageType": "Image type",
-    "modes": {
-      "auto": "Automatic",
-      "design": "Design / logo",
-      "mixed": "Mixed post · photo + text + logo",
-      "photo": "Photo / scene"
-    },
-    "modeHelp": "Automatic mode distinguishes between designs, mixed posts and photographs.",
-    "layerComposition": "Layer composition",
-    "presets": {
-      "clean": "Clean · fewer pieces",
-      "balanced": "Balanced · recommended",
-      "detail": "Detailed · more pieces"
-    },
-    "refine": "Refine main objects with SlimSAM",
-    "brushHelp": "Draw around the object. When you release the pointer, Alfora closes the shape and searches for the main object inside the area."
+  "selection": {
+    "title": "2. Cutout tool",
+    "rectangle": "▭ Rect",
+    "circle": "◯ Circle",
+    "brush": "🖌 Brush",
+    "help": "Mark the piece. Alfora creates the hole in the scene and cleans the crop background to turn it into a movable layer.",
+    "multipleHelp": "Multiple selection works with rectangle and circle; it is disabled in brush mode.",
+    "none": "No selection",
+    "current": "Selection {w}×{h} px",
+    "queued": "{count} selections ready",
+    "queuedAndCurrent": "{count} ready + current {w}×{h} px",
+    "types": {
+      "rect": "rectangle",
+      "circle": "circle",
+      "brush": "brush"
+    }
   },
   "actions": {
-    "separateAll": "Separate all elements",
-    "enableBrush": "🖌️ Enable brush mode",
-    "disableBrush": "🖌️ Disable brush mode",
-    "extractBrush": "✂️ Separate brush selection",
-    "clearBrush": "⌫ Clear selection",
-    "resetLayer": "↩ Reset selected layer",
-    "resetAll": "⟳ Reset all",
-    "deleteLayer": "Delete layer",
+    "multiple": "◫ Make multiple selections",
+    "multipleOn": "◫ Multiple selections: on",
+    "multipleBlocked": "◫ Multiple disabled for brush",
+    "clearSelection": "Clear selection",
+    "resetAll": "↺ Reset all",
+    "separateSelection": "✂ Separate selection",
+    "downloadSeparated": "Download separate layers",
+    "downloadScene": "Download scene/remainder",
     "show": "Show",
     "hide": "Hide",
     "solo": "Isolate this layer",
@@ -61,105 +59,72 @@
     "openTools": "Open tools",
     "closeTools": "Close tools"
   },
-  "pipeline": {
-    "ocr": "OCR",
-    "shapes": "Shapes",
-    "objects": "Objects",
-    "refinement": "Refinement",
-    "composer": "Composer",
-    "pending": "pending",
-    "analyzing": "analyzing",
-    "segmenting": "segmenting",
-    "detectingInstances": "detecting instances",
-    "loading": "loading",
-    "refining": "refining",
-    "deduplicating": "deduplicating",
-    "grouping": "grouping",
-    "notRequired": "not required",
-    "skipped": "skipped"
-  },
-  "engine": {
-    "title": "Separation engine",
-    "refinementTitle": "Refinement:",
-    "refinementText": "SlimSAM adjusts the edges of the main objects.",
-    "composerTitle": "Layer Composer:",
-    "composerText": "removes duplicates and groups related fragments.",
-    "privacyTitle": "Privacy:",
-    "privacyText": "the main processing runs locally in your browser."
+  "parameters": {
+    "title": "3. Parameters",
+    "visualEffects": "Shadow + visual marks",
+    "help": "The marks and shadow are viewer-only effects. Downloaded PNG files stay clean."
   },
   "toolbar": {
-    "original": "View original",
     "layers": "View layers",
-    "download": "Download composition",
-    "hint": "Select a layer to move, hide, isolate or download it as a transparent PNG."
-  },
-  "empty": {
-    "title": "Smart Layer Separator",
-    "description": "Upload an image to separate elements automatically or select a specific item with the brush."
+    "original": "View original",
+    "noImage": "No image"
   },
   "layers": {
-    "title": "Detected layers",
-    "none": "Layers will appear here after analysis.",
-    "single": "1 layer",
-    "multiple": "{count} layers",
-    "selectedObject": "Selected object",
-    "manualSelection": "Manual selection",
+    "title": "Layers",
+    "zero": "0 layers",
+    "count": "{count} layers",
+    "loadFirst": "Upload an image to start.",
+    "empty": "There are no cutouts yet. Process a selection to create movable layers.",
+    "scene": "Scene",
     "sceneRemainder": "Scene / remainder",
-    "background": "Background",
-    "backgroundRemainder": "Background / remainder",
+    "sceneHelp": "Hole preserved in the base image",
     "object": "Object",
-    "shape": "Shape",
-    "text": "Text",
-    "group": "Group"
-  },
-  "brush": {
-    "ready": "Draw a contour around the object and release the pointer to close the shape.",
-    "closed": "Selection closed. Now press “Separate brush selection”.",
-    "analyzing": "Analyzing brush selection…",
-    "detectingText": "Detecting text inside the selection…",
-    "detectingShapes": "Looking for shapes inside the selection…",
-    "detectingObjects": "Looking for objects inside the selection…",
-    "detectingLogos": "Looking for logos and shapes…",
-    "completed": "Selection separated",
-    "noObject": "I could not find a clear object inside the contour. Try drawing a little closer to the object.",
-    "error": "The brush selection could not be separated."
+    "maxCrop": "max crop"
   },
   "status": {
-    "analyzingStructure": "Analyzing structure…",
-    "detectingTexts": "Detecting text…",
-    "detectingElements": "Detecting shapes and elements…",
-    "separatingPhotoObjects": "Separating objects from the photo…",
-    "findingOverlays": "Looking for logos, overlays and shapes…",
-    "separatingSceneObjects": "Separating scene objects…",
-    "composing": "Composing design pieces…",
-    "reconstructing": "Reconstructing composition…",
-    "layersReady": "Layers ready",
-    "processingError": "Processing error"
+    "preparingRemover": "Preparing background remover...",
+    "preparingRemoverShort": "Preparing remover",
+    "processingMultiple": "Processing {count} selections...",
+    "processingHybrid": "Processing hybrid cutout...",
+    "preparingProcess": "Preparing process",
+    "cropping": "Cropping {current}/{total}",
+    "completed": "Separation complete",
+    "multipleCompleted": "{count} selections processed successfully.",
+    "singleCompleted": "Process completed. Selection processed successfully.",
+    "error": "Error",
+    "packaging": "Packaging separate layers...",
+    "archiveReady": "Separate layers downloaded successfully as ZIP.",
+    "addedToBatch": "Selection added to the batch. Ready: {count}.",
+    "readingImage": "Reading image",
+    "loadingImage": "Loading image...",
+    "selectionsCleared": "Selections cleared.",
+    "resetDone": "Cutout layers removed. The base image was restored.",
+    "resetAll": "Everything reset.",
+    "multipleEnabled": "Multiple selection enabled. You can draw several areas before separating.",
+    "multipleDisabled": "Multiple selection disabled."
+  },
+  "messages": {
+    "initial": "Upload an image and select an area with a rectangle, circle or brush.",
+    "openImageError": "The image could not be opened.",
+    "removerStartError": "The background remover could not be started.",
+    "cropError": "The crop could not be generated.",
+    "selectFirst": "First upload an image and draw a selection.",
+    "selectionTooSmall": "The selection is too small.",
+    "processingError": "The selection could not be processed.",
+    "canvasExportError": "The canvas could not be exported.",
+    "needLayerForArchive": "Create at least one layer before downloading the package.",
+    "archiveError": "The layer package could not be generated.",
+    "imageLoaded": "Image loaded successfully. Select a piece with the cutout tool.",
+    "imageLoadError": "The image could not be loaded.",
+    "multipleBlocked": "Multiple selection is disabled in brush mode."
   },
   "info": {
     "ariaLabel": "Tool information",
-    "automaticTitle": "Automatic and assisted separation",
-    "automaticText": "Use full separation when you want to detect several pieces at once, or enable the brush to precisely indicate which object you want to convert into an independent layer.",
-    "layersTitle": "Layers ready to reuse",
-    "layersText": "Move, hide, isolate and download detected elements as transparent PNG files. The remaining scene stays available so you can keep separating more pieces.",
-    "localTitle": "Local processing",
-    "localText": "The main engines run on your device through WebGPU or WASM, keeping the workflow inside the browser whenever your device is compatible."
-  },
-  "accessibility": {
-    "languageSelector": "Select language",
-    "openTools": "Open tools",
-    "closeTools": "Close tools",
-    "engineStatus": "Engine status",
-    "toolInformation": "Tool information"
-  },
-  "messages": {
-    "imageReady": "Image ready.",
-    "separationReady": "Separation completed.",
-    "brushSelectionReady": "Selection ready.",
-    "layerDeleted": "Layer deleted.",
-    "downloadStarted": "Download started.",
-    "invalidImage": "Select a valid JPG, PNG or WEBP image.",
-    "processingError": "The separation could not be completed.",
-    "browserAdvice": "Tip: publish the tool over HTTPS or use a local server."
+    "controlTitle": "You decide what to separate",
+    "controlText": "Your selection identifies the exact piece and the engine focuses on cleaning its edge.",
+    "layersTitle": "Movable, downloadable layers",
+    "layersText": "Move, hide, isolate and download every element; the scene keeps the hole in its original position.",
+    "batchTitle": "Several pieces in one workflow",
+    "batchText": "With rectangle or circle you can prepare several selections and process them consecutively."
   }
 }

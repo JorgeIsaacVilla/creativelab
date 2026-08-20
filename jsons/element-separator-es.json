@@ -1,59 +1,57 @@
 {
   "seo": {
-    "title": "Separar elementos y quitar fondo de imágenes online gratis | Alfora",
-    "description": "Separa objetos, personas, productos y elementos de una imagen, quita el fondo y descarga capas PNG transparentes. Gratis y con procesamiento local en tu navegador.",
+    "title": "Separar elementos y quitar fondo de una imagen online gratis | Alfora",
+    "description": "Selecciona objetos con rectángulo, círculo o pincel, quita su fondo y conviértelos en capas PNG movibles. Gratis y directamente en tu navegador.",
     "ogTitle": "Separador inteligente de capas y fondos gratis | Alfora",
-    "ogDescription": "Separa elementos de una imagen automáticamente o con pincel, aísla objetos y descarga capas PNG transparentes directamente desde tu navegador.",
+    "ogDescription": "Selecciona piezas de una imagen, limpia su fondo, deja el hueco en la escena y descarga capas PNG transparentes.",
     "twitterTitle": "Separar elementos y quitar fondo gratis | Alfora",
-    "twitterDescription": "Detecta, separa y descarga objetos de una imagen como capas PNG transparentes con procesamiento local en tu navegador.",
+    "twitterDescription": "Convierte objetos seleccionados en capas PNG transparentes, movibles y descargables.",
     "htmlLang": "es"
   },
   "product": {
-    "eyebrow": "Separación inteligente y gratuita",
+    "eyebrow": "Separación guiada, rápida y gratuita",
     "title": "Separador inteligente de capas",
-    "description": "Separa automáticamente objetos y elementos de una imagen o rodea una pieza con el pincel inteligente para aislarla como una capa transparente. Todo se procesa directamente en tu navegador."
+    "description": "Selecciona un objeto con rectángulo, círculo o pincel. Alfora recorta la zona, limpia el fondo, deja el hueco en la escena original y crea una capa PNG movible."
   },
   "tool": {
     "name": "Capas inteligentes",
-    "subtitle": "Separación automática + selección asistida con pincel",
-    "ariaLabel": "Separador inteligente de capas"
+    "subtitle": "Selección guiada → recorte local → fondo limpio → capas movibles",
+    "ariaLabel": "Separador inteligente de capas",
+    "localLimit": "Límite local: 1000 px"
   },
   "upload": {
     "title": "1. Imagen",
-    "button": "Sube una imagen",
+    "button": "🖼 Subir imagen",
     "help": "JPG, PNG o WEBP",
     "ready": "Imagen lista",
-    "waiting": "Esperando imagen",
-    "dropAriaLabel": "Subir una imagen para separar sus elementos"
+    "waiting": "Esperando imagen"
   },
-  "separation": {
-    "title": "2. Separación",
-    "imageType": "Tipo de imagen",
-    "modes": {
-      "auto": "Automático",
-      "design": "Diseño / logo",
-      "mixed": "Post mixto · foto + texto + logo",
-      "photo": "Fotografía / escena"
-    },
-    "modeHelp": "Automático distingue entre diseño, post mixto y fotografía.",
-    "layerComposition": "Composición de capas",
-    "presets": {
-      "clean": "Limpia · pocas piezas",
-      "balanced": "Equilibrada · recomendada",
-      "detail": "Detallada · más piezas"
-    },
-    "refine": "Refinar objetos principales con SlimSAM",
-    "brushHelp": "Dibuja alrededor del objeto. Al soltar el clic, Alfora cierra la figura y busca el objeto principal dentro del área."
+  "selection": {
+    "title": "2. Herramienta de recorte",
+    "rectangle": "▭ Rect",
+    "circle": "◯ Círculo",
+    "brush": "🖌 Pincel",
+    "help": "Marca la pieza. Alfora crea el hueco en la escena y limpia el fondo del recorte para convertirlo en una capa movible.",
+    "multipleHelp": "La selección múltiple funciona con rectángulo y círculo; se bloquea en modo pincel.",
+    "none": "Sin selección",
+    "current": "Selección {w}×{h} px",
+    "queued": "{count} selecciones listas",
+    "queuedAndCurrent": "{count} listas + actual {w}×{h} px",
+    "types": {
+      "rect": "rectángulo",
+      "circle": "círculo",
+      "brush": "pincel"
+    }
   },
   "actions": {
-    "separateAll": "Separar todos los elementos",
-    "enableBrush": "🖌️ Activar modo pincel",
-    "disableBrush": "🖌️ Desactivar modo pincel",
-    "extractBrush": "✂️ Separar selección con pincel",
-    "clearBrush": "⌫ Limpiar selección",
-    "resetLayer": "↩ Restablecer capa seleccionada",
-    "resetAll": "⟳ Restablecer todas",
-    "deleteLayer": "Eliminar capa",
+    "multiple": "◫ Hacer múltiples selecciones",
+    "multipleOn": "◫ Múltiples selecciones: activado",
+    "multipleBlocked": "◫ Múltiple bloqueado en pincel",
+    "clearSelection": "Limpiar selección",
+    "resetAll": "↺ Restablecer todo",
+    "separateSelection": "✂ Separar selección",
+    "downloadSeparated": "Descargar capas separadas",
+    "downloadScene": "Descargar escena/resto",
     "show": "Mostrar",
     "hide": "Ocultar",
     "solo": "Aislar esta capa",
@@ -61,105 +59,72 @@
     "openTools": "Abrir herramientas",
     "closeTools": "Cerrar herramientas"
   },
-  "pipeline": {
-    "ocr": "OCR",
-    "shapes": "Formas",
-    "objects": "Objetos",
-    "refinement": "Refinado",
-    "composer": "Composer",
-    "pending": "pendiente",
-    "analyzing": "analizando",
-    "segmenting": "segmentando",
-    "detectingInstances": "detectando instancias",
-    "loading": "cargando",
-    "refining": "refinando",
-    "deduplicating": "deduplicando",
-    "grouping": "agrupando",
-    "notRequired": "no necesario",
-    "skipped": "omitido"
-  },
-  "engine": {
-    "title": "Motor de separación",
-    "refinementTitle": "Refinado:",
-    "refinementText": "SlimSAM ajusta los bordes de los objetos principales.",
-    "composerTitle": "Layer Composer:",
-    "composerText": "elimina duplicados y agrupa fragmentos relacionados.",
-    "privacyTitle": "Privacidad:",
-    "privacyText": "el procesamiento principal se realiza localmente en el navegador."
+  "parameters": {
+    "title": "3. Parámetros",
+    "visualEffects": "Sombra + marcas visuales",
+    "help": "Las marcas y la sombra son solo del visor. Las descargas PNG salen limpias."
   },
   "toolbar": {
-    "original": "Ver original",
     "layers": "Ver capas",
-    "download": "Descargar composición",
-    "hint": "Selecciona una capa para moverla, ocultarla, aislarla o descargarla como PNG transparente."
-  },
-  "empty": {
-    "title": "Separador inteligente de capas",
-    "description": "Sube una imagen para separar elementos automáticamente o seleccionar una pieza con el pincel."
+    "original": "Ver original",
+    "noImage": "Sin imagen"
   },
   "layers": {
-    "title": "Capas detectadas",
-    "none": "Las capas aparecerán aquí después del análisis.",
-    "single": "1 capa",
-    "multiple": "{count} capas",
-    "selectedObject": "Objeto seleccionado",
-    "manualSelection": "Selección manual",
+    "title": "Capas",
+    "zero": "0 capas",
+    "count": "{count} capas",
+    "loadFirst": "Carga una imagen para empezar.",
+    "empty": "Todavía no hay recortes. Procesa una selección para crear capas movibles.",
+    "scene": "Escena",
     "sceneRemainder": "Escena / resto",
-    "background": "Fondo",
-    "backgroundRemainder": "Fondo / resto",
+    "sceneHelp": "Hueco conservado en la imagen base",
     "object": "Objeto",
-    "shape": "Forma",
-    "text": "Texto",
-    "group": "Grupo"
-  },
-  "brush": {
-    "ready": "Dibuja un contorno alrededor del objeto y suelta el clic para cerrar la figura.",
-    "closed": "Selección cerrada. Ahora pulsa “Separar selección con pincel”.",
-    "analyzing": "Analizando selección del pincel…",
-    "detectingText": "Detectando textos en la selección…",
-    "detectingShapes": "Buscando formas en la selección…",
-    "detectingObjects": "Buscando objetos en la selección…",
-    "detectingLogos": "Buscando logos y formas…",
-    "completed": "Selección separada",
-    "noObject": "No encontré un objeto claro dentro del contorno. Prueba dibujando un poco más cerca del objeto.",
-    "error": "No se pudo separar la selección del pincel."
+    "maxCrop": "recorte máx"
   },
   "status": {
-    "analyzingStructure": "Analizando estructura…",
-    "detectingTexts": "Detectando textos…",
-    "detectingElements": "Detectando formas y elementos…",
-    "separatingPhotoObjects": "Separando objetos de la fotografía…",
-    "findingOverlays": "Buscando logo, overlays y formas…",
-    "separatingSceneObjects": "Separando objetos de la escena…",
-    "composing": "Componiendo piezas de diseño…",
-    "reconstructing": "Reconstruyendo composición…",
-    "layersReady": "Capas listas",
-    "processingError": "Error al procesar"
+    "preparingRemover": "Preparando el removedor de fondo...",
+    "preparingRemoverShort": "Preparando removedor",
+    "processingMultiple": "Procesando {count} selecciones...",
+    "processingHybrid": "Procesando recorte híbrido...",
+    "preparingProcess": "Preparando proceso",
+    "cropping": "Recortando {current}/{total}",
+    "completed": "Separación terminada",
+    "multipleCompleted": "{count} selecciones procesadas correctamente.",
+    "singleCompleted": "Proceso completado. Selección procesada correctamente.",
+    "error": "Error",
+    "packaging": "Empaquetando capas separadas...",
+    "archiveReady": "Capas separadas descargadas correctamente en ZIP.",
+    "addedToBatch": "Selección añadida al lote. Total listas: {count}.",
+    "readingImage": "Leyendo imagen",
+    "loadingImage": "Cargando imagen...",
+    "selectionsCleared": "Selecciones limpiadas.",
+    "resetDone": "Se eliminaron las capas recortadas. La imagen base se restauró.",
+    "resetAll": "Todo restablecido.",
+    "multipleEnabled": "Selección múltiple activada. Puedes dibujar varias zonas antes de separar.",
+    "multipleDisabled": "Selección múltiple desactivada."
+  },
+  "messages": {
+    "initial": "Carga una imagen y selecciona una zona con rectángulo, círculo o pincel.",
+    "openImageError": "No fue posible abrir la imagen.",
+    "removerStartError": "No fue posible iniciar el removedor de fondo.",
+    "cropError": "No fue posible generar el recorte.",
+    "selectFirst": "Primero carga una imagen y dibuja una selección.",
+    "selectionTooSmall": "La selección es demasiado pequeña.",
+    "processingError": "No fue posible procesar la selección.",
+    "canvasExportError": "No fue posible exportar el lienzo.",
+    "needLayerForArchive": "Primero crea al menos una capa para descargar el paquete.",
+    "archiveError": "No fue posible generar el paquete de capas.",
+    "imageLoaded": "Imagen cargada correctamente. Selecciona una pieza con la herramienta de recorte.",
+    "imageLoadError": "No fue posible cargar la imagen.",
+    "multipleBlocked": "La selección múltiple está bloqueada en modo pincel."
   },
   "info": {
     "ariaLabel": "Información de la herramienta",
-    "automaticTitle": "Separación automática y asistida",
-    "automaticText": "Usa la separación completa cuando quieras detectar varias piezas de una vez, o activa el pincel para indicar con precisión qué objeto deseas convertir en una capa independiente.",
-    "layersTitle": "Capas listas para reutilizar",
-    "layersText": "Mueve, oculta, aísla y descarga los elementos detectados como PNG transparentes. La escena restante se mantiene para que puedas continuar separando más piezas.",
-    "localTitle": "Procesamiento local",
-    "localText": "Los motores principales trabajan en tu dispositivo mediante WebGPU o WASM, manteniendo el flujo de trabajo dentro del navegador siempre que el equipo sea compatible."
-  },
-  "accessibility": {
-    "languageSelector": "Seleccionar idioma",
-    "openTools": "Abrir herramientas",
-    "closeTools": "Cerrar herramientas",
-    "engineStatus": "Estado de motores",
-    "toolInformation": "Información de la herramienta"
-  },
-  "messages": {
-    "imageReady": "Imagen lista.",
-    "separationReady": "Separación completada.",
-    "brushSelectionReady": "Selección preparada.",
-    "layerDeleted": "Capa eliminada.",
-    "downloadStarted": "Descarga iniciada.",
-    "invalidImage": "Selecciona una imagen JPG, PNG o WEBP válida.",
-    "processingError": "No se pudo completar la separación.",
-    "browserAdvice": "Consejo: publica la herramienta por HTTPS o utiliza un servidor local."
+    "controlTitle": "Tú decides qué separar",
+    "controlText": "La selección humana indica la pieza exacta y el motor se concentra en limpiar su borde.",
+    "layersTitle": "Capas movibles y descargables",
+    "layersText": "Mueve, oculta, aísla y descarga cada elemento; la escena conserva el hueco en su posición original.",
+    "batchTitle": "Varias piezas en un solo flujo",
+    "batchText": "Con rectángulo o círculo puedes preparar varias selecciones y procesarlas consecutivamente."
   }
 }
