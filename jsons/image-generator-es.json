@@ -1,0 +1,274 @@
+{
+  "seo": {
+    "htmlLang": "es",
+    "title": "Generador de imágenes con IA | Alfora",
+    "description": "Genera imágenes con IA directamente en tu navegador con Alfora Image Generator 2.1. Procesamiento local con WebGPU, estilos automáticos, referencias y filtros.",
+    "ogTitle": "Generador de imágenes con IA | Alfora",
+    "ogDescription": "Genera imágenes con IA desde tu navegador usando WebGPU, estilos automáticos, referencias y filtros.",
+    "twitterTitle": "Generador de imágenes con IA | Alfora",
+    "twitterDescription": "Genera imágenes con IA directamente en tu dispositivo con Alfora."
+  },
+  "accessibility": {
+    "skipToGenerator": "Saltar al generador"
+  },
+  "product": {
+    "eyebrow": "IA generativa local · v2.1",
+    "title": "Generador de imágenes"
+  },
+  "status": {
+    "localProcessing": "Sin API · procesamiento en tu dispositivo",
+    "engineInactive": "Motor sin activar",
+    "engineReady": "Motor listo",
+    "generating": "Generando",
+    "generationError": "Error al generar",
+    "loadingEngine": "Cargando motor",
+    "engineReleased": "Motor descargado de memoria",
+    "preparingWebgpu": "Preparando WebGPU",
+    "notAvailable": "No disponible"
+  },
+  "engine": {
+    "sectionLabel": "Motor del navegador",
+    "load": "Cargar motor",
+    "automaticGeneration": "Generación automática",
+    "modelSizeInfo": "El modelo completo ronda 2,4 GB. El navegador puede reutilizar su caché HTTP cuando sea posible, pero Alfora ya no exige reservar 2,4 GB de almacenamiento del sitio para poder funcionar.",
+    "readyCopy": "La interfaz está lista. Las librerías de IA se cargarán únicamente cuando pulses Cargar motor.",
+    "loadingRuntime": "Cargando ONNX Runtime WebGPU…",
+    "memoryReleasedCopy": "La RAM/GPU del generador fue liberada. Pulsa “Cargar motor” para volver a preparar ONNX Runtime.",
+    "preparingCopy": "Preparando el generador sin instalación obligatoria en el almacenamiento del sitio.",
+    "readyLoadedCopy": "Motor listo. El modelo se cargó directamente en WebGPU sin depender de OPFS/Cache Storage."
+  },
+  "state": {
+    "activated": "Activada",
+    "deactivated": "Desactivada",
+    "active": "Activo",
+    "notLoaded": "No cargado",
+    "loading": "Cargando",
+    "ready": "Listo"
+  },
+  "chips": {
+    "space": "Espacio",
+    "product": "Producto",
+    "architecture": "Arquitectura",
+    "threeD": "3D"
+  },
+  "personalize": {
+    "title": "Personaliza la generación de tu imagen.",
+    "description": "Selecciona el estilo que deseas desarrollar.",
+    "styleLabel": "Estilo de generación",
+    "automaticParameters": "Parámetros automáticos",
+    "promptFormat": "Formato prompt",
+    "complementRequest": "Complementa tu solicitud",
+    "stylePromptPlaceholder": "El complemento del estilo aparecerá aquí."
+  },
+  "styles": {
+    "other": "Otros",
+    "wallpapers": "Fondos y wallpapers",
+    "abstract": "Arte abstracto",
+    "landscapes": "Paisajes y escenarios",
+    "food": "Comida",
+    "simpleObjects": "Objetos sencillos",
+    "conceptPhoto": "Fotografía conceptual",
+    "illustration": "Ilustraciones",
+    "styleComposition": "Conceptos de estilo y composición"
+  },
+  "actions": {
+    "generateDifferent": "Generar diseño diferente",
+    "externalHelp": "Solicitar ayuda IA externa",
+    "advancedOptions": "Opciones avanzadas",
+    "releaseMemory": "Liberar memoria",
+    "clearOldCache": "Limpiar caché antigua",
+    "clear": "Limpiar",
+    "download": "Descargar",
+    "downloadPng": "Descargar PNG",
+    "loadReference": "Cargar imagen de referencia",
+    "load": "Cargar",
+    "generate": "Generar",
+    "applyChanges": "Aplicar cambios",
+    "accept": "Aceptar",
+    "notNow": "Ahora no",
+    "downloadThisImage": "Descargar esta imagen"
+  },
+  "ads": {
+    "ariaLabel": "Espacio publicitario",
+    "top": "Espacio publicitario",
+    "sidebar": "Espacio publicitario"
+  },
+  "canvas": {
+    "title": "Lienzo",
+    "emptyTitle": "Todo ocurre aquí.",
+    "emptyDescription": "Carga el motor una sola vez, escribe lo que quieres crear y deja que Alfora combine tu solicitud con el estilo seleccionado.",
+    "generatedOnDevice": "Generado en el dispositivo"
+  },
+  "loading": {
+    "preparingEngine": "Preparando el motor",
+    "checkingWebgpu": "Comprobando WebGPU…",
+    "generatingGpu": "Generando en tu GPU",
+    "encodingPrompt": "Codificando el prompt…",
+    "translatingPrompt": "Detectando idioma y preparando el prompt en inglés…",
+    "preparingCfg": "Preparando conditioning CFG sin prompt…",
+    "creatingLatents": "Creando latentes para {steps}…",
+    "preparingReference": "Preparando imagen de referencia 512 × 512…",
+    "synthesizing": "Sintetizando · paso {current} de {total} · timestep {timestep}…",
+    "decoding": "Decodificando 512 × 512 píxeles…",
+    "preparingGenerator": "Preparando el generador",
+    "checkingCompatibility": "Comprobando compatibilidad…",
+    "loadingLibraries": "Cargando librerías de IA…",
+    "preparingTokenizer": "Preparando el procesador de texto…"
+  },
+  "history": {
+    "title": "Generaciones recientes",
+    "openGeneration": "Abrir generación",
+    "recentAlt": "Generación reciente"
+  },
+  "references": {
+    "title": "Imágenes de referencia",
+    "empty": "Aún no has cargado imágenes de referencia.",
+    "inUse": "En uso",
+    "use": "Usar",
+    "view": "Ver"
+  },
+  "composer": {
+    "referencesTitle": "Referencias y modo de generación",
+    "urlPlaceholder": "Agregar URL de imagen de referencia",
+    "generationMode": "Modo de generación",
+    "textToImage": "Texto → imagen",
+    "imageToImage": "Imagen → imagen",
+    "modificationStrength": "Fuerza de modificación",
+    "promptLanguage": "Idioma del prompt",
+    "autoDefault": "Auto por defecto",
+    "detectAutomatically": "Detectar automáticamente",
+    "translationForSd": "Traducción para SD-Turbo",
+    "fixedDestination": "Destino fijo",
+    "autoToEnglish": "Automático → English",
+    "textModeNote": "Texto → imagen ignora las referencias. Puedes cargarlas y seleccionar una cuando quieras pasar a Imagen → imagen.",
+    "textModeNoteShort": "Texto → imagen ignora las referencias. Puedes seguir cargándolas y abrirlas mientras trabajas.",
+    "imageModeNeedsReference": "Imagen → imagen necesita una referencia. Pulsa “Usar” sobre una imagen cargada.",
+    "referenceOptionsTitle": "Opciones de referencia",
+    "promptPlaceholder": "Describe la imagen que quieres generar…"
+  },
+  "advanced": {
+    "title": "Opciones avanzadas",
+    "description": "Parámetros técnicos, diagnóstico y comportamiento del motor.",
+    "optimizedPrompt": "Prompt optimizado interno",
+    "noPromptYet": "Todavía no hay una solicitud para combinar.",
+    "assistancePending": "Asistencia pendiente.",
+    "translationLabel": "Traducción:",
+    "translationCopy": "este cuadro debe mostrar en inglés el prompt que recibirá SD-Turbo. Alfora ya no enviará traducciones parciales mezclando idiomas.",
+    "resolution": "Resolución",
+    "seed": "Seed",
+    "inferenceSteps": "Pasos de inferencia",
+    "cfgTitle": "CFG Scale · experimental",
+    "whatIsCfg": "¿Qué es CFG?",
+    "cfgDescription": "Compara una predicción condicionada por tu prompt con otra sin prompt. En esta versión, los estilos probados usan CFG 1.5. Los valores distintos de 1 requieren una segunda ejecución del UNet por cada paso y pueden tardar más.",
+    "context": "Contexto",
+    "precision": "Precisión",
+    "model": "Modelo",
+    "checkBrowserGpu": "Comprobar navegador y GPU",
+    "checkStorage": "Revisar almacenamiento del sitio",
+    "loadComponents": "Cargar componentes del modelo",
+    "prepareWebgpu": "Preparar el motor en WebGPU",
+    "storage": "Almacenamiento",
+    "siteStorage": "Almacenamiento del sitio",
+    "storageCopy": "La generación ya no depende de reservar el modelo completo en el almacenamiento privado del navegador.",
+    "stableModel": "Modelo estable",
+    "stableModelCopy": "ONNX Runtime carga los componentes directamente desde su URL, uno por uno. Esto reduce la presión de almacenamiento y mantiene el motor ejecutándose localmente con WebGPU."
+  },
+  "filters": {
+    "defaultTitle": "Filtros por defecto",
+    "defaultDescription": "Estos valores se aplican automáticamente a las próximas imágenes después del VAE. Puedes probarlos aquí para encontrar la configuración visual óptima de Alfora. No cambian las imágenes que ya fueron generadas.",
+    "contrast": "Contraste",
+    "color": "Color",
+    "brightness": "Luminosidad",
+    "detailEdges": "Detalle / bordes",
+    "applyDefaultPrefix": "Al pulsar",
+    "applyDefaultSuffix": "estos valores se usarán como filtros predeterminados para las siguientes generaciones de la sesión.",
+    "title": "Filtros",
+    "description": "Ajusta solo la generación seleccionada. Los cambios se previsualizan aquí y se guardan en esa imagen al pulsar Aplicar filtros.",
+    "defaults": "Predeterminados",
+    "apply": "Aplicar filtros",
+    "note": "Alfora aplica un ajuste suave de contraste, color y definición a cada nueva generación. Aquí puedes cambiarlo sin afectar las demás imágenes."
+  },
+  "external": {
+    "title": "Solicita ayuda a IA externa y ahorra créditos de tus IA pagas.",
+    "description": "Genera una solicitud automática con los formatos que necesitas y pídele a la IA de tu preferencia que pula el prompt para darle más exactitud a tu solicitud.",
+    "style": "Estilo",
+    "whatDraw": "¿Qué quieres dibujar?",
+    "subjectPlaceholder": "Ejemplo: un helado premium sobre hielo",
+    "expectations": "Detalle de tus expectativas",
+    "expectationsPlaceholder": "Composición, ambiente, elementos importantes, sensación, etc.",
+    "referenceColors": "Colores de referencia",
+    "notApplicable": "No aplica",
+    "logoReference": "Ingresa tu logo o imágenes con colores de referencia",
+    "loadLogoImages": "Cargar logo o imágenes",
+    "colorAnalysisCopy": "Alfora analizará localmente los colores principales de las imágenes y rellenará los selectores. Después puedes modificarlos manualmente.",
+    "copiedTitle": "Solicitud copiada",
+    "copiedDescription": "En tu portapapeles se copió una solicitud para que consultes a tu IA de preferencia."
+  },
+  "activation": {
+    "title": "Conecta el motor del navegador antes de generar.",
+    "description": "Para que la IA de generación de Alfora funcione, debes conectar el motor del navegador. Alfora procesa localmente con WebGPU y utiliza la GPU de tu dispositivo. Antes de empezar, revisa el consumo y las implicaciones de esta conexión.",
+    "processing": "Procesamiento",
+    "localDevice": "Local en tu dispositivo",
+    "engine": "Motor",
+    "initialLoad": "Carga inicial",
+    "componentsSize": "Componentes ~2,4 GB",
+    "whatToKnow": "Qué debes saber antes de conectarlo",
+    "firstLoadCopy": "La primera activación puede tardar unos momentos mientras el navegador valida compatibilidad, descarga componentes y prepara el modelo. Después, la generación se ejecuta desde tu equipo.",
+    "gpuImpact": "Usará la GPU del dispositivo y puede aumentar el consumo de energía, memoria y temperatura.",
+    "performanceImpact": "Mientras generas, otras pestañas o apps pesadas pueden ir más lentas.",
+    "batteryImpact": "En portátiles o móviles, la batería puede bajar más rápido durante el uso.",
+    "lowPowerTip": "Si tu equipo es modesto, puede convenirte cerrar procesos pesados antes de generar.",
+    "recommendationTitle": "Recomendación de uso",
+    "recommendationCopy": "Si es posible, usa una conexión estable para la primera carga del modelo, mantén el portátil conectado a corriente y evita abrir muchas aplicaciones gráficas al mismo tiempo."
+  },
+  "viewer": {
+    "expandedView": "Vista ampliada",
+    "inspectCopy": "Puedes inspeccionar la imagen mientras el sistema sigue trabajando.",
+    "generatedImage": "Imagen generada",
+    "clickToExpand": "Haz clic para ver la imagen en grande"
+  },
+  "mobile": {
+    "openControls": "Abrir controles",
+    "closeControls": "Cerrar controles"
+  },
+  "steps": {
+    "one": "1 paso · ultra rápido · experimental",
+    "two": "2 pasos · rápido · menor refinamiento",
+    "three": "3 pasos · calidad estándar · estable",
+    "four": "4 pasos · calidad alta · más lento",
+    "five": "5 pasos · refinamiento extra · experimental",
+    "six": "6 pasos · estilos complejos · experimental",
+    "seven": "7 pasos · ilustración/cartoon · experimental",
+    "eight": "8 pasos · máximo de prueba · experimental"
+  },
+  "cfg": {
+    "zero": "0 · sin dirección del prompt · experimental",
+    "soft": "0.5 · guía suave",
+    "base": "1 · estándar base",
+    "strong": "1.5 · guía fuerte · experimental",
+    "veryStrong": "2 · guía muy fuerte · experimental"
+  },
+  "dynamic": {
+    "step": "paso",
+    "steps": "pasos",
+    "image": "imagen",
+    "images": "imágenes",
+    "effective": "efectivos",
+    "autoComplementActive": "complemento automático activo",
+    "noAutoComplement": "sin complemento automático",
+    "activeReference": "Referencia activa: {name} · modificación {strength}%."
+  },
+  "messages": {
+    "automaticOn": "Generación automática activada.",
+    "automaticOff": "Generación automática desactivada. Puedes ajustar los parámetros manualmente.",
+    "referenceSelected": "Referencia seleccionada para Imagen → imagen.",
+    "writePrompt": "Escribe un prompt.",
+    "selectReferenceFirst": "Selecciona una imagen de referencia antes de usar Imagen → imagen.",
+    "generatedLocally": "Imagen generada localmente en {seconds}s.",
+    "memoryReleased": "Memoria del generador liberada.",
+    "oldCacheCleared": "Caché antigua de Alfora eliminada.",
+    "generatorReady": "Generador listo. Se evitó el almacenamiento que estaba provocando QuotaExceededError.",
+    "filtersApplied": "Filtros aplicados solo a la imagen seleccionada.",
+    "engineAlreadyConnected": "El motor del navegador ya está conectado."
+  }
+}
