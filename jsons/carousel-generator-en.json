@@ -43,7 +43,6 @@
     "copyLabel": "Copy",
     "imageLabel": "Image",
     "autoImage": "Automatic",
-    "noBackgroundImage": "No background image",
     "removeSlide": "Remove image",
     "titlePlaceholder": "Write the title...",
     "copyPlaceholder": "Write the copy...",
@@ -114,7 +113,7 @@
     "changeBackground": "Change background image",
     "applyAutoGradient": "Apply automatic gradient",
     "removeGradient": "Remove gradient",
-    "removeImageBackground": "Remove image background",
+    "removeImageBackground": "Remove background",
     "gradientPickerTitle": "Automatic gradients",
     "gradientBrandDiagonal": "Brand diagonal",
     "gradientBottom": "Dark bottom",
@@ -132,7 +131,8 @@
     "applyCodeUpdates": "Apply updates",
     "bringToFront": "Bring to front",
     "sendToBack": "Send to back",
-    "addRandomDecorations": "Add random decorative elements"
+    "addRandomDecorations": "Add random decorative elements",
+    "noBackgroundImage": "No background image"
   },
   "formats": {
     "instagramPortrait": "Instagram portrait · 1080×1350",
@@ -205,7 +205,7 @@
     "codeDescription": "Code mode uses the ALFORA-CAROUSEL/1 format so you can prepare content with an AI, paste it into the tool, and quickly turn it into a visual carousel.",
     "codeGuideHeading": "How Alfora code works",
     "codeGuideDescription": "ALFORA-CAROUSEL/1 is a simple text format. Each item is identified as c1, c2, c3, and so on up to c24. Each item can contain title, copy, additional copies such as copy2 and copy3, and imagen.",
-    "codeImageRule": "For imagen you can write \"auto\" so Alfora automatically chooses one of the uploaded images, or specify its number, for example \"2\".",
+    "codeImageRule": "For imagen you can write \"auto\" so Alfora automatically selects an uploaded image, \"none\" to create the slide without a background image, or specify an uploaded image number, for example \"2\".",
     "aiHeading": "You can also ask an AI for the code",
     "aiDescription": "An AI can create the full content and return it ready to paste. It only needs to follow ALFORA-CAROUSEL/1, use one line per field, and number items starting at c1.",
     "aiPrompt": "Example instruction for an AI: “Create a 6-image carousel about my product in ALFORA-CAROUSEL/1 format. For each image write cN.title, cN.copy, and cN.imagen in quotes. Use imagen: \"auto\" and do not add explanations outside the code.”",

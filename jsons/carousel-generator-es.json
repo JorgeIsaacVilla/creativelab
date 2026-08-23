@@ -43,7 +43,6 @@
     "copyLabel": "Copy",
     "imageLabel": "Imagen",
     "autoImage": "Automática",
-    "noBackgroundImage": "Sin imagen de fondo",
     "removeSlide": "Eliminar imagen",
     "titlePlaceholder": "Escribe el título...",
     "copyPlaceholder": "Escribe el copy...",
@@ -114,7 +113,7 @@
     "changeBackground": "Cambiar imagen de fondo",
     "applyAutoGradient": "Aplicar gradiente automático",
     "removeGradient": "Quitar gradiente",
-    "removeImageBackground": "Quitar fondo a imagen",
+    "removeImageBackground": "Quitar fondo",
     "gradientPickerTitle": "Gradientes automáticos",
     "gradientBrandDiagonal": "Marca diagonal",
     "gradientBottom": "Oscuro inferior",
@@ -132,7 +131,8 @@
     "applyCodeUpdates": "Aplicar actualizaciones",
     "bringToFront": "Pasar al frente",
     "sendToBack": "Pasar atrás",
-    "addRandomDecorations": "Agregar elementos decorativos aleatorios"
+    "addRandomDecorations": "Agregar elementos decorativos aleatorios",
+    "noBackgroundImage": "Sin imagen de fondo"
   },
   "formats": {
     "instagramPortrait": "Instagram vertical · 1080×1350",
@@ -205,7 +205,7 @@
     "codeDescription": "El modo Código utiliza el formato ALFORA-CAROUSEL/1 para que puedas preparar el contenido con una IA, pegarlo en la herramienta y convertirlo rápidamente en un carrusel visual.",
     "codeGuideHeading": "Cómo funciona el código de Alfora",
     "codeGuideDescription": "ALFORA-CAROUSEL/1 es un formato de texto simple. Cada pieza se identifica con c1, c2, c3 y así sucesivamente hasta c24. Cada pieza puede contener title, copy, copies adicionales como copy2 y copy3, e imagen.",
-    "codeImageRule": "En imagen puedes escribir \"auto\" para que Alfora seleccione una imagen cargada automáticamente, o indicar su número, por ejemplo \"2\".",
+    "codeImageRule": "En imagen puedes escribir \"auto\" para que Alfora seleccione una imagen cargada automáticamente, \"none\" para crear la diapositiva sin imagen de fondo, o indicar el número de una imagen cargada, por ejemplo \"2\".",
     "aiHeading": "También puedes pedir el código a una IA",
     "aiDescription": "Una IA puede crear el contenido completo y devolverlo listo para pegar. Solo debe respetar ALFORA-CAROUSEL/1, usar una línea por campo y numerar las piezas desde c1.",
     "aiPrompt": "Ejemplo de instrucción para una IA: “Genera un carrusel de 6 imágenes sobre mi producto en formato ALFORA-CAROUSEL/1. Para cada imagen escribe cN.title, cN.copy y cN.imagen entre comillas. Usa imagen: \"auto\" y no añadas explicaciones fuera del código.”",

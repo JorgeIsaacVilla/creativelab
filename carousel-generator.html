@@ -723,6 +723,82 @@
             box-shadow: inset 0 0 0 1px rgba(88, 242, 142, .1);
         }
 
+        .cg-format-apply-panel {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--cg-border);
+            background: rgba(88, 242, 142, .045);
+        }
+
+        .cg-format-apply-panel[hidden] {
+            display: none !important;
+        }
+
+        .cg-format-apply-panel__copy {
+            min-width: 0;
+            display: grid;
+            gap: 2px;
+        }
+
+        .cg-format-apply-panel__copy strong {
+            color: var(--cg-text);
+            font-size: .79rem;
+        }
+
+        .cg-format-apply-panel__copy span {
+            color: var(--cg-soft);
+            font-size: .69rem;
+            line-height: 1.35;
+        }
+
+        .cg-format-apply-panel__actions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 7px;
+            flex-wrap: wrap;
+        }
+
+        .cg-format-apply-button {
+            min-height: 38px !important;
+            padding: 7px 10px;
+            border: 1px solid rgba(88,242,142,.26);
+            border-radius: 9px;
+            background: rgba(255,255,255,.035);
+            color: var(--cg-text);
+            cursor: pointer;
+            font-size: .70rem;
+            font-weight: 800;
+        }
+
+        .cg-format-apply-button:hover,
+        .cg-format-apply-button:focus-visible {
+            border-color: rgba(88,242,142,.58);
+            background: rgba(88,242,142,.10);
+            outline: none;
+        }
+
+        .cg-format-apply-button--primary {
+            color: #07110c;
+            border-color: transparent;
+            background: var(--gradient-primary, linear-gradient(135deg, #58f28e, #b7ff7b));
+        }
+
+        .cg-format-apply-close {
+            width: 34px;
+            height: 34px;
+            min-height: 34px !important;
+            padding: 0;
+            border: 1px solid rgba(255,255,255,.09);
+            border-radius: 50%;
+            background: rgba(255,255,255,.035);
+            color: var(--cg-text);
+            cursor: pointer;
+        }
+
         .cg-mini-layout {
             position: relative;
             width: 34px;
@@ -1731,6 +1807,28 @@
                 padding: 12px;
             }
 
+            .cg-format-apply-panel {
+                position: fixed;
+                z-index: 142;
+                left: 18px;
+                right: 18px;
+                bottom: 88px;
+                grid-template-columns: 1fr;
+                padding: 12px;
+                border: 1px solid rgba(88,242,142,.28);
+                border-radius: 15px;
+                background: rgba(7,13,11,.98);
+                box-shadow: 0 18px 46px rgba(0,0,0,.42);
+                backdrop-filter: blur(16px);
+                -webkit-backdrop-filter: blur(16px);
+            }
+
+            .cg-format-apply-panel__actions {
+                display: grid;
+                grid-template-columns: 1fr 1fr auto;
+                width: 100%;
+            }
+
             .cg-resource-strip {
                 grid-template-columns: 1fr;
                 padding: 12px;
@@ -1916,6 +2014,18 @@
                         <span class="cg-mini-layout cg-mini-layout--6" aria-hidden="true"></span>
                         <span data-i18n="tool.format6">Formato 6</span>
                     </button>
+                </div>
+
+                <div id="formatApplyPanel" class="cg-format-apply-panel" hidden>
+                    <div class="cg-format-apply-panel__copy">
+                        <strong id="formatApplyPanelTitle">Aplicar formato</strong>
+                        <span id="formatApplyPanelText">Elige dónde aplicar este formato sin regenerar el diseño.</span>
+                    </div>
+                    <div class="cg-format-apply-panel__actions">
+                        <button id="applyFormatCurrentButton" class="cg-format-apply-button cg-format-apply-button--primary" type="button">Aplicar solo a esta diapositiva</button>
+                        <button id="applyFormatAllButton" class="cg-format-apply-button" type="button">Aplicar a todas las diapositivas</button>
+                        <button id="closeFormatApplyPanel" class="cg-format-apply-close" type="button" aria-label="Cerrar">×</button>
+                    </div>
                 </div>
 
                 <div class="cg-resource-strip" id="resourceStrip">
@@ -2267,13 +2377,12 @@ c2.imagen: "2"</code></pre>
     </div>
 
     <script>
-        //Generador de caruseles V1.8 (Estable)
     (() => {
         'use strict';
 
         const MAX_SLIDES = 24;
         const MAX_PALETTE = 8;
-        const MAX_BACKGROUNDS = 24;
+        const MAX_BACKGROUNDS = Number.POSITIVE_INFINITY; // Sin límite fijo de imágenes de fondo.
         const MAX_DECORATIONS = 24;
         const MAX_EXTRA_TEXTS = 23;
         const BACKGROUND_REMOVAL_LIBRARY_URL = 'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.7.0/+esm';
@@ -2344,6 +2453,14 @@ c2.imagen: "2"</code></pre>
         const adjustYValue = document.getElementById('adjustYValue');
         const adjustScaleValue = document.getElementById('adjustScaleValue');
         const resetElementButton = document.getElementById('resetElementButton');
+        const formatApplyPanel = document.getElementById('formatApplyPanel');
+        const formatApplyPanelTitle = document.getElementById('formatApplyPanelTitle');
+        const formatApplyPanelText = document.getElementById('formatApplyPanelText');
+        const applyFormatCurrentButton = document.getElementById('applyFormatCurrentButton');
+        const applyFormatAllButton = document.getElementById('applyFormatAllButton');
+        const closeFormatApplyPanelButton = document.getElementById('closeFormatApplyPanel');
+
+        let pendingFormat = null;
 
         const state = {
             slides: [],
@@ -3507,6 +3624,68 @@ c2.imagen: "2"</code></pre>
             return { file, url, image, name: file.name, analysis: analyzeImage(image) };
         }
 
+        function remapAssetIndexWithoutRegeneration(index, assetCount) {
+            if (!assetCount) return index;
+            const numeric = Number(index);
+            if (!Number.isFinite(numeric)) return 0;
+            return ((Math.trunc(numeric) % assetCount) + assetCount) % assetCount;
+        }
+
+        function syncBackgroundAssetsWithoutRegeneration() {
+            state.slides.forEach((slide) => {
+                if (!slide.design) return;
+
+                (slide.backgroundLayers || []).forEach((layer) => {
+                    if (state.backgrounds.length) {
+                        layer.assetIndex = remapAssetIndexWithoutRegeneration(layer.assetIndex, state.backgrounds.length);
+                    }
+                });
+
+                if (slide.imageIndex === 'none') {
+                    slide.design.backgroundIndex = null;
+                    slide.baseImageHidden = true;
+                    return;
+                }
+
+                if (!state.backgrounds.length) {
+                    slide.design.backgroundIndex = null;
+                    return;
+                }
+
+                const explicitIndex = Number(slide.imageIndex);
+                if (
+                    slide.imageIndex !== 'auto' &&
+                    Number.isInteger(explicitIndex)
+                ) {
+                    const mappedIndex = remapAssetIndexWithoutRegeneration(explicitIndex, state.backgrounds.length);
+                    slide.imageIndex = String(mappedIndex);
+                    slide.design.backgroundIndex = mappedIndex;
+                    slide.baseImageHidden = false;
+                    return;
+                }
+
+                slide.design.backgroundIndex = remapAssetIndexWithoutRegeneration(
+                    slide.design.backgroundIndex ?? 0,
+                    state.backgrounds.length
+                );
+            });
+        }
+
+        function syncDecorationAssetsWithoutRegeneration() {
+            state.slides.forEach((slide) => {
+                (slide.extraDecorations || []).forEach((layer) => {
+                    if (layer.assetType === 'logo') return;
+                    if (state.decorations.length) {
+                        layer.assetIndex = remapAssetIndexWithoutRegeneration(layer.assetIndex, state.decorations.length);
+                    }
+                });
+
+                // Cargar una carpeta de decoraciones solo actualiza la biblioteca.
+                // Nunca agrega adornos automáticos ni modifica la propuesta existente.
+                slide.decorationsInitialized = true;
+            });
+        }
+
         async function handleLogo(file) {
             if (!file) return;
             const loaded = await loadImageFile(file);
@@ -3520,7 +3699,10 @@ c2.imagen: "2"</code></pre>
             state.paletteWeights = state.palette.map((_, index) => extracted.weights[index] ?? Math.max(.15, 1 - index * .12));
             state.paletteFromLogo = true;
             renderPaletteEditor();
-            regenerateDesigns(false);
+
+            // Cargar o cambiar el logo NO genera una nueva propuesta.
+            // El logo y su paleta quedan disponibles para el diseño actual y
+            // para la próxima generación explícita solicitada por el usuario.
             updateCounts();
             queueRender();
             showToast(tr('messages.logoLoaded'));
@@ -3534,8 +3716,11 @@ c2.imagen: "2"</code></pre>
                 state.objectUrls.delete(item.url);
             });
             state.backgrounds = loaded;
+
+            // Cambiar la carpeta de imágenes conserva formato, posiciones,
+            // tamaños, estilos, paneles y demás personalización.
+            syncBackgroundAssetsWithoutRegeneration();
             renderSlideCards();
-            regenerateDesigns(false);
             updateCounts();
             queueRender();
             showToast(tr('messages.imagesLoaded'));
@@ -3550,17 +3735,9 @@ c2.imagen: "2"</code></pre>
             });
             state.decorations = loaded;
 
-            // Cargar recursos decorativos no equivale a colocarlos en el canvas.
-            // Evitamos que el primer render inserte automáticamente una versión
-            // rotada del recurso recién cargado. El usuario puede agregarlo
-            // manualmente (entra recto) o usar la acción explícita de elementos
-            // decorativos aleatorios (esa sí conserva rotación aleatoria).
-            state.slides.forEach((slide) => {
-                slide.extraDecorations = (slide.extraDecorations || []).filter(isUserPlacedDecoration);
-                slide.decorationsInitialized = true;
-            });
-
-            regenerateDesigns(false);
+            // Cambiar la carpeta de elementos decorativos conserva las capas
+            // colocadas y toda su geometría; solo actualiza la biblioteca.
+            syncDecorationAssetsWithoutRegeneration();
             updateCounts();
             queueRender();
             showToast(tr('messages.decorationsLoaded'));
@@ -6147,9 +6324,14 @@ c2.imagen: "2"</code></pre>
             if (!slide || !state.backgrounds[index]) return;
             slide.imageIndex = String(index);
             slide.baseImageHidden = false;
-            slide.backgroundEffectDisabled = false;
-            slide.backgroundGradient = null;
-            slide.design = buildDesign(slide, state.currentIndex);
+
+            if (!slide.design) slide.design = buildDesign(slide, state.currentIndex);
+            slide.design.backgroundIndex = index;
+
+            // Mostrar la nueva imagen sin recalcular la propuesta completa.
+            if (slide.design.backgroundMode === 'solid') slide.design.backgroundMode = 'full-overlay';
+            if (slide.design.backgroundMode === 'gradient') slide.design.backgroundMode = 'gradient-image';
+
             renderSlideCards();
             queueRender();
             showToast(tr('messages.backgroundChanged','Imagen de fondo actualizada.'));
@@ -6213,6 +6395,1328 @@ c2.imagen: "2"</code></pre>
             return backgroundRemovalFunction;
         }
 
+        function brLoadImageFromUrl(url) {
+            return new Promise((resolve, reject) => {
+                const image = new Image();
+                image.onload = () => resolve(image);
+                image.onerror = () => reject(new Error('BACKGROUND_REMOVAL_IMAGE_READ'));
+                image.src = url;
+            });
+        }
+
+        function brCanvasToBlob(canvas, type = 'image/png', quality = 1) {
+            return new Promise((resolve, reject) => {
+                canvas.toBlob(
+                    (blob) => blob ? resolve(blob) : reject(new Error('BACKGROUND_REMOVAL_EXPORT')),
+                    type,
+                    quality
+                );
+            });
+        }
+
+        function brGetCanvasPixelsFromImage(image) {
+              const canvas = document.createElement("canvas");
+              canvas.width = image.naturalWidth;
+              canvas.height = image.naturalHeight;
+
+              const context = canvas.getContext("2d", {
+                alpha: true,
+                willReadFrequently: true
+              });
+
+              if (!context) {
+                return null;
+              }
+
+              context.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+              return {
+                canvas,
+                context,
+                imageData: context.getImageData(0, 0, canvas.width, canvas.height)
+              };
+            }
+
+        function brClamp01(value) {
+              return Math.max(0, Math.min(1, value));
+            }
+
+        function brSmoothStep01(value) {
+              const normalized = brClamp01(value);
+              return normalized * normalized * (3 - 2 * normalized);
+            }
+
+        function brColorDistance(red, green, blue, background) {
+              return Math.sqrt(
+                Math.pow(red - background.red, 2) +
+                Math.pow(green - background.green, 2) +
+                Math.pow(blue - background.blue, 2)
+              );
+            }
+
+        function brAnalyzeBorderBackground(imageData, width, height) {
+              const data = imageData.data;
+              const sampleDepth = Math.max(
+                2,
+                Math.min(18, Math.round(Math.min(width, height) * 0.035))
+              );
+
+              const bucketCounts = new Uint32Array(4096);
+              let sampleCount = 0;
+              let dominantBucket = 0;
+              let dominantCount = 0;
+
+              function visitBorderPixels(callback) {
+                for (let y = 0; y < height; y += 1) {
+                  for (let x = 0; x < width; x += 1) {
+                    const onBorder =
+                      x < sampleDepth ||
+                      x >= width - sampleDepth ||
+                      y < sampleDepth ||
+                      y >= height - sampleDepth;
+
+                    if (!onBorder) {
+                      continue;
+                    }
+
+                    const index = (y * width + x) * 4;
+                    const alpha = data[index + 3];
+
+                    if (alpha < 16) {
+                      continue;
+                    }
+
+                    callback(
+                      data[index],
+                      data[index + 1],
+                      data[index + 2]
+                    );
+                  }
+                }
+              }
+
+              visitBorderPixels((red, green, blue) => {
+                const bucket =
+                  ((red >> 4) << 8) |
+                  ((green >> 4) << 4) |
+                  (blue >> 4);
+
+                const count = ++bucketCounts[bucket];
+                sampleCount += 1;
+
+                if (count > dominantCount) {
+                  dominantCount = count;
+                  dominantBucket = bucket;
+                }
+              });
+
+              if (!sampleCount) {
+                return {
+                  isUniform: false,
+                  confidence: 0,
+                  red: 0,
+                  green: 0,
+                  blue: 0,
+                  meanDistance: Infinity,
+                  deviation: Infinity
+                };
+              }
+
+              const dominantRed = ((dominantBucket >> 8) & 15) * 16 + 7.5;
+              const dominantGreen = ((dominantBucket >> 4) & 15) * 16 + 7.5;
+              const dominantBlue = (dominantBucket & 15) * 16 + 7.5;
+
+              let redSum = 0;
+              let greenSum = 0;
+              let blueSum = 0;
+              let inlierCount = 0;
+
+              visitBorderPixels((red, green, blue) => {
+                const distance = Math.sqrt(
+                  Math.pow(red - dominantRed, 2) +
+                  Math.pow(green - dominantGreen, 2) +
+                  Math.pow(blue - dominantBlue, 2)
+                );
+
+                if (distance > 34) {
+                  return;
+                }
+
+                redSum += red;
+                greenSum += green;
+                blueSum += blue;
+                inlierCount += 1;
+              });
+
+              if (!inlierCount) {
+                return {
+                  isUniform: false,
+                  confidence: 0,
+                  red: dominantRed,
+                  green: dominantGreen,
+                  blue: dominantBlue,
+                  meanDistance: Infinity,
+                  deviation: Infinity
+                };
+              }
+
+              const averageRed = redSum / inlierCount;
+              const averageGreen = greenSum / inlierCount;
+              const averageBlue = blueSum / inlierCount;
+
+              let distanceSum = 0;
+              let squaredDistanceSum = 0;
+              let measuredCount = 0;
+
+              visitBorderPixels((red, green, blue) => {
+                const distance = Math.sqrt(
+                  Math.pow(red - averageRed, 2) +
+                  Math.pow(green - averageGreen, 2) +
+                  Math.pow(blue - averageBlue, 2)
+                );
+
+                if (distance > 42) {
+                  return;
+                }
+
+                distanceSum += distance;
+                squaredDistanceSum += distance * distance;
+                measuredCount += 1;
+              });
+
+              const meanDistance = measuredCount
+                ? distanceSum / measuredCount
+                : Infinity;
+
+              const variance = measuredCount
+                ? Math.max(
+                    0,
+                    squaredDistanceSum / measuredCount - meanDistance * meanDistance
+                  )
+                : Infinity;
+
+              const deviation = Math.sqrt(variance);
+              const inlierRatio = inlierCount / sampleCount;
+              const dominantRatio = dominantCount / sampleCount;
+              const confidence = Math.max(inlierRatio, dominantRatio);
+
+              return {
+                isUniform:
+                  inlierRatio >= 0.72 &&
+                  meanDistance <= 18 &&
+                  deviation <= 14,
+                confidence,
+                red: averageRed,
+                green: averageGreen,
+                blue: averageBlue,
+                meanDistance,
+                deviation
+              };
+            }
+
+        function brGetForegroundDistanceReference(
+              sourceData,
+              resultData,
+              background,
+              pixelCount
+            ) {
+              const distances = [];
+              const sampleStep = Math.max(1, Math.floor(pixelCount / 14000));
+
+              for (let pixel = 0; pixel < pixelCount; pixel += sampleStep) {
+                const index = pixel * 4;
+                const sourceAlpha = sourceData[index + 3];
+                const resultAlpha = resultData[index + 3];
+
+                if (sourceAlpha < 16 || resultAlpha < 175) {
+                  continue;
+                }
+
+                const distance = brColorDistance(
+                  sourceData[index],
+                  sourceData[index + 1],
+                  sourceData[index + 2],
+                  background
+                );
+
+                if (distance > background.tolerance) {
+                  distances.push(distance);
+                }
+              }
+
+              if (!distances.length) {
+                return Math.max(background.tolerance + 64, 120);
+              }
+
+              return Math.max(
+                background.tolerance + 48,
+                percentile(distances, 0.35)
+              );
+            }
+
+        function brNormalizeAlpha(alpha) {
+              if (alpha <= 6) {
+                return 0;
+              }
+
+              /*
+               * No forzamos los píxeles casi opacos a 255. En bordes antialiasados,
+               * elevar 249-254 a opaco puede convertir una contaminación mínima del
+               * fondo en una línea oscura visible sobre fondos claros.
+               */
+              return alpha;
+            }
+
+        function brRefineUniformBackgroundPixels(
+              sourceData,
+              resultData,
+              background,
+              foregroundReference
+            ) {
+              const denominator = Math.max(
+                1,
+                foregroundReference - background.tolerance
+              );
+
+              const backgroundCoreTolerance = Math.max(
+                4,
+                Math.min(16, background.tolerance * 0.52)
+              );
+
+              const residualModelWeight = Math.max(
+                0.04,
+                Math.min(0.14, 0.14 - background.confidence * 0.1)
+              );
+
+              let changedPixels = 0;
+
+              for (let index = 0; index < sourceData.length; index += 4) {
+                const sourceRed = sourceData[index];
+                const sourceGreen = sourceData[index + 1];
+                const sourceBlue = sourceData[index + 2];
+                const sourceAlpha = sourceData[index + 3];
+                const originalResultAlpha = resultData[index + 3];
+
+                if (sourceAlpha < 16) {
+                  if (originalResultAlpha !== 0) {
+                    resultData[index + 3] = 0;
+                    changedPixels += 1;
+                  }
+                  continue;
+                }
+
+                const distanceFromBackground = brColorDistance(
+                  sourceRed,
+                  sourceGreen,
+                  sourceBlue,
+                  background
+                );
+
+                const modelAlpha = originalResultAlpha / 255;
+                const colorAlpha = brSmoothStep01(
+                  (distanceFromBackground - background.tolerance) / denominator
+                );
+
+                let refinedAlpha = modelAlpha;
+
+                /*
+                 * En fondos uniformes, el color original es una segunda señal de máscara.
+                 * La versión anterior conservaba el 25 % de la máscara del modelo incluso
+                 * cuando el píxel coincidía con el fondo. Eso dejaba aros oscuros dentro de
+                 * letras y halos alrededor de gráficos. Aquí esa confianza residual se
+                 * reduce de forma proporcional a la uniformidad real del fondo.
+                 */
+                if (
+                  distanceFromBackground <= backgroundCoreTolerance &&
+                  modelAlpha < 0.985
+                ) {
+                  refinedAlpha = 0;
+                } else if (colorAlpha < modelAlpha) {
+                  refinedAlpha =
+                    colorAlpha +
+                    (modelAlpha - colorAlpha) * residualModelWeight;
+                } else if (colorAlpha > modelAlpha + 0.1) {
+                  const restoreStrength =
+                    colorAlpha >= 0.82 && modelAlpha <= 0.55
+                      ? 0.5
+                      : 0.22;
+
+                  refinedAlpha =
+                    modelAlpha + (colorAlpha - modelAlpha) * restoreStrength;
+                }
+
+                refinedAlpha = brSmoothStep01(
+                  (refinedAlpha - 0.015) / 0.97
+                );
+
+                if (refinedAlpha < 0.02) {
+                  refinedAlpha = 0;
+                } else if (refinedAlpha > 0.98) {
+                  refinedAlpha = 1;
+                }
+
+                const targetAlpha = Math.round(refinedAlpha * 255);
+
+                if (targetAlpha === 0) {
+                  if (originalResultAlpha !== 0) {
+                    resultData[index + 3] = 0;
+                    changedPixels += 1;
+                  }
+                  continue;
+                }
+
+                if (targetAlpha < 252) {
+                  /*
+                   * Recupera el color del sujeto antes de mezclarlo con el fondo original.
+                   * Para el cálculo usamos también la cobertura sugerida por el color:
+                   * cuando el modelo deja demasiado alfa en un píxel negro/gris de borde,
+                   * la cobertura cromática evita conservar ese negro como un halo visible.
+                   */
+                  const recoveryAlpha = Math.max(
+                    0.055,
+                    Math.min(
+                      1,
+                      colorAlpha > 0.035
+                        ? colorAlpha
+                        : refinedAlpha
+                    )
+                  );
+
+                  const recoveredRed = Math.max(
+                    0,
+                    Math.min(
+                      255,
+                      (sourceRed - (1 - recoveryAlpha) * background.red) /
+                        recoveryAlpha
+                    )
+                  );
+                  const recoveredGreen = Math.max(
+                    0,
+                    Math.min(
+                      255,
+                      (sourceGreen - (1 - recoveryAlpha) * background.green) /
+                        recoveryAlpha
+                    )
+                  );
+                  const recoveredBlue = Math.max(
+                    0,
+                    Math.min(
+                      255,
+                      (sourceBlue - (1 - recoveryAlpha) * background.blue) /
+                        recoveryAlpha
+                    )
+                  );
+
+                  const edgeStrength =
+                    1 - Math.abs(refinedAlpha * 2 - 1);
+                  const backgroundInfluence = 1 - colorAlpha;
+                  const decontaminationStrength = Math.min(
+                    0.94,
+                    edgeStrength * 0.82 + backgroundInfluence * 0.28
+                  ) * Math.min(1, background.confidence);
+
+                  resultData[index] = Math.round(
+                    resultData[index] * (1 - decontaminationStrength) +
+                    recoveredRed * decontaminationStrength
+                  );
+                  resultData[index + 1] = Math.round(
+                    resultData[index + 1] * (1 - decontaminationStrength) +
+                    recoveredGreen * decontaminationStrength
+                  );
+                  resultData[index + 2] = Math.round(
+                    resultData[index + 2] * (1 - decontaminationStrength) +
+                    recoveredBlue * decontaminationStrength
+                  );
+                }
+
+                if (targetAlpha !== originalResultAlpha) {
+                  resultData[index + 3] = targetAlpha;
+                  changedPixels += 1;
+                }
+              }
+
+              return changedPixels;
+            }
+
+        function brRestoreSolidForegroundPlateaus(
+              sourceData,
+              resultData,
+              background,
+              foregroundReference,
+              width,
+              height
+            ) {
+              const strongDistance = Math.max(
+                background.tolerance + 44,
+                Math.min(
+                  background.tolerance + 170,
+                  foregroundReference * 0.58
+                )
+              );
+              const supportDistance = Math.max(
+                background.tolerance + 30,
+                strongDistance * 0.76
+              );
+              const sameColorTolerance = Math.max(
+                18,
+                Math.min(42, background.tolerance * 1.2 + 14)
+              );
+
+              let changedPixels = 0;
+
+              /*
+               * Protege superficies gráficas sólidas (texto, logotipos, iconos, formas
+               * planas) que IMG.LY haya dejado con vetas o zonas semitransparentes.
+               *
+               * La decisión NO depende solo del alfa del modelo. El píxel debe:
+               * 1) estar claramente lejos del color de fondo;
+               * 2) pertenecer a una meseta de color localmente estable; y
+               * 3) estar rodeado mayoritariamente por otros píxeles de primer plano.
+               *
+               * De esta forma recuperamos el interior de letras blancas sin endurecer
+               * los bordes antialiasados ni aplicar el mismo tratamiento a fotografías.
+               */
+              for (let pass = 0; pass < 3; pass += 1) {
+                const snapshot = new Uint8ClampedArray(resultData);
+                let passChanges = 0;
+
+                for (let y = 1; y < height - 1; y += 1) {
+                  for (let x = 1; x < width - 1; x += 1) {
+                    const index = (y * width + x) * 4;
+                    const currentAlpha = snapshot[index + 3];
+
+                    if (
+                      currentAlpha >= 254 ||
+                      sourceData[index + 3] < 16
+                    ) {
+                      continue;
+                    }
+
+                    const centerRed = sourceData[index];
+                    const centerGreen = sourceData[index + 1];
+                    const centerBlue = sourceData[index + 2];
+                    const centerDistance = brColorDistance(
+                      centerRed,
+                      centerGreen,
+                      centerBlue,
+                      background
+                    );
+
+                    if (centerDistance < strongDistance) {
+                      continue;
+                    }
+
+                    let foregroundNeighbors = 0;
+                    let similarNeighbors = 0;
+                    let strongOpaqueNeighbors = 0;
+                    let neighborCount = 0;
+
+                    for (let ny = y - 1; ny <= y + 1; ny += 1) {
+                      for (let nx = x - 1; nx <= x + 1; nx += 1) {
+                        if (nx === x && ny === y) {
+                          continue;
+                        }
+
+                        const neighborIndex = (ny * width + nx) * 4;
+
+                        if (sourceData[neighborIndex + 3] < 16) {
+                          continue;
+                        }
+
+                        neighborCount += 1;
+
+                        const neighborDistance = brColorDistance(
+                          sourceData[neighborIndex],
+                          sourceData[neighborIndex + 1],
+                          sourceData[neighborIndex + 2],
+                          background
+                        );
+
+                        if (neighborDistance >= supportDistance) {
+                          foregroundNeighbors += 1;
+                        }
+
+                        const localColorDistance = Math.sqrt(
+                          Math.pow(sourceData[neighborIndex] - centerRed, 2) +
+                          Math.pow(sourceData[neighborIndex + 1] - centerGreen, 2) +
+                          Math.pow(sourceData[neighborIndex + 2] - centerBlue, 2)
+                        );
+
+                        if (localColorDistance <= sameColorTolerance) {
+                          similarNeighbors += 1;
+                        }
+
+                        if (
+                          snapshot[neighborIndex + 3] >= 238 &&
+                          neighborDistance >= supportDistance
+                        ) {
+                          strongOpaqueNeighbors += 1;
+                        }
+                      }
+                    }
+
+                    if (!neighborCount) {
+                      continue;
+                    }
+
+                    const foregroundRatio = foregroundNeighbors / neighborCount;
+                    const similarRatio = similarNeighbors / neighborCount;
+                    const opaqueSupportRatio = strongOpaqueNeighbors / neighborCount;
+
+                    /*
+                     * Una meseta de color fuerte es una señal especialmente fiable en
+                     * texto blanco/negro y gráficos planos. Si el modelo abrió un hueco
+                     * grande, no exigimos que los vecinos ya sean opacos; el propio RGB
+                     * original y la continuidad cromática pueden reconstruirlo.
+                     */
+                    const veryFlatInterior =
+                      foregroundRatio >= 0.875 &&
+                      similarRatio >= 0.75;
+
+                    const supportedInterior =
+                      foregroundRatio >= 0.75 &&
+                      similarRatio >= 0.625 &&
+                      opaqueSupportRatio >= 0.25;
+
+                    if (!veryFlatInterior && !supportedInterior) {
+                      continue;
+                    }
+
+                    let targetAlpha;
+
+                    if (
+                      veryFlatInterior &&
+                      centerDistance >= strongDistance * 1.08
+                    ) {
+                      targetAlpha = 255;
+                    } else {
+                      targetAlpha = Math.max(
+                        currentAlpha,
+                        Math.round(
+                          currentAlpha +
+                          (252 - currentAlpha) *
+                          (0.72 + opaqueSupportRatio * 0.2)
+                        )
+                      );
+                    }
+
+                    if (targetAlpha <= currentAlpha) {
+                      continue;
+                    }
+
+                    const sourceMix = veryFlatInterior
+                      ? 1
+                      : Math.min(
+                          0.94,
+                          0.68 + similarRatio * 0.22
+                        );
+
+                    resultData[index] = Math.round(
+                      snapshot[index] * (1 - sourceMix) +
+                      centerRed * sourceMix
+                    );
+                    resultData[index + 1] = Math.round(
+                      snapshot[index + 1] * (1 - sourceMix) +
+                      centerGreen * sourceMix
+                    );
+                    resultData[index + 2] = Math.round(
+                      snapshot[index + 2] * (1 - sourceMix) +
+                      centerBlue * sourceMix
+                    );
+                    resultData[index + 3] = targetAlpha;
+                    passChanges += 1;
+                  }
+                }
+
+                changedPixels += passChanges;
+
+                if (!passChanges) {
+                  break;
+                }
+              }
+
+              return changedPixels;
+            }
+
+        function brRestoreConfidentForegroundInteriors(
+              sourceData,
+              resultData,
+              background,
+              foregroundReference,
+              width,
+              height
+            ) {
+              const pixelCount = width * height;
+              const strongDistance = Math.max(
+                background.tolerance + 54,
+                Math.min(
+                  background.tolerance + 150,
+                  foregroundReference * 0.72
+                )
+              );
+              const supportDistance = Math.max(
+                background.tolerance + 40,
+                strongDistance * 0.88
+              );
+              const scanRadius = Math.max(
+                2,
+                Math.min(5, Math.round(Math.min(width, height) / 220))
+              );
+
+              let changedPixels = 0;
+
+              /*
+               * IMG.LY puede producir "mordidas" o vetas semitransparentes dentro de
+               * gráficos sólidos aunque el color original esté muy lejos del fondo.
+               * Aquí reconstruimos únicamente esas zonas INTERNAS: el píxel debe ser
+               * cromáticamente un primer plano fuerte y, además, estar rodeado por
+               * primer plano confiable. Así no endurecemos el antialiasing exterior.
+               */
+              for (let pass = 0; pass < 4; pass += 1) {
+                const snapshot = new Uint8ClampedArray(resultData);
+                let passChanges = 0;
+
+                function isStrongForeground(x, y) {
+                  if (x < 0 || x >= width || y < 0 || y >= height) {
+                    return false;
+                  }
+
+                  const index = (y * width + x) * 4;
+
+                  if (
+                    snapshot[index + 3] < 228 ||
+                    sourceData[index + 3] < 16
+                  ) {
+                    return false;
+                  }
+
+                  return brColorDistance(
+                    sourceData[index],
+                    sourceData[index + 1],
+                    sourceData[index + 2],
+                    background
+                  ) >= supportDistance;
+                }
+
+                function hasSupportInDirection(x, y, dx, dy) {
+                  for (let step = 1; step <= scanRadius; step += 1) {
+                    const nx = x + dx * step;
+                    const ny = y + dy * step;
+
+                    if (nx < 0 || nx >= width || ny < 0 || ny >= height) {
+                      return false;
+                    }
+
+                    if (isStrongForeground(nx, ny)) {
+                      return true;
+                    }
+
+                    const index = (ny * width + nx) * 4;
+                    const neighborDistance = brColorDistance(
+                      sourceData[index],
+                      sourceData[index + 1],
+                      sourceData[index + 2],
+                      background
+                    );
+
+                    /*
+                     * Si encontramos fondo real antes de hallar soporte, esta dirección
+                     * sale del sujeto y no debe participar en el relleno interior.
+                     */
+                    if (
+                      snapshot[index + 3] <= 10 &&
+                      neighborDistance <= background.tolerance * 1.45
+                    ) {
+                      return false;
+                    }
+                  }
+
+                  return false;
+                }
+
+                for (let y = 0; y < height; y += 1) {
+                  for (let x = 0; x < width; x += 1) {
+                    const pixel = y * width + x;
+                    const index = pixel * 4;
+                    const currentAlpha = snapshot[index + 3];
+
+                    if (
+                      currentAlpha >= 250 ||
+                      sourceData[index + 3] < 16
+                    ) {
+                      continue;
+                    }
+
+                    const distanceFromBackground = brColorDistance(
+                      sourceData[index],
+                      sourceData[index + 1],
+                      sourceData[index + 2],
+                      background
+                    );
+
+                    if (distanceFromBackground < strongDistance) {
+                      continue;
+                    }
+
+                    let strongNeighbors = 0;
+                    let checkedNeighbors = 0;
+
+                    const minY = Math.max(0, y - 1);
+                    const maxY = Math.min(height - 1, y + 1);
+                    const minX = Math.max(0, x - 1);
+                    const maxX = Math.min(width - 1, x + 1);
+
+                    for (let ny = minY; ny <= maxY; ny += 1) {
+                      for (let nx = minX; nx <= maxX; nx += 1) {
+                        if (nx === x && ny === y) {
+                          continue;
+                        }
+
+                        checkedNeighbors += 1;
+
+                        if (isStrongForeground(nx, ny)) {
+                          strongNeighbors += 1;
+                        }
+                      }
+                    }
+
+                    const horizontalEnclosure =
+                      hasSupportInDirection(x, y, -1, 0) &&
+                      hasSupportInDirection(x, y, 1, 0);
+                    const verticalEnclosure =
+                      hasSupportInDirection(x, y, 0, -1) &&
+                      hasSupportInDirection(x, y, 0, 1);
+                    const diagonalOneEnclosure =
+                      hasSupportInDirection(x, y, -1, -1) &&
+                      hasSupportInDirection(x, y, 1, 1);
+                    const diagonalTwoEnclosure =
+                      hasSupportInDirection(x, y, 1, -1) &&
+                      hasSupportInDirection(x, y, -1, 1);
+
+                    const enclosureCount =
+                      Number(horizontalEnclosure) +
+                      Number(verticalEnclosure) +
+                      Number(diagonalOneEnclosure) +
+                      Number(diagonalTwoEnclosure);
+
+                    const localSupport = checkedNeighbors
+                      ? strongNeighbors / checkedNeighbors
+                      : 0;
+
+                    /*
+                     * Una sola pareja opuesta es suficiente únicamente cuando también
+                     * existe apoyo local. Dos o más parejas indican claramente un hueco
+                     * interno. Esto evita convertir el borde exterior en una silueta dura.
+                     */
+                    const isInteriorDamage =
+                      enclosureCount >= 2 ||
+                      (
+                        enclosureCount >= 1 &&
+                        localSupport >= 0.34
+                      ) ||
+                      localSupport >= 0.72;
+
+                    if (!isInteriorDamage) {
+                      continue;
+                    }
+
+                    const distanceConfidence = brSmoothStep01(
+                      (distanceFromBackground - strongDistance) /
+                      Math.max(1, foregroundReference - strongDistance)
+                    );
+                    const structureConfidence = Math.min(
+                      1,
+                      enclosureCount * 0.34 + localSupport * 0.7
+                    );
+                    const restoreConfidence = Math.min(
+                      1,
+                      0.58 +
+                      distanceConfidence * 0.18 +
+                      structureConfidence * 0.32
+                    );
+
+                    let targetAlpha = Math.round(
+                      currentAlpha +
+                      (255 - currentAlpha) * restoreConfidence
+                    );
+
+                    if (
+                      enclosureCount >= 2 &&
+                      localSupport >= 0.45 &&
+                      distanceConfidence >= 0.2
+                    ) {
+                      targetAlpha = 255;
+                    } else if (targetAlpha >= 248) {
+                      targetAlpha = 248;
+                    }
+
+                    if (targetAlpha <= currentAlpha) {
+                      continue;
+                    }
+
+                    const restoreMix = Math.min(
+                      0.92,
+                      (targetAlpha - currentAlpha) / 255 + 0.24
+                    );
+
+                    resultData[index] = Math.round(
+                      snapshot[index] * (1 - restoreMix) +
+                      sourceData[index] * restoreMix
+                    );
+                    resultData[index + 1] = Math.round(
+                      snapshot[index + 1] * (1 - restoreMix) +
+                      sourceData[index + 1] * restoreMix
+                    );
+                    resultData[index + 2] = Math.round(
+                      snapshot[index + 2] * (1 - restoreMix) +
+                      sourceData[index + 2] * restoreMix
+                    );
+                    resultData[index + 3] = targetAlpha;
+                    passChanges += 1;
+                  }
+                }
+
+                changedPixels += passChanges;
+
+                if (!passChanges) {
+                  break;
+                }
+              }
+
+              return changedPixels;
+            }
+
+        function brCleanUniformBackgroundFringes(
+              sourceData,
+              resultData,
+              background,
+              width,
+              height
+            ) {
+              const pixelCount = width * height;
+              const coreTolerance = Math.max(
+                4,
+                Math.min(16, background.tolerance * 0.52)
+              );
+              const haloTolerance = Math.max(
+                coreTolerance + 10,
+                Math.min(54, background.tolerance * 1.75 + 10)
+              );
+
+              let changedPixels = 0;
+
+              /*
+               * Hace crecer únicamente regiones que YA son transparentes hacia píxeles
+               * vecinos cuyo color sigue perteneciendo al fondo. Esto limpia el borde de
+               * huecos cerrados (por ejemplo el interior de una "o") sin aplicar un
+               * borrado cromático global sobre posibles detalles legítimos del sujeto.
+               */
+              for (let pass = 0; pass < 3; pass += 1) {
+                const alphaSnapshot = new Uint8Array(pixelCount);
+
+                for (let pixel = 0; pixel < pixelCount; pixel += 1) {
+                  alphaSnapshot[pixel] = resultData[pixel * 4 + 3];
+                }
+
+                let passChanges = 0;
+
+                for (let y = 0; y < height; y += 1) {
+                  for (let x = 0; x < width; x += 1) {
+                    const pixel = y * width + x;
+                    const index = pixel * 4;
+                    const currentAlpha = alphaSnapshot[pixel];
+
+                    if (currentAlpha === 0 || sourceData[index + 3] < 16) {
+                      continue;
+                    }
+
+                    const distanceFromBackground = brColorDistance(
+                      sourceData[index],
+                      sourceData[index + 1],
+                      sourceData[index + 2],
+                      background
+                    );
+
+                    if (distanceFromBackground > haloTolerance) {
+                      continue;
+                    }
+
+                    let neighborCount = 0;
+                    let transparentNeighbors = 0;
+                    let weakNeighbors = 0;
+
+                    const minY = Math.max(0, y - 1);
+                    const maxY = Math.min(height - 1, y + 1);
+                    const minX = Math.max(0, x - 1);
+                    const maxX = Math.min(width - 1, x + 1);
+
+                    for (let ny = minY; ny <= maxY; ny += 1) {
+                      for (let nx = minX; nx <= maxX; nx += 1) {
+                        if (nx === x && ny === y) {
+                          continue;
+                        }
+
+                        const neighborAlpha = alphaSnapshot[ny * width + nx];
+                        neighborCount += 1;
+
+                        if (neighborAlpha <= 18) {
+                          transparentNeighbors += 1;
+                        } else if (neighborAlpha <= 84) {
+                          weakNeighbors += 1;
+                        }
+                      }
+                    }
+
+                    if (!neighborCount || (!transparentNeighbors && !weakNeighbors)) {
+                      continue;
+                    }
+
+                    const proximityToBackground =
+                      1 - brSmoothStep01(
+                        (distanceFromBackground - coreTolerance) /
+                        Math.max(1, haloTolerance - coreTolerance)
+                      );
+
+                    const support = Math.min(
+                      1,
+                      (
+                        transparentNeighbors +
+                        weakNeighbors * 0.38
+                      ) / Math.max(1, neighborCount * 0.42)
+                    );
+
+                    let targetAlpha = currentAlpha;
+
+                    if (
+                      distanceFromBackground <= coreTolerance &&
+                      (transparentNeighbors > 0 || weakNeighbors >= 2)
+                    ) {
+                      targetAlpha = 0;
+                    } else {
+                      const reduction = Math.min(
+                        0.92,
+                        proximityToBackground *
+                        support *
+                        (0.72 + pass * 0.08)
+                      );
+
+                      targetAlpha = Math.round(
+                        currentAlpha * (1 - reduction)
+                      );
+
+                      if (targetAlpha <= 7) {
+                        targetAlpha = 0;
+                      }
+                    }
+
+                    if (targetAlpha < resultData[index + 3]) {
+                      resultData[index + 3] = targetAlpha;
+                      passChanges += 1;
+                    }
+                  }
+                }
+
+                changedPixels += passChanges;
+
+                if (!passChanges) {
+                  break;
+                }
+              }
+
+              return changedPixels;
+            }
+
+        function brDecontaminateEdgeColorsFromForeground(
+              sourceData,
+              resultData,
+              background,
+              width,
+              height
+            ) {
+              const snapshot = new Uint8ClampedArray(resultData);
+              let changedPixels = 0;
+
+              for (let y = 0; y < height; y += 1) {
+                for (let x = 0; x < width; x += 1) {
+                  const index = (y * width + x) * 4;
+                  const alpha = snapshot[index + 3];
+
+                  if (alpha <= 8 || alpha >= 255) {
+                    continue;
+                  }
+
+                  const sourceVectorRed = sourceData[index] - background.red;
+                  const sourceVectorGreen = sourceData[index + 1] - background.green;
+                  const sourceVectorBlue = sourceData[index + 2] - background.blue;
+                  const sourceMagnitude = Math.sqrt(
+                    sourceVectorRed * sourceVectorRed +
+                    sourceVectorGreen * sourceVectorGreen +
+                    sourceVectorBlue * sourceVectorBlue
+                  );
+
+                  if (sourceMagnitude < background.tolerance * 0.8) {
+                    continue;
+                  }
+
+                  let bestIndex = -1;
+                  let bestScore = -Infinity;
+
+                  const minY = Math.max(0, y - 2);
+                  const maxY = Math.min(height - 1, y + 2);
+                  const minX = Math.max(0, x - 2);
+                  const maxX = Math.min(width - 1, x + 2);
+
+                  for (let ny = minY; ny <= maxY; ny += 1) {
+                    for (let nx = minX; nx <= maxX; nx += 1) {
+                      if (nx === x && ny === y) {
+                        continue;
+                      }
+
+                      const neighborIndex = (ny * width + nx) * 4;
+                      const neighborAlpha = snapshot[neighborIndex + 3];
+
+                      if (neighborAlpha < 252) {
+                        continue;
+                      }
+
+                      const neighborVectorRed =
+                        snapshot[neighborIndex] - background.red;
+                      const neighborVectorGreen =
+                        snapshot[neighborIndex + 1] - background.green;
+                      const neighborVectorBlue =
+                        snapshot[neighborIndex + 2] - background.blue;
+                      const neighborMagnitude = Math.sqrt(
+                        neighborVectorRed * neighborVectorRed +
+                        neighborVectorGreen * neighborVectorGreen +
+                        neighborVectorBlue * neighborVectorBlue
+                      );
+
+                      if (neighborMagnitude <= sourceMagnitude + 8) {
+                        continue;
+                      }
+
+                      const cosine =
+                        (
+                          sourceVectorRed * neighborVectorRed +
+                          sourceVectorGreen * neighborVectorGreen +
+                          sourceVectorBlue * neighborVectorBlue
+                        ) /
+                        Math.max(1, sourceMagnitude * neighborMagnitude);
+
+                      if (cosine < 0.9) {
+                        continue;
+                      }
+
+                      const spatialDistance =
+                        Math.abs(nx - x) + Math.abs(ny - y);
+                      const score =
+                        cosine * 1000 +
+                        neighborMagnitude -
+                        spatialDistance * 10;
+
+                      if (score > bestScore) {
+                        bestScore = score;
+                        bestIndex = neighborIndex;
+                      }
+                    }
+                  }
+
+                  if (bestIndex < 0) {
+                    continue;
+                  }
+
+                  const edgeAmount = 1 - alpha / 255;
+                  const strength = Math.min(
+                    0.88,
+                    (0.28 + edgeAmount * 0.62) *
+                    Math.min(1, background.confidence)
+                  );
+
+                  const red = Math.round(
+                    snapshot[index] * (1 - strength) +
+                    snapshot[bestIndex] * strength
+                  );
+                  const green = Math.round(
+                    snapshot[index + 1] * (1 - strength) +
+                    snapshot[bestIndex + 1] * strength
+                  );
+                  const blue = Math.round(
+                    snapshot[index + 2] * (1 - strength) +
+                    snapshot[bestIndex + 2] * strength
+                  );
+
+                  if (
+                    red !== resultData[index] ||
+                    green !== resultData[index + 1] ||
+                    blue !== resultData[index + 2]
+                  ) {
+                    resultData[index] = red;
+                    resultData[index + 1] = green;
+                    resultData[index + 2] = blue;
+                    changedPixels += 1;
+                  }
+                }
+              }
+
+              return changedPixels;
+            }
+
+        function brNormalizeResultAlpha(resultData) {
+              let changedPixels = 0;
+
+              for (let index = 3; index < resultData.length; index += 4) {
+                const normalized = brNormalizeAlpha(resultData[index]);
+
+                if (normalized !== resultData[index]) {
+                  resultData[index] = normalized;
+                  changedPixels += 1;
+                }
+              }
+
+              return changedPixels;
+            }
+
+        async function brRefineBackgroundRemovalResult(blob, sourceImage) {
+              if (!sourceImage || !blob) {
+                return blob;
+              }
+
+              const resultUrl = URL.createObjectURL(blob);
+
+              try {
+                const resultImage = await brLoadImageFromUrl(resultUrl);
+                const sourcePixels = brGetCanvasPixelsFromImage(sourceImage);
+                const resultPixels = brGetCanvasPixelsFromImage(resultImage);
+
+                if (!sourcePixels || !resultPixels) {
+                  return blob;
+                }
+
+                if (
+                  sourcePixels.canvas.width !== resultPixels.canvas.width ||
+                  sourcePixels.canvas.height !== resultPixels.canvas.height
+                ) {
+                  return blob;
+                }
+
+                const width = sourcePixels.canvas.width;
+                const height = sourcePixels.canvas.height;
+                const pixelCount = width * height;
+                const sourceData = sourcePixels.imageData.data;
+                const resultData = resultPixels.imageData.data;
+
+                const backgroundAnalysis = brAnalyzeBorderBackground(
+                  sourcePixels.imageData,
+                  width,
+                  height
+                );
+
+                let changedPixels = 0;
+
+                if (backgroundAnalysis.isUniform) {
+                  const tolerance = Math.max(
+                    8,
+                    Math.min(
+                      34,
+                      backgroundAnalysis.meanDistance +
+                      backgroundAnalysis.deviation * 2.4 +
+                      6
+                    )
+                  );
+
+                  const background = {
+                    red: backgroundAnalysis.red,
+                    green: backgroundAnalysis.green,
+                    blue: backgroundAnalysis.blue,
+                    tolerance,
+                    confidence: backgroundAnalysis.confidence
+                  };
+
+                  const foregroundReference = brGetForegroundDistanceReference(
+                    sourceData,
+                    resultData,
+                    background,
+                    pixelCount
+                  );
+
+                  changedPixels += brRefineUniformBackgroundPixels(
+                    sourceData,
+                    resultData,
+                    background,
+                    foregroundReference
+                  );
+
+                  changedPixels += brRestoreSolidForegroundPlateaus(
+                    sourceData,
+                    resultData,
+                    background,
+                    foregroundReference,
+                    width,
+                    height
+                  );
+
+                  changedPixels += brRestoreConfidentForegroundInteriors(
+                    sourceData,
+                    resultData,
+                    background,
+                    foregroundReference,
+                    width,
+                    height
+                  );
+
+                  /*
+                   * Segunda pasada después de la reconstrucción estructural: los píxeles
+                   * recién recuperados sirven de apoyo para cerrar vetas interiores que
+                   * antes eran demasiado anchas para la máscara del modelo.
+                   */
+                  changedPixels += brRestoreSolidForegroundPlateaus(
+                    sourceData,
+                    resultData,
+                    background,
+                    foregroundReference,
+                    width,
+                    height
+                  );
+
+                  changedPixels += brCleanUniformBackgroundFringes(
+                    sourceData,
+                    resultData,
+                    background,
+                    width,
+                    height
+                  );
+
+                  changedPixels += brDecontaminateEdgeColorsFromForeground(
+                    sourceData,
+                    resultData,
+                    background,
+                    width,
+                    height
+                  );
+                }
+
+                changedPixels += brNormalizeResultAlpha(resultData);
+
+                if (!changedPixels) {
+                  return blob;
+                }
+
+                resultPixels.context.putImageData(
+                  resultPixels.imageData,
+                  0,
+                  0
+                );
+
+                return await brCanvasToBlob(
+                  resultPixels.canvas,
+                  "image/png",
+                  1
+                );
+              } finally {
+                URL.revokeObjectURL(resultUrl);
+              }
+            }
+
         async function assetToFileForBackgroundRemoval(asset) {
             if (asset?.file instanceof File) return asset.file;
             const source = asset?.dataUrl || asset?.url;
@@ -6235,7 +7739,15 @@ c2.imagen: "2"</code></pre>
                 const index=Number(slide.design?.backgroundIndex);
                 if(!Number.isInteger(index)||!state.backgrounds[index])return;
                 sourceAsset=state.backgrounds[index];targetCollection=state.backgrounds;
-                applyIndex=(newIndex)=>{slide.imageIndex=String(newIndex);slide.baseImageHidden=false;slide.design=buildDesign(slide,state.currentIndex);state.selection={kind:'baseImage'};};
+                applyIndex=(newIndex)=>{
+                    slide.imageIndex=String(newIndex);
+                    slide.baseImageHidden=false;
+                    if(!slide.design) slide.design=buildDesign(slide,state.currentIndex);
+                    slide.design.backgroundIndex=newIndex;
+                    if(slide.design.backgroundMode==='solid')slide.design.backgroundMode='full-overlay';
+                    if(slide.design.backgroundMode==='gradient')slide.design.backgroundMode='gradient-image';
+                    state.selection={kind:'baseImage'};
+                };
             } else if(selection.kind==='backgroundLayer') {
                 const layer=selectedLayer(slide,selection);if(!layer||!state.backgrounds[layer.assetIndex])return;
                 sourceAsset=state.backgrounds[layer.assetIndex];targetCollection=state.backgrounds;
@@ -6252,7 +7764,13 @@ c2.imagen: "2"</code></pre>
             try {
                 const removeBackground=await ensureBackgroundRemovalLibrary();
                 const file=await assetToFileForBackgroundRemoval(sourceAsset);
-                const blob=await removeBackground(file,{publicPath:BACKGROUND_REMOVAL_MODEL_PATH,debug:false,output:{format:'image/png',quality:1}});
+                let blob=await removeBackground(file,{publicPath:BACKGROUND_REMOVAL_MODEL_PATH,debug:false,output:{format:'image/png',quality:1}});
+
+                // Mismo refinamiento v2.1 del Background Remover de Alfora:
+                // limpia halos en fondos uniformes, recupera interiores sólidos
+                // y descontamina bordes antes de crear el nuevo recurso transparente.
+                blob=await brRefineBackgroundRemovalResult(blob,sourceAsset.image);
+
                 const processed=await createProcessedAsset(blob,sourceAsset);
                 const newIndex=targetCollection.length;
                 targetCollection.push(processed);
@@ -6436,15 +7954,89 @@ c2.imagen: "2"</code></pre>
             showToast(tr('messages.generated'));
         }
 
-        function selectFormat(format) {
+        function formatButtonLabel(format) {
+            const button = document.querySelector(`.cg-format-button[data-format="${format}"]`);
+            return button?.querySelector('span:last-child')?.textContent?.trim() || String(format);
+        }
+
+        function syncFormatApplyPanelLanguage() {
+            const english = String(document.documentElement.lang || 'es').toLowerCase().startsWith('en');
+            const label = formatButtonLabel(pendingFormat);
+
+            formatApplyPanelTitle.textContent = english
+                ? `Apply ${label}`
+                : `Aplicar ${label}`;
+
+            formatApplyPanelText.textContent = english
+                ? 'Choose where to apply this layout without regenerating the design.'
+                : 'Elige dónde aplicar este formato sin regenerar el diseño.';
+
+            applyFormatCurrentButton.textContent = english
+                ? 'Apply only to this slide'
+                : 'Aplicar solo a esta diapositiva';
+
+            applyFormatAllButton.textContent = english
+                ? 'Apply to all slides'
+                : 'Aplicar a todas las diapositivas';
+
+            closeFormatApplyPanelButton.setAttribute('aria-label', english ? 'Close' : 'Cerrar');
+        }
+
+        function closeFormatApplyPanel() {
+            formatApplyPanel.hidden = true;
+            pendingFormat = null;
+        }
+
+        function resolveRequestedFormatForSlide(format, slide, index) {
+            if (format !== 'random') return clamp(Number(format) || 1, 1, 6);
+            const rand = seededRandom(((slide?.seed || 0) + index * 977 + Date.now()) >>> 0);
+            return 1 + Math.floor(rand() * 6);
+        }
+
+        function applyFormatWithoutRegenerating(slide, index, format) {
+            if (!slide) return;
+            if (!slide.design) slide.design = buildDesign(slide, index);
+
+            // Solo cambia el tipo de composición. No toca fondo, colores,
+            // imágenes, tamaños, posiciones, estilos, paneles ni capas manuales.
+            slide.design.format = resolveRequestedFormatForSlide(format, slide, index);
+        }
+
+        function applyPendingFormat(scope = 'current') {
+            if (!pendingFormat) return;
+            const format = pendingFormat;
+
             state.selectedFormat = format;
-            document.querySelectorAll('.cg-format-button').forEach((button) => button.classList.toggle('is-active', button.dataset.format === format));
-            state.slides.forEach((slide) => prepareSlideForAutomaticProposal(slide));
-            regenerateDesigns(false);
-            state.slides.forEach((slide) => reflowExtraTextsForAutomaticProposal(slide));
+
+            if (scope === 'all') {
+                state.slides.forEach((slide, index) => {
+                    applyFormatWithoutRegenerating(slide, index, format);
+                });
+            } else {
+                applyFormatWithoutRegenerating(state.slides[state.currentIndex], state.currentIndex, format);
+            }
+
+            document.querySelectorAll('.cg-format-button').forEach((button) => {
+                button.classList.toggle('is-active', button.dataset.format === format);
+            });
+
             state.selection = null;
-            renderCurrentSlide();
+            closeFormatApplyPanel();
+            renderSlideCards();
+            renderDots();
+            syncEditControls();
+            queueRender();
             closeMobilePanels();
+        }
+
+        function selectFormat(format) {
+            pendingFormat = format;
+            state.selectedFormat = format;
+            document.querySelectorAll('.cg-format-button').forEach((button) => {
+                button.classList.toggle('is-active', button.dataset.format === format);
+            });
+            syncFormatApplyPanelLanguage();
+            formatApplyPanel.hidden = false;
         }
 
         function canvasToBlob(targetCanvas) {
@@ -6967,6 +8559,10 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
             button.addEventListener('click', () => selectFormat(button.dataset.format));
         });
 
+        applyFormatCurrentButton.addEventListener('click', () => applyPendingFormat('current'));
+        applyFormatAllButton.addEventListener('click', () => applyPendingFormat('all'));
+        closeFormatApplyPanelButton.addEventListener('click', closeFormatApplyPanel);
+
         addSlideButton.addEventListener('click', () => addSlide());
 
         slideList.addEventListener('input', (event) => {
@@ -6997,19 +8593,16 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
 
             slide.imageIndex = target.value;
 
+            if (!slide.design) {
+                slide.design = buildDesign(slide, index);
+            }
+
             if (target.value === 'none') {
                 // Quitar únicamente la imagen de fondo.
                 // Conserva la propuesta, posiciones, textos y demás elementos.
                 slide.baseImageHidden = true;
-
-                if (!slide.design) {
-                    slide.design = buildDesign(slide, index);
-                }
-
                 slide.design.backgroundIndex = null;
 
-                // Si la propuesta dependía de una imagen,
-                // convertir el fondo en un gradiente de la paleta actual.
                 if (
                     ['split', 'full-overlay', 'gradient-image', 'transparent-feature']
                         .includes(slide.design.backgroundMode)
@@ -7018,7 +8611,28 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
                 }
             } else {
                 slide.baseImageHidden = false;
-                slide.design = buildDesign(slide, index);
+
+                if (target.value === 'auto') {
+                    if (state.backgrounds.length) {
+                        slide.design.backgroundIndex = remapAssetIndexWithoutRegeneration(
+                            slide.design.backgroundIndex ?? 0,
+                            state.backgrounds.length
+                        );
+                    } else {
+                        slide.design.backgroundIndex = null;
+                    }
+                } else {
+                    const explicitIndex = Number(target.value);
+                    if (Number.isInteger(explicitIndex) && state.backgrounds[explicitIndex]) {
+                        slide.design.backgroundIndex = explicitIndex;
+                    }
+                }
+
+                // Hacer visible la imagen elegida sin recalcular el resto del diseño.
+                if (slide.design.backgroundIndex !== null) {
+                    if (slide.design.backgroundMode === 'solid') slide.design.backgroundMode = 'full-overlay';
+                    if (slide.design.backgroundMode === 'gradient') slide.design.backgroundMode = 'gradient-image';
+                }
             }
 
             if (index === state.currentIndex) {
@@ -7139,11 +8753,23 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
         paletteGrid.addEventListener('input', (event) => {
             if (event.target.type !== 'color') return;
             const index = Number(event.target.dataset.index);
+            const previousColor = String(state.palette[index] || '').toUpperCase();
             state.palette[index] = event.target.value.toUpperCase();
             state.paletteWeights[index] = Math.max(.15, state.paletteWeights[index] || (1 - index * .12));
             event.target.nextElementSibling.textContent = state.palette[index];
             state.paletteFromLogo = false;
-            regenerateDesigns(false);
+
+            // Cambiar un color de la paleta no debe crear una propuesta nueva.
+            // Solo sustituimos ese color donde ya participa en el diseño actual.
+            state.slides.forEach((slide) => {
+                if (!slide.design?.colors) return;
+                slide.design.colors = slide.design.colors.map((color) =>
+                    String(color || '').toUpperCase() === previousColor
+                        ? state.palette[index]
+                        : color
+                );
+            });
+
             queueRender();
         });
 
@@ -7203,7 +8829,7 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
             if (event.key === 'ArrowRight') navigate(1);
             if (event.key === 'Escape') {
                 state.selection = null;
-                closeToolsPopup(); closeContextMenu(); closeAssetPicker(); closeMobilePanels(); queueRender();
+                closeToolsPopup(); closeContextMenu(); closeAssetPicker(); closeFormatApplyPanel(); closeMobilePanels(); queueRender();
             }
             if ((event.key === 'Delete' || event.key === 'Backspace') && state.selection) deleteSelection(state.selection);
         });
@@ -7219,6 +8845,7 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
                 closeAssetPicker();
                 syncTranslatedAttributes();
                 renderPaletteEditor();
+                if (!formatApplyPanel.hidden) syncFormatApplyPanelLanguage();
                 queueRender();
             });
         });
@@ -7241,35 +8868,35 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
         syncTranslatedAttributes();
         syncEditControls();
         queueRender();
+
+        /* =========================================================
+           PRÓXIMAS ACTUALIZACIONES · CAROUSEL GENERATOR
+
+           1. PC FULL HD
+              - Cuando el usuario seleccione el formato PC Full HD,
+                ofrecer opciones adicionales de exportación:
+                · PowerPoint (.pptx)
+                · PDF
+                · Mantener también la descarga actual de imágenes.
+
+           2. REMOVEDOR DE FONDO
+              - Separar toda la lógica del removedor de fondo de imágenes
+                del archivo principal carousel-generator.html.
+              - Crear un script independiente y reutilizable.
+              - La idea es que cualquier herramienta de Alfora pueda llamar
+                al mismo motor de eliminación de fondo sin duplicar código.
+              - Mantener modelo, carga de librería, procesamiento y errores
+                centralizados en ese script compartido.
+
+           3. EXPERIENCIA MÓVIL
+              - Revisar y mejorar específicamente la UX del generador
+                de carruseles en dispositivos móviles.
+              - Priorizar área de trabajo, controles contextuales,
+                edición de textos, selección de elementos y navegación.
+              - Reducir interacciones incómodas y aprovechar mejor
+                el espacio disponible en pantallas pequeñas.
+           ========================================================= */
     })();
-
-    /* =========================================================
-   PRÓXIMAS ACTUALIZACIONES · CAROUSEL GENERATOR
-
-   1. PC FULL HD
-      - Cuando el usuario seleccione el formato PC Full HD,
-        ofrecer opciones adicionales de exportación:
-        · PowerPoint (.pptx)
-        · PDF
-        · Mantener también la descarga actual de imágenes.
-
-   2. REMOVEDOR DE FONDO
-      - Separar toda la lógica del removedor de fondo de imágenes
-        del archivo principal carousel-generator.html.
-      - Crear un script independiente y reutilizable.
-      - La idea es que cualquier herramienta de Alfora pueda llamar
-        al mismo motor de eliminación de fondo sin duplicar código.
-      - Mantener modelo, carga de librería, procesamiento y errores
-        centralizados en ese script compartido.
-
-   3. EXPERIENCIA MÓVIL
-      - Revisar y mejorar específicamente la UX del generador
-        de carruseles en dispositivos móviles.
-      - Priorizar área de trabajo, controles contextuales,
-        edición de textos, selección de elementos y navegación.
-      - Reducir interacciones incómodas y aprovechar mejor
-        el espacio disponible en pantallas pequeñas.
-   ========================================================= */
     </script>
 </body>
 </html>
