@@ -86,6 +86,7 @@
   </script>
 
   <style>
+    /*V1.9 Estable*/
     /* ==========================================================================
        ALFORA · RECORTADOR DE IMÁGENES
        ========================================================================== */
@@ -173,6 +174,11 @@
       touch-action: none;
     }
 
+    .crop-stage.is-panning,
+    .crop-stage.is-panning .crop-scissors-overlay {
+      cursor: grabbing;
+    }
+
     .crop-stage img {
       display: block;
       max-width: 100%;
@@ -180,15 +186,81 @@
       object-fit: contain;
       user-select: none;
       pointer-events: none;
+      transform-origin: 0 0;
+      will-change: transform;
+    }
+
+    .crop-zoom-controls {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 9;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px;
+      background: rgba(8, 20, 13, .82);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, .18);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .crop-zoom-button,
+    .crop-zoom-value {
+      display: inline-grid;
+      min-width: 40px;
+      min-height: 40px;
+      place-items: center;
+      padding: 0 10px;
+      color: var(--color-text);
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 9px;
+      font: inherit;
+      font-weight: 700;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .crop-zoom-button {
+      font-size: 1.15rem;
+    }
+
+    .crop-zoom-value {
+      min-width: 58px;
+      color: var(--color-primary);
+      font-size: .78rem;
+    }
+
+    .crop-zoom-button:hover:not(:disabled),
+    .crop-zoom-value:hover:not(:disabled) {
+      background: rgba(102, 255, 143, .08);
+      border-color: rgba(102, 255, 143, .28);
+    }
+
+    .crop-zoom-button:focus-visible,
+    .crop-zoom-value:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+
+    .crop-zoom-button:disabled,
+    .crop-zoom-value:disabled {
+      cursor: not-allowed;
+      opacity: .4;
     }
 
     .crop-selection {
       position: absolute;
       z-index: 3;
       cursor: move;
-      border: 2px solid var(--color-primary);
+      border: var(--crop-selection-border, 2px) solid var(--color-primary);
       box-shadow: 0 0 0 9999px rgba(0, 0, 0, .48);
+      transform-origin: 0 0;
       touch-action: none;
+      will-change: transform;
     }
 
     .crop-grid-line {
@@ -201,13 +273,13 @@
     .crop-grid-line--vertical {
       top: 0;
       bottom: 0;
-      width: 1px;
+      width: var(--crop-grid-line-size, 1px);
     }
 
     .crop-grid-line--horizontal {
       left: 0;
       right: 0;
-      height: 1px;
+      height: var(--crop-grid-line-size, 1px);
     }
 
     .crop-grid-line--vertical.crop-grid-line--one { left: 33.333%; }
@@ -218,21 +290,132 @@
     .crop-handle {
       position: absolute;
       z-index: 4;
-      width: 18px;
-      height: 18px;
+      width: var(--crop-handle-size, 18px);
+      height: var(--crop-handle-size, 18px);
       background: var(--color-primary);
-      border: 2px solid var(--color-background);
+      border: var(--crop-handle-border, 2px) solid var(--color-background);
       border-radius: 50%;
     }
 
-    .crop-handle--nw { top: -10px; left: -10px; cursor: nwse-resize; }
-    .crop-handle--ne { top: -10px; right: -10px; cursor: nesw-resize; }
-    .crop-handle--sw { bottom: -10px; left: -10px; cursor: nesw-resize; }
-    .crop-handle--se { right: -10px; bottom: -10px; cursor: nwse-resize; }
+    .crop-handle--nw { top: var(--crop-handle-offset, -10px); left: var(--crop-handle-offset, -10px); cursor: nwse-resize; }
+    .crop-handle--ne { top: var(--crop-handle-offset, -10px); right: var(--crop-handle-offset, -10px); cursor: nesw-resize; }
+    .crop-handle--sw { bottom: var(--crop-handle-offset, -10px); left: var(--crop-handle-offset, -10px); cursor: nesw-resize; }
+    .crop-handle--se { right: var(--crop-handle-offset, -10px); bottom: var(--crop-handle-offset, -10px); cursor: nwse-resize; }
+
+    .crop-scissors-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      cursor: crosshair;
+      touch-action: none;
+      pointer-events: all;
+      transform-origin: 0 0;
+      will-change: transform;
+    }
+
+    .crop-scissors-hit-area {
+      fill: transparent;
+      pointer-events: all;
+    }
+
+    .crop-scissors-overlay[hidden] {
+      display: none;
+    }
+
+    .crop-scissors-shape {
+      fill: rgba(102, 255, 143, 0.12);
+      vector-effect: non-scaling-stroke;
+      stroke: var(--color-primary);
+      stroke-width: 2;
+      stroke-linejoin: round;
+      pointer-events: none;
+    }
+
+    .crop-scissors-segment-hit {
+      fill: none;
+      vector-effect: non-scaling-stroke;
+      stroke: transparent;
+      stroke-width: 18;
+      cursor: pointer;
+      pointer-events: stroke;
+    }
+
+    .crop-scissors-guide {
+      fill: none;
+      vector-effect: non-scaling-stroke;
+      stroke: rgba(255,255,255,.58);
+      stroke-width: 1;
+      stroke-dasharray: 5 5;
+      pointer-events: none;
+    }
+
+    .crop-scissors-alignment-guide {
+      fill: none;
+      vector-effect: non-scaling-stroke;
+      stroke: #ffd84d;
+      stroke-width: 1.5;
+      stroke-dasharray: 7 6;
+      pointer-events: none;
+    }
+
+    .crop-scissors-angle-ray {
+      fill: none;
+      vector-effect: non-scaling-stroke;
+      stroke: var(--color-primary);
+      stroke-width: 1.5;
+      stroke-dasharray: 4 4;
+      pointer-events: none;
+    }
+
+    .crop-scissors-angle-label {
+      fill: #ffffff;
+      stroke: rgba(0,0,0,.72);
+      stroke-width: 3;
+      paint-order: stroke;
+      font-size: 12px;
+      font-weight: 700;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .crop-scissors-point,
+    .crop-scissors-control {
+      vector-effect: non-scaling-stroke;
+      touch-action: none;
+    }
+
+    .crop-scissors-point {
+      fill: var(--color-primary);
+      stroke: var(--color-background);
+      stroke-width: 2;
+      cursor: move;
+    }
+
+    .crop-scissors-control {
+      fill: var(--color-background);
+      stroke: var(--color-primary);
+      stroke-width: 2;
+      cursor: move;
+    }
+
+    #scissors-mode-button.is-active {
+      color: var(--color-primary);
+      background: rgba(102, 255, 143, 0.08);
+      border-color: var(--color-primary);
+    }
+
+    .crop-ratio-button:disabled {
+      cursor: not-allowed;
+      opacity: .45;
+      transform: none;
+    }
 
     .cropper-main-actions {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 8px;
       margin: 0;
     }
@@ -364,6 +547,24 @@
         max-height: 58vh;
       }
 
+      .crop-zoom-controls {
+        top: 8px;
+        right: 8px;
+        gap: 2px;
+        padding: 3px;
+      }
+
+      .crop-zoom-button,
+      .crop-zoom-value {
+        min-width: 44px;
+        min-height: 44px;
+        padding: 0 8px;
+      }
+
+      .crop-zoom-value {
+        min-width: 56px;
+      }
+
       .image-cropper-tool > .control-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 8px;
@@ -383,7 +584,7 @@
       }
 
       .cropper-main-actions {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 6px;
       }
 
@@ -425,10 +626,6 @@
 
       .cropper-main-actions {
         grid-template-columns: 1fr 1fr;
-      }
-
-      .cropper-main-actions #crop-button {
-        grid-column: 1 / -1;
       }
     }
   </style>
@@ -575,6 +772,33 @@
 
         <div class="crop-workspace" id="crop-workspace" hidden>
           <div class="crop-stage" id="crop-stage">
+            <div class="crop-zoom-controls" id="crop-zoom-controls" aria-label="Controles de zoom" data-i18n-aria-label="cropper.zoomControlsLabel">
+              <button
+                class="crop-zoom-button"
+                id="zoom-out-button"
+                type="button"
+                aria-label="Alejar"
+                data-i18n-aria-label="cropper.zoomOut"
+                disabled
+              >−</button>
+              <button
+                class="crop-zoom-value"
+                id="zoom-reset-button"
+                type="button"
+                aria-label="Restablecer zoom al 100%"
+                data-i18n-aria-label="cropper.zoomReset"
+                disabled
+              >100%</button>
+              <button
+                class="crop-zoom-button"
+                id="zoom-in-button"
+                type="button"
+                aria-label="Acercar"
+                data-i18n-aria-label="cropper.zoomIn"
+                disabled
+              >+</button>
+            </div>
+
             <img
               id="crop-image"
               alt="Imagen preparada para recortar"
@@ -595,6 +819,14 @@
               <span class="crop-handle crop-handle--sw" data-handle="sw"></span>
               <span class="crop-handle crop-handle--se" data-handle="se"></span>
             </div>
+
+            <svg
+              class="crop-scissors-overlay"
+              id="crop-scissors-overlay"
+              aria-label="Área interactiva del modo tijeras"
+              data-i18n-aria-label="cropper.scissorsCanvasLabel"
+              hidden
+            ></svg>
           </div>
         </div>
 
@@ -695,6 +927,19 @@
         </div>
 
         <div class="hero__actions cropper-main-actions">
+          <button
+            class="button button--secondary"
+            id="scissors-mode-button"
+            type="button"
+            aria-pressed="false"
+            disabled
+          >
+            <span aria-hidden="true">✂</span>
+            <span data-i18n="cropper.scissorsMode">
+              Modo tijeras
+            </span>
+          </button>
+
           <button
             class="button button--primary"
             id="crop-button"
@@ -818,6 +1063,11 @@
 
       const MAX_FILE_SIZE = 25 * 1024 * 1024;
       const MIN_SELECTION_SIZE = 40;
+      const MIN_ZOOM = 1;
+      const MAX_ZOOM = 4;
+      const ZOOM_STEP = 0.25;
+      const PAN_START_THRESHOLD = 8;
+      const ALIGNMENT_TOLERANCE_PX = 9;
 
       const input = document.getElementById("image-input");
       const uploadZone = document.getElementById("upload-zone");
@@ -825,11 +1075,16 @@
       const cropStage = document.getElementById("crop-stage");
       const cropImage = document.getElementById("crop-image");
       const cropSelection = document.getElementById("crop-selection");
+      const scissorsOverlay = document.getElementById("crop-scissors-overlay");
       const ratioButtons = document.querySelectorAll(".crop-ratio-button");
       const outputFormat = document.getElementById("output-format");
       const qualityField = document.getElementById("quality-field");
       const qualityInput = document.getElementById("output-quality");
       const qualityValue = document.getElementById("quality-value");
+      const scissorsModeButton = document.getElementById("scissors-mode-button");
+      const zoomOutButton = document.getElementById("zoom-out-button");
+      const zoomResetButton = document.getElementById("zoom-reset-button");
+      const zoomInButton = document.getElementById("zoom-in-button");
       const cropButton = document.getElementById("crop-button");
       const downloadButton = document.getElementById("download-button");
       const resetButton = document.getElementById("reset-button");
@@ -850,6 +1105,20 @@
       let resultObjectUrl = "";
       let resultBlob = null;
       let activeRatio = null;
+      let cropMode = "rectangle";
+      let scissorsPointSequence = 0;
+      let scissorsPoints = [];
+      const scissorsCurves = new Map();
+      let scissorsInteraction = null;
+      let pendingScissorsTouchTap = null;
+      let zoomLevel = 1;
+      let zoomPanX = 0;
+      let zoomPanY = 0;
+      const activeTouchPointers = new Map();
+      let pinchState = null;
+      let stagePanInteraction = null;
+      let touchPanCandidate = null;
+      let scissorsAlignmentGuides = { vertical: null, horizontal: null };
 
       let selection = {
         x: 0,
@@ -919,6 +1188,474 @@
         return outputFormat.value;
       }
 
+      function clampZoom(value) {
+        return Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, value));
+      }
+
+      function getBaseImageStageRect() {
+        return {
+          x: cropImage.offsetLeft,
+          y: cropImage.offsetTop,
+          width: cropImage.offsetWidth,
+          height: cropImage.offsetHeight
+        };
+      }
+
+      function clampZoomPan() {
+        if (!sourceImage || zoomLevel <= MIN_ZOOM + 0.001) {
+          zoomPanX = 0;
+          zoomPanY = 0;
+          return;
+        }
+
+        const bounds = getStageBounds();
+        const image = getBaseImageStageRect();
+
+        if (!image.width || !image.height) {
+          return;
+        }
+
+        const clampAxis = (pan, baseStart, baseSize, stageSize) => {
+          const scaledSize = baseSize * zoomLevel;
+
+          if (scaledSize <= stageSize) {
+            return (stageSize - scaledSize) / 2 - baseStart * zoomLevel;
+          }
+
+          const minPan = stageSize - (baseStart + baseSize) * zoomLevel;
+          const maxPan = -baseStart * zoomLevel;
+          return Math.max(minPan, Math.min(maxPan, pan));
+        };
+
+        zoomPanX = clampAxis(zoomPanX, image.x, image.width, bounds.width);
+        zoomPanY = clampAxis(zoomPanY, image.y, image.height, bounds.height);
+      }
+
+      function isPanBlockedTarget(target) {
+        if (!(target instanceof Element)) {
+          return false;
+        }
+
+        if (target.closest(".crop-zoom-controls")) {
+          return true;
+        }
+
+        if (cropMode === "rectangle") {
+          return Boolean(target.closest(".crop-selection, .crop-handle"));
+        }
+
+        return Boolean(
+          target.closest(
+            ".crop-scissors-point, .crop-scissors-control, .crop-scissors-segment-hit"
+          )
+        );
+      }
+
+      function beginStagePan(event, type) {
+        stagePanInteraction = {
+          pointerId: event.pointerId,
+          type,
+          startClientX: event.clientX,
+          startClientY: event.clientY,
+          startPanX: zoomPanX,
+          startPanY: zoomPanY
+        };
+
+        cropStage.classList.add("is-panning");
+
+        if (type === "middle") {
+          cropStage.setPointerCapture(event.pointerId);
+        }
+      }
+
+      function moveStagePan(event) {
+        if (!stagePanInteraction || event.pointerId !== stagePanInteraction.pointerId) {
+          return false;
+        }
+
+        zoomPanX =
+          stagePanInteraction.startPanX +
+          (event.clientX - stagePanInteraction.startClientX);
+        zoomPanY =
+          stagePanInteraction.startPanY +
+          (event.clientY - stagePanInteraction.startClientY);
+        clampZoomPan();
+        applyZoomTransforms();
+        return true;
+      }
+
+      function endStagePan(event) {
+        if (!stagePanInteraction || event.pointerId !== stagePanInteraction.pointerId) {
+          return false;
+        }
+
+        const wasMiddle = stagePanInteraction.type === "middle";
+        stagePanInteraction = null;
+        cropStage.classList.remove("is-panning");
+
+        if (wasMiddle && cropStage.hasPointerCapture(event.pointerId)) {
+          cropStage.releasePointerCapture(event.pointerId);
+        }
+
+        return true;
+      }
+
+      function getZoomTransformForElement(baseX, baseY) {
+        const translateX = zoomPanX + (zoomLevel - 1) * baseX;
+        const translateY = zoomPanY + (zoomLevel - 1) * baseY;
+        return `translate(${translateX}px, ${translateY}px) scale(${zoomLevel})`;
+      }
+
+      function updateZoomControls() {
+        const enabled = Boolean(sourceImage);
+        const percentage = Math.round(zoomLevel * 100);
+        zoomResetButton.textContent = `${percentage}%`;
+        zoomOutButton.disabled = !enabled || zoomLevel <= MIN_ZOOM + 0.001;
+        zoomResetButton.disabled = !enabled;
+        zoomInButton.disabled = !enabled || zoomLevel >= MAX_ZOOM - 0.001;
+      }
+
+      function applyZoomTransforms() {
+        if (sourceImage) {
+          clampZoomPan();
+        }
+
+        const inverseZoom = 1 / zoomLevel;
+        cropStage.style.setProperty("--crop-zoom", String(zoomLevel));
+        cropStage.style.setProperty(
+          "--crop-selection-border",
+          `${2 * inverseZoom}px`
+        );
+        cropStage.style.setProperty(
+          "--crop-grid-line-size",
+          `${1 * inverseZoom}px`
+        );
+        cropStage.style.setProperty(
+          "--crop-handle-size",
+          `${18 * inverseZoom}px`
+        );
+        cropStage.style.setProperty(
+          "--crop-handle-border",
+          `${2 * inverseZoom}px`
+        );
+        cropStage.style.setProperty(
+          "--crop-handle-offset",
+          `${-10 * inverseZoom}px`
+        );
+
+        if (!sourceImage) {
+          cropImage.style.transform = "";
+          cropSelection.style.transform = "";
+          scissorsOverlay.style.transform = "";
+          updateZoomControls();
+          return;
+        }
+
+        const imageBase = getBaseImageStageRect();
+        cropImage.style.transform = getZoomTransformForElement(
+          imageBase.x,
+          imageBase.y
+        );
+
+        cropSelection.style.transform = getZoomTransformForElement(
+          selection.x,
+          selection.y
+        );
+
+        scissorsOverlay.style.transform =
+          `translate(${zoomPanX}px, ${zoomPanY}px) scale(${zoomLevel})`;
+
+        updateZoomControls();
+
+        if (cropMode === "scissors") {
+          renderScissorsOverlay();
+        }
+      }
+
+      function resetZoom(options = {}) {
+        const { announce = false } = options;
+        zoomLevel = 1;
+        zoomPanX = 0;
+        zoomPanY = 0;
+        stagePanInteraction = null;
+        touchPanCandidate = null;
+        cropStage.classList.remove("is-panning");
+        applyZoomTransforms();
+
+        if (announce && sourceImage) {
+          showStatus(
+            translate("messages.zoomReset", "Zoom restablecido al 100%."),
+            "info"
+          );
+        }
+      }
+
+      function setZoom(nextZoom, options = {}) {
+        if (!sourceImage) {
+          return;
+        }
+
+        const stageRect = cropStage.getBoundingClientRect();
+        const anchorX = Number.isFinite(options.anchorX)
+          ? options.anchorX
+          : stageRect.width / 2;
+        const anchorY = Number.isFinite(options.anchorY)
+          ? options.anchorY
+          : stageRect.height / 2;
+        const clamped = clampZoom(nextZoom);
+
+        if (Math.abs(clamped - zoomLevel) < 0.001) {
+          return;
+        }
+
+        const baseAnchorX = (anchorX - zoomPanX) / zoomLevel;
+        const baseAnchorY = (anchorY - zoomPanY) / zoomLevel;
+
+        zoomPanX = anchorX - clamped * baseAnchorX;
+        zoomPanY = anchorY - clamped * baseAnchorY;
+        zoomLevel = clamped;
+
+        if (zoomLevel <= MIN_ZOOM + 0.001) {
+          zoomLevel = MIN_ZOOM;
+          zoomPanX = 0;
+          zoomPanY = 0;
+        }
+
+        clampZoomPan();
+        applyZoomTransforms();
+      }
+
+      function getTouchDistance(first, second) {
+        return Math.hypot(second.x - first.x, second.y - first.y);
+      }
+
+      function getTouchMidpoint(first, second) {
+        return {
+          x: (first.x + second.x) / 2,
+          y: (first.y + second.y) / 2
+        };
+      }
+
+      function cancelCropInteractionsForPinch() {
+        interaction = null;
+        scissorsInteraction = null;
+        pendingScissorsTouchTap = null;
+        touchPanCandidate = null;
+        if (stagePanInteraction && stagePanInteraction.type === "touch") {
+          stagePanInteraction = null;
+          cropStage.classList.remove("is-panning");
+        }
+      }
+
+      function handleStagePointerDownCapture(event) {
+        if (!sourceImage || event.target.closest(".crop-zoom-controls")) {
+          return;
+        }
+
+        if (
+          event.pointerType === "mouse" &&
+          event.button === 1 &&
+          zoomLevel > MIN_ZOOM + 0.001
+        ) {
+          cancelCropInteractionsForPinch();
+          beginStagePan(event, "middle");
+          event.preventDefault();
+          event.stopPropagation();
+          return;
+        }
+
+        if (event.pointerType !== "touch") {
+          return;
+        }
+
+        const rect = cropStage.getBoundingClientRect();
+        activeTouchPointers.set(event.pointerId, {
+          x: event.clientX - rect.left,
+          y: event.clientY - rect.top
+        });
+
+        if (activeTouchPointers.size === 1) {
+          if (
+            zoomLevel > MIN_ZOOM + 0.001 &&
+            !isPanBlockedTarget(event.target)
+          ) {
+            touchPanCandidate = {
+              pointerId: event.pointerId,
+              startClientX: event.clientX,
+              startClientY: event.clientY,
+              startPanX: zoomPanX,
+              startPanY: zoomPanY,
+              activated: false
+            };
+          } else {
+            touchPanCandidate = null;
+          }
+          return;
+        }
+
+        const [first, second] = Array.from(activeTouchPointers.values()).slice(0, 2);
+        const midpoint = getTouchMidpoint(first, second);
+        const distance = Math.max(1, getTouchDistance(first, second));
+
+        pinchState = {
+          startDistance: distance,
+          startZoom: zoomLevel,
+          baseAnchorX: (midpoint.x - zoomPanX) / zoomLevel,
+          baseAnchorY: (midpoint.y - zoomPanY) / zoomLevel
+        };
+
+        cancelCropInteractionsForPinch();
+        event.preventDefault();
+        event.stopPropagation();
+      }
+
+      function handleStagePointerMoveCapture(event) {
+        if (
+          stagePanInteraction &&
+          stagePanInteraction.type === "middle" &&
+          event.pointerId === stagePanInteraction.pointerId
+        ) {
+          moveStagePan(event);
+          event.preventDefault();
+          event.stopPropagation();
+          return;
+        }
+
+        if (event.pointerType !== "touch" || !activeTouchPointers.has(event.pointerId)) {
+          return;
+        }
+
+        const rect = cropStage.getBoundingClientRect();
+        activeTouchPointers.set(event.pointerId, {
+          x: event.clientX - rect.left,
+          y: event.clientY - rect.top
+        });
+
+        if (pinchState && activeTouchPointers.size >= 2) {
+          const [first, second] = Array.from(activeTouchPointers.values()).slice(0, 2);
+          const midpoint = getTouchMidpoint(first, second);
+          const distance = Math.max(1, getTouchDistance(first, second));
+          const nextZoom = clampZoom(
+            pinchState.startZoom * (distance / pinchState.startDistance)
+          );
+
+          zoomLevel = nextZoom;
+          zoomPanX = midpoint.x - zoomLevel * pinchState.baseAnchorX;
+          zoomPanY = midpoint.y - zoomLevel * pinchState.baseAnchorY;
+
+          if (zoomLevel <= MIN_ZOOM + 0.001) {
+            zoomLevel = MIN_ZOOM;
+            zoomPanX = 0;
+            zoomPanY = 0;
+          }
+
+          clampZoomPan();
+          applyZoomTransforms();
+          event.preventDefault();
+          event.stopPropagation();
+          return;
+        }
+
+        if (
+          touchPanCandidate &&
+          touchPanCandidate.pointerId === event.pointerId &&
+          zoomLevel > MIN_ZOOM + 0.001
+        ) {
+          const distance = Math.hypot(
+            event.clientX - touchPanCandidate.startClientX,
+            event.clientY - touchPanCandidate.startClientY
+          );
+
+          if (
+            !touchPanCandidate.activated &&
+            distance > PAN_START_THRESHOLD
+          ) {
+            touchPanCandidate.activated = true;
+            interaction = null;
+            scissorsInteraction = null;
+            pendingScissorsTouchTap = null;
+            stagePanInteraction = {
+              pointerId: event.pointerId,
+              type: "touch",
+              startClientX: touchPanCandidate.startClientX,
+              startClientY: touchPanCandidate.startClientY,
+              startPanX: touchPanCandidate.startPanX,
+              startPanY: touchPanCandidate.startPanY
+            };
+            cropStage.classList.add("is-panning");
+          }
+
+          if (touchPanCandidate.activated && stagePanInteraction) {
+            moveStagePan(event);
+            event.preventDefault();
+            event.stopPropagation();
+          }
+        }
+      }
+
+      function handleStagePointerEndCapture(event) {
+        if (
+          stagePanInteraction &&
+          event.pointerId === stagePanInteraction.pointerId
+        ) {
+          const panType = stagePanInteraction.type;
+          endStagePan(event);
+
+          if (panType === "middle") {
+            event.preventDefault();
+            event.stopPropagation();
+            return;
+          }
+
+          if (panType === "touch") {
+            touchPanCandidate = null;
+            activeTouchPointers.delete(event.pointerId);
+            pendingScissorsTouchTap = null;
+            event.preventDefault();
+            event.stopPropagation();
+            return;
+          }
+        }
+
+        if (event.pointerType !== "touch") {
+          return;
+        }
+
+        const wasPinching = Boolean(pinchState);
+        activeTouchPointers.delete(event.pointerId);
+
+        if (
+          touchPanCandidate &&
+          touchPanCandidate.pointerId === event.pointerId
+        ) {
+          touchPanCandidate = null;
+        }
+
+        if (activeTouchPointers.size < 2) {
+          pinchState = null;
+        }
+
+        if (wasPinching) {
+          pendingScissorsTouchTap = null;
+          event.preventDefault();
+          event.stopPropagation();
+        }
+      }
+
+      function handleZoomWheel(event) {
+        if (!sourceImage || event.target.closest(".crop-zoom-controls")) {
+          return;
+        }
+
+        event.preventDefault();
+        const rect = cropStage.getBoundingClientRect();
+        const zoomFactor = Math.exp(-event.deltaY * 0.0015);
+        setZoom(zoomLevel * zoomFactor, {
+          anchorX: event.clientX - rect.left,
+          anchorY: event.clientY - rect.top
+        });
+      }
+
       function showStatus(message, type = "info") {
         statusMessage.hidden = false;
         statusMessage.textContent = message;
@@ -982,8 +1719,19 @@
 
         cropWorkspace.hidden = true;
         resultPanel.hidden = true;
+        scissorsModeButton.disabled = true;
         cropButton.disabled = true;
         downloadButton.disabled = true;
+
+        scissorsPoints = [];
+        scissorsCurves.clear();
+        scissorsPointSequence = 0;
+        scissorsInteraction = null;
+        pendingScissorsTouchTap = null;
+        activeTouchPointers.clear();
+        pinchState = null;
+        resetZoom();
+        setCropMode("rectangle", { announce: false });
 
         outputFormat.value = "original";
         qualityInput.value = "90";
@@ -1067,7 +1815,7 @@
       function setRatio(value) {
         activeRatio = parseRatio(value);
 
-        ratioButtons.forEach((button) => {
+      ratioButtons.forEach((button) => {
           button.classList.toggle(
             "is-active",
             button.dataset.ratio === value
@@ -1136,6 +1884,13 @@
         cropSelection.style.top = `${selection.y}px`;
         cropSelection.style.width = `${selection.width}px`;
         cropSelection.style.height = `${selection.height}px`;
+
+        if (sourceImage) {
+          cropSelection.style.transform = getZoomTransformForElement(
+            selection.x,
+            selection.y
+          );
+        }
       }
 
       async function selectFile(file) {
@@ -1152,6 +1907,22 @@
           sourceImage = loaded.image;
           originalObjectUrl = loaded.url;
 
+          scissorsPoints = [];
+          scissorsCurves.clear();
+          scissorsPointSequence = 0;
+          scissorsInteraction = null;
+          pendingScissorsTouchTap = null;
+          activeTouchPointers.clear();
+          pinchState = null;
+          stagePanInteraction = null;
+          touchPanCandidate = null;
+          scissorsAlignmentGuides = { vertical: null, horizontal: null };
+          cropStage.classList.remove("is-panning");
+          zoomLevel = 1;
+          zoomPanX = 0;
+          zoomPanY = 0;
+          setCropMode("rectangle", { announce: false });
+
           cropImage.src = originalObjectUrl;
           originalPreview.src = originalObjectUrl;
 
@@ -1161,10 +1932,12 @@
           originalSize.textContent = formatBytes(file.size);
 
           cropWorkspace.hidden = false;
-          cropButton.disabled = false;
+          scissorsModeButton.disabled = false;
+          updateCropButtonState();
 
           cropImage.onload = () => {
             createInitialSelection();
+            applyZoomTransforms();
           };
 
           updateQualityVisibility();
@@ -1182,12 +1955,767 @@
         }
       }
 
+      function getImageStageRect() {
+        return getBaseImageStageRect();
+      }
+
+      function updateCropButtonState() {
+        if (!sourceImage) {
+          cropButton.disabled = true;
+          return;
+        }
+
+        cropButton.disabled =
+          cropMode === "scissors" && scissorsPoints.length < 4;
+      }
+
+      function setCropMode(mode, options = {}) {
+        const { announce = true } = options;
+        cropMode = mode === "scissors" ? "scissors" : "rectangle";
+        const scissorsActive = cropMode === "scissors";
+        scissorsAlignmentGuides = { vertical: null, horizontal: null };
+
+        cropSelection.hidden = scissorsActive;
+        scissorsOverlay.toggleAttribute("hidden", !scissorsActive);
+        scissorsModeButton.classList.toggle("is-active", scissorsActive);
+        scissorsModeButton.setAttribute(
+          "aria-pressed",
+          scissorsActive ? "true" : "false"
+        );
+
+        ratioButtons.forEach((button) => {
+          button.disabled = scissorsActive;
+        });
+
+        if (scissorsActive) {
+          renderScissorsOverlay();
+          if (announce) {
+            showStatus(
+              translate(
+                "messages.scissorsInstructions",
+                "Haz clic sobre la imagen para crear al menos 4 puntos. Arrastra los puntos para reubicarlos y toca una línea para convertirla en curva."
+              ),
+              "info"
+            );
+          }
+        } else if (announce && sourceImage) {
+          showStatus(
+            translate(
+              "messages.rectangleMode",
+              "Modo de recorte rectangular activo."
+            ),
+            "info"
+          );
+        }
+
+        updateCropButtonState();
+        clearResult();
+      }
+
+      function getScissorsSegmentKey(startPoint, endPoint) {
+        return `${startPoint.id}:${endPoint.id}`;
+      }
+
+      function getCurveControl(startPoint, endPoint, curve) {
+        return {
+          x: (startPoint.x + endPoint.x) / 2 + curve.offsetX,
+          y: (startPoint.y + endPoint.y) / 2 + curve.offsetY
+        };
+      }
+
+      function getCurveAngleDegrees(startPoint, endPoint, curve) {
+        const midpointStage = normalizedToStage({
+          x: (startPoint.x + endPoint.x) / 2,
+          y: (startPoint.y + endPoint.y) / 2
+        });
+        const controlStage = normalizedToStage(
+          getCurveControl(startPoint, endPoint, curve)
+        );
+        const radians = Math.atan2(
+          controlStage.y - midpointStage.y,
+          controlStage.x - midpointStage.x
+        );
+        return (Math.round((radians * 180) / Math.PI) + 360) % 360;
+      }
+
+      function normalizedToStage(point) {
+        const imageRect = getImageStageRect();
+        return {
+          x: imageRect.x + point.x * imageRect.width,
+          y: imageRect.y + point.y * imageRect.height
+        };
+      }
+
+      function stageToNormalized(position, clamp = false) {
+        const imageRect = getImageStageRect();
+        let x = (position.x - imageRect.x) / imageRect.width;
+        let y = (position.y - imageRect.y) / imageRect.height;
+
+        if (clamp) {
+          x = Math.max(0, Math.min(1, x));
+          y = Math.max(0, Math.min(1, y));
+        }
+
+        return { x, y };
+      }
+
+      function isInsideImage(position) {
+        const imageRect = getImageStageRect();
+        return (
+          position.x >= imageRect.x &&
+          position.x <= imageRect.x + imageRect.width &&
+          position.y >= imageRect.y &&
+          position.y <= imageRect.y + imageRect.height
+        );
+      }
+
+      function getAlignedScissorsPoint(point, excludedPointId = null) {
+        if (!scissorsPoints.length) {
+          return {
+            point: { ...point },
+            guides: { vertical: null, horizontal: null }
+          };
+        }
+
+        const candidateStage = normalizedToStage(point);
+        let closestVertical = null;
+        let closestHorizontal = null;
+
+        scissorsPoints.forEach((reference) => {
+          if (reference.id === excludedPointId) {
+            return;
+          }
+
+          const referenceStage = normalizedToStage(reference);
+          const visualDeltaX = Math.abs(candidateStage.x - referenceStage.x) * zoomLevel;
+          const visualDeltaY = Math.abs(candidateStage.y - referenceStage.y) * zoomLevel;
+
+          if (
+            visualDeltaX <= ALIGNMENT_TOLERANCE_PX &&
+            (!closestVertical || visualDeltaX < closestVertical.distance)
+          ) {
+            closestVertical = { reference, distance: visualDeltaX };
+          }
+
+          if (
+            visualDeltaY <= ALIGNMENT_TOLERANCE_PX &&
+            (!closestHorizontal || visualDeltaY < closestHorizontal.distance)
+          ) {
+            closestHorizontal = { reference, distance: visualDeltaY };
+          }
+        });
+
+        const aligned = { ...point };
+        const guides = { vertical: null, horizontal: null };
+
+        if (closestVertical) {
+          aligned.x = closestVertical.reference.x;
+          guides.vertical = closestVertical.reference.x;
+        }
+
+        if (closestHorizontal) {
+          aligned.y = closestHorizontal.reference.y;
+          guides.horizontal = closestHorizontal.reference.y;
+        }
+
+        return { point: aligned, guides };
+      }
+
+      function createSvgElement(name, attributes = {}) {
+        const element = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          name
+        );
+
+        Object.entries(attributes).forEach(([key, value]) => {
+          element.setAttribute(key, String(value));
+        });
+
+        return element;
+      }
+
+      function buildScissorsPathData() {
+        if (!scissorsPoints.length) {
+          return "";
+        }
+
+        const first = normalizedToStage(scissorsPoints[0]);
+        const commands = [`M ${first.x} ${first.y}`];
+
+        for (let index = 0; index < scissorsPoints.length - 1; index += 1) {
+          const start = scissorsPoints[index];
+          const end = scissorsPoints[index + 1];
+          const endStage = normalizedToStage(end);
+          const curve = scissorsCurves.get(getScissorsSegmentKey(start, end));
+
+          if (curve) {
+            const control = normalizedToStage(
+              getCurveControl(start, end, curve)
+            );
+            commands.push(
+              `Q ${control.x} ${control.y} ${endStage.x} ${endStage.y}`
+            );
+          } else {
+            commands.push(`L ${endStage.x} ${endStage.y}`);
+          }
+        }
+
+        if (scissorsPoints.length >= 3) {
+          const start = scissorsPoints[scissorsPoints.length - 1];
+          const end = scissorsPoints[0];
+          const endStage = normalizedToStage(end);
+          const curve = scissorsCurves.get(getScissorsSegmentKey(start, end));
+
+          if (curve) {
+            const control = normalizedToStage(
+              getCurveControl(start, end, curve)
+            );
+            commands.push(
+              `Q ${control.x} ${control.y} ${endStage.x} ${endStage.y}`
+            );
+          } else {
+            commands.push(`L ${endStage.x} ${endStage.y}`);
+          }
+
+          commands.push("Z");
+        }
+
+        return commands.join(" ");
+      }
+
+      function getRenderedSegments() {
+        const segments = [];
+
+        for (let index = 0; index < scissorsPoints.length - 1; index += 1) {
+          segments.push({
+            start: scissorsPoints[index],
+            end: scissorsPoints[index + 1]
+          });
+        }
+
+        if (scissorsPoints.length >= 3) {
+          segments.push({
+            start: scissorsPoints[scissorsPoints.length - 1],
+            end: scissorsPoints[0]
+          });
+        }
+
+        return segments;
+      }
+
+      function getSegmentPathData(start, end) {
+        const startStage = normalizedToStage(start);
+        const endStage = normalizedToStage(end);
+        const curve = scissorsCurves.get(getScissorsSegmentKey(start, end));
+
+        if (!curve) {
+          return `M ${startStage.x} ${startStage.y} L ${endStage.x} ${endStage.y}`;
+        }
+
+        const control = normalizedToStage(getCurveControl(start, end, curve));
+        return (
+          `M ${startStage.x} ${startStage.y} ` +
+          `Q ${control.x} ${control.y} ${endStage.x} ${endStage.y}`
+        );
+      }
+
+      function toggleScissorsCurve(start, end) {
+        scissorsAlignmentGuides = { vertical: null, horizontal: null };
+        const key = getScissorsSegmentKey(start, end);
+
+        if (scissorsCurves.has(key)) {
+          scissorsCurves.delete(key);
+          showStatus(
+            translate(
+              "messages.scissorsStraight",
+              "El segmento volvió a ser recto."
+            ),
+            "info"
+          );
+        } else {
+          const dx = end.x - start.x;
+          const dy = end.y - start.y;
+          const length = Math.hypot(dx, dy) || 0.1;
+          const strength = Math.min(0.12, Math.max(0.04, length * 0.18));
+
+          scissorsCurves.set(key, {
+            offsetX: (-dy / length) * strength,
+            offsetY: (dx / length) * strength
+          });
+
+          showStatus(
+            translate(
+              "messages.scissorsCurve",
+              "Segmento curvo activo. Arrastra el control a cualquier lado de la línea para elegir una curva interior o exterior y definir su ángulo."
+            ),
+            "info"
+          );
+        }
+
+        renderScissorsOverlay();
+        clearResult();
+      }
+
+      function beginScissorsPointDrag(event, point) {
+        scissorsInteraction = {
+          type: "point",
+          pointId: point.id,
+          pointerId: event.pointerId
+        };
+
+        scissorsOverlay.setPointerCapture(event.pointerId);
+        event.stopPropagation();
+        event.preventDefault();
+      }
+
+      function beginScissorsControlDrag(event, start, end) {
+        scissorsAlignmentGuides = { vertical: null, horizontal: null };
+        scissorsInteraction = {
+          type: "control",
+          segmentKey: getScissorsSegmentKey(start, end),
+          startId: start.id,
+          endId: end.id,
+          pointerId: event.pointerId
+        };
+
+        scissorsOverlay.setPointerCapture(event.pointerId);
+        event.stopPropagation();
+        event.preventDefault();
+      }
+
+      function renderScissorsOverlay() {
+        if (!sourceImage || cropMode !== "scissors") {
+          return;
+        }
+
+        const bounds = getStageBounds();
+        scissorsOverlay.setAttribute("viewBox", `0 0 ${bounds.width} ${bounds.height}`);
+        scissorsOverlay.replaceChildren();
+
+        const hitArea = createSvgElement("rect", {
+          x: 0,
+          y: 0,
+          width: bounds.width,
+          height: bounds.height,
+          class: "crop-scissors-hit-area"
+        });
+        scissorsOverlay.appendChild(hitArea);
+
+        const imageRect = getImageStageRect();
+
+        if (scissorsAlignmentGuides.vertical !== null) {
+          const guideX = normalizedToStage({
+            x: scissorsAlignmentGuides.vertical,
+            y: 0
+          }).x;
+          const verticalGuide = createSvgElement("line", {
+            x1: guideX,
+            y1: imageRect.y,
+            x2: guideX,
+            y2: imageRect.y + imageRect.height,
+            class: "crop-scissors-alignment-guide"
+          });
+          scissorsOverlay.appendChild(verticalGuide);
+        }
+
+        if (scissorsAlignmentGuides.horizontal !== null) {
+          const guideY = normalizedToStage({
+            x: 0,
+            y: scissorsAlignmentGuides.horizontal
+          }).y;
+          const horizontalGuide = createSvgElement("line", {
+            x1: imageRect.x,
+            y1: guideY,
+            x2: imageRect.x + imageRect.width,
+            y2: guideY,
+            class: "crop-scissors-alignment-guide"
+          });
+          scissorsOverlay.appendChild(horizontalGuide);
+        }
+
+        if (scissorsPoints.length >= 2) {
+          const shape = createSvgElement("path", {
+            d: buildScissorsPathData(),
+            class: "crop-scissors-shape"
+          });
+          scissorsOverlay.appendChild(shape);
+        }
+
+        getRenderedSegments().forEach(({ start, end }) => {
+          const key = getScissorsSegmentKey(start, end);
+          const curve = scissorsCurves.get(key);
+
+          if (curve) {
+            const startStage = normalizedToStage(start);
+            const endStage = normalizedToStage(end);
+            const controlNormalized = getCurveControl(start, end, curve);
+            const controlStage = normalizedToStage(controlNormalized);
+
+            const guide = createSvgElement("path", {
+              d:
+                `M ${startStage.x} ${startStage.y} ` +
+                `L ${controlStage.x} ${controlStage.y} ` +
+                `L ${endStage.x} ${endStage.y}`,
+              class: "crop-scissors-guide"
+            });
+            scissorsOverlay.appendChild(guide);
+
+            const midpointStage = {
+              x: (startStage.x + endStage.x) / 2,
+              y: (startStage.y + endStage.y) / 2
+            };
+            const angleRay = createSvgElement("path", {
+              d:
+                `M ${midpointStage.x} ${midpointStage.y} ` +
+                `L ${controlStage.x} ${controlStage.y}`,
+              class: "crop-scissors-angle-ray"
+            });
+            scissorsOverlay.appendChild(angleRay);
+
+            const angleLabel = createSvgElement("text", {
+              x: controlStage.x + 11 / zoomLevel,
+              y: controlStage.y - 11 / zoomLevel,
+              "font-size": 12 / zoomLevel,
+              class: "crop-scissors-angle-label"
+            });
+            angleLabel.textContent = `${getCurveAngleDegrees(start, end, curve)}°`;
+            scissorsOverlay.appendChild(angleLabel);
+
+            const control = createSvgElement("circle", {
+              cx: controlStage.x,
+              cy: controlStage.y,
+              r: 7 / zoomLevel,
+              class: "crop-scissors-control"
+            });
+            control.addEventListener("pointerdown", (event) => {
+              beginScissorsControlDrag(event, start, end);
+            });
+            scissorsOverlay.appendChild(control);
+          }
+
+          const segmentHit = createSvgElement("path", {
+            d: getSegmentPathData(start, end),
+            class: "crop-scissors-segment-hit"
+          });
+          segmentHit.addEventListener("click", (event) => {
+            event.stopPropagation();
+            toggleScissorsCurve(start, end);
+          });
+          scissorsOverlay.appendChild(segmentHit);
+        });
+
+        scissorsPoints.forEach((point) => {
+          const stagePoint = normalizedToStage(point);
+          const circle = createSvgElement("circle", {
+            cx: stagePoint.x,
+            cy: stagePoint.y,
+            r: 8 / zoomLevel,
+            class: "crop-scissors-point"
+          });
+          circle.addEventListener("pointerdown", (event) => {
+            beginScissorsPointDrag(event, point);
+          });
+          scissorsOverlay.appendChild(circle);
+        });
+      }
+
+      function commitScissorsPoint(position) {
+        if (!isInsideImage(position)) {
+          showStatus(
+            translate(
+              "messages.scissorsOutside",
+              "Coloca los puntos dentro de la imagen."
+            ),
+            "error"
+          );
+          return;
+        }
+
+        const normalized = stageToNormalized(position, true);
+        const aligned = getAlignedScissorsPoint(normalized);
+        scissorsAlignmentGuides = aligned.guides;
+        scissorsPoints.push({
+          id: ++scissorsPointSequence,
+          x: aligned.point.x,
+          y: aligned.point.y
+        });
+
+        renderScissorsOverlay();
+        clearResult();
+        updateCropButtonState();
+
+        if (scissorsPoints.length < 4) {
+          showStatus(
+            translate(
+              "messages.scissorsNeedFour",
+              "Añade al menos 4 puntos para activar el recorte."
+            ),
+            "info"
+          );
+        } else {
+          showStatus(
+            translate(
+              "messages.scissorsReady",
+              "El recorte por puntos está listo. Puedes mover los puntos o tocar una línea para curvarla."
+            ),
+            "success"
+          );
+        }
+      }
+
+      function addScissorsPoint(event) {
+        if (cropMode !== "scissors" || !sourceImage || pinchState) {
+          return;
+        }
+
+        if (event.pointerType === "mouse" && event.button !== 0) {
+          return;
+        }
+
+        const interactiveTarget = event.target.closest(
+          ".crop-scissors-point, .crop-scissors-control, .crop-scissors-segment-hit"
+        );
+
+        if (interactiveTarget) {
+          return;
+        }
+
+        const position = getPointerPosition(event);
+
+        if (event.pointerType === "touch") {
+          pendingScissorsTouchTap = {
+            pointerId: event.pointerId,
+            startX: position.x,
+            startY: position.y,
+            x: position.x,
+            y: position.y,
+            moved: false
+          };
+          event.preventDefault();
+          return;
+        }
+
+        commitScissorsPoint(position);
+        event.preventDefault();
+      }
+
+      function moveScissorsInteraction(event) {
+        const position = getPointerPosition(event);
+
+        if (
+          pendingScissorsTouchTap &&
+          event.pointerId === pendingScissorsTouchTap.pointerId
+        ) {
+          pendingScissorsTouchTap.x = position.x;
+          pendingScissorsTouchTap.y = position.y;
+          if (
+            Math.hypot(
+              position.x - pendingScissorsTouchTap.startX,
+              position.y - pendingScissorsTouchTap.startY
+            ) > 8
+          ) {
+            pendingScissorsTouchTap.moved = true;
+          }
+        }
+
+        if (!scissorsInteraction || event.pointerId !== scissorsInteraction.pointerId) {
+          return;
+        }
+
+        if (scissorsInteraction.type === "point") {
+          const normalized = stageToNormalized(position, true);
+          const point = scissorsPoints.find(
+            (candidate) => candidate.id === scissorsInteraction.pointId
+          );
+
+          if (point) {
+            const aligned = getAlignedScissorsPoint(normalized, point.id);
+            point.x = aligned.point.x;
+            point.y = aligned.point.y;
+            scissorsAlignmentGuides = aligned.guides;
+          }
+        } else if (scissorsInteraction.type === "control") {
+          scissorsAlignmentGuides = { vertical: null, horizontal: null };
+          // El control de curva es libre respecto a la imagen: puede cruzar el
+          // segmento y salir del borde de la imagen para permitir curvaturas
+          // interiores o exteriores. Solo se mantiene dentro del escenario para
+          // que el tirador nunca quede inaccesible después de soltarlo.
+          const stageBounds = getStageBounds();
+          const freePosition = {
+            x: Math.max(0, Math.min(stageBounds.width, position.x)),
+            y: Math.max(0, Math.min(stageBounds.height, position.y))
+          };
+          const normalized = stageToNormalized(freePosition, false);
+          const start = scissorsPoints.find(
+            (candidate) => candidate.id === scissorsInteraction.startId
+          );
+          const end = scissorsPoints.find(
+            (candidate) => candidate.id === scissorsInteraction.endId
+          );
+          const curve = scissorsCurves.get(scissorsInteraction.segmentKey);
+
+          if (start && end && curve) {
+            curve.offsetX = normalized.x - (start.x + end.x) / 2;
+            curve.offsetY = normalized.y - (start.y + end.y) / 2;
+          }
+        }
+
+        renderScissorsOverlay();
+        clearResult();
+        updateCropButtonState();
+        event.preventDefault();
+      }
+
+      function endScissorsInteraction(event) {
+        if (
+          pendingScissorsTouchTap &&
+          event.pointerId === pendingScissorsTouchTap.pointerId
+        ) {
+          const pending = pendingScissorsTouchTap;
+          pendingScissorsTouchTap = null;
+
+          if (!pending.moved && !pinchState) {
+            commitScissorsPoint({ x: pending.x, y: pending.y });
+          }
+
+          event.preventDefault();
+        }
+
+        if (!scissorsInteraction || event.pointerId !== scissorsInteraction.pointerId) {
+          return;
+        }
+
+        scissorsInteraction = null;
+
+        if (scissorsOverlay.hasPointerCapture(event.pointerId)) {
+          scissorsOverlay.releasePointerCapture(event.pointerId);
+        }
+
+        event.preventDefault();
+      }
+
+      function getScissorsCropData() {
+        if (scissorsPoints.length < 4) {
+          throw new Error(
+            translate(
+              "messages.scissorsNeedFour",
+              "Añade al menos 4 puntos para activar el recorte."
+            )
+          );
+        }
+
+        const sourcePoints = scissorsPoints.map((point) => ({
+          ...point,
+          x: point.x * sourceImage.naturalWidth,
+          y: point.y * sourceImage.naturalHeight
+        }));
+
+        const sourceCurves = new Map();
+        const boundsX = sourcePoints.map((point) => point.x);
+        const boundsY = sourcePoints.map((point) => point.y);
+
+        getRenderedSegments().forEach(({ start, end }) => {
+          const key = getScissorsSegmentKey(start, end);
+          const curve = scissorsCurves.get(key);
+
+          if (!curve) {
+            return;
+          }
+
+          const control = getCurveControl(start, end, curve);
+          const sourceControl = {
+            x: control.x * sourceImage.naturalWidth,
+            y: control.y * sourceImage.naturalHeight
+          };
+          sourceCurves.set(key, sourceControl);
+          boundsX.push(sourceControl.x);
+          boundsY.push(sourceControl.y);
+        });
+
+        const minX = Math.max(0, Math.floor(Math.min(...boundsX)));
+        const minY = Math.max(0, Math.floor(Math.min(...boundsY)));
+        const maxX = Math.min(
+          sourceImage.naturalWidth,
+          Math.ceil(Math.max(...boundsX))
+        );
+        const maxY = Math.min(
+          sourceImage.naturalHeight,
+          Math.ceil(Math.max(...boundsY))
+        );
+
+        return {
+          x: minX,
+          y: minY,
+          width: Math.max(1, maxX - minX),
+          height: Math.max(1, maxY - minY),
+          points: sourcePoints,
+          curves: sourceCurves
+        };
+      }
+
+      function drawScissorsCrop(context, crop) {
+        const points = crop.points;
+        const first = points[0];
+        context.save();
+        context.beginPath();
+        context.moveTo(first.x - crop.x, first.y - crop.y);
+
+        for (let index = 0; index < points.length - 1; index += 1) {
+          const start = scissorsPoints[index];
+          const end = scissorsPoints[index + 1];
+          const endSource = points[index + 1];
+          const control = crop.curves.get(getScissorsSegmentKey(start, end));
+
+          if (control) {
+            context.quadraticCurveTo(
+              control.x - crop.x,
+              control.y - crop.y,
+              endSource.x - crop.x,
+              endSource.y - crop.y
+            );
+          } else {
+            context.lineTo(
+              endSource.x - crop.x,
+              endSource.y - crop.y
+            );
+          }
+        }
+
+        const closingStart = scissorsPoints[scissorsPoints.length - 1];
+        const closingEnd = scissorsPoints[0];
+        const closingControl = crop.curves.get(
+          getScissorsSegmentKey(closingStart, closingEnd)
+        );
+
+        if (closingControl) {
+          context.quadraticCurveTo(
+            closingControl.x - crop.x,
+            closingControl.y - crop.y,
+            first.x - crop.x,
+            first.y - crop.y
+          );
+        } else {
+          context.lineTo(first.x - crop.x, first.y - crop.y);
+        }
+
+        context.closePath();
+        context.clip();
+        context.drawImage(
+          sourceImage,
+          -crop.x,
+          -crop.y,
+          sourceImage.naturalWidth,
+          sourceImage.naturalHeight
+        );
+        context.restore();
+      }
+
       function getPointerPosition(event) {
         const rect = cropStage.getBoundingClientRect();
 
         return {
-          x: event.clientX - rect.left,
-          y: event.clientY - rect.top
+          x: (event.clientX - rect.left - zoomPanX) / zoomLevel,
+          y: (event.clientY - rect.top - zoomPanY) / zoomLevel
         };
       }
 
@@ -1303,14 +2831,13 @@
       }
 
       function getCropCoordinates() {
-        const stageRect = cropStage.getBoundingClientRect();
-        const imageRect = cropImage.getBoundingClientRect();
+        const imageRect = getImageStageRect();
 
         const displayedWidth = imageRect.width;
         const displayedHeight = imageRect.height;
 
-        const offsetX = imageRect.left - stageRect.left;
-        const offsetY = imageRect.top - stageRect.top;
+        const offsetX = imageRect.x;
+        const offsetY = imageRect.y;
 
         const visibleX = Math.max(selection.x, offsetX);
         const visibleY = Math.max(selection.y, offsetY);
@@ -1404,7 +2931,10 @@
         );
 
         try {
-          const crop = getCropCoordinates();
+          const crop =
+            cropMode === "scissors"
+              ? getScissorsCropData()
+              : getCropCoordinates();
           const mimeType = getSelectedMimeType();
           const quality = Number(qualityInput.value) / 100;
 
@@ -1430,17 +2960,21 @@
             context.fillRect(0, 0, canvas.width, canvas.height);
           }
 
-          context.drawImage(
-            sourceImage,
-            crop.x,
-            crop.y,
-            crop.width,
-            crop.height,
-            0,
-            0,
-            crop.width,
-            crop.height
-          );
+          if (cropMode === "scissors") {
+            drawScissorsCrop(context, crop);
+          } else {
+            context.drawImage(
+              sourceImage,
+              crop.x,
+              crop.y,
+              crop.width,
+              crop.height,
+              0,
+              0,
+              crop.width,
+              crop.height
+            );
+          }
 
           if (mimeType === "image/svg+xml") {
             resultBlob = createSvgBlob(
@@ -1479,7 +3013,7 @@
           clearResult();
           showStatus(error.message, "error");
         } finally {
-          cropButton.disabled = false;
+          updateCropButtonState();
         }
       }
 
@@ -1539,6 +3073,29 @@
         }
       });
 
+      zoomOutButton.addEventListener("click", () => {
+        setZoom(zoomLevel - ZOOM_STEP);
+      });
+
+      zoomInButton.addEventListener("click", () => {
+        setZoom(zoomLevel + ZOOM_STEP);
+      });
+
+      zoomResetButton.addEventListener("click", () => {
+        resetZoom({ announce: true });
+      });
+
+      cropStage.addEventListener("wheel", handleZoomWheel, { passive: false });
+      cropStage.addEventListener("auxclick", (event) => {
+        if (event.button === 1 && sourceImage) {
+          event.preventDefault();
+        }
+      });
+      cropStage.addEventListener("pointerdown", handleStagePointerDownCapture, true);
+      cropStage.addEventListener("pointermove", handleStagePointerMoveCapture, true);
+      cropStage.addEventListener("pointerup", handleStagePointerEndCapture, true);
+      cropStage.addEventListener("pointercancel", handleStagePointerEndCapture, true);
+
       ratioButtons.forEach((button) => {
         button.addEventListener("click", () => {
           setRatio(button.dataset.ratio);
@@ -1549,6 +3106,15 @@
       cropSelection.addEventListener("pointermove", moveInteraction);
       cropSelection.addEventListener("pointerup", endInteraction);
       cropSelection.addEventListener("pointercancel", endInteraction);
+
+      scissorsModeButton.addEventListener("click", () => {
+        setCropMode(cropMode === "scissors" ? "rectangle" : "scissors");
+      });
+
+      scissorsOverlay.addEventListener("pointerdown", addScissorsPoint);
+      scissorsOverlay.addEventListener("pointermove", moveScissorsInteraction);
+      scissorsOverlay.addEventListener("pointerup", endScissorsInteraction);
+      scissorsOverlay.addEventListener("pointercancel", endScissorsInteraction);
 
       outputFormat.addEventListener("change", () => {
         updateQualityVisibility();
@@ -1565,9 +3131,23 @@
       resetButton.addEventListener("click", resetTool);
 
       window.addEventListener("resize", () => {
-        if (sourceImage) {
+        if (!sourceImage) {
+          return;
+        }
+
+        zoomPanX = 0;
+        zoomPanY = 0;
+        stagePanInteraction = null;
+        touchPanCandidate = null;
+        cropStage.classList.remove("is-panning");
+
+        if (cropMode === "scissors") {
+          renderScissorsOverlay();
+        } else {
           createInitialSelection();
         }
+
+        applyZoomTransforms();
       });
 
       document.addEventListener(
@@ -1581,6 +3161,7 @@
 
       setRatio("free");
       updateQualityVisibility();
+      updateZoomControls();
     })();
   </script>
 </body>

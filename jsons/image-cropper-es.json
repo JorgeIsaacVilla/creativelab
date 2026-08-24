@@ -36,7 +36,13 @@
     "dimensions": "Dimensiones",
     "fileSize": "Peso",
     "outputType": "Formato",
-    "cropButton": "Recortar imagen"
+    "cropButton": "Recortar imagen",
+    "scissorsMode": "Modo tijeras",
+    "scissorsCanvasLabel": "Área interactiva del modo tijeras",
+    "zoomControlsLabel": "Controles de zoom",
+    "zoomOut": "Alejar",
+    "zoomReset": "Restablecer zoom al 100%",
+    "zoomIn": "Acercar"
   },
   "messages": {
     "invalidFormat": "Selecciona una imagen JPG, PNG, WebP o SVG.",
@@ -47,7 +53,16 @@
     "cropError": "No fue posible recortar la imagen.",
     "ready": "Imagen lista para recortar.",
     "processing": "Recortando imagen...",
-    "completed": "Recorte completado."
+    "completed": "Recorte completado.",
+    "scissorsInstructions": "Haz clic sobre la imagen para crear al menos 4 puntos. Arrastra los puntos para reubicarlos y toca una línea para convertirla en curva. Las guías amarillas aparecen cuando un punto se alinea horizontal o verticalmente con otro. Con zoom, mantén pulsada la rueda del mouse y arrastra para desplazarte; en móvil, arrastra con un dedo sobre el fondo del visor.",
+    "scissorsNeedFour": "Añade al menos 4 puntos para activar el recorte.",
+    "scissorsReady": "El recorte por puntos está listo. Puedes mover los puntos, usar las guías amarillas de alineación o tocar una línea para curvarla hacia dentro o hacia fuera.",
+    "scissorsOutside": "Coloca los puntos dentro de la imagen.",
+    "scissorsCurve": "Segmento curvo activo. Arrastra el control a cualquier lado de la línea para elegir una curva interior o exterior y definir su ángulo.",
+    "scissorsStraight": "El segmento volvió a ser recto.",
+    "rectangleMode": "Modo de recorte rectangular activo.",
+    "zoomReset": "Zoom restablecido al 100%.",
+    "panHelp": "Con zoom, desplázate manteniendo pulsada la rueda del mouse o arrastrando con un dedo en móvil."
   },
   "info": {
     "eyebrow": "Conserva solo lo importante",

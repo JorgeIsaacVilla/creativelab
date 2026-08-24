@@ -36,7 +36,13 @@
     "dimensions": "Dimensions",
     "fileSize": "File size",
     "outputType": "Format",
-    "cropButton": "Crop image"
+    "cropButton": "Crop image",
+    "scissorsMode": "Scissors mode",
+    "scissorsCanvasLabel": "Interactive scissors mode area",
+    "zoomControlsLabel": "Zoom controls",
+    "zoomOut": "Zoom out",
+    "zoomReset": "Reset zoom to 100%",
+    "zoomIn": "Zoom in"
   },
   "messages": {
     "invalidFormat": "Select a JPG, PNG, WebP or SVG image.",
@@ -47,7 +53,16 @@
     "cropError": "The image could not be cropped.",
     "ready": "Image ready to crop.",
     "processing": "Cropping image...",
-    "completed": "Cropping completed."
+    "completed": "Cropping completed.",
+    "scissorsInstructions": "Click on the image to create at least 4 points. Drag points to reposition them and tap a line to turn it into a curve. Yellow guides appear when a point aligns horizontally or vertically with another point. While zoomed in, hold the mouse wheel button and drag to pan; on mobile, drag one finger on the viewer background.",
+    "scissorsNeedFour": "Add at least 4 points to enable cropping.",
+    "scissorsReady": "Point-based cropping is ready. You can move points, use the yellow alignment guides, or tap a line to curve it inward or outward.",
+    "scissorsOutside": "Place the points inside the image.",
+    "scissorsCurve": "Curved segment enabled. Drag the control to either side of the line to choose an inward or outward curve and define its angle.",
+    "scissorsStraight": "The segment is straight again.",
+    "rectangleMode": "Rectangular crop mode enabled.",
+    "zoomReset": "Zoom reset to 100%.",
+    "panHelp": "While zoomed in, pan by holding the mouse wheel button and dragging, or drag one finger on mobile."
   },
   "info": {
     "eyebrow": "Keep only what matters",
