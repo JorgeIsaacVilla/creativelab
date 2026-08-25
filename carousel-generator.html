@@ -562,6 +562,49 @@
             font-weight: 700;
         }
 
+        .cg-field__label-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .cg-copy-controls {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            flex: 0 0 auto;
+        }
+
+        .cg-copy-mini-button {
+            width: 27px;
+            height: 27px;
+            min-height: 27px !important;
+            display: grid;
+            place-items: center;
+            padding: 0;
+            border: 1px solid rgba(88,242,142,.28);
+            border-radius: 8px;
+            background: rgba(88,242,142,.06);
+            color: var(--cg-primary);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .cg-copy-mini-button:hover,
+        .cg-copy-mini-button:focus-visible {
+            border-color: rgba(88,242,142,.62);
+            background: rgba(88,242,142,.13);
+            outline: none;
+        }
+
+        .cg-copy-mini-button:disabled {
+            opacity: .35;
+            cursor: not-allowed;
+        }
+
         .cg-field input,
         .cg-field textarea,
         .cg-field select,
@@ -2110,41 +2153,41 @@
             </aside>
 
             <section class="cg-workspace">
-                <div class="cg-format-strip" id="formatStrip" aria-label="Formatos de composición" data-i18n-aria="tool.layoutFormats">
+                <div class="cg-format-strip" id="formatStrip" aria-label="Maquetaciones" data-i18n-aria="tool.layoutFormats">
                     <button class="cg-format-button is-active" type="button" data-format="random">
                         <span class="cg-mini-layout cg-mini-layout--random" aria-hidden="true"></span>
                         <span data-i18n="tool.randomFormat">Aleatorio</span>
                     </button>
                     <button class="cg-format-button" type="button" data-format="1">
                         <span class="cg-mini-layout cg-mini-layout--1" aria-hidden="true"></span>
-                        <span data-i18n="tool.format1">Formato 1</span>
+                        <span data-i18n="tool.format1">Maquetación 1</span>
                     </button>
                     <button class="cg-format-button" type="button" data-format="2">
                         <span class="cg-mini-layout cg-mini-layout--2" aria-hidden="true"></span>
-                        <span data-i18n="tool.format2">Formato 2</span>
+                        <span data-i18n="tool.format2">Maquetación 2</span>
                     </button>
                     <button class="cg-format-button" type="button" data-format="3">
                         <span class="cg-mini-layout cg-mini-layout--3" aria-hidden="true"></span>
-                        <span data-i18n="tool.format3">Formato 3</span>
+                        <span data-i18n="tool.format3">Maquetación 3</span>
                     </button>
                     <button class="cg-format-button" type="button" data-format="4">
                         <span class="cg-mini-layout cg-mini-layout--4" aria-hidden="true"></span>
-                        <span data-i18n="tool.format4">Formato 4</span>
+                        <span data-i18n="tool.format4">Maquetación 4</span>
                     </button>
                     <button class="cg-format-button" type="button" data-format="5">
                         <span class="cg-mini-layout cg-mini-layout--5" aria-hidden="true"></span>
-                        <span data-i18n="tool.format5">Formato 5</span>
+                        <span data-i18n="tool.format5">Maquetación 5</span>
                     </button>
                     <button class="cg-format-button" type="button" data-format="6">
                         <span class="cg-mini-layout cg-mini-layout--6" aria-hidden="true"></span>
-                        <span data-i18n="tool.format6">Formato 6</span>
+                        <span data-i18n="tool.format6">Maquetación 6</span>
                     </button>
                 </div>
 
                 <div id="formatApplyPanel" class="cg-format-apply-panel" hidden>
                     <div class="cg-format-apply-panel__copy">
-                        <strong id="formatApplyPanelTitle">Aplicar formato</strong>
-                        <span id="formatApplyPanelText">Elige dónde aplicar este formato sin regenerar el diseño.</span>
+                        <strong id="formatApplyPanelTitle">Aplicar maquetación</strong>
+                        <span id="formatApplyPanelText">Elige dónde aplicar esta maquetación sin regenerar el diseño.</span>
                     </div>
                     <div class="cg-format-apply-panel__actions">
                         <button id="applyFormatCurrentButton" class="cg-format-apply-button cg-format-apply-button--primary" type="button">Aplicar solo a esta diapositiva</button>
@@ -2333,7 +2376,7 @@
             <button id="mobileToggle" class="cg-mobile-toggle" type="button" aria-expanded="false" data-i18n-aria="tool.openTools" aria-label="Abrir herramientas">+</button>
             <div id="mobileMenu" class="cg-mobile-menu">
                 <button type="button" data-mobile-target="contentPanel" data-i18n="tool.mobileContent">Contenido</button>
-                <button type="button" data-mobile-target="formatStrip" data-i18n="tool.mobileFormats">Formatos</button>
+                <button type="button" data-mobile-target="formatStrip" data-i18n="tool.mobileFormats">Maquetaciones</button>
                 <button type="button" data-mobile-target="resourceStrip" data-i18n="tool.mobileResources">Recursos</button>
             </div>
         </section>
@@ -2398,7 +2441,7 @@ c2.imagen: "2"</code></pre>
         <span data-runtime-key="tool.openTools" data-i18n="tool.openTools">Abrir herramientas</span>
         <span data-runtime-key="tool.closeTools" data-i18n="tool.closeTools">Cerrar herramientas</span>
         <span data-runtime-key="tool.contentMode" data-i18n="tool.contentMode">Modo de contenido</span>
-        <span data-runtime-key="tool.layoutFormats" data-i18n="tool.layoutFormats">Formatos de composición</span>
+        <span data-runtime-key="tool.layoutFormats" data-i18n="tool.layoutFormats">Maquetaciones</span>
         <span data-runtime-key="tool.socialFormat" data-i18n="tool.socialFormat">Formato de red social</span>
         <span data-runtime-key="tool.uploadLogo" data-i18n="tool.uploadLogo">Cargar logo</span>
         <span data-runtime-key="tool.uploadBackgrounds" data-i18n="tool.uploadBackgrounds">Cargar imágenes</span>
@@ -2520,6 +2563,11 @@ c2.imagen: "2"</code></pre>
         <span data-runtime-key="tool.removeBackground" data-i18n="tool.removeBackground">Eliminar imagen de fondo</span>
         <span data-runtime-key="tool.removeContrastPanel" data-i18n="tool.removeContrastPanel">Quitar panel de contraste</span>
         <span data-runtime-key="tool.textColor" data-i18n="tool.textColor">Color del texto</span>
+        <span data-runtime-key="tool.addCopyText" data-i18n="tool.addCopyText">Agregar texto</span>
+        <span data-runtime-key="tool.removeCopyText" data-i18n="tool.removeCopyText">Eliminar texto</span>
+        <span data-runtime-key="tool.addLogo" data-i18n="tool.addLogo">Agregar logo</span>
+        <span data-runtime-key="tool.rotation" data-i18n="tool.rotation">Rotación</span>
+        <span data-runtime-key="tool.opacity" data-i18n="tool.opacity">Opacidad</span>
     </div>
 
     <script>
@@ -2632,6 +2680,15 @@ c2.imagen: "2"</code></pre>
             objectUrls: new Set()
         };
 
+        const historyState = {
+            entries: [],
+            index: -1,
+            timer: 0,
+            restoring: false,
+            initialized: false,
+            limit: 80
+        };
+
         const curatedPalettes = [
             ['#071B14', '#0E3B2A', '#19A866', '#63F3A0', '#D9FFE7', '#F6FFF9', '#2A6C54', '#0A1110'],
             ['#101226', '#272B59', '#5A5FE8', '#8E92FF', '#E4E5FF', '#F6F6FF', '#3D428A', '#17192F'],
@@ -2662,10 +2719,10 @@ c2.imagen: "2"</code></pre>
 
         function defaultAdjustments() {
             return {
-                title: { x: 0, y: 0, scale: 100, widthScale: 100, heightScale: 100, boxManual: false },
-                copy: { x: 0, y: 0, scale: 100, widthScale: 100, heightScale: 100, boxManual: false },
-                image: { x: 0, y: 0, scale: 100 },
-                logo: { x: 0, y: 0, scale: 100 }
+                title: { x: 0, y: 0, scale: 100, widthScale: 100, heightScale: 100, boxManual: false, rotation: 0, opacity: 1 },
+                copy: { x: 0, y: 0, scale: 100, widthScale: 100, heightScale: 100, boxManual: false, rotation: 0, opacity: 1 },
+                image: { x: 0, y: 0, scale: 100, rotation: 0, opacity: 1 },
+                logo: { x: 0, y: 0, scale: 100, rotation: 0, opacity: 1 }
             };
         }
 
@@ -2714,7 +2771,9 @@ c2.imagen: "2"</code></pre>
                 base[key] = {
                     x: clamp(Number(item.x) || 0, -100, 100),
                     y: clamp(Number(item.y) || 0, -100, 100),
-                    scale: clamp(Number(item.scale) || 100, 20, 400)
+                    scale: clamp(Number(item.scale) || 100, 20, 400),
+                    rotation: clamp(Number(item.rotation) || 0, -180, 180),
+                    opacity: clamp(Number(item.opacity ?? 1), 0, 1)
                 };
                 if (key === 'title' || key === 'copy') {
                     const legacy = clamp(Number(item.scale) || 100, 20, 400);
@@ -3135,7 +3194,7 @@ c2.imagen: "2"</code></pre>
                 duplicate.dataset.index = String(index);
                 duplicate.setAttribute('aria-label', `${tr('tool.duplicateSlide', 'Duplicar diapositiva')} ${index + 1}`);
                 duplicate.title = tr('tool.duplicateSlide', 'Duplicar diapositiva');
-                duplicate.innerHTML = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+                duplicate.textContent = '+';
 
                 const remove = document.createElement('button');
                 remove.type = 'button';
@@ -3190,6 +3249,68 @@ c2.imagen: "2"</code></pre>
             syncEditControls();
         }
 
+        function createManualCopyControls(index, extraTextId = null) {
+            const group = document.createElement('div');
+            group.className = 'cg-copy-controls';
+
+            const add = document.createElement('button');
+            add.type = 'button';
+            add.className = 'cg-copy-mini-button';
+            add.dataset.action = 'add-copy';
+            add.dataset.index = String(index);
+            add.textContent = '+';
+            add.title = tr('tool.addCopyText', 'Agregar texto');
+            add.setAttribute('aria-label', tr('tool.addCopyText', 'Agregar texto'));
+
+            const remove = document.createElement('button');
+            remove.type = 'button';
+            remove.className = 'cg-copy-mini-button';
+            remove.dataset.action = 'remove-copy';
+            remove.dataset.index = String(index);
+            remove.textContent = '−';
+            remove.title = tr('tool.removeCopyText', 'Eliminar texto');
+            remove.setAttribute('aria-label', tr('tool.removeCopyText', 'Eliminar texto'));
+            if (extraTextId) remove.dataset.extraTextId = String(extraTextId);
+            else remove.disabled = !(state.slides[index]?.extraTexts || []).length;
+
+            group.append(add, remove);
+            return group;
+        }
+
+        function addManualExtraCopy(index) {
+            const slide = state.slides[index];
+            if (!slide) return;
+            slide.extraTexts = slide.extraTexts || [];
+            if (slide.extraTexts.length >= MAX_EXTRA_TEXTS) {
+                showToast(tr('messages.textLimitReached', 'Esta diapositiva alcanzó el límite de bloques de texto.'));
+                return;
+            }
+            const copyNumber = slide.extraTexts.length + 2;
+            const layer = makeUpdatedExtraCopyLayer(slide, copyNumber, '');
+            layer.rotation = 0;
+            layer.opacity = 1;
+            layer.boxManual = false;
+            slide.extraTexts.push(layer);
+            state.currentIndex = index;
+            state.selection = { kind: 'extraText', id: layer.id };
+            renderSlideCards();
+            codeInput.value = serializeAlforaCode();
+            queueRender();
+        }
+
+        function removeManualExtraCopy(index, extraTextId = null) {
+            const slide = state.slides[index];
+            if (!slide) return;
+            slide.extraTexts = slide.extraTexts || [];
+            if (!slide.extraTexts.length) return;
+            if (extraTextId) slide.extraTexts = slide.extraTexts.filter((item) => String(item.id) !== String(extraTextId));
+            else slide.extraTexts.pop();
+            state.selection = null;
+            renderSlideCards();
+            codeInput.value = serializeAlforaCode();
+            queueRender();
+        }
+
         function createTextField(index, field, labelText, value, placeholder, multiline) {
             const wrapper = document.createElement('div');
             wrapper.className = 'cg-field';
@@ -3204,7 +3325,14 @@ c2.imagen: "2"</code></pre>
             control.value = value || '';
             control.placeholder = placeholder;
             if (!multiline) control.type = 'text';
-            wrapper.append(label, control);
+            if (field === 'copy') {
+                const labelRow = document.createElement('div');
+                labelRow.className = 'cg-field__label-row';
+                labelRow.append(label, createManualCopyControls(index));
+                wrapper.append(labelRow, control);
+            } else {
+                wrapper.append(label, control);
+            }
             return wrapper;
         }
 
@@ -3223,7 +3351,10 @@ c2.imagen: "2"</code></pre>
             control.dataset.extraTextId = String(layer.id || '');
             control.value = String(layer.text || '');
             control.placeholder = `${tr('tool.copyPlaceholder', 'Escribe el copy...')} ${number}`;
-            wrapper.append(label, control);
+            const labelRow = document.createElement('div');
+            labelRow.className = 'cg-field__label-row';
+            labelRow.append(label, createManualCopyControls(index, layer.id));
+            wrapper.append(labelRow, control);
             return wrapper;
         }
 
@@ -3459,7 +3590,9 @@ c2.imagen: "2"</code></pre>
                                 panelMode: 'auto',
                                 panelColor: null,
                                 panelAlpha: .44,
-                                lineHeight: 1.1
+                                lineHeight: 1.1,
+                                rotation: 0,
+                                opacity: 1
                             })),
                         backgroundGradient: null,
                         backgroundEffectDisabled: false,
@@ -3593,7 +3726,9 @@ c2.imagen: "2"</code></pre>
                 panelMode: baseStyle.panelMode || 'auto',
                 panelColor: baseStyle.panelColor || null,
                 panelAlpha: Number(baseStyle.panelAlpha ?? .44),
-                lineHeight: 1.1
+                lineHeight: 1.1,
+                rotation: 0,
+                opacity: 1
             };
         }
 
@@ -3828,6 +3963,7 @@ c2.imagen: "2"</code></pre>
             updateCounts();
             queueRender();
             showToast(tr('messages.logoLoaded'));
+            resetHistoryBaseline();
         }
 
         async function addBackgroundsFromUrls(urls) {
@@ -3840,6 +3976,7 @@ c2.imagen: "2"</code></pre>
             updateCounts();
             queueRender();
             showToast(tr(loaded.length === 1 ? 'messages.urlAssetAdded' : 'messages.urlAssetsAdded'));
+            resetHistoryBaseline();
         }
 
         async function addDecorationsFromUrls(urls) {
@@ -3857,6 +3994,7 @@ c2.imagen: "2"</code></pre>
             updateCounts();
             queueRender();
             showToast(tr(loaded.length === 1 ? 'messages.urlAssetAdded' : 'messages.urlAssetsAdded'));
+            resetHistoryBaseline();
         }
 
         function remapAssetIndexWithoutRegeneration(index, assetCount) {
@@ -3946,6 +4084,7 @@ c2.imagen: "2"</code></pre>
             updateCounts();
             queueRender();
             showToast(tr('messages.imagesLoaded'));
+            resetHistoryBaseline();
         }
 
         async function handleDecorations(files) {
@@ -3963,6 +4102,7 @@ c2.imagen: "2"</code></pre>
             updateCounts();
             queueRender();
             showToast(tr('messages.decorationsLoaded'));
+            resetHistoryBaseline();
         }
 
         function extractPaletteDetailed(image, limit = 8) {
@@ -4044,6 +4184,15 @@ c2.imagen: "2"</code></pre>
         function primaryFontFromStack(stack) {
             const first = String(stack || '').split(',')[0].trim();
             return first || 'Arial';
+        }
+
+        function styleFontOptionPreviews() {
+            [...fontFamilySelect.options].forEach((option) => {
+                option.style.fontFamily = option.value;
+                option.style.fontWeight = '400';
+                option.style.fontStyle = 'normal';
+            });
+            fontFamilySelect.style.fontFamily = fontFamilySelect.value || state.fontFamily;
         }
 
         async function ensureSelectedFontLoaded() {
@@ -4246,6 +4395,7 @@ c2.imagen: "2"</code></pre>
             renderSlideToCanvas(ctx, width, height, slide, slide.design, state.currentIndex);
             drawPreviewSelection(ctx, width, height, slide);
             currentSlideLabel.textContent = `${state.currentIndex + 1} / ${state.slides.length}`;
+            scheduleHistoryCheckpoint();
         }
 
         function drawCover(context, image, x, y, width, height, options = {}) {
@@ -4275,6 +4425,15 @@ c2.imagen: "2"</code></pre>
             context.beginPath();
             context.rect(x, y, width, height);
             context.clip();
+            context.globalAlpha *= clamp(Number(options.opacity ?? 1), 0, 1);
+            const rotation = clamp(Number(options.rotation || 0), -180, 180) * Math.PI / 180;
+            if (rotation) {
+                const cx = x + width / 2;
+                const cy = y + height / 2;
+                context.translate(cx, cy);
+                context.rotate(rotation);
+                context.translate(-cx, -cy);
+            }
             context.drawImage(image, dx, dy, drawWidth, drawHeight);
             context.restore();
         }
@@ -4288,7 +4447,12 @@ c2.imagen: "2"</code></pre>
             const drawHeight = image.naturalHeight * scale;
             const cx = x + width * (.5 + (options.offsetX || 0) / 100);
             const cy = y + height * (.5 + (options.offsetY || 0) / 100);
-            context.drawImage(image, cx - drawWidth / 2, cy - drawHeight / 2, drawWidth, drawHeight);
+            context.save();
+            context.globalAlpha *= clamp(Number(options.opacity ?? 1), 0, 1);
+            context.translate(cx, cy);
+            context.rotate(clamp(Number(options.rotation || 0), -180, 180) * Math.PI / 180);
+            context.drawImage(image, -drawWidth / 2, -drawHeight / 2, drawWidth, drawHeight);
+            context.restore();
         }
 
         function fillGradient(context, x, y, width, height, colorA, colorB, direction = 'diagonal') {
@@ -4458,7 +4622,9 @@ c2.imagen: "2"</code></pre>
                 offsetX: imageAdj.x,
                 offsetY: imageAdj.y,
                 focusX: imageAsset?.analysis?.focusX ?? .5,
-                focusY: imageAsset?.analysis?.focusY ?? .5
+                focusY: imageAsset?.analysis?.focusY ?? .5,
+                rotation: imageAdj.rotation || 0,
+                opacity: imageAdj.opacity ?? 1
             };
 
             context.save();
@@ -4791,6 +4957,7 @@ c2.imagen: "2"</code></pre>
                     treatment,
                     family: layer.fontFamily || state.fontFamily,
                     fontStyle: layer.italic ? 'italic' : 'normal',
+                    rotation: Number(layer.rotation || 0),
                     weight: Number(layer.weight || 650),
                     panelFollowsBox: Boolean(layer.boxManual),
                     startSize: clamp(Number(layer.fontSize || 36), 18, 600),
@@ -5050,11 +5217,15 @@ c2.imagen: "2"</code></pre>
                 });
             }
             if (phase !== 'backdrop' && phase !== 'collect') {
-                drawLogo(context, logoImage, rect, 'center', null, scaleMultiplier);
+                const adjustment = slide ? normalizeAdjustments(slide.adjustments).logo : { rotation: 0, opacity: 1 };
+                drawLogo(context, logoImage, rect, 'center', null, scaleMultiplier, {
+                    rotation: adjustment.rotation || 0,
+                    opacity: adjustment.opacity ?? 1
+                });
             }
         }
 
-        function drawLogo(context, logoImage, rect, alignment = 'left', forcedColor = null, scaleMultiplier = 1) {
+        function drawLogo(context, logoImage, rect, alignment = 'left', forcedColor = null, scaleMultiplier = 1, options = {}) {
             if (!logoImage) return;
             const pad = Math.min(rect.width, rect.height) * .02;
             const maxW = rect.width - pad * 2;
@@ -5066,9 +5237,21 @@ c2.imagen: "2"</code></pre>
             if (alignment === 'center') x = rect.x + (rect.width - w) / 2;
             if (alignment === 'right') x = rect.x + rect.width - w - pad;
             const y = rect.y + (rect.height - h) / 2;
+            const rotation = clamp(Number(options.rotation || 0), -180, 180) * Math.PI / 180;
+
+            context.save();
+            context.globalAlpha *= clamp(Number(options.opacity ?? 1), 0, 1);
+            if (rotation) {
+                const cx = rect.x + rect.width / 2;
+                const cy = rect.y + rect.height / 2;
+                context.translate(cx, cy);
+                context.rotate(rotation);
+                context.translate(-cx, -cy);
+            }
 
             if (!forcedColor) {
                 context.drawImage(logoImage, x, y, w, h);
+                context.restore();
                 return;
             }
 
@@ -5081,6 +5264,7 @@ c2.imagen: "2"</code></pre>
             tctx.fillStyle = forcedColor;
             tctx.fillRect(0, 0, temp.width, temp.height);
             context.drawImage(temp, x, y, w, h);
+            context.restore();
         }
 
         function getTextLines(context, text, maxWidth) {
@@ -5218,6 +5402,15 @@ c2.imagen: "2"</code></pre>
 
             // En las fases backdrop/collect solo medimos y registramos paneles.
             if (phase !== 'backdrop' && phase !== 'collect') {
+                context.save();
+                const rotation = clamp(Number(options.rotation || 0), -180, 180) * Math.PI / 180;
+                if (rotation) {
+                    const cx = rect.x + rect.width / 2;
+                    const cy = rect.y + rect.height / 2;
+                    context.translate(cx, cy);
+                    context.rotate(rotation);
+                    context.translate(-cx, -cy);
+                }
                 context.fillStyle = options.color || treatment?.textColor || '#FFFFFF';
                 const x = align === 'left' ? rect.x : align === 'right' ? rect.x + rect.width : rect.x + rect.width / 2;
                 let y = rect.y;
@@ -5225,6 +5418,7 @@ c2.imagen: "2"</code></pre>
                     context.fillText(line, x, y, rect.width);
                     y += lineHeightPx;
                 });
+                context.restore();
             }
             context.restore();
             return { height: textHeight, lines: fit.lines, size: fit.size };
@@ -5410,6 +5604,10 @@ c2.imagen: "2"</code></pre>
             return clamp((normalizeAdjustments(slide?.adjustments)[element]?.scale || 100) / 100, .2, 4);
         }
 
+        function resolveElementRotation(slide, element) {
+            return clamp(Number(normalizeAdjustments(slide?.adjustments)?.[element]?.rotation || 0), -180, 180);
+        }
+
         function getGeometry(format, alignment, W, H, hasLogo, slide) {
             const mx = W * .08;
             const my = H * .07;
@@ -5586,7 +5784,7 @@ c2.imagen: "2"</code></pre>
                 color: titleTreatment.textColor,
                 treatment: titleTreatment,
                 fontStyle: resolveTextFontStyle(slide, 'title'),
-                panelFollowsBox: textPanelFollowsManualBox(slide, 'title'),
+                panelFollowsBox: textPanelFollowsManualBox(slide, 'title'), rotation: resolveElementRotation(slide, 'title'),
                 weight: resolveTextWeight(slide, 'title', 800),
                 lockSize: hasExplicitTextSize(slide, 'title'),
                 startSize: resolveTextSize(slide, 'title', Math.max(30, W * .075)),
@@ -5600,7 +5798,7 @@ c2.imagen: "2"</code></pre>
                 color: copyTreatment.textColor,
                 treatment: copyTreatment,
                 fontStyle: resolveTextFontStyle(slide, 'copy'),
-                panelFollowsBox: textPanelFollowsManualBox(slide, 'copy'),
+                panelFollowsBox: textPanelFollowsManualBox(slide, 'copy'), rotation: resolveElementRotation(slide, 'copy'),
                 weight: resolveTextWeight(slide, 'copy', 650),
                 lockSize: hasExplicitTextSize(slide, 'copy'),
                 startSize: resolveTextSize(slide, 'copy', Math.max(20, W * .044)),
@@ -5618,12 +5816,12 @@ c2.imagen: "2"</code></pre>
             const titleTreatment = getTextTreatmentForElement(context, geo.title, design, W, H, slide, 'title', 'title');
             const copyTreatment = getTextTreatmentForElement(context, geo.copy, design, W, H, slide, 'copy', 'copy');
             drawTextBlock(context, slideTitleText(slide, index), geo.title, {
-                align: resolveTextAlign(slide, 'title', 'center'), color: titleTreatment.textColor, treatment: titleTreatment, fontStyle: resolveTextFontStyle(slide, 'title'), panelFollowsBox: textPanelFollowsManualBox(slide, 'title'), weight: resolveTextWeight(slide, 'title', 850),
+                align: resolveTextAlign(slide, 'title', 'center'), color: titleTreatment.textColor, treatment: titleTreatment, fontStyle: resolveTextFontStyle(slide, 'title'), panelFollowsBox: textPanelFollowsManualBox(slide, 'title'), rotation: resolveElementRotation(slide, 'title'), weight: resolveTextWeight(slide, 'title', 850),
                 lockSize: hasExplicitTextSize(slide, 'title'),
                 startSize: resolveTextSize(slide, 'title', Math.max(32, W * .083)), family: resolveTextFont(slide, 'title'), minSize: 22, maxLines: 4, lineHeight: resolveTextLineHeight(slide, 'title', 1.03)
             });
             drawTextBlock(context, slideCopyText(slide), geo.copy, {
-                align: resolveTextAlign(slide, 'copy', 'center'), color: copyTreatment.textColor, treatment: copyTreatment, fontStyle: resolveTextFontStyle(slide, 'copy'), panelFollowsBox: textPanelFollowsManualBox(slide, 'copy'), weight: resolveTextWeight(slide, 'copy', 560),
+                align: resolveTextAlign(slide, 'copy', 'center'), color: copyTreatment.textColor, treatment: copyTreatment, fontStyle: resolveTextFontStyle(slide, 'copy'), panelFollowsBox: textPanelFollowsManualBox(slide, 'copy'), rotation: resolveElementRotation(slide, 'copy'), weight: resolveTextWeight(slide, 'copy', 560),
                 lockSize: hasExplicitTextSize(slide, 'copy'),
                 startSize: resolveTextSize(slide, 'copy', Math.max(20, W * .043)), family: resolveTextFont(slide, 'copy'), minSize: 18, maxLines: 5, lineHeight: resolveTextLineHeight(slide, 'copy', 1.16)
             });
@@ -5645,14 +5843,14 @@ c2.imagen: "2"</code></pre>
             if (state.logo && !slide.logoHidden) drawLogoSmart(context, state.logo.image, geo.logo, 'center', design, design.logoScale, slide);
             const titleTreatment = getTextTreatmentForElement(context, geo.title, design, W, H, slide, 'title', 'title');
             drawTextBlock(context, slideTitleText(slide, index), geo.title, {
-                align: resolveTextAlign(slide, 'title', design.alignment), color: titleTreatment.textColor, treatment: titleTreatment, fontStyle: resolveTextFontStyle(slide, 'title'), panelFollowsBox: textPanelFollowsManualBox(slide, 'title'), weight: resolveTextWeight(slide, 'title', 600),
+                align: resolveTextAlign(slide, 'title', design.alignment), color: titleTreatment.textColor, treatment: titleTreatment, fontStyle: resolveTextFontStyle(slide, 'title'), panelFollowsBox: textPanelFollowsManualBox(slide, 'title'), rotation: resolveElementRotation(slide, 'title'), weight: resolveTextWeight(slide, 'title', 600),
                 lockSize: hasExplicitTextSize(slide, 'title'),
                 startSize: resolveTextSize(slide, 'title', Math.max(30, W * .070)), family: resolveTextFont(slide, 'title'), minSize: 22, maxLines: 5, lineHeight: resolveTextLineHeight(slide, 'title', 1.04)
             });
             if (slideCopyText(slide)) {
                 const treatment = getTextTreatmentForElement(context, geo.copy, design, W, H, slide, 'copy', 'copy');
                 drawTextBlock(context, slideCopyText(slide), geo.copy, {
-                    align: resolveTextAlign(slide, 'copy', 'center'), color: treatment.textColor, treatment, fontStyle: resolveTextFontStyle(slide, 'copy'), panelFollowsBox: textPanelFollowsManualBox(slide, 'copy'), weight: resolveTextWeight(slide, 'copy', 560),
+                    align: resolveTextAlign(slide, 'copy', 'center'), color: treatment.textColor, treatment, fontStyle: resolveTextFontStyle(slide, 'copy'), panelFollowsBox: textPanelFollowsManualBox(slide, 'copy'), rotation: resolveElementRotation(slide, 'copy'), weight: resolveTextWeight(slide, 'copy', 560),
                     lockSize: hasExplicitTextSize(slide, 'copy'),
                 startSize: resolveTextSize(slide, 'copy', Math.max(19, W * .027)), family: resolveTextFont(slide, 'copy'), minSize: 18, maxLines: 3, lineHeight: resolveTextLineHeight(slide, 'copy', 1.09)
                 });
@@ -5673,12 +5871,12 @@ c2.imagen: "2"</code></pre>
             const titleTreatment = getTextTreatmentForElement(context, geo.title, design, W, H, slide, 'title', 'title');
             const copyTreatment = getTextTreatmentForElement(context, geo.copy, design, W, H, slide, 'copy', 'copy');
             drawTextBlock(context, slideTitleText(slide, index), geo.title, {
-                align: resolveTextAlign(slide, 'title', 'center'), color: titleTreatment.textColor, treatment: titleTreatment, fontStyle: resolveTextFontStyle(slide, 'title'), panelFollowsBox: textPanelFollowsManualBox(slide, 'title'), weight: resolveTextWeight(slide, 'title', 650),
+                align: resolveTextAlign(slide, 'title', 'center'), color: titleTreatment.textColor, treatment: titleTreatment, fontStyle: resolveTextFontStyle(slide, 'title'), panelFollowsBox: textPanelFollowsManualBox(slide, 'title'), rotation: resolveElementRotation(slide, 'title'), weight: resolveTextWeight(slide, 'title', 650),
                 lockSize: hasExplicitTextSize(slide, 'title'),
                 startSize: resolveTextSize(slide, 'title', Math.max(28, W * .058)), family: resolveTextFont(slide, 'title'), minSize: 22, maxLines: 3, lineHeight: resolveTextLineHeight(slide, 'title', 1.05)
             });
             drawTextBlock(context, slideCopyText(slide), geo.copy, {
-                align: resolveTextAlign(slide, 'copy', 'center'), color: copyTreatment.textColor, treatment: copyTreatment, fontStyle: resolveTextFontStyle(slide, 'copy'), panelFollowsBox: textPanelFollowsManualBox(slide, 'copy'), weight: resolveTextWeight(slide, 'copy', 790),
+                align: resolveTextAlign(slide, 'copy', 'center'), color: copyTreatment.textColor, treatment: copyTreatment, fontStyle: resolveTextFontStyle(slide, 'copy'), panelFollowsBox: textPanelFollowsManualBox(slide, 'copy'), rotation: resolveElementRotation(slide, 'copy'), weight: resolveTextWeight(slide, 'copy', 790),
                 lockSize: hasExplicitTextSize(slide, 'copy'),
                 startSize: resolveTextSize(slide, 'copy', Math.max(20, W * .052)), family: resolveTextFont(slide, 'copy'), minSize: 18, maxLines: 4, lineHeight: resolveTextLineHeight(slide, 'copy', 1.08)
             });
@@ -5696,7 +5894,7 @@ c2.imagen: "2"</code></pre>
             if (state.logo && !slide.logoHidden) drawLogoSmart(context, state.logo.image, geo.logo, 'center', design, design.logoScale, slide);
             const titleTreatment = getTextTreatmentForElement(context, geo.title, design, W, H, slide, 'title', 'title');
             drawTextBlock(context, slideTitleText(slide, index), geo.title, {
-                align: resolveTextAlign(slide, 'title', 'center'), color: titleTreatment.textColor, treatment: titleTreatment, fontStyle: resolveTextFontStyle(slide, 'title'), panelFollowsBox: textPanelFollowsManualBox(slide, 'title'), weight: resolveTextWeight(slide, 'title', 680),
+                align: resolveTextAlign(slide, 'title', 'center'), color: titleTreatment.textColor, treatment: titleTreatment, fontStyle: resolveTextFontStyle(slide, 'title'), panelFollowsBox: textPanelFollowsManualBox(slide, 'title'), rotation: resolveElementRotation(slide, 'title'), weight: resolveTextWeight(slide, 'title', 680),
                 lockSize: hasExplicitTextSize(slide, 'title'),
                 startSize: resolveTextSize(slide, 'title', Math.max(28, W * .052)), family: resolveTextFont(slide, 'title'), minSize: 22, maxLines: 5, lineHeight: resolveTextLineHeight(slide, 'title', 1.14)
             });
@@ -5707,7 +5905,7 @@ c2.imagen: "2"</code></pre>
                     color: treatment.textColor,
                     treatment,
                     fontStyle: resolveTextFontStyle(slide, 'copy'),
-                    panelFollowsBox: textPanelFollowsManualBox(slide, 'copy'),
+                    panelFollowsBox: textPanelFollowsManualBox(slide, 'copy'), rotation: resolveElementRotation(slide, 'copy'),
                     weight: resolveTextWeight(slide, 'copy', 680),
                     lockSize: hasExplicitTextSize(slide, 'copy'),
                 startSize: resolveTextSize(slide, 'copy', Math.max(20, W * .036)),
@@ -5733,7 +5931,7 @@ c2.imagen: "2"</code></pre>
             const titleTreatment = getTextTreatmentForElement(context, geo.title, design, W, H, slide, 'title', 'title');
             const copyTreatment = getTextTreatmentForElement(context, geo.copy, design, W, H, slide, 'copy', 'copy');
             drawTextBlock(context, slideTitleText(slide, index), geo.title, {
-                align: resolveTextAlign(slide, 'title', align), color: titleTreatment.textColor, treatment: titleTreatment, fontStyle: resolveTextFontStyle(slide, 'title'), panelFollowsBox: textPanelFollowsManualBox(slide, 'title'), weight: resolveTextWeight(slide, 'title', 780),
+                align: resolveTextAlign(slide, 'title', align), color: titleTreatment.textColor, treatment: titleTreatment, fontStyle: resolveTextFontStyle(slide, 'title'), panelFollowsBox: textPanelFollowsManualBox(slide, 'title'), rotation: resolveElementRotation(slide, 'title'), weight: resolveTextWeight(slide, 'title', 780),
                 lockSize: hasExplicitTextSize(slide, 'title'),
                 startSize: resolveTextSize(slide, 'title', Math.max(30, W * .065)), family: resolveTextFont(slide, 'title'), minSize: 22, maxLines: 4, lineHeight: resolveTextLineHeight(slide, 'title', 1.02)
             });
@@ -5744,7 +5942,7 @@ c2.imagen: "2"</code></pre>
                     color: treatment.textColor,
                     treatment,
                     fontStyle: resolveTextFontStyle(slide, 'copy'),
-                    panelFollowsBox: textPanelFollowsManualBox(slide, 'copy'),
+                    panelFollowsBox: textPanelFollowsManualBox(slide, 'copy'), rotation: resolveElementRotation(slide, 'copy'),
                     weight: resolveTextWeight(slide, 'copy', 780),
                     lockSize: hasExplicitTextSize(slide, 'copy'),
                 startSize: resolveTextSize(slide, 'copy', Math.max(20, W * .048)),
@@ -5857,6 +6055,28 @@ c2.imagen: "2"</code></pre>
                 {name:'e',x:x3,y:y2},{name:'se',x:x3,y:y3},{name:'s',x:x2,y:y3},
                 {name:'sw',x:x1,y:y3},{name:'w',x:x1,y:y2}
             ];
+        }
+
+        function rotationHandleGeometry(rect, W, H) {
+            if (!rect) return null;
+            const radius = Math.max(9, Math.min(W,H) * .0105);
+            const stalk = Math.max(34, Math.min(W,H) * .048);
+            const anchorX = rect.x + rect.width / 2;
+            const anchorY = rect.y;
+            const handleY = clamp(anchorY - stalk, radius + 3, Math.max(radius + 3, H - radius - 3));
+            return {
+                anchorX,
+                anchorY,
+                x: anchorX,
+                y: handleY,
+                radius
+            };
+        }
+
+        function hitRotationHandle(point, rect, W, H) {
+            const handle = rotationHandleGeometry(rect, W, H);
+            if (!handle) return false;
+            return Math.hypot(point.x - handle.x, point.y - handle.y) <= handle.radius * 1.45;
         }
 
         function hitSelectionHandle(point, rect, W, H) {
@@ -6082,6 +6302,24 @@ c2.imagen: "2"</code></pre>
             context.setLineDash([Math.max(7,W*.01),Math.max(5,W*.006)]);
             context.strokeRect(rect.x,rect.y,rect.width,rect.height);
             context.setLineDash([]);
+
+            const rotateHandle=rotationHandleGeometry(rect,W,H);
+            if(rotateHandle){
+                context.beginPath();
+                context.moveTo(rotateHandle.anchorX,rotateHandle.anchorY);
+                context.lineTo(rotateHandle.x,rotateHandle.y);
+                context.strokeStyle='rgba(255,190,74,.96)';
+                context.lineWidth=Math.max(2,Math.min(W,H)*.0022);
+                context.stroke();
+                context.beginPath();
+                context.arc(rotateHandle.x,rotateHandle.y,rotateHandle.radius,0,Math.PI*2);
+                context.fillStyle='#FFBE4A';
+                context.fill();
+                context.strokeStyle='#07110C';
+                context.lineWidth=Math.max(2,rotateHandle.radius*.25);
+                context.stroke();
+            }
+
             const radius=Math.max(7,Math.min(W,H)*.009);
             selectionHandlePoints(rect).forEach((h)=>{
                 context.beginPath(); context.arc(h.x,h.y,radius,0,Math.PI*2);
@@ -6120,8 +6358,9 @@ c2.imagen: "2"</code></pre>
             const slide=getCurrentSlide(); if(!slide)return;
             const point=canvasPointFromEvent(event);
             const existingRect=getSelectionRect(state.selection,slide,canvas.width,canvas.height);
-            const handle=state.selection ? hitSelectionHandle(point,existingRect,canvas.width,canvas.height) : null;
-            const selection=handle ? state.selection : resolveCanvasSelection(point);
+            const rotateHit=state.selection ? hitRotationHandle(point,existingRect,canvas.width,canvas.height) : false;
+            const handle=!rotateHit && state.selection ? hitSelectionHandle(point,existingRect,canvas.width,canvas.height) : null;
+            const selection=(rotateHit||handle) ? state.selection : resolveCanvasSelection(point);
             state.hoverSelection=null;
             state.selection=selection;
             if (['title','copy','logo','baseImage'].includes(selection?.kind)) state.activeEditElement=selection.kind==='baseImage'?'image':selection.kind;
@@ -6138,13 +6377,18 @@ c2.imagen: "2"</code></pre>
                 : null;
             const baseLayoutRect = getLayoutSelectionRect(selection,slide,canvas.width,canvas.height);
             const baseVisualRect = getSelectionRect(selection,slide,canvas.width,canvas.height);
+            const rotationRect=baseVisualRect || baseLayoutRect;
+            const rotationCenter=rotationRect ? {x:rotationRect.x+rotationRect.width/2,y:rotationRect.y+rotationRect.height/2} : {x:point.x,y:point.y};
             state.canvasDrag={
                 pointerId:event.pointerId,startX:point.x,startY:point.y,moved:false,
-                selection:{...selection}, mode:handle?'resize':'move', handle:handle?.name||null,
+                selection:{...selection}, mode:rotateHit?'rotate':(handle?'resize':'move'), handle:handle?.name||null,
                 baseAdjustment, baseLayer:layer?{...layer}:null,
                 baseRect:baseLayoutRect,
                 baseLayoutRect,
-                baseVisualRect
+                baseVisualRect,
+                baseRotation:rotationValueForSelection(selection),
+                rotationCenter,
+                rotationStartAngle:Math.atan2(point.y-rotationCenter.y,point.x-rotationCenter.x)
             };
             canvas.setPointerCapture?.(event.pointerId); queueRender();
         }
@@ -6157,7 +6401,19 @@ c2.imagen: "2"</code></pre>
             const W=canvas.width,H=canvas.height;
             const selection=drag.selection;
             const layer=selectedLayer(slide,selection);
-            if (drag.mode==='move') {
+            if (drag.mode==='rotate') {
+                const center=drag.rotationCenter || {x:W/2,y:H/2};
+                const currentAngle=Math.atan2(point.y-center.y,point.x-center.x);
+                const delta=(currentAngle-drag.rotationStartAngle)*180/Math.PI;
+                let rotation=Number(drag.baseRotation||0)+delta;
+                rotation=((rotation+180)%360+360)%360-180;
+                if(selection.kind==='title'||selection.kind==='copy'||selection.kind==='logo'||selection.kind==='baseImage'){
+                    const key=selection.kind==='baseImage'?'image':selection.kind;
+                    slide.adjustments[key].rotation=rotation;
+                }else if(layer){
+                    layer.rotation=rotation;
+                }
+            } else if (drag.mode==='move') {
                 if (drag.baseAdjustment) {
                     const key=selection.kind==='baseImage'?'image':selection.kind;
                     slide.adjustments[key].x=clamp(drag.baseAdjustment.x + dx/W*100,-100,100);
@@ -6600,16 +6856,104 @@ c2.imagen: "2"</code></pre>
             const fallback = selection.kind==='extraText' ? Number(style.fontSize || 36) : defaultTextSizeForSlide(slide,selection.kind,canvas.width);
             input.value=String(Math.round(Number(style.fontSize || fallback)));
             const applySize=()=>{
-                const n=Number(input.value);
+                const raw=String(input.value || '').trim();
+                if(!raw)return;
+                const n=Number(raw);
                 if(!Number.isFinite(n))return;
                 const live = styleForSelection(selection); if (!live) return;
                 live.fontSize=clamp(n,18,600);
                 input.value=String(Math.round(live.fontSize));
                 queueRender();
             };
-            input.addEventListener('input',applySize);
+            // No aplicar en cada tecla: hacerlo convertía temporalmente "8" en el mínimo
+            // antes de que el usuario pudiera terminar de escribir "80", "82", etc.
             input.addEventListener('change',applySize);
+            input.addEventListener('keydown',(event)=>{
+                if(event.key==='Enter'){
+                    event.preventDefault();
+                    applySize();
+                    input.blur();
+                }
+            });
+            input.addEventListener('focus',()=>input.select());
             row.append(span,input);return row;
+        }
+
+        function rotationValueForSelection(selection) {
+            const slide=getCurrentSlide(); if(!slide||!selection)return 0;
+            if(selection.kind==='title'||selection.kind==='copy'||selection.kind==='logo'||selection.kind==='baseImage'){
+                const key=selection.kind==='baseImage'?'image':selection.kind;
+                slide.adjustments=normalizeAdjustments(slide.adjustments);
+                return clamp(Number(slide.adjustments[key]?.rotation || 0),-180,180);
+            }
+            const layer=selectedLayer(slide,selection);
+            return clamp(Number(layer?.rotation || 0),-180,180);
+        }
+
+        function setRotationForSelection(selection,value) {
+            const slide=getCurrentSlide(); if(!slide||!selection)return;
+            const rotation=clamp(Number(value)||0,-180,180);
+            if(selection.kind==='title'||selection.kind==='copy'||selection.kind==='logo'||selection.kind==='baseImage'){
+                const key=selection.kind==='baseImage'?'image':selection.kind;
+                slide.adjustments=normalizeAdjustments(slide.adjustments);
+                slide.adjustments[key].rotation=rotation;
+            }else{
+                const layer=selectedLayer(slide,selection);
+                if(layer)layer.rotation=rotation;
+            }
+            queueRender();
+        }
+
+        function createRotationRow(selection) {
+            if(!selection||selection.kind==='canvas')return null;
+            const row=document.createElement('label');row.className='cg-context-row';
+            const span=document.createElement('span');span.textContent=tr('tool.rotation','Rotación');
+            const input=document.createElement('input');input.type='number';input.min='-180';input.max='180';input.step='1';
+            input.value=String(Math.round(rotationValueForSelection(selection)));
+            const apply=()=>{
+                const n=Number(input.value);if(!Number.isFinite(n))return;
+                setRotationForSelection(selection,n);
+                input.value=String(Math.round(rotationValueForSelection(selection)));
+            };
+            input.addEventListener('change',apply);
+            input.addEventListener('keydown',(event)=>{if(event.key==='Enter'){event.preventDefault();apply();input.blur();}});
+            input.addEventListener('focus',()=>input.select());
+            row.append(span,input);return row;
+        }
+
+        function opacityValueForSelection(selection) {
+            const slide=getCurrentSlide();if(!slide||!selection)return 1;
+            if(selection.kind==='baseImage'){
+                slide.adjustments=normalizeAdjustments(slide.adjustments);
+                return clamp(Number(slide.adjustments.image.opacity ?? 1),0,1);
+            }
+            const layer=selectedLayer(slide,selection);
+            return clamp(Number(layer?.opacity ?? 1),0,1);
+        }
+
+        function setOpacityForSelection(selection,value) {
+            const slide=getCurrentSlide();if(!slide||!selection)return;
+            const opacity=clamp(Number(value),0,1);
+            if(selection.kind==='baseImage'){
+                slide.adjustments=normalizeAdjustments(slide.adjustments);
+                slide.adjustments.image.opacity=opacity;
+            }else{
+                const layer=selectedLayer(slide,selection);
+                if(layer)layer.opacity=opacity;
+            }
+            queueRender();
+        }
+
+        function createElementOpacityRow(selection) {
+            if(!['baseImage','backgroundLayer','decoration'].includes(selection?.kind))return null;
+            const row=document.createElement('div');row.className='cg-context-row';
+            const span=document.createElement('span');span.textContent=tr('tool.opacity','Opacidad');
+            const controls=document.createElement('div');controls.className='cg-context-align';
+            const range=document.createElement('input');range.type='range';range.min='0';range.max='100';range.step='1';
+            const value=document.createElement('span');value.className='cg-range-value';
+            const sync=()=>{const percent=Math.round(opacityValueForSelection(selection)*100);range.value=String(percent);value.textContent=`${percent}%`;};
+            range.addEventListener('input',()=>{setOpacityForSelection(selection,Number(range.value)/100);value.textContent=`${range.value}%`;});
+            controls.append(range,value);row.append(span,controls);sync();return row;
         }
 
         function createTextAlignRow(selection) {
@@ -6658,13 +7002,121 @@ c2.imagen: "2"</code></pre>
 
         function deepClone(value) { return JSON.parse(JSON.stringify(value)); }
 
+        function captureHistorySnapshot() {
+            return {
+                slides: deepClone(state.slides),
+                selectedFormat: state.selectedFormat,
+                palette: [...state.palette],
+                paletteWeights: [...state.paletteWeights],
+                paletteFromLogo: Boolean(state.paletteFromLogo),
+                fontFamily: state.fontFamily,
+                socialFormat: socialFormat.value
+            };
+        }
+
+        function historySignature(snapshot) {
+            return JSON.stringify(snapshot);
+        }
+
+        function resetHistoryBaseline() {
+            window.clearTimeout(historyState.timer);
+            historyState.timer = 0;
+            const snapshot = captureHistorySnapshot();
+            historyState.entries = [{ snapshot, signature: historySignature(snapshot) }];
+            historyState.index = 0;
+            historyState.initialized = true;
+        }
+
+        function commitHistoryCheckpoint() {
+            window.clearTimeout(historyState.timer);
+            historyState.timer = 0;
+            if (!historyState.initialized || historyState.restoring) return;
+
+            const snapshot = captureHistorySnapshot();
+            const signature = historySignature(snapshot);
+            const current = historyState.entries[historyState.index];
+            if (current?.signature === signature) return;
+
+            historyState.entries.splice(historyState.index + 1);
+            historyState.entries.push({ snapshot, signature });
+            if (historyState.entries.length > historyState.limit) {
+                historyState.entries.shift();
+            }
+            historyState.index = historyState.entries.length - 1;
+        }
+
+        function scheduleHistoryCheckpoint() {
+            if (!historyState.initialized || historyState.restoring) return;
+            window.clearTimeout(historyState.timer);
+            historyState.timer = window.setTimeout(commitHistoryCheckpoint, 260);
+        }
+
+        function restoreHistorySnapshot(entry) {
+            if (!entry?.snapshot) return;
+            const snapshot = entry.snapshot;
+            historyState.restoring = true;
+            window.clearTimeout(historyState.timer);
+            historyState.timer = 0;
+
+            state.slides = deepClone(snapshot.slides);
+            state.selectedFormat = snapshot.selectedFormat;
+            state.palette = [...snapshot.palette];
+            state.paletteWeights = [...snapshot.paletteWeights];
+            state.paletteFromLogo = Boolean(snapshot.paletteFromLogo);
+            state.fontFamily = snapshot.fontFamily || state.fontFamily;
+            state.currentIndex = clamp(state.currentIndex, 0, Math.max(0, state.slides.length - 1));
+            state.selection = null;
+            state.hoverSelection = null;
+            state.canvasDrag = null;
+
+            if ([...socialFormat.options].some((option) => option.value === snapshot.socialFormat)) {
+                socialFormat.value = snapshot.socialFormat;
+            }
+            if ([...fontFamilySelect.options].some((option) => option.value === state.fontFamily)) {
+                fontFamilySelect.value = state.fontFamily;
+            }
+            styleFontOptionPreviews();
+            document.querySelectorAll('.cg-format-button').forEach((button) => {
+                button.classList.toggle('is-active', button.dataset.format === state.selectedFormat);
+            });
+
+            renderSlideCards();
+            renderDots();
+            renderPaletteEditor();
+            updateAddButton();
+            syncEditControls();
+            const { width, height } = getCanvasSize();
+            canvas.width = width;
+            canvas.height = height;
+            renderCurrentSlide();
+            historyState.restoring = false;
+        }
+
+        function undoHistory() {
+            if (!historyState.initialized) return;
+            commitHistoryCheckpoint();
+            if (historyState.index <= 0) return;
+            historyState.index -= 1;
+            restoreHistorySnapshot(historyState.entries[historyState.index]);
+        }
+
+        function redoHistory() {
+            if (!historyState.initialized) return;
+            commitHistoryCheckpoint();
+            if (historyState.index >= historyState.entries.length - 1) return;
+            historyState.index += 1;
+            restoreHistorySnapshot(historyState.entries[historyState.index]);
+        }
+
         function copySelection(selection, notify = true) {
             const slide=getCurrentSlide(); if(!slide||!selection)return;
             if(selection.kind==='title'||selection.kind==='copy'){
                 const text=selection.kind==='title'?slideTitleText(slide,state.currentIndex):slideCopyText(slide);
                 const visual = captureBaseTextVisualFormat(slide, selection.kind);
+                const sourceRect = getSelectionRect(selection, slide, canvas.width, canvas.height);
                 state.clipboard={
                     type:'text',
+                    sourceSlideIndex: state.currentIndex,
                     role:selection.kind,
                     text,
                     style:visual.style,
@@ -6674,16 +7126,32 @@ c2.imagen: "2"</code></pre>
                     lineHeight:visual.lineHeight,
                     align:visual.align,
                     fontFamily:visual.fontFamily,
-                    adjustment:deepClone(normalizeAdjustments(slide.adjustments)[selection.kind])
+                    adjustment:deepClone(normalizeAdjustments(slide.adjustments)[selection.kind]),
+                    geometry: sourceRect ? {
+                        xPct: (sourceRect.x + sourceRect.width / 2) / canvas.width * 100,
+                        yPct: (sourceRect.y + sourceRect.height / 2) / canvas.height * 100,
+                        widthPct: sourceRect.width / canvas.width * 100,
+                        heightPct: sourceRect.height / canvas.height * 100
+                    } : null,
+                    rotation: rotationValueForSelection(selection)
                 };
             } else if(selection.kind==='extraText'){
-                const layer=selectedLayer(slide,selection);if(layer)state.clipboard={type:'textLayer',layer:deepClone(layer)};
+                const layer=selectedLayer(slide,selection);if(layer)state.clipboard={type:'textLayer',sourceSlideIndex:state.currentIndex,layer:deepClone(layer)};
             } else if(selection.kind==='logo'){
-                state.clipboard={type:'logo',style:deepClone(getSlideStyles(slide).logo),adjustment:deepClone(normalizeAdjustments(slide.adjustments).logo)};
+                state.clipboard={type:'logo',sourceSlideIndex:state.currentIndex,style:deepClone(getSlideStyles(slide).logo),adjustment:deepClone(normalizeAdjustments(slide.adjustments).logo)};
             } else if(selection.kind==='decoration'||selection.kind==='backgroundLayer'){
-                const layer=selectedLayer(slide,selection);if(layer)state.clipboard={type:'assetLayer',selectionKind:selection.kind,layer:deepClone(layer)};
+                const layer=selectedLayer(slide,selection);if(layer)state.clipboard={type:'assetLayer',sourceSlideIndex:state.currentIndex,selectionKind:selection.kind,layer:deepClone(layer)};
             } else if(selection.kind==='baseImage'){
-                state.clipboard={type:'baseImage',assetIndex:slide.design?.backgroundIndex};
+                state.clipboard={
+                    type:'baseImage',
+                    sourceSlideIndex: state.currentIndex,
+                    assetIndex: slide.design?.backgroundIndex,
+                    imageIndex: slide.imageIndex,
+                    adjustment: deepClone(normalizeAdjustments(slide.adjustments).image),
+                    backgroundMode: slide.design?.backgroundMode || null,
+                    backgroundGradient: deepClone(slide.backgroundGradient),
+                    backgroundEffectDisabled: Boolean(slide.backgroundEffectDisabled)
+                };
             }
             if (notify && state.clipboard) showToast(tr('messages.elementCopied','Elemento copiado.'));
         }
@@ -6691,38 +7159,95 @@ c2.imagen: "2"</code></pre>
         function pasteClipboard() {
             const slide=getCurrentSlide(),clip=state.clipboard;if(!slide||!clip)return;
             const newId=(prefix)=>`${prefix}-${Date.now()}-${Math.floor(Math.random()*1e6)}`;
+            const sameSlide = Number(clip.sourceSlideIndex) === state.currentIndex;
+            const offsetPct = sameSlide ? 8 : 0;
+
             if(clip.type==='text'||clip.type==='textLayer'){
                 if ((slide.extraTexts || []).length >= MAX_EXTRA_TEXTS) {
                     showToast(tr('messages.textLimitReached','Esta diapositiva alcanzó el límite de bloques de texto.'));
                     return;
                 }
+
                 const source=clip.type==='text'?null:clip.layer;
-                const sourceRole=clip.type==='text'?clip.role:(source.role||'copy');
                 const text=clip.type==='text'?clip.text:source.text;
                 const style=clip.type==='text'?clip.style:source;
-                const rect=clip.type==='text'?getSelectionRect({kind:sourceRole},slide,canvas.width,canvas.height):getExtraTextRect(source,canvas.width,canvas.height);
+                const geometry = clip.type==='text'
+                    ? clip.geometry
+                    : {
+                        xPct:Number(source.xPct ?? 50),
+                        yPct:Number(source.yPct ?? 50),
+                        widthPct:Number(source.widthPct ?? 50),
+                        heightPct:Number(source.heightPct ?? 20)
+                    };
+
+                let xPct = Number(geometry?.xPct ?? 50) + offsetPct;
+                let yPct = Number(geometry?.yPct ?? 50) + offsetPct;
+                let widthPct = Number(geometry?.widthPct ?? 50);
+                let heightPct = Number(geometry?.heightPct ?? 20);
+
+                // Entre diapositivas se conserva exactamente la geometría normalizada.
+                // En la misma diapositiva mantenemos el pequeño desplazamiento histórico
+                // para que una copia duplicada no quede completamente oculta por el original.
                 const layer={
                     id:newId('text'),kind:'extraText',role:'copy',fieldKey:`copy${(slide.extraTexts||[]).length+2}`,text,
-                    xPct:clamp(((rect.x+rect.width/2)/canvas.width*100)+8,5,95),
-                    yPct:clamp(((rect.y+rect.height/2)/canvas.height*100)+8,5,95),
-                    widthPct:rect.width/canvas.width*100,
-                    heightPct:clamp(((Number(clip.type==='text'?clip.fontSize:(style.fontSize||36)) * Number(clip.type==='text'?(clip.lineHeight||style.lineHeight||1.1):(style.lineHeight||1.1)) * Math.max(1, String(text||'').split(/\n/).length)) + 32) / canvas.height * 100, 5, rect.height/canvas.height*100),
+                    xPct:clamp(xPct,-20,120),
+                    yPct:clamp(yPct,-20,120),
+                    widthPct:clamp(widthPct,5,140),
+                    heightPct:clamp(heightPct,4,120),
+                    boxManual:Boolean(!sameSlide || source?.boxManual || clip.type==='text'),
                     fontFamily:clip.type==='text'?(clip.fontFamily||style.fontFamily||state.fontFamily):(style.fontFamily||state.fontFamily),
                     fontSize:Number(clip.type==='text'?clip.fontSize:(style.fontSize||36)),
-                    color:style.color||null,align:clip.type==='text'?(clip.align||style.align||'left'):(style.align||'left'),
+                    color:style.color||null,
+                    align:clip.type==='text'?(clip.align||style.align||'left'):(style.align||'left'),
                     weight:Number(clip.type==='text'?clip.weight:(style.weight||650)),
                     italic:Boolean(clip.type==='text'?clip.italic:style.italic),
-                    panelMode:style.panelMode||'auto',panelColor:style.panelColor||null,panelAlpha:Number(style.panelAlpha??.44),
-                    lineHeight:Number(clip.type==='text'?(clip.lineHeight||style.lineHeight||1.1):(style.lineHeight||1.1))
+                    panelMode:style.panelMode||'auto',
+                    panelColor:style.panelColor||null,
+                    panelAlpha:Number(style.panelAlpha??.44),
+                    lineHeight:Number(clip.type==='text'?(clip.lineHeight||style.lineHeight||1.1):(style.lineHeight||1.1)),
+                    rotation:clamp(Number(clip.type==='text'?clip.rotation:(style.rotation||0))||0,-180,180)
                 };
                 slide.extraTexts.push(layer);state.selection={kind:'extraText',id:layer.id};
             } else if(clip.type==='logo'&&state.logo){
-                const layer={id:newId('logo'),kind:'decoration',assetType:'logo',assetIndex:-1,xPct:55,yPct:20,scale:18,rotation:0,opacity:1,source:'manual',layerPosition:'back'};slide.extraDecorations.push(layer);slide.decorationsInitialized=true;state.selection={kind:'decoration',id:layer.id};
+                if (!sameSlide) {
+                    slide.logoHidden=false;
+                    slide.adjustments=normalizeAdjustments(slide.adjustments);
+                    slide.adjustments.logo=deepClone(clip.adjustment || defaultAdjustments().logo);
+                    Object.assign(getSlideStyles(slide).logo, deepClone(clip.style || {}));
+                    state.selection={kind:'logo'};
+                } else {
+                    const adjustment=clip.adjustment||defaultAdjustments().logo;
+                    const geo=getSelectionRect({kind:'logo'},slide,canvas.width,canvas.height);
+                    const xPct=geo?(geo.x+geo.width/2)/canvas.width*100:55;
+                    const yPct=geo?(geo.y+geo.height/2)/canvas.height*100:20;
+                    const layer={id:newId('logo'),kind:'decoration',assetType:'logo',assetIndex:-1,xPct:clamp(xPct+8,-20,120),yPct:clamp(yPct+8,-20,120),scale:clamp(Number(adjustment.scale||100)*.18,4,220),rotation:Number(adjustment.rotation||0),opacity:Number(adjustment.opacity??1),source:'manual',layerPosition:'back'};
+                    slide.extraDecorations.push(layer);slide.decorationsInitialized=true;state.selection={kind:'decoration',id:layer.id};
+                }
             } else if(clip.type==='assetLayer'){
-                const layer=deepClone(clip.layer);layer.id=newId(layer.kind||'layer');layer.xPct=clamp(Number(layer.xPct||50)+8,-10,110);layer.yPct=clamp(Number(layer.yPct||50)+8,-10,110);
-                if(clip.selectionKind==='backgroundLayer'){slide.backgroundLayers.push(layer);state.selection={kind:'backgroundLayer',id:layer.id};}else{layer.source='manual';layer.layerPosition=layer.layerPosition==='front'?'front':'back';slide.extraDecorations.push(layer);slide.decorationsInitialized=true;state.selection={kind:'decoration',id:layer.id};}
+                const layer=deepClone(clip.layer);layer.id=newId(layer.kind||'layer');
+                layer.xPct=clamp(Number(layer.xPct??50)+offsetPct,-20,120);
+                layer.yPct=clamp(Number(layer.yPct??50)+offsetPct,-20,120);
+                if(clip.selectionKind==='backgroundLayer'){
+                    slide.backgroundLayers.push(layer);state.selection={kind:'backgroundLayer',id:layer.id};
+                }else{
+                    layer.source='manual';layer.layerPosition=layer.layerPosition==='front'?'front':'back';slide.extraDecorations.push(layer);slide.decorationsInitialized=true;state.selection={kind:'decoration',id:layer.id};
+                }
             } else if(clip.type==='baseImage'&&Number.isInteger(Number(clip.assetIndex))&&state.backgrounds[clip.assetIndex]){
-                const layer={id:newId('background'),kind:'background',assetIndex:Number(clip.assetIndex),xPct:53,yPct:53,scale:48,rotation:0,opacity:1};slide.backgroundLayers.push(layer);state.selection={kind:'backgroundLayer',id:layer.id};
+                if (!sameSlide) {
+                    if (!slide.design) slide.design=buildDesign(slide,state.currentIndex);
+                    slide.imageIndex = clip.imageIndex === 'auto' ? String(clip.assetIndex) : (clip.imageIndex ?? String(clip.assetIndex));
+                    slide.baseImageHidden=false;
+                    slide.design.backgroundIndex=Number(clip.assetIndex);
+                    if (clip.backgroundMode) slide.design.backgroundMode=clip.backgroundMode;
+                    slide.adjustments=normalizeAdjustments(slide.adjustments);
+                    slide.adjustments.image=deepClone(clip.adjustment || defaultAdjustments().image);
+                    slide.backgroundGradient=deepClone(clip.backgroundGradient);
+                    slide.backgroundEffectDisabled=Boolean(clip.backgroundEffectDisabled);
+                    state.selection={kind:'baseImage'};
+                } else {
+                    const layer={id:newId('background'),kind:'background',assetIndex:Number(clip.assetIndex),xPct:53,yPct:53,scale:48,rotation:Number(clip.adjustment?.rotation||0),opacity:Number(clip.adjustment?.opacity??1)};
+                    slide.backgroundLayers.push(layer);state.selection={kind:'backgroundLayer',id:layer.id};
+                }
             }
             renderSlideCards();
             codeInput.value = serializeAlforaCode();
@@ -8575,6 +9100,15 @@ c2.imagen: "2"</code></pre>
         function openContextMenuAt(event,selection) {
             closeContextMenu(); closeAssetPicker(); const slide=getCurrentSlide();if(!slide)return; const menu=elementContextMenu;
             const addCommonCanvasActions=()=>{
+                menu.append(contextButton(tr('tool.addLogo','Agregar logo'),()=>{
+                    if(state.logo){
+                        slide.logoHidden=false;
+                        state.selection={kind:'logo'};
+                        queueRender();
+                    }else{
+                        openResourceImportPicker('logo',event);
+                    }
+                }));
                 menu.append(contextButton(tr('tool.changeBackground','Cambiar imagen de fondo'),()=>openBaseBackgroundPicker(event)));
                 menu.append(contextButton(tr('tool.applyAutoGradient','Aplicar gradiente automático'),()=>openGradientPicker(event)));
                 if(slide.backgroundGradient || hasAutomaticBackgroundTreatment(slide)) menu.append(contextButton(tr('tool.removeGradient','Quitar gradiente'),removeManualGradient));
@@ -8586,14 +9120,17 @@ c2.imagen: "2"</code></pre>
             if(!selection||selection.kind==='canvas'){
                 addCommonCanvasActions();appendClipboardActions(menu,{kind:'canvas'});
             } else if(selection.kind==='title'||selection.kind==='copy'||selection.kind==='extraText'){
-                menu.append(createColorRow(selection),createFontRow(selection),createFontSizeRow(selection),createTextAlignRow(selection),contextSeparator());
+                menu.append(createColorRow(selection),createFontRow(selection),createFontSizeRow(selection),createTextAlignRow(selection),createRotationRow(selection),contextSeparator());
                 appendContrastControls(menu,selection);appendClipboardActions(menu,selection);
                 menu.append(contextSeparator(),contextButton(tr('tool.deleteSelected','Eliminar elemento seleccionado'),()=>deleteSelection(selection),true));
             } else if(selection.kind==='logo'){
+                menu.append(createRotationRow(selection));
                 appendContrastControls(menu,selection);appendClipboardActions(menu,selection);
                 menu.append(contextSeparator(),contextButton(tr('tool.deleteSelected','Eliminar elemento seleccionado'),()=>deleteSelection(selection),true));
             } else if(selection.kind==='baseImage'){
                 addCommonCanvasActions();
+                menu.append(contextSeparator());
+                menu.append(createRotationRow(selection),createElementOpacityRow(selection));
                 menu.append(contextSeparator());
                 menu.append(contextButton(tr('tool.removeImageBackground','Quitar fondo a imagen'),()=>removeSelectedImageBackground(selection)));
                 appendClipboardActions(menu,selection);
@@ -8605,6 +9142,8 @@ c2.imagen: "2"</code></pre>
                     menu.append(contextSeparator());
                 }
                 addCommonCanvasActions();
+                menu.append(contextSeparator());
+                menu.append(createRotationRow(selection),createElementOpacityRow(selection));
                 menu.append(contextSeparator());
                 menu.append(contextButton(tr('tool.removeImageBackground','Quitar fondo a imagen'),()=>removeSelectedImageBackground(selection)));
                 appendClipboardActions(menu,selection);
@@ -8758,7 +9297,7 @@ c2.imagen: "2"</code></pre>
 
             formatApplyPanelText.textContent = english
                 ? 'Choose where to apply this layout without regenerating the design.'
-                : 'Elige dónde aplicar este formato sin regenerar el diseño.';
+                : 'Elige dónde aplicar esta maquetación sin regenerar el diseño.';
 
             applyFormatCurrentButton.textContent = english
                 ? 'Apply only to this slide'
@@ -8963,6 +9502,7 @@ c2.imagen: "2"</code></pre>
             if (![...fontFamilySelect.options].some((option)=>option.value===cssFamily)) {
                 const option=document.createElement('option'); option.value=cssFamily; option.textContent=safeName.replace(/^Alfora\s+/i,''); fontFamilySelect.append(option);
             }
+            styleFontOptionPreviews();
             if (!state.customFonts.some((font)=>font.name===rawFamily)) state.customFonts.push({name:rawFamily,dataUrl});
             if (notify) showToast(tr('messages.fontLoaded','Tipografía cargada.'));
             return cssFamily;
@@ -9318,7 +9858,9 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
                 updateAddButton();
                 applySocialFormat({ scaleContent: false });
                 syncEditControls();
+                styleFontOptionPreviews();
                 showToast(tr('messages.projectLoaded'));
+                resetHistoryBaseline();
             } catch (error) {
                 console.error(error);
                 showToast(tr('messages.projectLoadError'));
@@ -9442,6 +9984,18 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
         });
 
         slideList.addEventListener('click', (event) => {
+            const addCopy = event.target.closest('[data-action="add-copy"]');
+            if (addCopy) {
+                event.stopPropagation();
+                addManualExtraCopy(Number(addCopy.dataset.index));
+                return;
+            }
+            const removeCopy = event.target.closest('[data-action="remove-copy"]');
+            if (removeCopy) {
+                event.stopPropagation();
+                removeManualExtraCopy(Number(removeCopy.dataset.index), removeCopy.dataset.extraTextId || null);
+                return;
+            }
             const duplicate = event.target.closest('[data-action="duplicate"]');
             if (duplicate) {
                 event.stopPropagation();
@@ -9543,6 +10097,7 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
         downloadButton.addEventListener('click', downloadCarousel);
         fontFamilySelect.addEventListener('change', async () => {
             state.fontFamily = fontFamilySelect.value;
+            styleFontOptionPreviews();
             await ensureSelectedFontLoaded();
             queueRender();
         });
@@ -9623,8 +10178,17 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
             const inContextMenu = Boolean(event.target?.closest?.('#elementContextMenu'));
             const protectedEditor = Boolean(event.target?.closest?.('#codeInput, .cg-slide-card input, .cg-slide-card textarea, #translateLanguage'));
             const mod = event.ctrlKey || event.metaKey;
+            const key = event.key.toLowerCase();
+
+            // En campos de texto dejamos que el navegador gestione su propio historial.
+            // Fuera de ellos, Ctrl/Cmd+Z deshace y Ctrl/Cmd+Y (o Cmd+Shift+Z) rehace
+            // cambios de composición dentro del carrusel.
+            if (mod && !protectedEditor && (!editing || inContextMenu)) {
+                if (key === 'z' && !event.shiftKey) { event.preventDefault(); undoHistory(); return; }
+                if (key === 'y' || (key === 'z' && event.shiftKey)) { event.preventDefault(); redoHistory(); return; }
+            }
+
             if (mod && (!editing || (inContextMenu && !protectedEditor))) {
-                const key = event.key.toLowerCase();
                 if (key === 'c' && state.selection && state.selection.kind !== 'canvas') { event.preventDefault(); copySelection(state.selection); return; }
                 if (key === 'x' && state.selection && state.selection.kind !== 'canvas') { event.preventDefault(); copySelection(state.selection,false); deleteSelection(state.selection); showToast(tr('messages.elementCut','Elemento cortado.')); return; }
                 if (key === 'v' && state.clipboard) { event.preventDefault(); pasteClipboard(); return; }
@@ -9662,6 +10226,7 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
         state.palette = [...curatedPalettes[0]];
         state.paletteWeights = state.palette.map((_, index) => Math.max(.15, 1 - index * .12));
         state.fontFamily = fontFamilySelect.value;
+        styleFontOptionPreviews();
         ensureSelectedFontLoaded().then(queueRender);
         state.slides.push(makeSlide());
         state.slides[0].design = buildDesign(state.slides[0], 0);
@@ -9673,6 +10238,7 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
         syncTranslatedAttributes();
         syncEditControls();
         queueRender();
+        resetHistoryBaseline();
 
         /* =========================================================
            PRÓXIMAS ACTUALIZACIONES · CAROUSEL GENERATOR
