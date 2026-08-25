@@ -132,7 +132,24 @@
     "bringToFront": "Pasar al frente",
     "sendToBack": "Pasar atrás",
     "addRandomDecorations": "Agregar elementos decorativos aleatorios",
-    "noBackgroundImage": "Sin imagen de fondo"
+    "noBackgroundImage": "Sin imagen de fondo",
+    "textStyle": "Estilo del texto",
+    "boldText": "Negrita",
+    "italicText": "Cursiva",
+    "lightText": "Light",
+    "moreGradientCombinations": "Más combinaciones",
+    "gradientCombination": "Combinación",
+    "gradientColors": "Colores del gradiente",
+    "addGradientColor": "Agregar color",
+    "applyGradient": "Aplicar gradiente",
+    "importFromDevice": "Desde dispositivo",
+    "importFromUrl": "Desde URL",
+    "addFromUrl": "Agregar desde URL",
+    "logoSourceTitle": "Agregar logo",
+    "backgroundSourceTitle": "Agregar imágenes de fondo",
+    "decorationSourceTitle": "Agregar decoraciones",
+    "imageUrlPlaceholder": "Pega la URL de la imagen",
+    "imageUrlsPlaceholder": "Pega una o varias URLs, una por línea"
   },
   "formats": {
     "instagramPortrait": "Instagram vertical · 1080×1350",
@@ -197,7 +214,11 @@
     "codeUpdatesApplied": "Actualizaciones aplicadas sin cambiar el diseño.",
     "codeUpdatesIgnored": "entradas no correspondían a diapositivas existentes.",
     "noSlidesUpdated": "No se encontró ninguna diapositiva existente para actualizar.",
-    "randomDecorationsAdded": "Elementos decorativos aleatorios agregados."
+    "randomDecorationsAdded": "Elementos decorativos aleatorios agregados.",
+    "urlAssetAdded": "Recurso agregado desde URL.",
+    "urlAssetsAdded": "Recursos agregados desde URL.",
+    "invalidImageUrl": "Usa una URL http o https válida.",
+    "urlImageLoadError": "No fue posible cargar esa imagen. La URL debe ser pública y permitir acceso desde el navegador."
   },
   "info": {
     "heading": "Crea un carrusel completo en pocos pasos",

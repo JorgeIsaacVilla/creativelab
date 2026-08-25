@@ -1407,6 +1407,20 @@
             gap: 5px;
         }
 
+        .cg-context-text-style {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 5px;
+            width: min(210px, 62vw);
+        }
+
+        .cg-context-text-style .cg-context-mini-button {
+            min-width: 0;
+            padding: 0 7px;
+            font-size: .70rem;
+            white-space: nowrap;
+        }
+
         .cg-context-mini-button {
             min-width: 38px;
             min-height: 36px;
@@ -1506,6 +1520,117 @@
         .cg-gradient-card strong {
             font-size: .72rem;
             line-height: 1.2;
+        }
+
+        .cg-gradient-more-button {
+            grid-column: 1 / -1;
+            width: 100%;
+        }
+
+
+        .cg-gradient-card {
+            cursor: default;
+        }
+
+        .cg-gradient-apply-button {
+            display: grid;
+            width: 100%;
+            gap: 7px;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            color: inherit;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .cg-gradient-apply-button:focus-visible {
+            outline: 2px solid rgba(88,242,142,.62);
+            outline-offset: 3px;
+            border-radius: 9px;
+        }
+
+        .cg-gradient-stop-editor {
+            display: grid;
+            gap: 6px;
+            padding-top: 7px;
+            border-top: 1px solid rgba(255,255,255,.07);
+        }
+
+        .cg-gradient-stop-editor__title {
+            color: var(--cg-soft);
+            font-size: .66rem;
+            font-weight: 800;
+        }
+
+        .cg-gradient-stop-editor__colors {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .cg-gradient-color-input {
+            width: 32px !important;
+            height: 32px !important;
+            min-height: 32px !important;
+            padding: 2px;
+            border: 1px solid rgba(255,255,255,.18);
+            border-radius: 8px;
+            background: rgba(255,255,255,.035);
+            cursor: pointer;
+        }
+
+        .cg-gradient-add-color {
+            min-width: 32px;
+            height: 32px;
+            min-height: 32px !important;
+            padding: 0 9px;
+            border: 1px dashed rgba(88,242,142,.45);
+            border-radius: 8px;
+            background: rgba(88,242,142,.055);
+            color: var(--cg-primary);
+            cursor: pointer;
+            font-size: .68rem;
+            font-weight: 850;
+        }
+
+        .cg-gradient-add-color:hover,
+        .cg-gradient-add-color:focus-visible {
+            border-color: rgba(88,242,142,.78);
+            background: rgba(88,242,142,.12);
+            outline: none;
+        }
+
+        .cg-resource-import-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .cg-resource-import-grid .cg-context-button {
+            border-color: rgba(255,255,255,.08);
+            background: rgba(255,255,255,.025);
+        }
+
+        .cg-resource-url-form {
+            display: grid;
+            gap: 9px;
+        }
+
+        .cg-resource-url-input {
+            width: 100%;
+            min-height: 46px;
+            padding: 10px 11px;
+            resize: vertical;
+            border: 1px solid rgba(255,255,255,.10);
+            border-radius: 10px;
+            background: rgba(0,0,0,.22);
+            color: var(--cg-text);
+            outline: none;
+        }
+
+        .cg-resource-url-input:focus {
+            border-color: rgba(88,242,142,.58);
+            box-shadow: 0 0 0 3px rgba(88,242,142,.08);
         }
 
         @media (max-width: 860px) {
@@ -2367,6 +2492,27 @@ c2.imagen: "2"</code></pre>
         <span data-runtime-key="tool.addRandomDecorations" data-i18n="tool.addRandomDecorations">Agregar elementos decorativos aleatorios</span>
         <span data-runtime-key="tool.deleteSelected" data-i18n="tool.deleteSelected">Eliminar elemento seleccionado</span>
         <span data-runtime-key="tool.fontFamily" data-i18n="tool.fontFamily">Familia tipográfica</span>
+        <span data-runtime-key="tool.textStyle" data-i18n="tool.textStyle">Estilo del texto</span>
+        <span data-runtime-key="tool.boldText" data-i18n="tool.boldText">Negrita</span>
+        <span data-runtime-key="tool.italicText" data-i18n="tool.italicText">Cursiva</span>
+        <span data-runtime-key="tool.lightText" data-i18n="tool.lightText">Light</span>
+        <span data-runtime-key="tool.moreGradientCombinations" data-i18n="tool.moreGradientCombinations">Más combinaciones</span>
+        <span data-runtime-key="tool.gradientCombination" data-i18n="tool.gradientCombination">Combinación</span>
+        <span data-runtime-key="tool.gradientColors" data-i18n="tool.gradientColors">Colores del gradiente</span>
+        <span data-runtime-key="tool.addGradientColor" data-i18n="tool.addGradientColor">Agregar color</span>
+        <span data-runtime-key="tool.applyGradient" data-i18n="tool.applyGradient">Aplicar gradiente</span>
+        <span data-runtime-key="tool.importFromDevice" data-i18n="tool.importFromDevice">Desde dispositivo</span>
+        <span data-runtime-key="tool.importFromUrl" data-i18n="tool.importFromUrl">Desde URL</span>
+        <span data-runtime-key="tool.addFromUrl" data-i18n="tool.addFromUrl">Agregar desde URL</span>
+        <span data-runtime-key="tool.logoSourceTitle" data-i18n="tool.logoSourceTitle">Agregar logo</span>
+        <span data-runtime-key="tool.backgroundSourceTitle" data-i18n="tool.backgroundSourceTitle">Agregar imágenes de fondo</span>
+        <span data-runtime-key="tool.decorationSourceTitle" data-i18n="tool.decorationSourceTitle">Agregar decoraciones</span>
+        <span data-runtime-key="tool.imageUrlPlaceholder" data-i18n="tool.imageUrlPlaceholder">Pega la URL de la imagen</span>
+        <span data-runtime-key="tool.imageUrlsPlaceholder" data-i18n="tool.imageUrlsPlaceholder">Pega una o varias URLs, una por línea</span>
+        <span data-runtime-key="messages.urlAssetAdded" data-i18n="messages.urlAssetAdded">Recurso agregado desde URL.</span>
+        <span data-runtime-key="messages.urlAssetsAdded" data-i18n="messages.urlAssetsAdded">Recursos agregados desde URL.</span>
+        <span data-runtime-key="messages.invalidImageUrl" data-i18n="messages.invalidImageUrl">Usa una URL http o https válida.</span>
+        <span data-runtime-key="messages.urlImageLoadError" data-i18n="messages.urlImageLoadError">No fue posible cargar esa imagen. La URL debe ser pública y permitir acceso desde el navegador.</span>
         <span data-runtime-key="tool.fullContrastPanel" data-i18n="tool.fullContrastPanel">Panel de contraste de extremo a extremo</span>
         <span data-runtime-key="tool.generateNewProposal" data-i18n="tool.generateNewProposal">Generar nueva propuesta</span>
         <span data-runtime-key="tool.panelColor" data-i18n="tool.panelColor">Color del panel</span>
@@ -2475,6 +2621,7 @@ c2.imagen: "2"</code></pre>
             fontFamily: 'Arial, Helvetica, sans-serif',
             activeEditElement: 'title',
             selection: null,
+            hoverSelection: null,
             canvasDrag: null,
             customFonts: [],
             codeAppliedOnce: false,
@@ -2524,8 +2671,8 @@ c2.imagen: "2"</code></pre>
 
         function defaultElementStyles() {
             return {
-                title: { color: null, fontFamily: null, fontSize: null, align: null, weight: null, lineHeight: null, panelMode: 'auto', panelColor: null, panelAlpha: .44 },
-                copy: { color: null, fontFamily: null, fontSize: null, align: null, weight: null, lineHeight: null, panelMode: 'auto', panelColor: null, panelAlpha: .44 },
+                title: { color: null, fontFamily: null, fontSize: null, align: null, weight: null, italic: false, lineHeight: null, panelMode: 'auto', panelColor: null, panelAlpha: .44 },
+                copy: { color: null, fontFamily: null, fontSize: null, align: null, weight: null, italic: false, lineHeight: null, panelMode: 'auto', panelColor: null, panelAlpha: .44 },
                 logo: { panelMode: 'auto', panelColor: null, panelAlpha: .44 }
             };
         }
@@ -2543,6 +2690,7 @@ c2.imagen: "2"</code></pre>
                         : null,
                     align: ['left','center','right'].includes(item.align) ? item.align : null,
                     weight: item.weight !== null && item.weight !== undefined && Number.isFinite(Number(item.weight)) ? clamp(Number(item.weight), 100, 950) : null,
+                    italic: Boolean(item.italic),
                     lineHeight: item.lineHeight !== null && item.lineHeight !== undefined && Number.isFinite(Number(item.lineHeight)) ? clamp(Number(item.lineHeight), .75, 2.2) : null,
                     panelMode: ['auto','off','local','full'].includes(item.panelMode) ? item.panelMode : 'auto',
                     panelColor: /^#[0-9a-f]{6}$/i.test(String(item.panelColor || '')) ? String(item.panelColor).toUpperCase() : null,
@@ -3307,6 +3455,7 @@ c2.imagen: "2"</code></pre>
                                 color: null,
                                 align: 'center',
                                 weight: 650,
+                                italic: false,
                                 panelMode: 'auto',
                                 panelColor: null,
                                 panelAlpha: .44,
@@ -3440,6 +3589,7 @@ c2.imagen: "2"</code></pre>
                 color: baseStyle.color || null,
                 align: baseStyle.align || 'center',
                 weight: 650,
+                italic: Boolean(baseStyle.italic),
                 panelMode: baseStyle.panelMode || 'auto',
                 panelColor: baseStyle.panelColor || null,
                 panelAlpha: Number(baseStyle.panelAlpha ?? .44),
@@ -3624,6 +3774,91 @@ c2.imagen: "2"</code></pre>
             return { file, url, image, name: file.name, analysis: analyzeImage(image) };
         }
 
+
+        function remoteImageFileName(url, mimeType = 'image/png', index = 0) {
+            let name = '';
+            try {
+                const parsed = new URL(url);
+                name = decodeURIComponent(parsed.pathname.split('/').filter(Boolean).pop() || '');
+            } catch {}
+            if (!name || !/\.[a-z0-9]{2,5}$/i.test(name)) {
+                const extension = mimeType.includes('jpeg') ? 'jpg' : mimeType.includes('webp') ? 'webp' : mimeType.includes('gif') ? 'gif' : 'png';
+                name = `imagen-url-${index + 1}.${extension}`;
+            }
+            return name.slice(0, 140);
+        }
+
+        async function loadImageFromRemoteUrl(rawUrl, index = 0) {
+            let parsed;
+            try {
+                parsed = new URL(String(rawUrl || '').trim());
+            } catch {
+                throw new Error('INVALID_IMAGE_URL');
+            }
+            if (!['http:', 'https:'].includes(parsed.protocol)) throw new Error('INVALID_IMAGE_URL');
+
+            let response;
+            try {
+                response = await fetch(parsed.href, { mode: 'cors', credentials: 'omit', cache: 'default' });
+            } catch {
+                throw new Error('URL_IMAGE_LOAD_ERROR');
+            }
+            if (!response.ok) throw new Error('URL_IMAGE_LOAD_ERROR');
+            const blob = await response.blob();
+            if (!String(blob.type || '').toLowerCase().startsWith('image/')) throw new Error('URL_IMAGE_LOAD_ERROR');
+
+            const file = new File([blob], remoteImageFileName(parsed.href, blob.type, index), { type: blob.type || 'image/png' });
+            const asset = await loadImageFile(file);
+            asset.remoteUrl = parsed.href;
+            return asset;
+        }
+
+        async function setLoadedLogoAsset(loaded) {
+            if (!loaded) return;
+            if (state.logo?.url && state.objectUrls.has(state.logo.url)) {
+                URL.revokeObjectURL(state.logo.url);
+                state.objectUrls.delete(state.logo.url);
+            }
+            state.logo = loaded;
+            const extracted = extractPaletteDetailed(loaded.image, MAX_PALETTE);
+            state.palette = ensureEightColors(extracted.colors);
+            state.paletteWeights = state.palette.map((_, index) => extracted.weights[index] ?? Math.max(.15, 1 - index * .12));
+            state.paletteFromLogo = true;
+            renderPaletteEditor();
+            updateCounts();
+            queueRender();
+            showToast(tr('messages.logoLoaded'));
+        }
+
+        async function addBackgroundsFromUrls(urls) {
+            const clean = urls.map((url) => String(url || '').trim()).filter(Boolean);
+            if (!clean.length) throw new Error('INVALID_IMAGE_URL');
+            const loaded = await Promise.all(clean.map((url, index) => loadImageFromRemoteUrl(url, index)));
+            state.backgrounds.push(...loaded);
+            syncBackgroundAssetsWithoutRegeneration();
+            renderSlideCards();
+            updateCounts();
+            queueRender();
+            showToast(tr(loaded.length === 1 ? 'messages.urlAssetAdded' : 'messages.urlAssetsAdded'));
+        }
+
+        async function addDecorationsFromUrls(urls) {
+            const clean = urls.map((url) => String(url || '').trim()).filter(Boolean);
+            if (!clean.length) throw new Error('INVALID_IMAGE_URL');
+            const remaining = Math.max(0, MAX_DECORATIONS - state.decorations.length);
+            if (!remaining) {
+                showToast(tr('messages.assetLimitReached'));
+                return;
+            }
+            const selected = clean.slice(0, remaining);
+            const loaded = await Promise.all(selected.map((url, index) => loadImageFromRemoteUrl(url, index)));
+            state.decorations.push(...loaded);
+            syncDecorationAssetsWithoutRegeneration();
+            updateCounts();
+            queueRender();
+            showToast(tr(loaded.length === 1 ? 'messages.urlAssetAdded' : 'messages.urlAssetsAdded'));
+        }
+
         function remapAssetIndexWithoutRegeneration(index, assetCount) {
             if (!assetCount) return index;
             const numeric = Number(index);
@@ -3689,23 +3924,10 @@ c2.imagen: "2"</code></pre>
         async function handleLogo(file) {
             if (!file) return;
             const loaded = await loadImageFile(file);
-            if (state.logo?.url) {
-                URL.revokeObjectURL(state.logo.url);
-                state.objectUrls.delete(state.logo.url);
-            }
-            state.logo = loaded;
-            const extracted = extractPaletteDetailed(loaded.image, MAX_PALETTE);
-            state.palette = ensureEightColors(extracted.colors);
-            state.paletteWeights = state.palette.map((_, index) => extracted.weights[index] ?? Math.max(.15, 1 - index * .12));
-            state.paletteFromLogo = true;
-            renderPaletteEditor();
-
             // Cargar o cambiar el logo NO genera una nueva propuesta.
             // El logo y su paleta quedan disponibles para el diseño actual y
             // para la próxima generación explícita solicitada por el usuario.
-            updateCounts();
-            queueRender();
-            showToast(tr('messages.logoLoaded'));
+            await setLoadedLogoAsset(loaded);
         }
 
         async function handleBackgrounds(files) {
@@ -4102,10 +4324,12 @@ c2.imagen: "2"</code></pre>
         }
 
         function drawManualGradient(context, W, H, slide) {
-            const presetId = slide?.backgroundGradient?.presetId;
-            if (!presetId) return;
-            const preset = getGradientPresets(slide).find((item) => item.id === presetId);
-            if (!preset) return;
+            const stored = slide?.backgroundGradient;
+            if (!stored) return;
+            const preset = Array.isArray(stored.stops)
+                ? stored
+                : getGradientPresets(slide).find((item) => item.id === stored.presetId);
+            if (!preset?.stops?.length) return;
             let gradient;
             if (preset.direction === 'vertical') gradient = context.createLinearGradient(0,0,0,H);
             else if (preset.direction === 'horizontal') gradient = context.createLinearGradient(0,0,W,0);
@@ -4115,6 +4339,113 @@ c2.imagen: "2"</code></pre>
             context.fillStyle = gradient;
             context.fillRect(0,0,W,H);
             context.restore();
+        }
+
+        function hslToHex(h, s, l) {
+            const hue = ((Number(h) % 360) + 360) % 360;
+            const sat = clamp(Number(s), 0, 100) / 100;
+            const light = clamp(Number(l), 0, 100) / 100;
+            const chroma = (1 - Math.abs(2 * light - 1)) * sat;
+            const segment = hue / 60;
+            const x = chroma * (1 - Math.abs((segment % 2) - 1));
+            let r = 0, g = 0, b = 0;
+            if (segment < 1) [r,g,b] = [chroma,x,0];
+            else if (segment < 2) [r,g,b] = [x,chroma,0];
+            else if (segment < 3) [r,g,b] = [0,chroma,x];
+            else if (segment < 4) [r,g,b] = [0,x,chroma];
+            else if (segment < 5) [r,g,b] = [x,0,chroma];
+            else [r,g,b] = [chroma,0,x];
+            const m = light - chroma / 2;
+            return rgbToHex((r+m)*255, (g+m)*255, (b+m)*255);
+        }
+
+        function createHarmoniousGradientPalette() {
+            const baseHue = Math.random() * 360;
+            const schemes = [
+                [0, 28, 58, 180],
+                [0, -32, 32, 155],
+                [0, 60, 120, 180],
+                [0, 150, 210, 30]
+            ];
+            const offsets = pick(schemes, Math.random);
+            return offsets.map((offset, index) => hslToHex(
+                baseHue + offset,
+                58 + (index % 2) * 14 + Math.random() * 8,
+                28 + index * 9 + Math.random() * 7
+            ));
+        }
+
+        function getGeneratedGradientPresets(slide) {
+            const palette = state.paletteFromLogo && state.palette.length
+                ? [...currentPalette()]
+                : createHarmoniousGradientPalette();
+            const directions = ['diagonal','vertical','horizontal'];
+            const presets = [];
+            for (let index = 0; index < 6; index += 1) {
+                const colors = shuffle(palette, Math.random);
+                const first = colors[0] || '#07110C';
+                const second = colors[1] || colors[0] || '#19A866';
+                const third = colors[2] || second;
+                const direction = directions[Math.floor(Math.random() * directions.length)];
+                const useThree = index % 2 === 1;
+                presets.push({
+                    id: `generated-${Date.now()}-${index}-${Math.floor(Math.random()*1e6)}`,
+                    label: `${tr('tool.gradientCombination','Combinación')} ${index + 1}`,
+                    direction,
+                    stops: useThree
+                        ? [[first,.80,0],[second,.38,.52],[third,.72,1]]
+                        : [[first,.82,0],[second,.58,1]]
+                });
+            }
+            return presets;
+        }
+
+        function cloneGradientPreset(preset) {
+            return {
+                id: String(preset?.id || `gradient-${Date.now()}`),
+                label: String(preset?.label || tr('tool.gradientCombination', 'Combinación')),
+                direction: ['vertical','horizontal','diagonal'].includes(preset?.direction) ? preset.direction : 'diagonal',
+                stops: (preset?.stops || []).map((stop) => [String(stop[0] || '#07110C').toUpperCase(), clamp(Number(stop[1] ?? .7), 0, 1), clamp(Number(stop[2] ?? 0), 0, 1)])
+            };
+        }
+
+        function redistributeGradientStops(stops) {
+            if (!stops.length) return stops;
+            if (stops.length === 1) {
+                stops[0][2] = 0;
+                return stops;
+            }
+            stops.forEach((stop, index) => { stop[2] = index / (stops.length - 1); });
+            return stops;
+        }
+
+        function nextGradientEditorColor(preset) {
+            const used = new Set((preset?.stops || []).map((stop) => String(stop[0] || '').toUpperCase()));
+            const candidates = state.paletteFromLogo && state.palette.length
+                ? [...currentPalette()]
+                : createHarmoniousGradientPalette();
+            const available = candidates.find((color) => !used.has(String(color).toUpperCase()));
+            if (available) return available;
+            const last = preset?.stops?.at(-1)?.[0] || candidates[0] || '#19A866';
+            const rgb = hexToRgb(last);
+            return rgbToHex(rgb.r * .72 + 32, rgb.g * .72 + 32, rgb.b * .72 + 32);
+        }
+
+        function applyGradientPresetToSlide(slide, preset, notify = true) {
+            if (!slide || !preset?.stops?.length) return;
+            slide.backgroundEffectDisabled = true;
+            slide.backgroundGradient = {
+                presetId: preset.id,
+                direction: preset.direction,
+                stops: preset.stops.map((stop) => [String(stop[0]).toUpperCase(), clamp(Number(stop[1]), 0, 1), clamp(Number(stop[2]), 0, 1)])
+            };
+            queueRender();
+            if (notify) showToast(tr('messages.gradientApplied','Gradiente aplicado.'));
+        }
+
+        function syncAppliedGradientPreset(slide, preset) {
+            if (!slide?.backgroundGradient || slide.backgroundGradient.presetId !== preset.id) return;
+            applyGradientPresetToSlide(slide, preset, false);
         }
 
         function drawBackground(context, W, H, design, format, slide) {
@@ -4459,7 +4790,9 @@ c2.imagen: "2"</code></pre>
                     color: layer.color || treatment.textColor,
                     treatment,
                     family: layer.fontFamily || state.fontFamily,
+                    fontStyle: layer.italic ? 'italic' : 'normal',
                     weight: Number(layer.weight || 650),
+                    panelFollowsBox: Boolean(layer.boxManual),
                     startSize: clamp(Number(layer.fontSize || 36), 18, 600),
                     lockSize: true,
                     minSize: 18,
@@ -4782,6 +5115,7 @@ c2.imagen: "2"</code></pre>
                 minSize,
                 weight = 700,
                 family = state.fontFamily || 'Arial, Helvetica, sans-serif',
+                fontStyle = 'normal',
                 lineHeight = 1.08,
                 lockSize = false
             } = options;
@@ -4792,13 +5126,13 @@ c2.imagen: "2"</code></pre>
             // Si el usuario fijó un tamaño manual, ese tamaño es una decisión de diseño.
             // La caja controla el reflow horizontal, pero nunca vuelve a encoger la fuente.
             if (lockSize) {
-                context.font = `${weight} ${size}px ${family}`;
+                context.font = `${fontStyle} ${weight} ${size}px ${family}`;
                 lines = getTextLines(context, text, Math.max(20, maxWidth));
                 return { size, lines, lineHeight };
             }
 
             while (size >= safeMin) {
-                context.font = `${weight} ${size}px ${family}`;
+                context.font = `${fontStyle} ${weight} ${size}px ${family}`;
                 lines = getTextLines(context, text, maxWidth);
                 const allowedByHeight = Math.max(1, Math.floor(maxHeight / (size * lineHeight)));
                 if (lines.length <= Math.min(maxLines, allowedByHeight)) break;
@@ -4806,7 +5140,7 @@ c2.imagen: "2"</code></pre>
             }
 
             size = Math.max(size, safeMin);
-            context.font = `${weight} ${size}px ${family}`;
+            context.font = `${fontStyle} ${weight} ${size}px ${family}`;
             lines = getTextLines(context, text, maxWidth);
             const allowed = Math.max(1, Math.min(maxLines, Math.floor(maxHeight / (size * lineHeight)) || 1));
             if (lines.length > allowed) {
@@ -4832,6 +5166,7 @@ c2.imagen: "2"</code></pre>
                 minSize: Math.max(18, options.minSize || Math.max(18, rect.width * .04)),
                 weight: options.weight || 700,
                 family: options.family || state.fontFamily,
+                fontStyle: options.fontStyle || 'normal',
                 lineHeight: options.lineHeight || 1.08,
                 lockSize: Boolean(options.lockSize)
             });
@@ -4842,7 +5177,7 @@ c2.imagen: "2"</code></pre>
             const phase = context.__cgRenderPhase || 'direct';
 
             context.save();
-            context.font = `${options.weight || 700} ${fit.size}px ${fontFamily}`;
+            context.font = `${options.fontStyle || 'normal'} ${options.weight || 700} ${fit.size}px ${fontFamily}`;
             context.textAlign = align;
             context.textBaseline = 'top';
 
@@ -4852,13 +5187,18 @@ c2.imagen: "2"</code></pre>
                 // textos grandes reciben espacio adicional proporcional a la tipografía.
                 const padX = Math.max(18, fit.size * .26, rect.width * treatment.panel.paddingXFactor);
                 const padY = Math.max(18, fit.size * .30, fit.size * treatment.panel.paddingYFactor);
-                let panelWidth = Math.min(rect.width + padX * 2, maxLineWidth + padX * 2);
-                const panelHeight = Math.min(rect.height + padY * 2, textHeight + padY * 2);
+                const panelFollowsBox = Boolean(options.panelFollowsBox);
+                let panelWidth = panelFollowsBox
+                    ? rect.width + padX * 2
+                    : Math.min(rect.width + padX * 2, maxLineWidth + padX * 2);
+                const panelHeight = panelFollowsBox
+                    ? rect.height + padY * 2
+                    : Math.min(rect.height + padY * 2, textHeight + padY * 2);
                 let panelX = rect.x - padX;
                 if (treatment.panel.fullWidth) {
                     panelX = 0;
                     panelWidth = context.canvas.width;
-                } else {
+                } else if (!panelFollowsBox) {
                     if (align === 'center') panelX = rect.x + rect.width / 2 - panelWidth / 2;
                     if (align === 'right') panelX = rect.x + rect.width - panelWidth + padX;
                 }
@@ -4970,6 +5310,14 @@ c2.imagen: "2"</code></pre>
                 : fallback;
         }
 
+        function resolveTextFontStyle(slide, element) {
+            return getSlideStyles(slide)?.[element]?.italic ? 'italic' : 'normal';
+        }
+
+        function textPanelFollowsManualBox(slide, element) {
+            return Boolean(normalizeAdjustments(slide?.adjustments)?.[element]?.boxManual);
+        }
+
         function resolveTextLineHeight(slide, element, fallback) {
             const value = getSlideStyles(slide)?.[element]?.lineHeight;
             return value !== null && value !== undefined && Number.isFinite(Number(value))
@@ -5026,6 +5374,7 @@ c2.imagen: "2"</code></pre>
             style.fontSize = Number(style.fontSize || defaultTextSizeForSlide(slide, element, canvas.width));
             style.align = style.align || defaultTextAlignForSlide(slide, element);
             style.weight = Number(style.weight || defaultTextWeightForSlide(slide, element));
+            style.italic = Boolean(style.italic);
             style.lineHeight = Number(style.lineHeight || defaultTextLineHeightForSlide(slide, element));
             if (treatment.panel) {
                 style.panelMode = treatment.panel.fullWidth ? 'full' : 'local';
@@ -5037,8 +5386,9 @@ c2.imagen: "2"</code></pre>
             return {
                 style,
                 fontSize: style.fontSize,
-                weight: defaultTextWeightForSlide(slide, element),
-                lineHeight: defaultTextLineHeightForSlide(slide, element),
+                weight: style.weight,
+                italic: Boolean(style.italic),
+                lineHeight: style.lineHeight,
                 align: style.align,
                 fontFamily: style.fontFamily
             };
@@ -5235,6 +5585,8 @@ c2.imagen: "2"</code></pre>
                 align,
                 color: titleTreatment.textColor,
                 treatment: titleTreatment,
+                fontStyle: resolveTextFontStyle(slide, 'title'),
+                panelFollowsBox: textPanelFollowsManualBox(slide, 'title'),
                 weight: resolveTextWeight(slide, 'title', 800),
                 lockSize: hasExplicitTextSize(slide, 'title'),
                 startSize: resolveTextSize(slide, 'title', Math.max(30, W * .075)),
@@ -5247,6 +5599,8 @@ c2.imagen: "2"</code></pre>
                 align: copyAlign,
                 color: copyTreatment.textColor,
                 treatment: copyTreatment,
+                fontStyle: resolveTextFontStyle(slide, 'copy'),
+                panelFollowsBox: textPanelFollowsManualBox(slide, 'copy'),
                 weight: resolveTextWeight(slide, 'copy', 650),
                 lockSize: hasExplicitTextSize(slide, 'copy'),
                 startSize: resolveTextSize(slide, 'copy', Math.max(20, W * .044)),
@@ -5264,12 +5618,12 @@ c2.imagen: "2"</code></pre>
             const titleTreatment = getTextTreatmentForElement(context, geo.title, design, W, H, slide, 'title', 'title');
             const copyTreatment = getTextTreatmentForElement(context, geo.copy, design, W, H, slide, 'copy', 'copy');
             drawTextBlock(context, slideTitleText(slide, index), geo.title, {
-                align: resolveTextAlign(slide, 'title', 'center'), color: titleTreatment.textColor, treatment: titleTreatment, weight: resolveTextWeight(slide, 'title', 850),
+                align: resolveTextAlign(slide, 'title', 'center'), color: titleTreatment.textColor, treatment: titleTreatment, fontStyle: resolveTextFontStyle(slide, 'title'), panelFollowsBox: textPanelFollowsManualBox(slide, 'title'), weight: resolveTextWeight(slide, 'title', 850),
                 lockSize: hasExplicitTextSize(slide, 'title'),
                 startSize: resolveTextSize(slide, 'title', Math.max(32, W * .083)), family: resolveTextFont(slide, 'title'), minSize: 22, maxLines: 4, lineHeight: resolveTextLineHeight(slide, 'title', 1.03)
             });
             drawTextBlock(context, slideCopyText(slide), geo.copy, {
-                align: resolveTextAlign(slide, 'copy', 'center'), color: copyTreatment.textColor, treatment: copyTreatment, weight: resolveTextWeight(slide, 'copy', 560),
+                align: resolveTextAlign(slide, 'copy', 'center'), color: copyTreatment.textColor, treatment: copyTreatment, fontStyle: resolveTextFontStyle(slide, 'copy'), panelFollowsBox: textPanelFollowsManualBox(slide, 'copy'), weight: resolveTextWeight(slide, 'copy', 560),
                 lockSize: hasExplicitTextSize(slide, 'copy'),
                 startSize: resolveTextSize(slide, 'copy', Math.max(20, W * .043)), family: resolveTextFont(slide, 'copy'), minSize: 18, maxLines: 5, lineHeight: resolveTextLineHeight(slide, 'copy', 1.16)
             });
@@ -5291,14 +5645,14 @@ c2.imagen: "2"</code></pre>
             if (state.logo && !slide.logoHidden) drawLogoSmart(context, state.logo.image, geo.logo, 'center', design, design.logoScale, slide);
             const titleTreatment = getTextTreatmentForElement(context, geo.title, design, W, H, slide, 'title', 'title');
             drawTextBlock(context, slideTitleText(slide, index), geo.title, {
-                align: resolveTextAlign(slide, 'title', design.alignment), color: titleTreatment.textColor, treatment: titleTreatment, weight: resolveTextWeight(slide, 'title', 600),
+                align: resolveTextAlign(slide, 'title', design.alignment), color: titleTreatment.textColor, treatment: titleTreatment, fontStyle: resolveTextFontStyle(slide, 'title'), panelFollowsBox: textPanelFollowsManualBox(slide, 'title'), weight: resolveTextWeight(slide, 'title', 600),
                 lockSize: hasExplicitTextSize(slide, 'title'),
                 startSize: resolveTextSize(slide, 'title', Math.max(30, W * .070)), family: resolveTextFont(slide, 'title'), minSize: 22, maxLines: 5, lineHeight: resolveTextLineHeight(slide, 'title', 1.04)
             });
             if (slideCopyText(slide)) {
                 const treatment = getTextTreatmentForElement(context, geo.copy, design, W, H, slide, 'copy', 'copy');
                 drawTextBlock(context, slideCopyText(slide), geo.copy, {
-                    align: resolveTextAlign(slide, 'copy', 'center'), color: treatment.textColor, treatment, weight: resolveTextWeight(slide, 'copy', 560),
+                    align: resolveTextAlign(slide, 'copy', 'center'), color: treatment.textColor, treatment, fontStyle: resolveTextFontStyle(slide, 'copy'), panelFollowsBox: textPanelFollowsManualBox(slide, 'copy'), weight: resolveTextWeight(slide, 'copy', 560),
                     lockSize: hasExplicitTextSize(slide, 'copy'),
                 startSize: resolveTextSize(slide, 'copy', Math.max(19, W * .027)), family: resolveTextFont(slide, 'copy'), minSize: 18, maxLines: 3, lineHeight: resolveTextLineHeight(slide, 'copy', 1.09)
                 });
@@ -5319,12 +5673,12 @@ c2.imagen: "2"</code></pre>
             const titleTreatment = getTextTreatmentForElement(context, geo.title, design, W, H, slide, 'title', 'title');
             const copyTreatment = getTextTreatmentForElement(context, geo.copy, design, W, H, slide, 'copy', 'copy');
             drawTextBlock(context, slideTitleText(slide, index), geo.title, {
-                align: resolveTextAlign(slide, 'title', 'center'), color: titleTreatment.textColor, treatment: titleTreatment, weight: resolveTextWeight(slide, 'title', 650),
+                align: resolveTextAlign(slide, 'title', 'center'), color: titleTreatment.textColor, treatment: titleTreatment, fontStyle: resolveTextFontStyle(slide, 'title'), panelFollowsBox: textPanelFollowsManualBox(slide, 'title'), weight: resolveTextWeight(slide, 'title', 650),
                 lockSize: hasExplicitTextSize(slide, 'title'),
                 startSize: resolveTextSize(slide, 'title', Math.max(28, W * .058)), family: resolveTextFont(slide, 'title'), minSize: 22, maxLines: 3, lineHeight: resolveTextLineHeight(slide, 'title', 1.05)
             });
             drawTextBlock(context, slideCopyText(slide), geo.copy, {
-                align: resolveTextAlign(slide, 'copy', 'center'), color: copyTreatment.textColor, treatment: copyTreatment, weight: resolveTextWeight(slide, 'copy', 790),
+                align: resolveTextAlign(slide, 'copy', 'center'), color: copyTreatment.textColor, treatment: copyTreatment, fontStyle: resolveTextFontStyle(slide, 'copy'), panelFollowsBox: textPanelFollowsManualBox(slide, 'copy'), weight: resolveTextWeight(slide, 'copy', 790),
                 lockSize: hasExplicitTextSize(slide, 'copy'),
                 startSize: resolveTextSize(slide, 'copy', Math.max(20, W * .052)), family: resolveTextFont(slide, 'copy'), minSize: 18, maxLines: 4, lineHeight: resolveTextLineHeight(slide, 'copy', 1.08)
             });
@@ -5342,7 +5696,7 @@ c2.imagen: "2"</code></pre>
             if (state.logo && !slide.logoHidden) drawLogoSmart(context, state.logo.image, geo.logo, 'center', design, design.logoScale, slide);
             const titleTreatment = getTextTreatmentForElement(context, geo.title, design, W, H, slide, 'title', 'title');
             drawTextBlock(context, slideTitleText(slide, index), geo.title, {
-                align: resolveTextAlign(slide, 'title', 'center'), color: titleTreatment.textColor, treatment: titleTreatment, weight: resolveTextWeight(slide, 'title', 680),
+                align: resolveTextAlign(slide, 'title', 'center'), color: titleTreatment.textColor, treatment: titleTreatment, fontStyle: resolveTextFontStyle(slide, 'title'), panelFollowsBox: textPanelFollowsManualBox(slide, 'title'), weight: resolveTextWeight(slide, 'title', 680),
                 lockSize: hasExplicitTextSize(slide, 'title'),
                 startSize: resolveTextSize(slide, 'title', Math.max(28, W * .052)), family: resolveTextFont(slide, 'title'), minSize: 22, maxLines: 5, lineHeight: resolveTextLineHeight(slide, 'title', 1.14)
             });
@@ -5352,6 +5706,8 @@ c2.imagen: "2"</code></pre>
                     align: resolveTextAlign(slide, 'copy', 'center'),
                     color: treatment.textColor,
                     treatment,
+                    fontStyle: resolveTextFontStyle(slide, 'copy'),
+                    panelFollowsBox: textPanelFollowsManualBox(slide, 'copy'),
                     weight: resolveTextWeight(slide, 'copy', 680),
                     lockSize: hasExplicitTextSize(slide, 'copy'),
                 startSize: resolveTextSize(slide, 'copy', Math.max(20, W * .036)),
@@ -5377,7 +5733,7 @@ c2.imagen: "2"</code></pre>
             const titleTreatment = getTextTreatmentForElement(context, geo.title, design, W, H, slide, 'title', 'title');
             const copyTreatment = getTextTreatmentForElement(context, geo.copy, design, W, H, slide, 'copy', 'copy');
             drawTextBlock(context, slideTitleText(slide, index), geo.title, {
-                align: resolveTextAlign(slide, 'title', align), color: titleTreatment.textColor, treatment: titleTreatment, weight: resolveTextWeight(slide, 'title', 780),
+                align: resolveTextAlign(slide, 'title', align), color: titleTreatment.textColor, treatment: titleTreatment, fontStyle: resolveTextFontStyle(slide, 'title'), panelFollowsBox: textPanelFollowsManualBox(slide, 'title'), weight: resolveTextWeight(slide, 'title', 780),
                 lockSize: hasExplicitTextSize(slide, 'title'),
                 startSize: resolveTextSize(slide, 'title', Math.max(30, W * .065)), family: resolveTextFont(slide, 'title'), minSize: 22, maxLines: 4, lineHeight: resolveTextLineHeight(slide, 'title', 1.02)
             });
@@ -5387,6 +5743,8 @@ c2.imagen: "2"</code></pre>
                     align: resolveTextAlign(slide, 'copy', align),
                     color: treatment.textColor,
                     treatment,
+                    fontStyle: resolveTextFontStyle(slide, 'copy'),
+                    panelFollowsBox: textPanelFollowsManualBox(slide, 'copy'),
                     weight: resolveTextWeight(slide, 'copy', 780),
                     lockSize: hasExplicitTextSize(slide, 'copy'),
                 startSize: resolveTextSize(slide, 'copy', Math.max(20, W * .048)),
@@ -5444,13 +5802,14 @@ c2.imagen: "2"</code></pre>
                 if (manualLayer?.boxManual) return rect;
             }
 
-            let text = '', fontSize = 36, family = state.fontFamily, weight = 650, lineHeight = 1.1, align = 'left';
+            let text = '', fontSize = 36, family = state.fontFamily, weight = 650, fontStyle = 'normal', lineHeight = 1.1, align = 'left';
             if (selection.kind === 'title' || selection.kind === 'copy') {
                 const element = selection.kind;
                 text = element === 'title' ? slideTitleText(slide, state.currentIndex) : slideCopyText(slide);
                 fontSize = resolveTextSize(slide, element, defaultTextSizeForSlide(slide, element, W));
                 family = resolveTextFont(slide, element);
                 weight = resolveTextWeight(slide, element, defaultTextWeightForSlide(slide, element));
+                fontStyle = resolveTextFontStyle(slide, element);
                 lineHeight = resolveTextLineHeight(slide, element, defaultTextLineHeightForSlide(slide, element));
                 align = resolveTextAlign(slide, element, defaultTextAlignForSlide(slide, element));
             } else if (selection.kind === 'extraText') {
@@ -5460,13 +5819,14 @@ c2.imagen: "2"</code></pre>
                 fontSize = clamp(Number(layer.fontSize || 36), 18, 600);
                 family = layer.fontFamily || state.fontFamily;
                 weight = clamp(Number(layer.weight || 650), 100, 950);
+                fontStyle = layer.italic ? 'italic' : 'normal';
                 lineHeight = clamp(Number(layer.lineHeight || 1.1), .75, 2.2);
                 align = layer.align || 'left';
             } else return rect;
 
             if (!String(text).trim()) return rect;
             ctx.save();
-            ctx.font = `${weight} ${fontSize}px ${family}`;
+            ctx.font = `${fontStyle} ${weight} ${fontSize}px ${family}`;
             const lines = getTextLines(ctx, text, Math.max(24, rect.width));
             const maxLineWidth = Math.max(fontSize * 1.4, ...lines.map((line) => ctx.measureText(line).width));
             ctx.restore();
@@ -5505,12 +5865,9 @@ c2.imagen: "2"</code></pre>
         }
 
         function getTextHitRect(kind, slide, W, H) {
-            const rect=getSelectionRect({kind},slide,W,H); if(!rect)return null;
-            const style=getSlideStyles(slide)[kind];
-            const pad=Math.min(W,H)*.025;
-            if(style?.panelMode==='full') return {x:0,y:rect.y-pad,width:W,height:rect.height+pad*2};
-            if(style?.panelMode==='local' || (style?.panelMode==='auto' && style?.panelColor)) return {x:rect.x-pad,y:rect.y-pad,width:rect.width+pad*2,height:rect.height+pad*2};
-            return rect;
+            // El panel de contraste es visual y acompaña al texto, pero no captura clics.
+            // El texto solo se selecciona/mueve al entrar en su recuadro punteado real.
+            return getSelectionRect({kind}, slide, W, H);
         }
 
         function resolveCanvasSelection(point) {
@@ -5539,8 +5896,185 @@ c2.imagen: "2"</code></pre>
             return {kind:'canvas'};
         }
 
+        function sameCanvasSelection(a, b) {
+            if (!a || !b) return false;
+            return a.kind === b.kind && String(a.id || '') === String(b.id || '');
+        }
+
+        function canvasSelectionLabel(selection, slide) {
+            if (!selection) return '';
+            if (selection.kind === 'title') return tr('tool.titleLabel','Título');
+            if (selection.kind === 'copy') return tr('tool.copyLabel','Copy');
+            if (selection.kind === 'logo') return 'Logo';
+            if (selection.kind === 'baseImage') return tr('tool.imageLabel','Imagen');
+            if (selection.kind === 'extraText') {
+                const index=(slide.extraTexts||[]).findIndex((item)=>item.id===selection.id);
+                return `${tr('tool.copyLabel','Copy')} ${Math.max(2,index+2)}`;
+            }
+            if (selection.kind === 'decoration') return tr('tool.addDecoration','Decoración');
+            if (selection.kind === 'backgroundLayer') return tr('tool.addBackgroundElement','Imagen');
+            return '';
+        }
+
+        function collectGuideRects(slide,W,H) {
+            if (!slide?.design) return [];
+            const candidates=[];
+            const push=(selection)=>{
+                if(sameCanvasSelection(selection,state.selection))return;
+                const rect=getSelectionRect(selection,slide,W,H);
+                if(rect && rect.width>0 && rect.height>0)candidates.push({selection,rect,label:canvasSelectionLabel(selection,slide)});
+            };
+            if(!slide.titleHidden)push({kind:'title'});
+            if(!slide.copyHidden)push({kind:'copy'});
+            if(state.logo&&!slide.logoHidden)push({kind:'logo'});
+            (slide.extraTexts||[]).forEach((layer)=>push({kind:'extraText',id:layer.id}));
+            (slide.extraDecorations||[]).forEach((layer)=>push({kind:'decoration',id:layer.id}));
+            (slide.backgroundLayers||[]).forEach((layer)=>push({kind:'backgroundLayer',id:layer.id}));
+            return candidates;
+        }
+
+        function drawGuideLine(context,axis,value,W,H,color,start=0,end=null) {
+            context.save();
+            context.strokeStyle=color;
+            context.lineWidth=Math.max(1.5,Math.min(W,H)*.0016);
+            context.setLineDash([Math.max(8,W*.008),Math.max(5,W*.005)]);
+            context.beginPath();
+            if(axis==='x'){
+                context.moveTo(value,start);
+                context.lineTo(value,end===null?H:end);
+            }else{
+                context.moveTo(start,value);
+                context.lineTo(end===null?W:end,value);
+            }
+            context.stroke();
+            context.restore();
+        }
+
+        function drawGuideLabel(context,text,x,y,W,H,color='#FFE17A') {
+            if(!text)return;
+            const fontSize=Math.max(14,Math.min(W,H)*.019);
+            context.save();
+            context.font=`700 ${fontSize}px Arial, sans-serif`;
+            const padX=fontSize*.62,padY=fontSize*.38;
+            const width=context.measureText(text).width+padX*2;
+            const height=fontSize+padY*2;
+            const px=clamp(x,6,W-width-6),py=clamp(y,6,H-height-6);
+            context.fillStyle='rgba(5,12,10,.88)';
+            roundedRectPath(context,px,py,width,height,Math.min(12,height*.35));
+            context.fill();
+            context.strokeStyle=color;
+            context.lineWidth=Math.max(1,Math.min(W,H)*.0012);
+            context.stroke();
+            context.fillStyle=color;
+            context.textBaseline='middle';
+            context.fillText(text,px+padX,py+height/2);
+            context.restore();
+        }
+
+        function drawAlignmentAndSizeGuides(context,W,H,slide) {
+            if(!state.canvasDrag?.moved || !state.selection || state.selection.kind==='canvas' || state.selection.kind==='baseImage')return;
+            const rect=getSelectionRect(state.selection,slide,W,H);
+            if(!rect)return;
+            const others=collectGuideRects(slide,W,H);
+            const tolerance=Math.max(6,Math.min(W,H)*.009);
+            const selectedX=[rect.x,rect.x+rect.width/2,rect.x+rect.width];
+            const selectedY=[rect.y,rect.y+rect.height/2,rect.y+rect.height];
+            const verticalTargets=[
+                {value:W/2,color:'rgba(67,220,255,.96)'},
+                {value:W/6,color:'rgba(67,220,255,.72)'},
+                {value:W*5/6,color:'rgba(67,220,255,.72)'},
+                {value:W/3,color:'rgba(67,220,255,.58)'},
+                {value:W*2/3,color:'rgba(67,220,255,.58)'}
+            ];
+            const horizontalTargets=[
+                {value:H/2,color:'rgba(67,220,255,.96)'},
+                {value:H/6,color:'rgba(67,220,255,.72)'},
+                {value:H*5/6,color:'rgba(67,220,255,.72)'},
+                {value:H/3,color:'rgba(67,220,255,.58)'},
+                {value:H*2/3,color:'rgba(67,220,255,.58)'}
+            ];
+            others.forEach((item)=>{
+                const r=item.rect;
+                [r.x,r.x+r.width/2,r.x+r.width].forEach((value)=>verticalTargets.push({value,color:'rgba(201,120,255,.90)',ref:item}));
+                [r.y,r.y+r.height/2,r.y+r.height].forEach((value)=>horizontalTargets.push({value,color:'rgba(201,120,255,.90)',ref:item}));
+            });
+
+            const drawnX=[];
+            selectedX.forEach((value)=>{
+                let best=null;
+                verticalTargets.forEach((target)=>{
+                    const delta=Math.abs(value-target.value);
+                    if(delta<=tolerance && (!best||delta<best.delta))best={...target,delta};
+                });
+                if(best && !drawnX.some((current)=>Math.abs(current-best.value)<2)){
+                    drawnX.push(best.value);
+                    if(best.ref){
+                        const ref=best.ref.rect;
+                        drawGuideLine(context,'x',best.value,W,H,best.color,Math.max(0,Math.min(rect.y,ref.y)-H*.03),Math.min(H,Math.max(rect.y+rect.height,ref.y+ref.height)+H*.03));
+                    }else drawGuideLine(context,'x',best.value,W,H,best.color);
+                }
+            });
+
+            const drawnY=[];
+            selectedY.forEach((value)=>{
+                let best=null;
+                horizontalTargets.forEach((target)=>{
+                    const delta=Math.abs(value-target.value);
+                    if(delta<=tolerance && (!best||delta<best.delta))best={...target,delta};
+                });
+                if(best && !drawnY.some((current)=>Math.abs(current-best.value)<2)){
+                    drawnY.push(best.value);
+                    if(best.ref){
+                        const ref=best.ref.rect;
+                        drawGuideLine(context,'y',best.value,W,H,best.color,Math.max(0,Math.min(rect.x,ref.x)-W*.03),Math.min(W,Math.max(rect.x+rect.width,ref.x+ref.width)+W*.03));
+                    }else drawGuideLine(context,'y',best.value,W,H,best.color);
+                }
+            });
+
+            if(others.length){
+                const reference=[...others].sort((a,b)=>{
+                    const aScore=Math.abs(Math.log(Math.max(.01,rect.width/a.rect.width)))+Math.abs(Math.log(Math.max(.01,rect.height/a.rect.height)));
+                    const bScore=Math.abs(Math.log(Math.max(.01,rect.width/b.rect.width)))+Math.abs(Math.log(Math.max(.01,rect.height/b.rect.height)));
+                    return aScore-bScore;
+                })[0];
+                if(reference){
+                    const widthRatio=rect.width/Math.max(1,reference.rect.width);
+                    const heightRatio=rect.height/Math.max(1,reference.rect.height);
+                    const relation=`${Math.round(rect.width)} × ${Math.round(rect.height)} px · W ${widthRatio.toFixed(2)}× ${reference.label} · H ${heightRatio.toFixed(2)}× ${reference.label}`;
+                    drawGuideLabel(context,relation,rect.x,rect.y-Math.max(44,H*.035),W,H);
+                    if(Math.abs(widthRatio-1)<=.08 || Math.abs(heightRatio-1)<=.08){
+                        context.save();
+                        context.strokeStyle='rgba(255,225,122,.82)';
+                        context.lineWidth=Math.max(1.5,Math.min(W,H)*.0015);
+                        context.setLineDash([Math.max(7,W*.007),Math.max(5,W*.005)]);
+                        context.strokeRect(reference.rect.x,reference.rect.y,reference.rect.width,reference.rect.height);
+                        context.restore();
+                    }
+                }
+            }else{
+                drawGuideLabel(context,`${Math.round(rect.width)} × ${Math.round(rect.height)} px`,rect.x,rect.y-Math.max(44,H*.035),W,H);
+            }
+        }
+
         function drawPreviewSelection(context,W,H,slide) {
-            if (!state.selection || state.selection.kind==='canvas' || !slide?.design) return;
+            if (!slide?.design) return;
+
+            const hover = state.hoverSelection;
+            if (hover && hover.kind !== 'canvas' && !sameCanvasSelection(hover, state.selection)) {
+                const hoverRect = getSelectionRect(hover, slide, W, H);
+                if (hoverRect) {
+                    context.save();
+                    context.strokeStyle='rgba(255,190,74,.98)';
+                    context.lineWidth=Math.max(2,Math.min(W,H)*.0020);
+                    context.setLineDash([Math.max(9,W*.012),Math.max(6,W*.007)]);
+                    context.strokeRect(hoverRect.x,hoverRect.y,hoverRect.width,hoverRect.height);
+                    context.restore();
+                }
+            }
+
+            drawAlignmentAndSizeGuides(context,W,H,slide);
+
+            if (!state.selection || state.selection.kind==='canvas') return;
             const rect=getSelectionRect(state.selection,slide,W,H); if(!rect)return;
             context.save();
             context.strokeStyle='rgba(88,242,142,.96)';
@@ -5555,6 +6089,21 @@ c2.imagen: "2"</code></pre>
                 context.strokeStyle='#07110C'; context.lineWidth=Math.max(2,radius*.25); context.stroke();
             });
             context.restore();
+        }
+
+        function updateCanvasHover(event) {
+            if (state.canvasDrag || event.pointerType === 'touch') return;
+            const next = resolveCanvasSelection(canvasPointFromEvent(event));
+            const normalized = next?.kind === 'canvas' ? null : next;
+            if (sameCanvasSelection(normalized, state.hoverSelection) || (!normalized && !state.hoverSelection)) return;
+            state.hoverSelection = normalized;
+            queueRender();
+        }
+
+        function clearCanvasHover() {
+            if (!state.hoverSelection) return;
+            state.hoverSelection = null;
+            queueRender();
         }
 
         function selectedLayer(slide,selection) {
@@ -5573,6 +6122,7 @@ c2.imagen: "2"</code></pre>
             const existingRect=getSelectionRect(state.selection,slide,canvas.width,canvas.height);
             const handle=state.selection ? hitSelectionHandle(point,existingRect,canvas.width,canvas.height) : null;
             const selection=handle ? state.selection : resolveCanvasSelection(point);
+            state.hoverSelection=null;
             state.selection=selection;
             if (['title','copy','logo','baseImage'].includes(selection?.kind)) state.activeEditElement=selection.kind==='baseImage'?'image':selection.kind;
             slide.adjustments=normalizeAdjustments(slide.adjustments);
@@ -5751,7 +6301,7 @@ c2.imagen: "2"</code></pre>
         function closeAssetPicker() {
             assetPickerPopup.classList.remove('is-open');
             assetPickerPopup.setAttribute('aria-hidden','true');
-            assetPickerGrid.classList.remove('cg-gradient-grid');
+            assetPickerGrid.classList.remove('cg-gradient-grid', 'cg-resource-import-grid');
             assetPickerGrid.innerHTML='';
         }
 
@@ -5933,6 +6483,9 @@ c2.imagen: "2"</code></pre>
             row.append(span,select);
             wrapper.append(row);
 
+            const textStyleRow=createTextStyleRow(selection);
+            if(textStyleRow) wrapper.append(textStyleRow);
+
             const uploadRow=document.createElement('div');
             uploadRow.className='cg-context-row';
             const uploadLabel=document.createElement('span');
@@ -5976,6 +6529,63 @@ c2.imagen: "2"</code></pre>
             uploadRow.append(uploadLabel,uploadButton,localInput);
             wrapper.append(uploadRow);
             return wrapper;
+        }
+
+
+        function createTextStyleRow(selection) {
+            const slide=getCurrentSlide(), style=styleForSelection(selection);
+            if(!slide||!style||!['title','copy','extraText'].includes(selection?.kind))return null;
+            const row=document.createElement('div');
+            row.className='cg-context-row';
+            const span=document.createElement('span');
+            span.textContent=tr('tool.textStyle','Estilo del texto');
+            const group=document.createElement('div');
+            group.className='cg-context-text-style';
+
+            const effectiveWeight=()=>{
+                const live=styleForSelection(selection); if(!live)return 400;
+                if(selection.kind==='extraText') return clamp(Number(live.weight || 650),100,950);
+                return resolveTextWeight(slide,selection.kind,defaultTextWeightForSlide(slide,selection.kind));
+            };
+
+            const bold=document.createElement('button');
+            bold.type='button';bold.className='cg-context-mini-button';bold.textContent=tr('tool.boldText','Negrita');
+            const italic=document.createElement('button');
+            italic.type='button';italic.className='cg-context-mini-button';italic.textContent=tr('tool.italicText','Cursiva');
+            const light=document.createElement('button');
+            light.type='button';light.className='cg-context-mini-button';light.textContent=tr('tool.lightText','Light');
+
+            const sync=()=>{
+                const live=styleForSelection(selection); if(!live)return;
+                const weight=effectiveWeight();
+                bold.classList.toggle('is-active',weight>=700);
+                light.classList.toggle('is-active',weight<=350);
+                italic.classList.toggle('is-active',Boolean(live.italic));
+            };
+
+            bold.addEventListener('click',(event)=>{
+                event.preventDefault();event.stopPropagation();
+                const live=styleForSelection(selection);if(!live)return;
+                live.weight=effectiveWeight()>=700?400:800;
+                sync();queueRender();
+            });
+            italic.addEventListener('click',(event)=>{
+                event.preventDefault();event.stopPropagation();
+                const live=styleForSelection(selection);if(!live)return;
+                live.italic=!Boolean(live.italic);
+                sync();queueRender();
+            });
+            light.addEventListener('click',(event)=>{
+                event.preventDefault();event.stopPropagation();
+                const live=styleForSelection(selection);if(!live)return;
+                live.weight=effectiveWeight()<=350?400:300;
+                sync();queueRender();
+            });
+
+            group.append(bold,italic,light);
+            row.append(span,group);
+            sync();
+            return row;
         }
 
         async function loadFontFamilyValue(value) {
@@ -6060,6 +6670,7 @@ c2.imagen: "2"</code></pre>
                     style:visual.style,
                     fontSize:visual.fontSize,
                     weight:visual.weight,
+                    italic:Boolean(visual.italic),
                     lineHeight:visual.lineHeight,
                     align:visual.align,
                     fontFamily:visual.fontFamily,
@@ -6100,6 +6711,7 @@ c2.imagen: "2"</code></pre>
                     fontSize:Number(clip.type==='text'?clip.fontSize:(style.fontSize||36)),
                     color:style.color||null,align:clip.type==='text'?(clip.align||style.align||'left'):(style.align||'left'),
                     weight:Number(clip.type==='text'?clip.weight:(style.weight||650)),
+                    italic:Boolean(clip.type==='text'?clip.italic:style.italic),
                     panelMode:style.panelMode||'auto',panelColor:style.panelColor||null,panelAlpha:Number(style.panelAlpha??.44),
                     lineHeight:Number(clip.type==='text'?(clip.lineHeight||style.lineHeight||1.1):(style.lineHeight||1.1))
                 };
@@ -6135,6 +6747,7 @@ c2.imagen: "2"</code></pre>
                     fontSize: clamp(Number(layer.fontSize || 36), 18, 600),
                     align: layer.align || 'left',
                     weight: clamp(Number(layer.weight || 650), 100, 950),
+                    italic: Boolean(layer.italic),
                     lineHeight: clamp(Number(layer.lineHeight || 1.1), .75, 2.2),
                     panelMode: treatment.panel ? (treatment.panel.fullWidth ? 'full' : 'local') : 'off',
                     panelColor: treatment.panel?.color || layer.panelColor || null,
@@ -6153,6 +6766,7 @@ c2.imagen: "2"</code></pre>
                 fontSize: clamp(Number(format.fontSize || 36), 18, 600),
                 align: ['left','center','right'].includes(format.align) ? format.align : 'left',
                 weight: clamp(Number(format.weight || 650), 100, 950),
+                italic: Boolean(format.italic),
                 lineHeight: clamp(Number(format.lineHeight || 1.1), .75, 2.2),
                 panelMode: ['auto','off','local','full'].includes(format.panelMode) ? format.panelMode : 'off',
                 panelColor: format.panelColor || null,
@@ -6359,18 +6973,101 @@ c2.imagen: "2"</code></pre>
             const slide=getCurrentSlide(); if(!slide)return;
             assetPickerTitle.textContent=tr('tool.gradientPickerTitle','Gradientes automáticos');
             assetPickerGrid.classList.add('cg-gradient-grid');
-            getGradientPresets(slide).forEach((preset)=>{
-                const button=document.createElement('button');button.type='button';button.className='cg-gradient-card';
-                const preview=document.createElement('span');preview.className='cg-gradient-preview';preview.style.background=gradientCssPreview(preset);
-                const label=document.createElement('strong');label.textContent=preset.label;
-                button.append(preview,label);
-                button.addEventListener('click',()=>{
-                    slide.backgroundEffectDisabled = true;
-                    slide.backgroundGradient={presetId:preset.id};
-                    closeAssetPicker();queueRender();showToast(tr('messages.gradientApplied','Gradiente aplicado.'));
+
+            const renderOptions=(presets)=>{
+                assetPickerGrid.replaceChildren();
+                const moreButton=document.createElement('button');
+                moreButton.type='button';
+                moreButton.className='cg-button cg-button--small cg-gradient-more-button';
+                moreButton.textContent=tr('tool.moreGradientCombinations','Más combinaciones');
+                moreButton.addEventListener('click',(clickEvent)=>{
+                    clickEvent.preventDefault();
+                    clickEvent.stopPropagation();
+                    renderOptions(getGeneratedGradientPresets(slide));
                 });
-                assetPickerGrid.append(button);
-            });
+                assetPickerGrid.append(moreButton);
+
+                presets.forEach((sourcePreset)=>{
+                    const storedPreset = slide.backgroundGradient?.presetId === sourcePreset.id && Array.isArray(slide.backgroundGradient?.stops)
+                        ? { ...sourcePreset, direction: slide.backgroundGradient.direction || sourcePreset.direction, stops: slide.backgroundGradient.stops }
+                        : sourcePreset;
+                    const preset=cloneGradientPreset(storedPreset);
+                    const card=document.createElement('article');
+                    card.className='cg-gradient-card';
+
+                    const applyButton=document.createElement('button');
+                    applyButton.type='button';
+                    applyButton.className='cg-gradient-apply-button';
+                    applyButton.title=tr('tool.applyGradient','Aplicar gradiente');
+                    const preview=document.createElement('span');
+                    preview.className='cg-gradient-preview';
+                    const label=document.createElement('strong');
+                    label.textContent=preset.label;
+                    applyButton.append(preview,label);
+
+                    const editor=document.createElement('div');
+                    editor.className='cg-gradient-stop-editor';
+                    const editorTitle=document.createElement('span');
+                    editorTitle.className='cg-gradient-stop-editor__title';
+                    editorTitle.textContent=tr('tool.gradientColors','Colores del gradiente');
+                    const colors=document.createElement('div');
+                    colors.className='cg-gradient-stop-editor__colors';
+                    editor.append(editorTitle,colors);
+
+                    const refresh=()=>{
+                        preview.style.background=gradientCssPreview(preset);
+                        syncAppliedGradientPreset(slide,preset);
+                    };
+
+                    const renderStops=()=>{
+                        colors.replaceChildren();
+                        preset.stops.forEach((stop,index)=>{
+                            const input=document.createElement('input');
+                            input.type='color';
+                            input.className='cg-gradient-color-input';
+                            input.value=normalizeContextHexColor(stop[0]) || '#07110C';
+                            input.setAttribute('aria-label',`${tr('tool.gradientColors','Colores del gradiente')} ${index + 1}`);
+                            input.addEventListener('input',(inputEvent)=>{
+                                inputEvent.stopPropagation();
+                                stop[0]=input.value.toUpperCase();
+                                refresh();
+                            });
+                            input.addEventListener('click',(inputEvent)=>inputEvent.stopPropagation());
+                            colors.append(input);
+                        });
+
+                        if(preset.stops.length<6){
+                            const add=document.createElement('button');
+                            add.type='button';
+                            add.className='cg-gradient-add-color';
+                            add.textContent=`+ ${tr('tool.addGradientColor','Agregar color')}`;
+                            add.addEventListener('click',(addEvent)=>{
+                                addEvent.preventDefault();
+                                addEvent.stopPropagation();
+                                const newColor=nextGradientEditorColor(preset);
+                                preset.stops.push([newColor,.58,1]);
+                                redistributeGradientStops(preset.stops);
+                                renderStops();
+                                refresh();
+                            });
+                            colors.append(add);
+                        }
+                    };
+
+                    applyButton.addEventListener('click',(clickEvent)=>{
+                        clickEvent.preventDefault();
+                        clickEvent.stopPropagation();
+                        applyGradientPresetToSlide(slide,preset,true);
+                    });
+
+                    renderStops();
+                    refresh();
+                    card.append(applyButton,editor);
+                    assetPickerGrid.append(card);
+                });
+            };
+
+            renderOptions(getGradientPresets(slide));
             placeFloatingMenu(assetPickerPopup,event);
         }
 
@@ -7831,6 +8528,10 @@ c2.imagen: "2"</code></pre>
             editor.style.width = `${Math.max(100, rect.width * scaleX)}px`;
             editor.style.height = `${Math.max(48, rect.height * scaleY)}px`;
             editor.style.fontFamily = style.fontFamily || state.fontFamily;
+            editor.style.fontWeight = String(selection.kind === 'extraText'
+                ? clamp(Number(style.weight || 650), 100, 950)
+                : resolveTextWeight(slide, selection.kind, defaultTextWeightForSlide(slide, selection.kind)));
+            editor.style.fontStyle = style.italic ? 'italic' : 'normal';
             const sourceSize = selection.kind === 'extraText'
                 ? Number(style.fontSize || 36)
                 : Number(style.fontSize || defaultTextSizeForSlide(slide, selection.kind, canvas.width));
@@ -7910,6 +8611,94 @@ c2.imagen: "2"</code></pre>
                 menu.append(contextSeparator(),contextButton(selection.kind==='backgroundLayer'?tr('tool.removeBackground','Eliminar imagen de fondo'):tr('tool.deleteSelected','Eliminar elemento seleccionado'),()=>deleteSelection(selection),true));
             }
             placeFloatingMenu(menu,event);
+        }
+
+        function resourceImportTitle(kind) {
+            if (kind === 'logo') return tr('tool.logoSourceTitle', 'Agregar logo');
+            if (kind === 'decoration') return tr('tool.decorationSourceTitle', 'Agregar decoraciones');
+            return tr('tool.backgroundSourceTitle', 'Agregar imágenes de fondo');
+        }
+
+        function resourceFileInputForKind(kind) {
+            return kind === 'logo' ? logoInput : kind === 'decoration' ? decorationInput : backgroundInput;
+        }
+
+        function showResourceUrlForm(kind) {
+            assetPickerGrid.replaceChildren();
+            assetPickerGrid.classList.add('cg-resource-import-grid');
+
+            const form=document.createElement('div');
+            form.className='cg-resource-url-form';
+            const input=kind==='logo' ? document.createElement('input') : document.createElement('textarea');
+            input.className='cg-resource-url-input';
+            if(kind==='logo') input.type='url';
+            else input.rows=5;
+            input.placeholder=kind==='logo'
+                ? tr('tool.imageUrlPlaceholder','Pega la URL de la imagen')
+                : tr('tool.imageUrlsPlaceholder','Pega una o varias URLs, una por línea');
+
+            const add=document.createElement('button');
+            add.type='button';
+            add.className='cg-button cg-button--primary cg-button--small';
+            add.textContent=tr('tool.addFromUrl','Agregar desde URL');
+
+            const status=document.createElement('p');
+            status.className='cg-popup-note';
+            status.style.margin='0';
+
+            add.addEventListener('click',async()=>{
+                const urls=String(input.value||'').split(/\r?\n/).map((value)=>value.trim()).filter(Boolean);
+                if(!urls.length){status.textContent=tr('messages.invalidImageUrl','Usa una URL http o https válida.');return;}
+                add.disabled=true;
+                status.textContent='…';
+                try{
+                    if(kind==='logo'){
+                        const loaded=await loadImageFromRemoteUrl(urls[0],0);
+                        await setLoadedLogoAsset(loaded);
+                    }else if(kind==='decoration'){
+                        await addDecorationsFromUrls(urls);
+                    }else{
+                        await addBackgroundsFromUrls(urls);
+                    }
+                    closeAssetPicker();
+                }catch(error){
+                    console.error(error);
+                    status.textContent=error?.message==='INVALID_IMAGE_URL'
+                        ? tr('messages.invalidImageUrl','Usa una URL http o https válida.')
+                        : tr('messages.urlImageLoadError','No fue posible cargar esa imagen. La URL debe ser pública y permitir acceso desde el navegador.');
+                }finally{
+                    add.disabled=false;
+                }
+            });
+
+            form.append(input,add,status);
+            assetPickerGrid.append(form);
+            requestAnimationFrame(()=>input.focus());
+        }
+
+        function openResourceImportPicker(kind,event) {
+            closeContextMenu();closeAssetPicker();
+            assetPickerTitle.textContent=resourceImportTitle(kind);
+            assetPickerGrid.classList.add('cg-resource-import-grid');
+
+            const device=document.createElement('button');
+            device.type='button';
+            device.className='cg-context-button';
+            device.textContent=tr('tool.importFromDevice','Desde dispositivo');
+            device.addEventListener('click',()=>{
+                const input=resourceFileInputForKind(kind);
+                closeAssetPicker();
+                input?.click();
+            });
+
+            const url=document.createElement('button');
+            url.type='button';
+            url.className='cg-context-button';
+            url.textContent=tr('tool.importFromUrl','Desde URL');
+            url.addEventListener('click',()=>showResourceUrlForm(kind));
+
+            assetPickerGrid.append(device,url);
+            placeFloatingMenu(assetPickerPopup,event);
         }
 
         function openAssetPicker(type,event) {
@@ -8377,10 +9166,14 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
             let dataUrl = asset.dataUrl || '';
             if (!dataUrl && asset.file) dataUrl = await readFileAsDataUrl(asset.file);
             if (!dataUrl && asset.url && String(asset.url).startsWith('data:')) dataUrl = asset.url;
-            return dataUrl ? { name: asset.name || 'image', dataUrl } : null;
+            const remoteUrl = /^https?:\/\//i.test(String(asset.remoteUrl || '')) ? String(asset.remoteUrl) : '';
+            return (dataUrl || remoteUrl) ? { name: asset.name || 'image', dataUrl, remoteUrl } : null;
         }
 
         async function createAssetFromProjectData(data) {
+            if (!data?.dataUrl && data?.remoteUrl) {
+                try { return await loadImageFromRemoteUrl(data.remoteUrl); } catch (error) { console.warn(error); return null; }
+            }
             if (!data?.dataUrl) return null;
             const image = new Image();
             image.decoding = 'async';
@@ -8389,7 +9182,15 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
                 image.onerror = reject;
                 image.src = data.dataUrl;
             });
-            return { file: null, url: data.dataUrl, dataUrl: data.dataUrl, image, name: data.name || 'image', analysis: analyzeImage(image) };
+            return {
+                file: null,
+                url: data.dataUrl,
+                dataUrl: data.dataUrl,
+                remoteUrl: /^https?:\/\//i.test(String(data.remoteUrl || '')) ? String(data.remoteUrl) : '',
+                image,
+                name: data.name || 'image',
+                analysis: analyzeImage(image)
+            };
         }
 
         function releaseCurrentAssets() {
@@ -8687,9 +9488,9 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
         promptPopupOkButton.addEventListener('click', closePromptCopiedPopup);
         closeAssetPickerButton.addEventListener('click', closeAssetPicker);
 
-        logoButton.addEventListener('click', () => logoInput.click());
-        backgroundButton.addEventListener('click', () => backgroundInput.click());
-        decorationButton.addEventListener('click', () => decorationInput.click());
+        logoButton.addEventListener('click', (event) => openResourceImportPicker('logo', event));
+        backgroundButton.addEventListener('click', (event) => openResourceImportPicker('background', event));
+        decorationButton.addEventListener('click', (event) => openResourceImportPicker('decoration', event));
 
         logoInput.addEventListener('change', async () => {
             try { await handleLogo(logoInput.files?.[0]); } catch (error) { console.error(error); }
@@ -8725,7 +9526,11 @@ Ahora genera el carrusel a partir de los datos de mi empresa o proyecto.`;
 
         canvas.addEventListener('pointerdown', beginCanvasDrag);
         canvas.addEventListener('dblclick', (event) => { event.preventDefault(); event.stopPropagation(); openInlineTextEditor(event); });
-        canvas.addEventListener('pointermove', moveCanvasDrag);
+        canvas.addEventListener('pointermove', (event) => {
+            if (state.canvasDrag) moveCanvasDrag(event);
+            else updateCanvasHover(event);
+        });
+        canvas.addEventListener('pointerleave', clearCanvasHover);
         canvas.addEventListener('pointerup', endCanvasDrag);
         canvas.addEventListener('pointercancel', endCanvasDrag);
 

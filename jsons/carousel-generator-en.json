@@ -132,7 +132,24 @@
     "bringToFront": "Bring to front",
     "sendToBack": "Send to back",
     "addRandomDecorations": "Add random decorative elements",
-    "noBackgroundImage": "No background image"
+    "noBackgroundImage": "No background image",
+    "textStyle": "Text style",
+    "boldText": "Bold",
+    "italicText": "Italic",
+    "lightText": "Light",
+    "moreGradientCombinations": "More combinations",
+    "gradientCombination": "Combination",
+    "gradientColors": "Gradient colors",
+    "addGradientColor": "Add color",
+    "applyGradient": "Apply gradient",
+    "importFromDevice": "From device",
+    "importFromUrl": "From URL",
+    "addFromUrl": "Add from URL",
+    "logoSourceTitle": "Add logo",
+    "backgroundSourceTitle": "Add background images",
+    "decorationSourceTitle": "Add decorations",
+    "imageUrlPlaceholder": "Paste the image URL",
+    "imageUrlsPlaceholder": "Paste one or more URLs, one per line"
   },
   "formats": {
     "instagramPortrait": "Instagram portrait · 1080×1350",
@@ -197,7 +214,11 @@
     "codeUpdatesApplied": "Updates applied without changing the design.",
     "codeUpdatesIgnored": "entries did not match existing slides.",
     "noSlidesUpdated": "No existing slides were found to update.",
-    "randomDecorationsAdded": "Random decorative elements added."
+    "randomDecorationsAdded": "Random decorative elements added.",
+    "urlAssetAdded": "Resource added from URL.",
+    "urlAssetsAdded": "Resources added from URL.",
+    "invalidImageUrl": "Use a valid http or https URL.",
+    "urlImageLoadError": "The image could not be loaded. The URL must be public and allow browser access."
   },
   "info": {
     "heading": "Create a complete carousel in a few steps",
