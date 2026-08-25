@@ -128,6 +128,7 @@
 <link rel="icon" href="./src/favicon.png" type="image/png">
 
 <link rel="stylesheet" href="./styles/main.css">
+<link rel="stylesheet" href="./styles/index-ads.css">
 
 <script src="./scripts/language.js" defer></script>
 <script src="./scripts/shared.js" defer></script>
@@ -411,38 +412,6 @@
       border-color: rgba(196, 239, 255, 0.2);
     }
 
-/* Estilos para el bloque de publicidad entre herramientas (inicio)*/
-    .ad-slot--between-tools {
-    display: block;
-    width: 100%;
-    min-width: 250px;
-    min-height: 90px;
-    margin: 3rem auto;
-}
-
-.ad-slot--between-tools .adsbygoogle {
-    display: block;
-    width: 100%;
-}
-
-.ad-slot--gradient {
-    grid-column: 2 / -1;
-    display: block;
-    width: 100%;
-    min-width: 0;
-    align-self: stretch;
-}
-
-.ad-slot--gradient .adsbygoogle {
-    display: block;
-    width: 100%;
-}
-@media (max-width: 768px) {
-    .ad-slot--gradient {
-        grid-column: 1 / -1;
-    }
-}
-/* Estilos para el bloque de publicidad entre herramientas (fin)*/
   </style>
 </head>
 
@@ -566,7 +535,7 @@
 
          <!-- Alfora Home InPage 02 -->
         <aside
-            class="ad-slot ad-slot--between-tools"
+            class="ad-slot ad-slot--between-tools home-ad-slot"
             aria-label="Publicidad"
             data-ad-position="after-hero"
         >
@@ -641,14 +610,23 @@
         </div>
 
         <!-- Alfora Home InPage 03 -->
-        <ins class="adsbygoogle"
+        <aside
+          class="ad-slot home-ad-slot"
+          aria-label="Publicidad"
+          data-ad-position="after-categories"
+        >
+          <ins
+            class="adsbygoogle"
             style="display:block"
             data-ad-client="ca-pub-7025188829601947"
             data-ad-slot="4295205866"
             data-ad-format="auto"
-            data-full-width-responsive="true"></ins>
+            data-full-width-responsive="true"
+          ></ins>
+        </aside>
+
         <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
+          (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
       </section>
 
@@ -768,7 +746,7 @@
 
         <!-- Publicidad entre herramientas -->
         <aside
-          class="ad-slot ad-slot--between-tools"
+          class="ad-slot ad-slot--between-tools home-ad-slot"
           aria-label="Publicidad"
           data-ad-position="home-middle"
         >
@@ -858,7 +836,7 @@
             </a>
 
             <aside
-                class="ad-slot ad-slot--gradient"
+                class="ad-slot ad-slot--gradient home-ad-slot home-ad-slot--gradient"
                 aria-label="Publicidad"
                 data-ad-position="gradient"
             >
@@ -882,10 +860,9 @@
 
         <!-- Alfora Home InPage 05 -->
         <aside
-            class="ad-slot ad-slot--between-tools"
+            class="ad-slot ad-slot--between-tools home-ad-slot"
             aria-label="Publicidad"
             data-ad-position="between-gradient-design"
-            style="margin-top: 16px; margin-bottom: 16px;"
         >
             <ins
                 class="adsbygoogle"
