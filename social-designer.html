@@ -1774,6 +1774,125 @@
    HERRAMIENTA: SOCIAL DESIGNER · FIN
    ====================================================================== */
 
+
+
+    /* ======================================================================
+       SOCIAL DESIGNER · AJUSTES PROPORCIONALES + GUÍAS INTELIGENTES
+       Cambios locales del editor. No modifica estilos globales de Alfora.
+       ====================================================================== */
+
+    .designer-background-actions {
+      gap: 6px;
+    }
+
+    @media (min-width: 620px) {
+      .designer-background-actions {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .designer-background-actions .button {
+      width: 100%;
+      min-width: 0;
+      min-height: 40px;
+      padding: 7px 5px;
+      font-size: .68rem;
+      line-height: 1.15;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+
+    #background-image .control-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    #background-image .control-grid .form-field,
+    #background-image .form-field {
+      min-width: 0;
+    }
+
+    #background-image .form-field label {
+      gap: 6px;
+      font-size: .76rem;
+    }
+
+    @media (max-width: 1360px) and (min-width: 921px) {
+      .designer-topbar {
+        gap: 10px;
+        padding-inline: 12px;
+      }
+
+      .designer-topbar__group {
+        gap: 6px;
+      }
+
+      .designer-topbar__group:last-child .button {
+        min-width: 0;
+        padding: 9px 12px;
+        font-size: .76rem;
+        white-space: nowrap;
+      }
+    }
+
+    @media (max-width: 619px) {
+      .designer-background-actions .button {
+        min-height: 42px;
+        font-size: .74rem;
+      }
+    }
+
+    .designer-context-menu__button--layers {
+      color: var(--color-primary);
+      background: rgba(102, 255, 143, .065);
+      border-color: rgba(102, 255, 143, .20);
+    }
+
+    .designer-smart-guides {
+      position: absolute;
+      inset: 0;
+      z-index: 8;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      pointer-events: none;
+    }
+
+    .designer-smart-guides line {
+      fill: none;
+      stroke: var(--color-primary);
+      stroke-linecap: round;
+      opacity: .92;
+    }
+
+    .designer-smart-guides text {
+      fill: var(--color-primary);
+      paint-order: stroke;
+      stroke: rgba(7, 16, 10, .92);
+      stroke-width: 4px;
+      stroke-linejoin: round;
+      font-family: var(--font-family-mono, monospace);
+      font-weight: 1000;
+      text-anchor: middle;
+      dominant-baseline: central;
+    }
+
+    .designer-hover-outline {
+      position: absolute;
+      inset: 0;
+      z-index: 7;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      pointer-events: none;
+    }
+
+    .designer-hover-outline polygon {
+      fill: none;
+      stroke: rgba(255, 190, 74, .98);
+      stroke-linejoin: round;
+    }
+
 </style>
 
 </head>
@@ -2617,10 +2736,11 @@
           <option value="png">PNG</option>
           <option value="jpeg">JPG</option>
           <option value="webp">WebP</option>
+          <option value="svg">SVG</option>
         </select>
       </div>
 
-      <div class="form-field">
+      <div class="form-field" id="export-quality-field">
         <label for="export-quality">
           <span>Calidad</span>
           <span id="export-quality-value">92%</span>
@@ -2978,6 +3098,221 @@
         padding: 4
       });
 
+      function syncImageCornerClipPath(object) {
+        if (!object || object.type !== "image" || object.isBackgroundLayer) return;
+
+        const percent = Math.max(0, Math.min(100, Number(object.imageCornerRadius || 0)));
+
+        if (percent <= 0) {
+          object.set("clipPath", null);
+          return;
+        }
+
+        const radius = Math.min(object.width || 1, object.height || 1) * (percent / 200);
+        const clipPath = object.clipPath instanceof fabric.Rect
+          ? object.clipPath
+          : new fabric.Rect({
+              originX: "center",
+              originY: "center"
+            });
+
+        clipPath.set({
+          width: object.width,
+          height: object.height,
+          rx: radius,
+          ry: radius,
+          originX: "center",
+          originY: "center"
+        });
+
+        clipPath.setCoords();
+        object.set("clipPath", clipPath);
+        object.dirty = true;
+        clipPath.dirty = true;
+      }
+
+      function cloneFabricControl(baseControl, overrides = {}) {
+        return new fabric.Control({
+          x: baseControl.x,
+          y: baseControl.y,
+          offsetX: baseControl.offsetX,
+          offsetY: baseControl.offsetY,
+          withConnection: baseControl.withConnection,
+          actionName: baseControl.actionName,
+          cursorStyle: baseControl.cursorStyle,
+          cursorStyleHandler: baseControl.cursorStyleHandler,
+          getActionName: baseControl.getActionName,
+          actionHandler: baseControl.actionHandler,
+          mouseDownHandler: baseControl.mouseDownHandler,
+          mouseUpHandler: baseControl.mouseUpHandler,
+          positionHandler: baseControl.positionHandler,
+          render: baseControl.render,
+          touchSizeX: baseControl.touchSizeX,
+          touchSizeY: baseControl.touchSizeY,
+          ...overrides
+        });
+      }
+
+      function getImageSourceSize(imageObject) {
+        const element = imageObject?.getElement?.() || imageObject?._originalElement || null;
+
+        return {
+          width: Math.max(1, Number(element?.naturalWidth || element?.videoWidth || element?.width || imageObject?.width || 1)),
+          height: Math.max(1, Number(element?.naturalHeight || element?.videoHeight || element?.height || imageObject?.height || 1))
+        };
+      }
+
+      function buildImageCropState(target, side) {
+        const source = getImageSourceSize(target);
+        const angle = fabric.util.degreesToRadians(Number(target.angle || 0));
+        const fixedOrigins = {
+          left: ["right", "center"],
+          right: ["left", "center"],
+          top: ["center", "bottom"],
+          bottom: ["center", "top"]
+        };
+
+        const fixedOrigin = fixedOrigins[side];
+        if (!fixedOrigin) return null;
+
+        return {
+          side,
+          sourceWidth: source.width,
+          sourceHeight: source.height,
+          startCropX: Number(target.cropX || 0),
+          startCropY: Number(target.cropY || 0),
+          startWidth: Math.max(1, Number(target.width || source.width || 1)),
+          startHeight: Math.max(1, Number(target.height || source.height || 1)),
+          scaleX: Math.max(0.0001, Math.abs(Number(target.scaleX || 1))),
+          scaleY: Math.max(0.0001, Math.abs(Number(target.scaleY || 1))),
+          fixedOriginX: fixedOrigin[0],
+          fixedOriginY: fixedOrigin[1],
+          fixedPoint: target.getPointByOrigin(fixedOrigin[0], fixedOrigin[1]),
+          axisX: {
+            x: Math.cos(angle),
+            y: Math.sin(angle)
+          },
+          axisY: {
+            x: -Math.sin(angle),
+            y: Math.cos(angle)
+          }
+        };
+      }
+
+      function projectCropLength(state, side, x, y) {
+        const dx = x - state.fixedPoint.x;
+        const dy = y - state.fixedPoint.y;
+        const alongX = dx * state.axisX.x + dy * state.axisX.y;
+        const alongY = dx * state.axisY.x + dy * state.axisY.y;
+
+        if (side === "left") return -alongX;
+        if (side === "right") return alongX;
+        if (side === "top") return -alongY;
+        if (side === "bottom") return alongY;
+        return 0;
+      }
+
+      function createImageCropActionHandler(side, fallbackAction) {
+        return function(eventData, transform, x, y) {
+          const target = transform?.target;
+          if (!target) return false;
+
+          if (target.isBackgroundLayer && typeof fallbackAction === "function") {
+            return fallbackAction.call(this, eventData, transform, x, y);
+          }
+
+          const state = transform.__imageCropState && transform.__imageCropState.side === side
+            ? transform.__imageCropState
+            : (transform.__imageCropState = buildImageCropState(target, side));
+
+          if (!state) return false;
+
+          const isHorizontal = side === "left" || side === "right";
+          const scale = isHorizontal ? state.scaleX : state.scaleY;
+          const minSourceSize = Math.max(1, 8 / scale);
+          const maxSourceSize = isHorizontal
+            ? (side === "left"
+                ? state.startCropX + state.startWidth
+                : state.sourceWidth - state.startCropX)
+            : (side === "top"
+                ? state.startCropY + state.startHeight
+                : state.sourceHeight - state.startCropY);
+
+          const projectedLength = Math.max(0, projectCropLength(state, side, x, y));
+          const nextSourceSize = Math.max(
+            minSourceSize,
+            Math.min(maxSourceSize, projectedLength / scale)
+          );
+
+          if (isHorizontal) {
+            if (Math.abs(nextSourceSize - Number(target.width || 0)) < 0.0001) {
+              return false;
+            }
+
+            if (side === "left") {
+              target.set({
+                cropX: state.startCropX + (state.startWidth - nextSourceSize),
+                width: nextSourceSize
+              });
+              target.setPositionByOrigin(state.fixedPoint, "right", "center");
+            } else {
+              target.set({ width: nextSourceSize });
+              target.setPositionByOrigin(state.fixedPoint, "left", "center");
+            }
+          } else {
+            if (Math.abs(nextSourceSize - Number(target.height || 0)) < 0.0001) {
+              return false;
+            }
+
+            if (side === "top") {
+              target.set({
+                cropY: state.startCropY + (state.startHeight - nextSourceSize),
+                height: nextSourceSize
+              });
+              target.setPositionByOrigin(state.fixedPoint, "center", "bottom");
+            } else {
+              target.set({ height: nextSourceSize });
+              target.setPositionByOrigin(state.fixedPoint, "center", "top");
+            }
+          }
+
+          syncImageCornerClipPath(target);
+          target.setCoords();
+          canvas.requestRenderAll();
+          updateProperties();
+          return true;
+        };
+      }
+
+      (function configureImageCropSideControls() {
+        const baseControls = fabric.Object.prototype.controls || {};
+        const imageControls = {
+          tl: baseControls.tl,
+          tr: baseControls.tr,
+          bl: baseControls.bl,
+          br: baseControls.br,
+          mtr: baseControls.mtr,
+          mt: cloneFabricControl(baseControls.mt, {
+            actionName: "crop-image-top",
+            actionHandler: createImageCropActionHandler("top", baseControls.mt?.actionHandler)
+          }),
+          mb: cloneFabricControl(baseControls.mb, {
+            actionName: "crop-image-bottom",
+            actionHandler: createImageCropActionHandler("bottom", baseControls.mb?.actionHandler)
+          }),
+          ml: cloneFabricControl(baseControls.ml, {
+            actionName: "crop-image-left",
+            actionHandler: createImageCropActionHandler("left", baseControls.ml?.actionHandler)
+          }),
+          mr: cloneFabricControl(baseControls.mr, {
+            actionName: "crop-image-right",
+            actionHandler: createImageCropActionHandler("right", baseControls.mr?.actionHandler)
+          })
+        };
+
+        fabric.Image.prototype.controls = imageControls;
+      })();
+
       let logicalWidth = 1080;
       let logicalHeight = 1920;
       let workspaceZoom = 0.24;
@@ -2995,6 +3330,286 @@
       let copiedElementData = null;
       let copiedFormatData = null;
       let formatPainterActive = false;
+      let keyboardNudgeTimer = 0;
+
+      /* Motor idéntico al background-remover.html v2.1 estable. */
+      const LIBRARY_URL =
+        "https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.7.0/+esm";
+      const MODEL_PATH =
+        "https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/";
+      let removeBackgroundFunction = null;
+      let sourceImage = null;
+
+      /* Guías visuales: nunca forman parte del JSON, SVG ni exportaciones raster. */
+      const hoverOutlineLayer = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      hoverOutlineLayer.classList.add("designer-hover-outline");
+      hoverOutlineLayer.setAttribute("aria-hidden", "true");
+      canvas.wrapperEl.appendChild(hoverOutlineLayer);
+
+      const smartGuideLayer = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      smartGuideLayer.classList.add("designer-smart-guides");
+      smartGuideLayer.setAttribute("aria-hidden", "true");
+      canvas.wrapperEl.appendChild(smartGuideLayer);
+
+      let activeMoveGuides = { vertical: [], horizontal: [] };
+      let activeRotationGuide = null;
+      let hoveredSelectableObject = null;
+
+      function syncHoverOutlineLayer() {
+        hoverOutlineLayer.setAttribute("viewBox", `0 0 ${logicalWidth} ${logicalHeight}`);
+        hoverOutlineLayer.setAttribute("width", String(logicalWidth));
+        hoverOutlineLayer.setAttribute("height", String(logicalHeight));
+      }
+
+      function clearHoverOutline() {
+        hoveredSelectableObject = null;
+        hoverOutlineLayer.replaceChildren();
+      }
+
+      function renderHoverOutline(object) {
+        const activeObject = canvas.getActiveObject();
+
+        if (
+          !object ||
+          object.visible === false ||
+          object.selectable === false ||
+          object.evented === false ||
+          object === activeObject
+        ) {
+          clearHoverOutline();
+          return;
+        }
+
+        hoveredSelectableObject = object;
+        syncHoverOutlineLayer();
+        hoverOutlineLayer.replaceChildren();
+
+        const coords = object.getCoords();
+        if (!coords || coords.length < 4) return;
+
+        const visualScale = Math.max(.1, workspaceZoom || 1);
+        const strokeWidth = 2 / visualScale;
+        const dash = 9 / visualScale;
+        const gap = 6 / visualScale;
+        const polygon = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+
+        polygon.setAttribute(
+          "points",
+          coords.map((point) => `${point.x},${point.y}`).join(" ")
+        );
+        polygon.setAttribute("stroke-width", String(strokeWidth));
+        polygon.setAttribute("stroke-dasharray", `${dash} ${gap}`);
+        hoverOutlineLayer.appendChild(polygon);
+      }
+
+
+
+      function syncSmartGuideLayer() {
+        smartGuideLayer.setAttribute("viewBox", `0 0 ${logicalWidth} ${logicalHeight}`);
+        smartGuideLayer.setAttribute("width", String(logicalWidth));
+        smartGuideLayer.setAttribute("height", String(logicalHeight));
+      }
+
+      function clearSmartGuides() {
+        activeMoveGuides = { vertical: [], horizontal: [] };
+        activeRotationGuide = null;
+        smartGuideLayer.replaceChildren();
+      }
+
+      function addSmartGuideLine(x1, y1, x2, y2, opacity = .92) {
+        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        const visualScale = Math.max(.1, workspaceZoom || 1);
+        const strokeWidth = 1.4 / visualScale;
+        const dash = 6 / visualScale;
+        const gap = 6 / visualScale;
+
+        line.setAttribute("x1", String(x1));
+        line.setAttribute("y1", String(y1));
+        line.setAttribute("x2", String(x2));
+        line.setAttribute("y2", String(y2));
+        line.setAttribute("stroke-width", String(strokeWidth));
+        line.setAttribute("stroke-dasharray", `${dash} ${gap}`);
+        line.setAttribute("opacity", String(opacity));
+        smartGuideLayer.appendChild(line);
+      }
+
+      function addSmartGuideSymbol(x, y, symbol) {
+        const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        const visualScale = Math.max(.1, workspaceZoom || 1);
+        text.setAttribute("x", String(x));
+        text.setAttribute("y", String(y));
+        text.setAttribute("font-size", String(18 / visualScale));
+        text.textContent = symbol;
+        smartGuideLayer.appendChild(text);
+      }
+
+      function renderMoveGuides() {
+        syncSmartGuideLayer();
+        smartGuideLayer.replaceChildren();
+
+        activeMoveGuides.vertical.forEach((guide) => {
+          addSmartGuideLine(guide.x, guide.y1, guide.x, guide.y2);
+        });
+
+        activeMoveGuides.horizontal.forEach((guide) => {
+          addSmartGuideLine(guide.x1, guide.y, guide.x2, guide.y);
+        });
+      }
+
+      function getGuideGeometry(object) {
+        const rect = object.getBoundingRect(true, true);
+        return {
+          left: rect.left,
+          centerX: rect.left + rect.width / 2,
+          right: rect.left + rect.width,
+          top: rect.top,
+          centerY: rect.top + rect.height / 2,
+          bottom: rect.top + rect.height
+        };
+      }
+
+      function updateMoveGuides(target) {
+        if (!target || target.isBackgroundLayer) {
+          clearSmartGuides();
+          return;
+        }
+
+        const tolerance = Math.max(4, 6 / Math.max(.1, workspaceZoom || 1));
+        const targetGeometry = getGuideGeometry(target);
+        const vertical = [];
+        const horizontal = [];
+        const verticalKeys = new Set();
+        const horizontalKeys = new Set();
+
+        const targetX = [targetGeometry.left, targetGeometry.centerX, targetGeometry.right];
+        const targetY = [targetGeometry.top, targetGeometry.centerY, targetGeometry.bottom];
+
+        canvas.getObjects().forEach((other) => {
+          if (other === target || other.isBackgroundLayer || other.visible === false) return;
+
+          const otherGeometry = getGuideGeometry(other);
+          const otherX = [otherGeometry.left, otherGeometry.centerX, otherGeometry.right];
+          const otherY = [otherGeometry.top, otherGeometry.centerY, otherGeometry.bottom];
+
+          for (const xA of targetX) {
+            for (const xB of otherX) {
+              if (Math.abs(xA - xB) > tolerance) continue;
+              const x = xB;
+              const key = String(Math.round(x * 10) / 10);
+              if (verticalKeys.has(key)) continue;
+              verticalKeys.add(key);
+              vertical.push({
+                x,
+                y1: Math.max(0, Math.min(targetGeometry.top, otherGeometry.top) - 30 / Math.max(.1, workspaceZoom || 1)),
+                y2: Math.min(logicalHeight, Math.max(targetGeometry.bottom, otherGeometry.bottom) + 30 / Math.max(.1, workspaceZoom || 1))
+              });
+            }
+          }
+
+          for (const yA of targetY) {
+            for (const yB of otherY) {
+              if (Math.abs(yA - yB) > tolerance) continue;
+              const y = yB;
+              const key = String(Math.round(y * 10) / 10);
+              if (horizontalKeys.has(key)) continue;
+              horizontalKeys.add(key);
+              horizontal.push({
+                y,
+                x1: Math.max(0, Math.min(targetGeometry.left, otherGeometry.left) - 30 / Math.max(.1, workspaceZoom || 1)),
+                x2: Math.min(logicalWidth, Math.max(targetGeometry.right, otherGeometry.right) + 30 / Math.max(.1, workspaceZoom || 1))
+              });
+            }
+          }
+        });
+
+        activeRotationGuide = null;
+        activeMoveGuides = { vertical, horizontal };
+        renderMoveGuides();
+      }
+
+      function normalizeGuideAngle(angle) {
+        const normalized = ((Number(angle || 0) % 180) + 180) % 180;
+        return normalized;
+      }
+
+      function parallelAngleDistance(a, b) {
+        const difference = Math.abs(normalizeGuideAngle(a) - normalizeGuideAngle(b));
+        return Math.min(difference, 180 - difference);
+      }
+
+      function drawOrientationLine(object, angle, opacity = .92) {
+        const center = object.getCenterPoint();
+        const rect = object.getBoundingRect(true, true);
+        const visualScale = Math.max(.1, workspaceZoom || 1);
+        const length = Math.max(
+          Math.hypot(rect.width, rect.height) * .82,
+          110 / visualScale
+        );
+        const radians = Number(angle || 0) * Math.PI / 180;
+        const dx = Math.cos(radians) * length;
+        const dy = Math.sin(radians) * length;
+
+        addSmartGuideLine(
+          center.x - dx,
+          center.y - dy,
+          center.x + dx,
+          center.y + dy,
+          opacity
+        );
+      }
+
+      function updateRotationGuides(target) {
+        if (!target || target.isBackgroundLayer) {
+          clearSmartGuides();
+          return;
+        }
+
+        const angle = normalizeGuideAngle(target.angle);
+        const tolerance = 2.5;
+        let bestMatch = null;
+
+        canvas.getObjects().forEach((other) => {
+          if (other === target || other.isBackgroundLayer || other.visible === false) return;
+
+          const otherAngle = normalizeGuideAngle(other.angle);
+          const parallelDistance = parallelAngleDistance(angle, otherAngle);
+          const perpendicularDistance = Math.abs(parallelDistance - 90);
+
+          let relation = null;
+          let distance = Infinity;
+
+          if (parallelDistance <= tolerance) {
+            relation = "parallel";
+            distance = parallelDistance;
+          } else if (perpendicularDistance <= tolerance) {
+            relation = "perpendicular";
+            distance = perpendicularDistance;
+          }
+
+          if (relation && (!bestMatch || distance < bestMatch.distance)) {
+            bestMatch = { other, relation, distance };
+          }
+        });
+
+        activeMoveGuides = { vertical: [], horizontal: [] };
+        activeRotationGuide = bestMatch;
+        syncSmartGuideLayer();
+        smartGuideLayer.replaceChildren();
+
+        if (!bestMatch) return;
+
+        drawOrientationLine(target, target.angle, 1);
+        drawOrientationLine(bestMatch.other, bestMatch.other.angle, .72);
+
+        const targetCenter = target.getCenterPoint();
+        const otherCenter = bestMatch.other.getCenterPoint();
+        addSmartGuideSymbol(
+          (targetCenter.x + otherCenter.x) / 2,
+          (targetCenter.y + otherCenter.y) / 2,
+          bestMatch.relation === "parallel" ? "∥" : "⊥"
+        );
+      }
+
 
       function closeContextMenu() {
         contextMenu.classList.remove("is-preparing");
@@ -3089,139 +3704,1556 @@
         return false;
       }
 
-      function removeSelectedImageBackground(imageObject) {
-        if (!imageObject || imageObject.type !== "image") return;
 
-        try {
-          const element = imageObject.getElement();
-          const sourceWidth = element.naturalWidth || element.width;
-          const sourceHeight = element.naturalHeight || element.height;
+      function translate(key, fallback) {
+        return getTranslation(key, fallback);
+      }
 
-          if (!sourceWidth || !sourceHeight) return;
+      function loadImageFromUrl(url) {
+            return new Promise((resolve, reject) => {
+              const image = new Image();
 
-          const maxSide = 1800;
-          const scale = Math.min(1, maxSide / Math.max(sourceWidth, sourceHeight));
-          const width = Math.max(1, Math.round(sourceWidth * scale));
-          const height = Math.max(1, Math.round(sourceHeight * scale));
+              image.onload = () => resolve(image);
+              image.onerror = () =>
+                reject(
+                  new Error(
+                    translate(
+                      "messages.readError",
+                      "No fue posible leer la imagen."
+                    )
+                  )
+                );
 
-          const work = document.createElement("canvas");
-          work.width = width;
-          work.height = height;
-
-          const ctx = work.getContext("2d", { willReadFrequently: true });
-          ctx.drawImage(element, 0, 0, width, height);
-
-          const imageData = ctx.getImageData(0, 0, width, height);
-          const data = imageData.data;
-
-          const corners = [
-            0,
-            (width - 1) * 4,
-            ((height - 1) * width) * 4,
-            ((height * width) - 1) * 4
-          ];
-
-          const background = corners.reduce((acc, index) => {
-            acc.r += data[index];
-            acc.g += data[index + 1];
-            acc.b += data[index + 2];
-            return acc;
-          }, { r: 0, g: 0, b: 0 });
-
-          background.r /= corners.length;
-          background.g /= corners.length;
-          background.b /= corners.length;
-
-          const threshold = 62;
-          const visited = new Uint8Array(width * height);
-          const queue = new Int32Array(width * height);
-          let head = 0;
-          let tail = 0;
-
-          const isBackgroundPixel = (pixelIndex) => {
-            const offset = pixelIndex * 4;
-            if (data[offset + 3] === 0) return true;
-
-            const dr = data[offset] - background.r;
-            const dg = data[offset + 1] - background.g;
-            const db = data[offset + 2] - background.b;
-
-            return Math.sqrt(dr * dr + dg * dg + db * db) <= threshold;
-          };
-
-          const enqueue = (pixelIndex) => {
-            if (pixelIndex < 0 || pixelIndex >= width * height || visited[pixelIndex]) return;
-            if (!isBackgroundPixel(pixelIndex)) return;
-
-            visited[pixelIndex] = 1;
-            queue[tail++] = pixelIndex;
-          };
-
-          for (let x = 0; x < width; x += 1) {
-            enqueue(x);
-            enqueue((height - 1) * width + x);
+              image.src = url;
+            });
           }
 
-          for (let y = 0; y < height; y += 1) {
-            enqueue(y * width);
-            enqueue(y * width + width - 1);
+      async function ensureLibrary() {
+            if (removeBackgroundFunction) {
+              return removeBackgroundFunction;
+            }
+
+            showStatus(
+              translate(
+                "messages.loadingLibrary",
+                "Preparando el motor de eliminación..."
+              ),
+              "info"
+            );
+
+            const module = await import(LIBRARY_URL);
+
+            removeBackgroundFunction =
+              module.removeBackground ||
+              module.default;
+
+            if (typeof removeBackgroundFunction !== "function") {
+              throw new Error(
+                translate(
+                  "messages.libraryError",
+                  "No fue posible iniciar el motor de eliminación."
+                )
+              );
+            }
+
+            return removeBackgroundFunction;
           }
 
-          while (head < tail) {
-            const pixelIndex = queue[head++];
-            const x = pixelIndex % width;
-            const y = Math.floor(pixelIndex / width);
+      function getCanvasPixelsFromImage(image) {
+            const canvas = document.createElement("canvas");
+            canvas.width = image.naturalWidth;
+            canvas.height = image.naturalHeight;
 
-            if (x > 0) enqueue(pixelIndex - 1);
-            if (x < width - 1) enqueue(pixelIndex + 1);
-            if (y > 0) enqueue(pixelIndex - width);
-            if (y < height - 1) enqueue(pixelIndex + width);
+            const context = canvas.getContext("2d", {
+              alpha: true,
+              willReadFrequently: true
+            });
+
+            if (!context) {
+              return null;
+            }
+
+            context.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+            return {
+              canvas,
+              context,
+              imageData: context.getImageData(0, 0, canvas.width, canvas.height)
+            };
           }
 
-          for (let pixelIndex = 0; pixelIndex < visited.length; pixelIndex += 1) {
-            if (visited[pixelIndex]) {
-              data[pixelIndex * 4 + 3] = 0;
+      function clamp01(value) {
+            return Math.max(0, Math.min(1, value));
+          }
+
+      function smoothStep01(value) {
+            const normalized = clamp01(value);
+            return normalized * normalized * (3 - 2 * normalized);
+          }
+
+      function colorDistance(red, green, blue, background) {
+            return Math.sqrt(
+              Math.pow(red - background.red, 2) +
+              Math.pow(green - background.green, 2) +
+              Math.pow(blue - background.blue, 2)
+            );
+          }
+
+      function percentile(values, ratio) {
+            if (!values.length) {
+              return 0;
+            }
+
+            values.sort((a, b) => a - b);
+
+            const position = Math.max(
+              0,
+              Math.min(values.length - 1, Math.round((values.length - 1) * ratio))
+            );
+
+            return values[position];
+          }
+
+      function analyzeBorderBackground(imageData, width, height) {
+            const data = imageData.data;
+            const sampleDepth = Math.max(
+              2,
+              Math.min(18, Math.round(Math.min(width, height) * 0.035))
+            );
+
+            const bucketCounts = new Uint32Array(4096);
+            let sampleCount = 0;
+            let dominantBucket = 0;
+            let dominantCount = 0;
+
+            function visitBorderPixels(callback) {
+              for (let y = 0; y < height; y += 1) {
+                for (let x = 0; x < width; x += 1) {
+                  const onBorder =
+                    x < sampleDepth ||
+                    x >= width - sampleDepth ||
+                    y < sampleDepth ||
+                    y >= height - sampleDepth;
+
+                  if (!onBorder) {
+                    continue;
+                  }
+
+                  const index = (y * width + x) * 4;
+                  const alpha = data[index + 3];
+
+                  if (alpha < 16) {
+                    continue;
+                  }
+
+                  callback(
+                    data[index],
+                    data[index + 1],
+                    data[index + 2]
+                  );
+                }
+              }
+            }
+
+            visitBorderPixels((red, green, blue) => {
+              const bucket =
+                ((red >> 4) << 8) |
+                ((green >> 4) << 4) |
+                (blue >> 4);
+
+              const count = ++bucketCounts[bucket];
+              sampleCount += 1;
+
+              if (count > dominantCount) {
+                dominantCount = count;
+                dominantBucket = bucket;
+              }
+            });
+
+            if (!sampleCount) {
+              return {
+                isUniform: false,
+                confidence: 0,
+                red: 0,
+                green: 0,
+                blue: 0,
+                meanDistance: Infinity,
+                deviation: Infinity
+              };
+            }
+
+            const dominantRed = ((dominantBucket >> 8) & 15) * 16 + 7.5;
+            const dominantGreen = ((dominantBucket >> 4) & 15) * 16 + 7.5;
+            const dominantBlue = (dominantBucket & 15) * 16 + 7.5;
+
+            let redSum = 0;
+            let greenSum = 0;
+            let blueSum = 0;
+            let inlierCount = 0;
+
+            visitBorderPixels((red, green, blue) => {
+              const distance = Math.sqrt(
+                Math.pow(red - dominantRed, 2) +
+                Math.pow(green - dominantGreen, 2) +
+                Math.pow(blue - dominantBlue, 2)
+              );
+
+              if (distance > 34) {
+                return;
+              }
+
+              redSum += red;
+              greenSum += green;
+              blueSum += blue;
+              inlierCount += 1;
+            });
+
+            if (!inlierCount) {
+              return {
+                isUniform: false,
+                confidence: 0,
+                red: dominantRed,
+                green: dominantGreen,
+                blue: dominantBlue,
+                meanDistance: Infinity,
+                deviation: Infinity
+              };
+            }
+
+            const averageRed = redSum / inlierCount;
+            const averageGreen = greenSum / inlierCount;
+            const averageBlue = blueSum / inlierCount;
+
+            let distanceSum = 0;
+            let squaredDistanceSum = 0;
+            let measuredCount = 0;
+
+            visitBorderPixels((red, green, blue) => {
+              const distance = Math.sqrt(
+                Math.pow(red - averageRed, 2) +
+                Math.pow(green - averageGreen, 2) +
+                Math.pow(blue - averageBlue, 2)
+              );
+
+              if (distance > 42) {
+                return;
+              }
+
+              distanceSum += distance;
+              squaredDistanceSum += distance * distance;
+              measuredCount += 1;
+            });
+
+            const meanDistance = measuredCount
+              ? distanceSum / measuredCount
+              : Infinity;
+
+            const variance = measuredCount
+              ? Math.max(
+                  0,
+                  squaredDistanceSum / measuredCount - meanDistance * meanDistance
+                )
+              : Infinity;
+
+            const deviation = Math.sqrt(variance);
+            const inlierRatio = inlierCount / sampleCount;
+            const dominantRatio = dominantCount / sampleCount;
+            const confidence = Math.max(inlierRatio, dominantRatio);
+
+            return {
+              isUniform:
+                inlierRatio >= 0.72 &&
+                meanDistance <= 18 &&
+                deviation <= 14,
+              confidence,
+              red: averageRed,
+              green: averageGreen,
+              blue: averageBlue,
+              meanDistance,
+              deviation
+            };
+          }
+
+      function getForegroundDistanceReference(
+            sourceData,
+            resultData,
+            background,
+            pixelCount
+          ) {
+            const distances = [];
+            const sampleStep = Math.max(1, Math.floor(pixelCount / 14000));
+
+            for (let pixel = 0; pixel < pixelCount; pixel += sampleStep) {
+              const index = pixel * 4;
+              const sourceAlpha = sourceData[index + 3];
+              const resultAlpha = resultData[index + 3];
+
+              if (sourceAlpha < 16 || resultAlpha < 175) {
+                continue;
+              }
+
+              const distance = colorDistance(
+                sourceData[index],
+                sourceData[index + 1],
+                sourceData[index + 2],
+                background
+              );
+
+              if (distance > background.tolerance) {
+                distances.push(distance);
+              }
+            }
+
+            if (!distances.length) {
+              return Math.max(background.tolerance + 64, 120);
+            }
+
+            return Math.max(
+              background.tolerance + 48,
+              percentile(distances, 0.35)
+            );
+          }
+
+      function normalizeAlpha(alpha) {
+            if (alpha <= 6) {
+              return 0;
+            }
+
+            /*
+             * No forzamos los píxeles casi opacos a 255. En bordes antialiasados,
+             * elevar 249-254 a opaco puede convertir una contaminación mínima del
+             * fondo en una línea oscura visible sobre fondos claros.
+             */
+            return alpha;
+          }
+
+      function refineUniformBackgroundPixels(
+            sourceData,
+            resultData,
+            background,
+            foregroundReference
+          ) {
+            const denominator = Math.max(
+              1,
+              foregroundReference - background.tolerance
+            );
+
+            const backgroundCoreTolerance = Math.max(
+              4,
+              Math.min(16, background.tolerance * 0.52)
+            );
+
+            const residualModelWeight = Math.max(
+              0.04,
+              Math.min(0.14, 0.14 - background.confidence * 0.1)
+            );
+
+            let changedPixels = 0;
+
+            for (let index = 0; index < sourceData.length; index += 4) {
+              const sourceRed = sourceData[index];
+              const sourceGreen = sourceData[index + 1];
+              const sourceBlue = sourceData[index + 2];
+              const sourceAlpha = sourceData[index + 3];
+              const originalResultAlpha = resultData[index + 3];
+
+              if (sourceAlpha < 16) {
+                if (originalResultAlpha !== 0) {
+                  resultData[index + 3] = 0;
+                  changedPixels += 1;
+                }
+                continue;
+              }
+
+              const distanceFromBackground = colorDistance(
+                sourceRed,
+                sourceGreen,
+                sourceBlue,
+                background
+              );
+
+              const modelAlpha = originalResultAlpha / 255;
+              const colorAlpha = smoothStep01(
+                (distanceFromBackground - background.tolerance) / denominator
+              );
+
+              let refinedAlpha = modelAlpha;
+
+              /*
+               * En fondos uniformes, el color original es una segunda señal de máscara.
+               * La versión anterior conservaba el 25 % de la máscara del modelo incluso
+               * cuando el píxel coincidía con el fondo. Eso dejaba aros oscuros dentro de
+               * letras y halos alrededor de gráficos. Aquí esa confianza residual se
+               * reduce de forma proporcional a la uniformidad real del fondo.
+               */
+              if (
+                distanceFromBackground <= backgroundCoreTolerance &&
+                modelAlpha < 0.985
+              ) {
+                refinedAlpha = 0;
+              } else if (colorAlpha < modelAlpha) {
+                refinedAlpha =
+                  colorAlpha +
+                  (modelAlpha - colorAlpha) * residualModelWeight;
+              } else if (colorAlpha > modelAlpha + 0.1) {
+                const restoreStrength =
+                  colorAlpha >= 0.82 && modelAlpha <= 0.55
+                    ? 0.5
+                    : 0.22;
+
+                refinedAlpha =
+                  modelAlpha + (colorAlpha - modelAlpha) * restoreStrength;
+              }
+
+              refinedAlpha = smoothStep01(
+                (refinedAlpha - 0.015) / 0.97
+              );
+
+              if (refinedAlpha < 0.02) {
+                refinedAlpha = 0;
+              } else if (refinedAlpha > 0.98) {
+                refinedAlpha = 1;
+              }
+
+              const targetAlpha = Math.round(refinedAlpha * 255);
+
+              if (targetAlpha === 0) {
+                if (originalResultAlpha !== 0) {
+                  resultData[index + 3] = 0;
+                  changedPixels += 1;
+                }
+                continue;
+              }
+
+              if (targetAlpha < 252) {
+                /*
+                 * Recupera el color del sujeto antes de mezclarlo con el fondo original.
+                 * Para el cálculo usamos también la cobertura sugerida por el color:
+                 * cuando el modelo deja demasiado alfa en un píxel negro/gris de borde,
+                 * la cobertura cromática evita conservar ese negro como un halo visible.
+                 */
+                const recoveryAlpha = Math.max(
+                  0.055,
+                  Math.min(
+                    1,
+                    colorAlpha > 0.035
+                      ? colorAlpha
+                      : refinedAlpha
+                  )
+                );
+
+                const recoveredRed = Math.max(
+                  0,
+                  Math.min(
+                    255,
+                    (sourceRed - (1 - recoveryAlpha) * background.red) /
+                      recoveryAlpha
+                  )
+                );
+                const recoveredGreen = Math.max(
+                  0,
+                  Math.min(
+                    255,
+                    (sourceGreen - (1 - recoveryAlpha) * background.green) /
+                      recoveryAlpha
+                  )
+                );
+                const recoveredBlue = Math.max(
+                  0,
+                  Math.min(
+                    255,
+                    (sourceBlue - (1 - recoveryAlpha) * background.blue) /
+                      recoveryAlpha
+                  )
+                );
+
+                const edgeStrength =
+                  1 - Math.abs(refinedAlpha * 2 - 1);
+                const backgroundInfluence = 1 - colorAlpha;
+                const decontaminationStrength = Math.min(
+                  0.94,
+                  edgeStrength * 0.82 + backgroundInfluence * 0.28
+                ) * Math.min(1, background.confidence);
+
+                resultData[index] = Math.round(
+                  resultData[index] * (1 - decontaminationStrength) +
+                  recoveredRed * decontaminationStrength
+                );
+                resultData[index + 1] = Math.round(
+                  resultData[index + 1] * (1 - decontaminationStrength) +
+                  recoveredGreen * decontaminationStrength
+                );
+                resultData[index + 2] = Math.round(
+                  resultData[index + 2] * (1 - decontaminationStrength) +
+                  recoveredBlue * decontaminationStrength
+                );
+              }
+
+              if (targetAlpha !== originalResultAlpha) {
+                resultData[index + 3] = targetAlpha;
+                changedPixels += 1;
+              }
+            }
+
+            return changedPixels;
+          }
+
+      function restoreSolidForegroundPlateaus(
+            sourceData,
+            resultData,
+            background,
+            foregroundReference,
+            width,
+            height
+          ) {
+            const strongDistance = Math.max(
+              background.tolerance + 44,
+              Math.min(
+                background.tolerance + 170,
+                foregroundReference * 0.58
+              )
+            );
+            const supportDistance = Math.max(
+              background.tolerance + 30,
+              strongDistance * 0.76
+            );
+            const sameColorTolerance = Math.max(
+              18,
+              Math.min(42, background.tolerance * 1.2 + 14)
+            );
+
+            let changedPixels = 0;
+
+            /*
+             * Protege superficies gráficas sólidas (texto, logotipos, iconos, formas
+             * planas) que IMG.LY haya dejado con vetas o zonas semitransparentes.
+             *
+             * La decisión NO depende solo del alfa del modelo. El píxel debe:
+             * 1) estar claramente lejos del color de fondo;
+             * 2) pertenecer a una meseta de color localmente estable; y
+             * 3) estar rodeado mayoritariamente por otros píxeles de primer plano.
+             *
+             * De esta forma recuperamos el interior de letras blancas sin endurecer
+             * los bordes antialiasados ni aplicar el mismo tratamiento a fotografías.
+             */
+            for (let pass = 0; pass < 3; pass += 1) {
+              const snapshot = new Uint8ClampedArray(resultData);
+              let passChanges = 0;
+
+              for (let y = 1; y < height - 1; y += 1) {
+                for (let x = 1; x < width - 1; x += 1) {
+                  const index = (y * width + x) * 4;
+                  const currentAlpha = snapshot[index + 3];
+
+                  if (
+                    currentAlpha >= 254 ||
+                    sourceData[index + 3] < 16
+                  ) {
+                    continue;
+                  }
+
+                  const centerRed = sourceData[index];
+                  const centerGreen = sourceData[index + 1];
+                  const centerBlue = sourceData[index + 2];
+                  const centerDistance = colorDistance(
+                    centerRed,
+                    centerGreen,
+                    centerBlue,
+                    background
+                  );
+
+                  if (centerDistance < strongDistance) {
+                    continue;
+                  }
+
+                  let foregroundNeighbors = 0;
+                  let similarNeighbors = 0;
+                  let strongOpaqueNeighbors = 0;
+                  let neighborCount = 0;
+
+                  for (let ny = y - 1; ny <= y + 1; ny += 1) {
+                    for (let nx = x - 1; nx <= x + 1; nx += 1) {
+                      if (nx === x && ny === y) {
+                        continue;
+                      }
+
+                      const neighborIndex = (ny * width + nx) * 4;
+
+                      if (sourceData[neighborIndex + 3] < 16) {
+                        continue;
+                      }
+
+                      neighborCount += 1;
+
+                      const neighborDistance = colorDistance(
+                        sourceData[neighborIndex],
+                        sourceData[neighborIndex + 1],
+                        sourceData[neighborIndex + 2],
+                        background
+                      );
+
+                      if (neighborDistance >= supportDistance) {
+                        foregroundNeighbors += 1;
+                      }
+
+                      const localColorDistance = Math.sqrt(
+                        Math.pow(sourceData[neighborIndex] - centerRed, 2) +
+                        Math.pow(sourceData[neighborIndex + 1] - centerGreen, 2) +
+                        Math.pow(sourceData[neighborIndex + 2] - centerBlue, 2)
+                      );
+
+                      if (localColorDistance <= sameColorTolerance) {
+                        similarNeighbors += 1;
+                      }
+
+                      if (
+                        snapshot[neighborIndex + 3] >= 238 &&
+                        neighborDistance >= supportDistance
+                      ) {
+                        strongOpaqueNeighbors += 1;
+                      }
+                    }
+                  }
+
+                  if (!neighborCount) {
+                    continue;
+                  }
+
+                  const foregroundRatio = foregroundNeighbors / neighborCount;
+                  const similarRatio = similarNeighbors / neighborCount;
+                  const opaqueSupportRatio = strongOpaqueNeighbors / neighborCount;
+
+                  /*
+                   * Una meseta de color fuerte es una señal especialmente fiable en
+                   * texto blanco/negro y gráficos planos. Si el modelo abrió un hueco
+                   * grande, no exigimos que los vecinos ya sean opacos; el propio RGB
+                   * original y la continuidad cromática pueden reconstruirlo.
+                   */
+                  const veryFlatInterior =
+                    foregroundRatio >= 0.875 &&
+                    similarRatio >= 0.75;
+
+                  const supportedInterior =
+                    foregroundRatio >= 0.75 &&
+                    similarRatio >= 0.625 &&
+                    opaqueSupportRatio >= 0.25;
+
+                  if (!veryFlatInterior && !supportedInterior) {
+                    continue;
+                  }
+
+                  let targetAlpha;
+
+                  if (
+                    veryFlatInterior &&
+                    centerDistance >= strongDistance * 1.08
+                  ) {
+                    targetAlpha = 255;
+                  } else {
+                    targetAlpha = Math.max(
+                      currentAlpha,
+                      Math.round(
+                        currentAlpha +
+                        (252 - currentAlpha) *
+                        (0.72 + opaqueSupportRatio * 0.2)
+                      )
+                    );
+                  }
+
+                  if (targetAlpha <= currentAlpha) {
+                    continue;
+                  }
+
+                  const sourceMix = veryFlatInterior
+                    ? 1
+                    : Math.min(
+                        0.94,
+                        0.68 + similarRatio * 0.22
+                      );
+
+                  resultData[index] = Math.round(
+                    snapshot[index] * (1 - sourceMix) +
+                    centerRed * sourceMix
+                  );
+                  resultData[index + 1] = Math.round(
+                    snapshot[index + 1] * (1 - sourceMix) +
+                    centerGreen * sourceMix
+                  );
+                  resultData[index + 2] = Math.round(
+                    snapshot[index + 2] * (1 - sourceMix) +
+                    centerBlue * sourceMix
+                  );
+                  resultData[index + 3] = targetAlpha;
+                  passChanges += 1;
+                }
+              }
+
+              changedPixels += passChanges;
+
+              if (!passChanges) {
+                break;
+              }
+            }
+
+            return changedPixels;
+          }
+
+      function restoreConfidentForegroundInteriors(
+            sourceData,
+            resultData,
+            background,
+            foregroundReference,
+            width,
+            height
+          ) {
+            const pixelCount = width * height;
+            const strongDistance = Math.max(
+              background.tolerance + 54,
+              Math.min(
+                background.tolerance + 150,
+                foregroundReference * 0.72
+              )
+            );
+            const supportDistance = Math.max(
+              background.tolerance + 40,
+              strongDistance * 0.88
+            );
+            const scanRadius = Math.max(
+              2,
+              Math.min(5, Math.round(Math.min(width, height) / 220))
+            );
+
+            let changedPixels = 0;
+
+            /*
+             * IMG.LY puede producir "mordidas" o vetas semitransparentes dentro de
+             * gráficos sólidos aunque el color original esté muy lejos del fondo.
+             * Aquí reconstruimos únicamente esas zonas INTERNAS: el píxel debe ser
+             * cromáticamente un primer plano fuerte y, además, estar rodeado por
+             * primer plano confiable. Así no endurecemos el antialiasing exterior.
+             */
+            for (let pass = 0; pass < 4; pass += 1) {
+              const snapshot = new Uint8ClampedArray(resultData);
+              let passChanges = 0;
+
+              function isStrongForeground(x, y) {
+                if (x < 0 || x >= width || y < 0 || y >= height) {
+                  return false;
+                }
+
+                const index = (y * width + x) * 4;
+
+                if (
+                  snapshot[index + 3] < 228 ||
+                  sourceData[index + 3] < 16
+                ) {
+                  return false;
+                }
+
+                return colorDistance(
+                  sourceData[index],
+                  sourceData[index + 1],
+                  sourceData[index + 2],
+                  background
+                ) >= supportDistance;
+              }
+
+              function hasSupportInDirection(x, y, dx, dy) {
+                for (let step = 1; step <= scanRadius; step += 1) {
+                  const nx = x + dx * step;
+                  const ny = y + dy * step;
+
+                  if (nx < 0 || nx >= width || ny < 0 || ny >= height) {
+                    return false;
+                  }
+
+                  if (isStrongForeground(nx, ny)) {
+                    return true;
+                  }
+
+                  const index = (ny * width + nx) * 4;
+                  const neighborDistance = colorDistance(
+                    sourceData[index],
+                    sourceData[index + 1],
+                    sourceData[index + 2],
+                    background
+                  );
+
+                  /*
+                   * Si encontramos fondo real antes de hallar soporte, esta dirección
+                   * sale del sujeto y no debe participar en el relleno interior.
+                   */
+                  if (
+                    snapshot[index + 3] <= 10 &&
+                    neighborDistance <= background.tolerance * 1.45
+                  ) {
+                    return false;
+                  }
+                }
+
+                return false;
+              }
+
+              for (let y = 0; y < height; y += 1) {
+                for (let x = 0; x < width; x += 1) {
+                  const pixel = y * width + x;
+                  const index = pixel * 4;
+                  const currentAlpha = snapshot[index + 3];
+
+                  if (
+                    currentAlpha >= 250 ||
+                    sourceData[index + 3] < 16
+                  ) {
+                    continue;
+                  }
+
+                  const distanceFromBackground = colorDistance(
+                    sourceData[index],
+                    sourceData[index + 1],
+                    sourceData[index + 2],
+                    background
+                  );
+
+                  if (distanceFromBackground < strongDistance) {
+                    continue;
+                  }
+
+                  let strongNeighbors = 0;
+                  let checkedNeighbors = 0;
+
+                  const minY = Math.max(0, y - 1);
+                  const maxY = Math.min(height - 1, y + 1);
+                  const minX = Math.max(0, x - 1);
+                  const maxX = Math.min(width - 1, x + 1);
+
+                  for (let ny = minY; ny <= maxY; ny += 1) {
+                    for (let nx = minX; nx <= maxX; nx += 1) {
+                      if (nx === x && ny === y) {
+                        continue;
+                      }
+
+                      checkedNeighbors += 1;
+
+                      if (isStrongForeground(nx, ny)) {
+                        strongNeighbors += 1;
+                      }
+                    }
+                  }
+
+                  const horizontalEnclosure =
+                    hasSupportInDirection(x, y, -1, 0) &&
+                    hasSupportInDirection(x, y, 1, 0);
+                  const verticalEnclosure =
+                    hasSupportInDirection(x, y, 0, -1) &&
+                    hasSupportInDirection(x, y, 0, 1);
+                  const diagonalOneEnclosure =
+                    hasSupportInDirection(x, y, -1, -1) &&
+                    hasSupportInDirection(x, y, 1, 1);
+                  const diagonalTwoEnclosure =
+                    hasSupportInDirection(x, y, 1, -1) &&
+                    hasSupportInDirection(x, y, -1, 1);
+
+                  const enclosureCount =
+                    Number(horizontalEnclosure) +
+                    Number(verticalEnclosure) +
+                    Number(diagonalOneEnclosure) +
+                    Number(diagonalTwoEnclosure);
+
+                  const localSupport = checkedNeighbors
+                    ? strongNeighbors / checkedNeighbors
+                    : 0;
+
+                  /*
+                   * Una sola pareja opuesta es suficiente únicamente cuando también
+                   * existe apoyo local. Dos o más parejas indican claramente un hueco
+                   * interno. Esto evita convertir el borde exterior en una silueta dura.
+                   */
+                  const isInteriorDamage =
+                    enclosureCount >= 2 ||
+                    (
+                      enclosureCount >= 1 &&
+                      localSupport >= 0.34
+                    ) ||
+                    localSupport >= 0.72;
+
+                  if (!isInteriorDamage) {
+                    continue;
+                  }
+
+                  const distanceConfidence = smoothStep01(
+                    (distanceFromBackground - strongDistance) /
+                    Math.max(1, foregroundReference - strongDistance)
+                  );
+                  const structureConfidence = Math.min(
+                    1,
+                    enclosureCount * 0.34 + localSupport * 0.7
+                  );
+                  const restoreConfidence = Math.min(
+                    1,
+                    0.58 +
+                    distanceConfidence * 0.18 +
+                    structureConfidence * 0.32
+                  );
+
+                  let targetAlpha = Math.round(
+                    currentAlpha +
+                    (255 - currentAlpha) * restoreConfidence
+                  );
+
+                  if (
+                    enclosureCount >= 2 &&
+                    localSupport >= 0.45 &&
+                    distanceConfidence >= 0.2
+                  ) {
+                    targetAlpha = 255;
+                  } else if (targetAlpha >= 248) {
+                    targetAlpha = 248;
+                  }
+
+                  if (targetAlpha <= currentAlpha) {
+                    continue;
+                  }
+
+                  const restoreMix = Math.min(
+                    0.92,
+                    (targetAlpha - currentAlpha) / 255 + 0.24
+                  );
+
+                  resultData[index] = Math.round(
+                    snapshot[index] * (1 - restoreMix) +
+                    sourceData[index] * restoreMix
+                  );
+                  resultData[index + 1] = Math.round(
+                    snapshot[index + 1] * (1 - restoreMix) +
+                    sourceData[index + 1] * restoreMix
+                  );
+                  resultData[index + 2] = Math.round(
+                    snapshot[index + 2] * (1 - restoreMix) +
+                    sourceData[index + 2] * restoreMix
+                  );
+                  resultData[index + 3] = targetAlpha;
+                  passChanges += 1;
+                }
+              }
+
+              changedPixels += passChanges;
+
+              if (!passChanges) {
+                break;
+              }
+            }
+
+            return changedPixels;
+          }
+
+      function cleanUniformBackgroundFringes(
+            sourceData,
+            resultData,
+            background,
+            width,
+            height
+          ) {
+            const pixelCount = width * height;
+            const coreTolerance = Math.max(
+              4,
+              Math.min(16, background.tolerance * 0.52)
+            );
+            const haloTolerance = Math.max(
+              coreTolerance + 10,
+              Math.min(54, background.tolerance * 1.75 + 10)
+            );
+
+            let changedPixels = 0;
+
+            /*
+             * Hace crecer únicamente regiones que YA son transparentes hacia píxeles
+             * vecinos cuyo color sigue perteneciendo al fondo. Esto limpia el borde de
+             * huecos cerrados (por ejemplo el interior de una "o") sin aplicar un
+             * borrado cromático global sobre posibles detalles legítimos del sujeto.
+             */
+            for (let pass = 0; pass < 3; pass += 1) {
+              const alphaSnapshot = new Uint8Array(pixelCount);
+
+              for (let pixel = 0; pixel < pixelCount; pixel += 1) {
+                alphaSnapshot[pixel] = resultData[pixel * 4 + 3];
+              }
+
+              let passChanges = 0;
+
+              for (let y = 0; y < height; y += 1) {
+                for (let x = 0; x < width; x += 1) {
+                  const pixel = y * width + x;
+                  const index = pixel * 4;
+                  const currentAlpha = alphaSnapshot[pixel];
+
+                  if (currentAlpha === 0 || sourceData[index + 3] < 16) {
+                    continue;
+                  }
+
+                  const distanceFromBackground = colorDistance(
+                    sourceData[index],
+                    sourceData[index + 1],
+                    sourceData[index + 2],
+                    background
+                  );
+
+                  if (distanceFromBackground > haloTolerance) {
+                    continue;
+                  }
+
+                  let neighborCount = 0;
+                  let transparentNeighbors = 0;
+                  let weakNeighbors = 0;
+
+                  const minY = Math.max(0, y - 1);
+                  const maxY = Math.min(height - 1, y + 1);
+                  const minX = Math.max(0, x - 1);
+                  const maxX = Math.min(width - 1, x + 1);
+
+                  for (let ny = minY; ny <= maxY; ny += 1) {
+                    for (let nx = minX; nx <= maxX; nx += 1) {
+                      if (nx === x && ny === y) {
+                        continue;
+                      }
+
+                      const neighborAlpha = alphaSnapshot[ny * width + nx];
+                      neighborCount += 1;
+
+                      if (neighborAlpha <= 18) {
+                        transparentNeighbors += 1;
+                      } else if (neighborAlpha <= 84) {
+                        weakNeighbors += 1;
+                      }
+                    }
+                  }
+
+                  if (!neighborCount || (!transparentNeighbors && !weakNeighbors)) {
+                    continue;
+                  }
+
+                  const proximityToBackground =
+                    1 - smoothStep01(
+                      (distanceFromBackground - coreTolerance) /
+                      Math.max(1, haloTolerance - coreTolerance)
+                    );
+
+                  const support = Math.min(
+                    1,
+                    (
+                      transparentNeighbors +
+                      weakNeighbors * 0.38
+                    ) / Math.max(1, neighborCount * 0.42)
+                  );
+
+                  let targetAlpha = currentAlpha;
+
+                  if (
+                    distanceFromBackground <= coreTolerance &&
+                    (transparentNeighbors > 0 || weakNeighbors >= 2)
+                  ) {
+                    targetAlpha = 0;
+                  } else {
+                    const reduction = Math.min(
+                      0.92,
+                      proximityToBackground *
+                      support *
+                      (0.72 + pass * 0.08)
+                    );
+
+                    targetAlpha = Math.round(
+                      currentAlpha * (1 - reduction)
+                    );
+
+                    if (targetAlpha <= 7) {
+                      targetAlpha = 0;
+                    }
+                  }
+
+                  if (targetAlpha < resultData[index + 3]) {
+                    resultData[index + 3] = targetAlpha;
+                    passChanges += 1;
+                  }
+                }
+              }
+
+              changedPixels += passChanges;
+
+              if (!passChanges) {
+                break;
+              }
+            }
+
+            return changedPixels;
+          }
+
+      function decontaminateEdgeColorsFromForeground(
+            sourceData,
+            resultData,
+            background,
+            width,
+            height
+          ) {
+            const snapshot = new Uint8ClampedArray(resultData);
+            let changedPixels = 0;
+
+            for (let y = 0; y < height; y += 1) {
+              for (let x = 0; x < width; x += 1) {
+                const index = (y * width + x) * 4;
+                const alpha = snapshot[index + 3];
+
+                if (alpha <= 8 || alpha >= 255) {
+                  continue;
+                }
+
+                const sourceVectorRed = sourceData[index] - background.red;
+                const sourceVectorGreen = sourceData[index + 1] - background.green;
+                const sourceVectorBlue = sourceData[index + 2] - background.blue;
+                const sourceMagnitude = Math.sqrt(
+                  sourceVectorRed * sourceVectorRed +
+                  sourceVectorGreen * sourceVectorGreen +
+                  sourceVectorBlue * sourceVectorBlue
+                );
+
+                if (sourceMagnitude < background.tolerance * 0.8) {
+                  continue;
+                }
+
+                let bestIndex = -1;
+                let bestScore = -Infinity;
+
+                const minY = Math.max(0, y - 2);
+                const maxY = Math.min(height - 1, y + 2);
+                const minX = Math.max(0, x - 2);
+                const maxX = Math.min(width - 1, x + 2);
+
+                for (let ny = minY; ny <= maxY; ny += 1) {
+                  for (let nx = minX; nx <= maxX; nx += 1) {
+                    if (nx === x && ny === y) {
+                      continue;
+                    }
+
+                    const neighborIndex = (ny * width + nx) * 4;
+                    const neighborAlpha = snapshot[neighborIndex + 3];
+
+                    if (neighborAlpha < 252) {
+                      continue;
+                    }
+
+                    const neighborVectorRed =
+                      snapshot[neighborIndex] - background.red;
+                    const neighborVectorGreen =
+                      snapshot[neighborIndex + 1] - background.green;
+                    const neighborVectorBlue =
+                      snapshot[neighborIndex + 2] - background.blue;
+                    const neighborMagnitude = Math.sqrt(
+                      neighborVectorRed * neighborVectorRed +
+                      neighborVectorGreen * neighborVectorGreen +
+                      neighborVectorBlue * neighborVectorBlue
+                    );
+
+                    if (neighborMagnitude <= sourceMagnitude + 8) {
+                      continue;
+                    }
+
+                    const cosine =
+                      (
+                        sourceVectorRed * neighborVectorRed +
+                        sourceVectorGreen * neighborVectorGreen +
+                        sourceVectorBlue * neighborVectorBlue
+                      ) /
+                      Math.max(1, sourceMagnitude * neighborMagnitude);
+
+                    if (cosine < 0.9) {
+                      continue;
+                    }
+
+                    const spatialDistance =
+                      Math.abs(nx - x) + Math.abs(ny - y);
+                    const score =
+                      cosine * 1000 +
+                      neighborMagnitude -
+                      spatialDistance * 10;
+
+                    if (score > bestScore) {
+                      bestScore = score;
+                      bestIndex = neighborIndex;
+                    }
+                  }
+                }
+
+                if (bestIndex < 0) {
+                  continue;
+                }
+
+                const edgeAmount = 1 - alpha / 255;
+                const strength = Math.min(
+                  0.88,
+                  (0.28 + edgeAmount * 0.62) *
+                  Math.min(1, background.confidence)
+                );
+
+                const red = Math.round(
+                  snapshot[index] * (1 - strength) +
+                  snapshot[bestIndex] * strength
+                );
+                const green = Math.round(
+                  snapshot[index + 1] * (1 - strength) +
+                  snapshot[bestIndex + 1] * strength
+                );
+                const blue = Math.round(
+                  snapshot[index + 2] * (1 - strength) +
+                  snapshot[bestIndex + 2] * strength
+                );
+
+                if (
+                  red !== resultData[index] ||
+                  green !== resultData[index + 1] ||
+                  blue !== resultData[index + 2]
+                ) {
+                  resultData[index] = red;
+                  resultData[index + 1] = green;
+                  resultData[index + 2] = blue;
+                  changedPixels += 1;
+                }
+              }
+            }
+
+            return changedPixels;
+          }
+
+      function normalizeResultAlpha(resultData) {
+            let changedPixels = 0;
+
+            for (let index = 3; index < resultData.length; index += 4) {
+              const normalized = normalizeAlpha(resultData[index]);
+
+              if (normalized !== resultData[index]) {
+                resultData[index] = normalized;
+                changedPixels += 1;
+              }
+            }
+
+            return changedPixels;
+          }
+
+      async function refineBackgroundRemovalResult(blob) {
+            if (!sourceImage || !blob) {
+              return blob;
+            }
+
+            const resultUrl = URL.createObjectURL(blob);
+
+            try {
+              const resultImage = await loadImageFromUrl(resultUrl);
+              const sourcePixels = getCanvasPixelsFromImage(sourceImage);
+              const resultPixels = getCanvasPixelsFromImage(resultImage);
+
+              if (!sourcePixels || !resultPixels) {
+                return blob;
+              }
+
+              if (
+                sourcePixels.canvas.width !== resultPixels.canvas.width ||
+                sourcePixels.canvas.height !== resultPixels.canvas.height
+              ) {
+                return blob;
+              }
+
+              const width = sourcePixels.canvas.width;
+              const height = sourcePixels.canvas.height;
+              const pixelCount = width * height;
+              const sourceData = sourcePixels.imageData.data;
+              const resultData = resultPixels.imageData.data;
+
+              const backgroundAnalysis = analyzeBorderBackground(
+                sourcePixels.imageData,
+                width,
+                height
+              );
+
+              let changedPixels = 0;
+
+              if (backgroundAnalysis.isUniform) {
+                const tolerance = Math.max(
+                  8,
+                  Math.min(
+                    34,
+                    backgroundAnalysis.meanDistance +
+                    backgroundAnalysis.deviation * 2.4 +
+                    6
+                  )
+                );
+
+                const background = {
+                  red: backgroundAnalysis.red,
+                  green: backgroundAnalysis.green,
+                  blue: backgroundAnalysis.blue,
+                  tolerance,
+                  confidence: backgroundAnalysis.confidence
+                };
+
+                const foregroundReference = getForegroundDistanceReference(
+                  sourceData,
+                  resultData,
+                  background,
+                  pixelCount
+                );
+
+                changedPixels += refineUniformBackgroundPixels(
+                  sourceData,
+                  resultData,
+                  background,
+                  foregroundReference
+                );
+
+                changedPixels += restoreSolidForegroundPlateaus(
+                  sourceData,
+                  resultData,
+                  background,
+                  foregroundReference,
+                  width,
+                  height
+                );
+
+                changedPixels += restoreConfidentForegroundInteriors(
+                  sourceData,
+                  resultData,
+                  background,
+                  foregroundReference,
+                  width,
+                  height
+                );
+
+                /*
+                 * Segunda pasada después de la reconstrucción estructural: los píxeles
+                 * recién recuperados sirven de apoyo para cerrar vetas interiores que
+                 * antes eran demasiado anchas para la máscara del modelo.
+                 */
+                changedPixels += restoreSolidForegroundPlateaus(
+                  sourceData,
+                  resultData,
+                  background,
+                  foregroundReference,
+                  width,
+                  height
+                );
+
+                changedPixels += cleanUniformBackgroundFringes(
+                  sourceData,
+                  resultData,
+                  background,
+                  width,
+                  height
+                );
+
+                changedPixels += decontaminateEdgeColorsFromForeground(
+                  sourceData,
+                  resultData,
+                  background,
+                  width,
+                  height
+                );
+              }
+
+              changedPixels += normalizeResultAlpha(resultData);
+
+              if (!changedPixels) {
+                return blob;
+              }
+
+              resultPixels.context.putImageData(
+                resultPixels.imageData,
+                0,
+                0
+              );
+
+              return await canvasToBlob(
+                resultPixels.canvas,
+                "image/png",
+                1
+              );
+            } finally {
+              URL.revokeObjectURL(resultUrl);
             }
           }
 
-          ctx.putImageData(imageData, 0, 0);
+      function canvasToBlob(canvas, type, quality) {
+            return new Promise((resolve, reject) => {
+              canvas.toBlob(
+                (blob) => {
+                  if (blob) {
+                    resolve(blob);
+                    return;
+                  }
 
-          const dataUrl = work.toDataURL("image/png");
-          fabric.Image.fromURL(dataUrl, (replacement) => {
-            if (!replacement) return;
-
-            const scaledWidth = imageObject.getScaledWidth();
-            const scaledHeight = imageObject.getScaledHeight();
-
-            replacement.set({
-              left: imageObject.left,
-              top: imageObject.top,
-              originX: imageObject.originX,
-              originY: imageObject.originY,
-              angle: imageObject.angle,
-              flipX: imageObject.flipX,
-              flipY: imageObject.flipY,
-              opacity: imageObject.opacity,
-              name: imageObject.name,
-              translationKey: imageObject.translationKey,
-              backgroundRemoved: true
+                  reject(
+                    new Error(
+                      translate(
+                        "messages.exportError",
+                        "No fue posible preparar la descarga."
+                      )
+                    )
+                  );
+                },
+                type,
+                quality
+              );
             });
+          }
 
-            replacement.scaleX = scaledWidth / Math.max(1, replacement.width);
-            replacement.scaleY = scaledHeight / Math.max(1, replacement.height);
+      function updateBackgroundRemovalProgress(key, current, total) {
+        const percent = total > 0
+          ? Math.max(0, Math.min(100, (current / total) * 100))
+          : 0;
 
-            const index = canvas.getObjects().indexOf(imageObject);
-            canvas.remove(imageObject);
-            canvas.insertAt(replacement, Math.max(0, index), false);
-            activateObject(replacement);
-            replacement.setCoords();
-            canvas.requestRenderAll();
-            refreshLayers();
-            saveHistory();
-            showContextMenu(replacement);
-          }, { crossOrigin: "anonymous" });
+        showStatus(
+          `${getTranslation("shortcuts.removeBackground", "Quitar fondo")} ${Math.round(percent)}%`,
+          "info"
+        );
+      }
+
+      async function fabricImageToBackgroundRemovalFile(imageObject) {
+        const element = imageObject.getElement();
+        const width = element.naturalWidth || element.videoWidth || element.width;
+        const height = element.naturalHeight || element.videoHeight || element.height;
+
+        if (!width || !height) {
+          throw new Error(getTranslation("messages.imageLoadError", "No se pudo cargar la imagen."));
+        }
+
+        const work = document.createElement("canvas");
+        work.width = width;
+        work.height = height;
+        const context = work.getContext("2d", { alpha: true });
+
+        if (!context) {
+          throw new Error(getTranslation("messages.imageLoadError", "No se pudo cargar la imagen."));
+        }
+
+        context.drawImage(element, 0, 0, width, height);
+        const blob = await canvasToBlob(work, "image/png", 1);
+
+        try {
+          return new File([blob], "alfora-background-removal.png", { type: "image/png" });
         } catch {
-          showStatus(getTranslation("messages.imageLoadError", "No se pudo cargar la imagen."), "error");
+          blob.name = "alfora-background-removal.png";
+          return blob;
+        }
+      }
+
+      async function removeSelectedImageBackground(imageObject) {
+        if (!imageObject || imageObject.type !== "image") return;
+
+        showStatus(
+          getTranslation("shortcuts.removeBackground", "Quitar fondo"),
+          "info"
+        );
+
+        try {
+          const selectedFile = await fabricImageToBackgroundRemovalFile(imageObject);
+          const sourceUrl = URL.createObjectURL(selectedFile);
+
+          try {
+            sourceImage = await loadImageFromUrl(sourceUrl);
+          } finally {
+            URL.revokeObjectURL(sourceUrl);
+          }
+
+          const removeBackground = await ensureLibrary();
+
+          let transparentBlob = await removeBackground(selectedFile, {
+            publicPath: MODEL_PATH,
+            progress: updateBackgroundRemovalProgress,
+            debug: false,
+            output: {
+              format: "image/png",
+              quality: 1
+            }
+          });
+
+          transparentBlob = await refineBackgroundRemovalResult(transparentBlob);
+
+          const resultUrl = URL.createObjectURL(transparentBlob);
+
+          await new Promise((resolve, reject) => {
+            fabric.Image.fromURL(resultUrl, (replacement) => {
+              if (!replacement) {
+                URL.revokeObjectURL(resultUrl);
+                reject(new Error(getTranslation("messages.imageLoadError", "No se pudo cargar la imagen.")));
+                return;
+              }
+
+              try {
+                const scaledWidth = imageObject.getScaledWidth();
+                const scaledHeight = imageObject.getScaledHeight();
+                const canvasIndex = canvas.getObjects().indexOf(imageObject);
+                const wasBackgroundLayer = Boolean(imageObject.isBackgroundLayer);
+
+                replacement.set({
+                  left: imageObject.left,
+                  top: imageObject.top,
+                  originX: imageObject.originX,
+                  originY: imageObject.originY,
+                  angle: imageObject.angle,
+                  flipX: imageObject.flipX,
+                  flipY: imageObject.flipY,
+                  opacity: imageObject.opacity,
+                  shadow: imageObject.shadow
+                    ? new fabric.Shadow(imageObject.shadow.toObject())
+                    : null,
+                  name: imageObject.name,
+                  translationKey: imageObject.translationKey,
+                  glassStyle: imageObject.glassStyle,
+                  isBackgroundLayer: wasBackgroundLayer,
+                  backgroundBaseScale: imageObject.backgroundBaseScale,
+                  backgroundRemoved: true,
+                  imageCornerRadius: imageObject.imageCornerRadius || 0
+                });
+
+                replacement.scaleX = scaledWidth / Math.max(1, replacement.width);
+                replacement.scaleY = scaledHeight / Math.max(1, replacement.height);
+
+                canvas.remove(imageObject);
+                canvas.insertAt(replacement, Math.max(0, canvasIndex), false);
+
+                if (wasBackgroundLayer) {
+                  editableBackground = replacement;
+                  replacement.sendToBack();
+                }
+
+                activateObject(replacement);
+
+                if ((replacement.imageCornerRadius || 0) > 0 && !replacement.isBackgroundLayer) {
+                  applyImageCornerRadius(replacement.imageCornerRadius);
+                }
+
+                replacement.setCoords();
+                canvas.requestRenderAll();
+                refreshLayers();
+                saveHistory();
+                showContextMenu(replacement);
+                showStatus(
+                  currentLanguage === "en"
+                    ? "Background removed successfully."
+                    : "Fondo eliminado correctamente.",
+                  "success"
+                );
+                resolve();
+              } catch (error) {
+                reject(error);
+              } finally {
+                URL.revokeObjectURL(resultUrl);
+              }
+            }, { crossOrigin: "anonymous" });
+          });
+        } catch (error) {
+          console.error("Alfora background removal:", error);
+          showStatus(
+            currentLanguage === "en"
+              ? "The background could not be removed. Check your connection and try again."
+              : "No fue posible quitar el fondo. Revisa tu conexión e inténtalo nuevamente.",
+            "error"
+          );
         }
       }
 
@@ -3429,23 +5461,7 @@
 
         const percent = Math.max(0, Math.min(100, Number(value)));
         object.imageCornerRadius = percent;
-
-        if (percent <= 0) {
-          object.set("clipPath", null);
-        } else {
-          const radius = Math.min(object.width || 1, object.height || 1) * (percent / 200);
-          const clipPath = new fabric.Rect({
-            width: object.width,
-            height: object.height,
-            rx: radius,
-            ry: radius,
-            originX: "center",
-            originY: "center"
-          });
-
-          clipPath.setCoords();
-          object.set("clipPath", clipPath);
-        }
+        syncImageCornerClipPath(object);
 
         $("image-corner-radius").value = String(percent);
         $("image-corner-radius-value").textContent = `${percent}%`;
@@ -3717,14 +5733,12 @@
         };
 
         const appendLayerOrder = () => {
-          if (!object) return;
-
-          contextMenu.append(
-            createContextButton(
-              getTranslation("shortcuts.layerOrder", "Cambiar orden de capa"),
-              openLayersShortcut
-            )
+          const layerButton = createContextButton(
+            getTranslation("shortcuts.layerOrder", "Cambiar orden de capa"),
+            openLayersShortcut
           );
+          layerButton.classList.add("designer-context-menu__button--layers");
+          contextMenu.append(layerButton);
         };
 
         if (!object) {
@@ -3745,6 +5759,7 @@
             )
           );
 
+          appendLayerOrder();
           appendClipboardActions();
         } else if (object.type === "textbox" || object.type === "i-text") {
           contextMenu.append(
@@ -3760,6 +5775,8 @@
               true
             )
           );
+
+          appendLayerOrder();
 
           contextMenu.append(
             createContextButton(
@@ -3781,9 +5798,9 @@
           );
 
           appendClipboardActions();
-          appendLayerOrder();
         } else if (object.type === "image") {
           appendDelete();
+          appendLayerOrder();
 
           if (isImageTransparent(object)) {
             contextMenu.append(
@@ -3819,9 +5836,9 @@
 
           appendEditElement();
           appendClipboardActions();
-          appendLayerOrder();
         } else if (["rect", "circle", "triangle", "polygon", "line"].includes(object.type)) {
           appendDelete();
+          appendLayerOrder();
 
           contextMenu.append(
             createContextButton(
@@ -3836,12 +5853,11 @@
 
           appendEditElement();
           appendClipboardActions();
-          appendLayerOrder();
         } else {
           appendDelete();
+          appendLayerOrder();
           appendEditElement();
           appendClipboardActions();
-          appendLayerOrder();
         }
 
         if (window.innerWidth <= 720) {
@@ -4092,6 +6108,7 @@
 
         $("zoom-label").textContent = `${Math.round(workspaceZoom * 100)}%`;
         $("workspace-zoom-value").textContent = `${Math.round(workspaceZoom * 100)}%`;
+        syncSmartGuideLayer();
       }
 
       function captureResponsiveLayout(oldWidth, oldHeight) {
@@ -5178,6 +7195,18 @@
 
       function renderExportPreview() {
         const format = $("export-format").value;
+        const qualityField = $("export-quality-field");
+        const isSvg = format === "svg";
+
+        qualityField.hidden = isSvg;
+
+        if (isSvg) {
+          const svg = canvas.toSVG();
+          const data = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+          $("export-preview").style.backgroundImage = `url("${data}")`;
+          return;
+        }
+
         const quality = Number($("export-quality").value) / 100;
         const data = canvas.toDataURL({ format, quality, multiplier: 0.18 });
         $("export-preview").style.backgroundImage = `url("${data}")`;
@@ -5185,12 +7214,26 @@
 
       function downloadDesign() {
         canvas.discardActiveObject();
+        clearSmartGuides();
         canvas.requestRenderAll();
 
         const format = $("export-format").value;
+        const link = document.createElement("a");
+
+        if (format === "svg") {
+          const svg = canvas.toSVG();
+          const blob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
+          const url = URL.createObjectURL(blob);
+          link.href = url;
+          link.download = "Alfora-design.svg";
+          link.click();
+          setTimeout(() => URL.revokeObjectURL(url), 1000);
+          $("export-dialog").close();
+          return;
+        }
+
         const quality = Number($("export-quality").value) / 100;
         const data = canvas.toDataURL({ format, quality, multiplier: 1 });
-        const link = document.createElement("a");
         link.href = data;
         link.download = `Alfora-design.${format === "jpeg" ? "jpg" : format}`;
         link.click();
@@ -6068,16 +8111,49 @@
         }
       }
 
-      canvas.on("selection:created", handleObjectSelection);
-      canvas.on("selection:updated", handleObjectSelection);
+      canvas.on("selection:created", (event) => {
+        clearHoverOutline();
+        handleObjectSelection(event);
+      });
+      canvas.on("selection:updated", (event) => {
+        clearHoverOutline();
+        handleObjectSelection(event);
+      });
       canvas.on("selection:cleared", () => {
         updateProperties();
         closeContextMenu();
+        clearSmartGuides();
+      });
+
+      canvas.on("mouse:over", ({ target }) => {
+        renderHoverOutline(target);
+      });
+
+      canvas.on("mouse:out", ({ target }) => {
+        if (!target || target === hoveredSelectableObject) {
+          clearHoverOutline();
+        }
+      });
+
+      canvas.on("object:moving", ({ target }) => {
+        clearHoverOutline();
+        updateMoveGuides(target);
+      });
+
+      canvas.on("object:rotating", ({ target }) => {
+        clearHoverOutline();
+        updateRotationGuides(target);
+      });
+
+      canvas.on("object:scaling", ({ target }) => {
+        clearHoverOutline();
+        updateMoveGuides(target);
       });
 
       let objectPointerGesture = null;
 
       canvas.on("mouse:down", ({ target, e }) => {
+        clearHoverOutline();
         closeContextMenu();
 
         const point = e?.touches?.[0] || e?.changedTouches?.[0] || e;
@@ -6123,6 +8199,7 @@
       });
 
       canvas.on("mouse:up", ({ target, e }) => {
+        clearSmartGuides();
         const gesture = objectPointerGesture;
         objectPointerGesture = null;
 
@@ -6152,6 +8229,7 @@
         showContextMenu(resolvedTarget, point);
       });
       canvas.on("object:modified", ({ target }) => {
+        clearSmartGuides();
         updateProperties();
         if (target && target.isBackgroundLayer) {
           editableBackground = target;
@@ -6333,6 +8411,45 @@
         }
       });
 
+      function nudgeSelectedObject(key, step) {
+        const object = canvas.getActiveObject();
+        if (!object || object.isEditing) return false;
+
+        const movement = {
+          ArrowLeft: [-step, 0],
+          ArrowRight: [step, 0],
+          ArrowUp: [0, -step],
+          ArrowDown: [0, step]
+        }[key];
+
+        if (!movement) return false;
+
+        object.set({
+          left: Number(object.left || 0) + movement[0],
+          top: Number(object.top || 0) + movement[1]
+        });
+        object.setCoords();
+
+        if (object.isBackgroundLayer) {
+          editableBackground = object;
+          updateEditableBackgroundControls();
+        }
+
+        updateMoveGuides(object);
+        updateProperties();
+        canvas.requestRenderAll();
+
+        window.clearTimeout(keyboardNudgeTimer);
+        keyboardNudgeTimer = window.setTimeout(() => {
+          clearSmartGuides();
+          saveHistory();
+          refreshLayers();
+          keyboardNudgeTimer = 0;
+        }, 220);
+
+        return true;
+      }
+
       document.addEventListener("keydown", (event) => {
         if (event.key === "Escape") closeContextMenu();
 
@@ -6341,6 +8458,16 @@
 
         const commandKey = event.ctrlKey || event.metaKey;
         const key = event.key.toLowerCase();
+
+        if (!commandKey && ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)) {
+          const step = event.shiftKey ? 10 : 1;
+
+          if (nudgeSelectedObject(event.key, step)) {
+            event.preventDefault();
+            closeContextMenu();
+          }
+          return;
+        }
 
         if (commandKey && key === "c") {
           const object = canvas.getActiveObject();
@@ -6385,6 +8512,7 @@
       $("download-design").addEventListener("click", downloadDesign);
 
       canvas.setBackgroundColor("#08140D", canvas.requestRenderAll.bind(canvas));
+      syncSmartGuideLayer();
       renderTemplates();
       showTemplateBrowser();
       refreshLayers();
